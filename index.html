@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla X AI | 获取马斯克生态核心情报</title>
+    <title>Tesla X AI | 马斯克生态前沿观察</title>
     <style>
+        /* 极简亮色模式配色 */
         :root {
-            --bg: #000000;
-            --text-main: #ffffff;
-            --text-dim: #888888;
-            --tg-blue: #2AABEE;
-            --alert-red: #ff3333;
+            --bg-color: #ffffff;
+            --surface-color: #f9f9fa;
+            --text-main: #111111;
+            --text-dim: #666666;
+            --border-color: #eaeaea;
+            --tg-blue: #0088cc;
+            --tg-blue-hover: #006699;
         }
 
         body {
-            background-color: var(--bg);
+            background-color: var(--bg-color);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
@@ -22,190 +25,209 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* 极简网格背景，营造硬核技术感 */
-        .grid-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
-                linear-gradient(to right, #111 1px, transparent 1px),
-                linear-gradient(to bottom, #111 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            opacity: 0.5;
-        }
-
-        /* 核心视觉区：只讲一件事 */
-        .hero {
+        /* 极简顶部导航 */
+        header {
             width: 100%;
-            max-width: 800px;
-            padding: 100px 20px 40px;
-            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(5px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+        }
+        .header-inner {
+            width: 100%;
+            max-width: 720px; /* 极窄的阅读宽度，最适合集中注意力 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; color: var(--text-main); text-decoration: none; }
+        
+        .tg-btn-small {
+            background: var(--surface-color);
+            color: var(--tg-blue);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .tg-btn-small:hover { background: var(--tg-blue); color: #fff; border-color: var(--tg-blue); }
+
+        /* 核心内容区 */
+        .container {
+            width: 100%;
+            max-width: 720px; /* 黄金阅读宽度 */
+            padding: 60px 20px;
             box-sizing: border-box;
         }
 
-        .status-badge {
+        /* 价值主张说明 */
+        .intro {
+            margin-bottom: 60px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+        }
+        .intro p {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            margin: 0 0 30px 0;
+        }
+        .cta-main {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(42, 171, 238, 0.1);
-            border: 1px solid rgba(42, 171, 238, 0.3);
-            color: var(--tg-blue);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-        }
-        .pulse-dot { width: 8px; height: 8px; background: var(--tg-blue); border-radius: 50%; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(42,171,238,0.4); } 70% { box-shadow: 0 0 0 10px rgba(42,171,238,0); } 100% { box-shadow: 0 0 0 0 rgba(42,171,238,0); } }
-
-        h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin: 0 0 20px 0;
-            letter-spacing: -1px;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            line-height: 1.6;
-            margin: 0 auto 50px;
-            max-width: 600px;
-        }
-
-        /* 唯一的出口：极其显眼的转化按钮 */
-        .cta-btn {
-            display: inline-block;
             background: var(--tg-blue);
-            color: #fff;
-            font-size: 1.4rem;
-            font-weight: bold;
-            text-decoration: none;
-            padding: 20px 50px;
+            color: white;
+            padding: 14px 28px;
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(42, 171, 238, 0.3);
-            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
         }
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(42, 171, 238, 0.5);
-        }
+        .cta-main:hover { background: var(--tg-blue-hover); }
 
-        /* “诱饵”内容区：引发 FOMO */
-        .teaser-section {
-            width: 100%;
-            max-width: 800px;
-            padding: 40px 20px 100px;
-            box-sizing: border-box;
-        }
-
-        .section-label {
+        /* 信息流列表 */
+        .feed-label {
+            font-size: 0.85rem;
             color: var(--text-dim);
-            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 1px solid #333;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
             margin-bottom: 30px;
+            font-weight: 600;
         }
 
-        .teaser-card {
-            background: #0a0a0a;
-            border: 1px solid #222;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
+        .article-item {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
         }
+        .article-item:last-child { border-bottom: none; }
 
-        .teaser-time { color: var(--alert-red); font-size: 0.85rem; font-weight: bold; margin-bottom: 10px; font-family: monospace; }
-        .teaser-title { font-size: 1.3rem; margin: 0 0 15px 0; line-height: 1.4; }
-        .teaser-text { color: var(--text-dim); font-size: 1rem; line-height: 1.6; margin: 0; }
-        
-        /* 核心机制：信息截断模糊，强制去 TG 查看 */
-        .blur-overlay {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 60%;
-            background: linear-gradient(to bottom, rgba(10,10,10,0), rgba(10,10,10,1) 80%);
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            padding-bottom: 25px;
-        }
-
-        .unlock-btn {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: bold;
+        .meta {
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: border-color 0.2s;
+            gap: 12px;
+            margin-bottom: 10px;
         }
-        .unlock-btn:hover { border-color: var(--tg-blue); color: var(--tg-blue); }
+        .tag {
+            background: var(--surface-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+        .date { font-size: 0.85rem; color: var(--text-dim); }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .cta-btn { font-size: 1.2rem; padding: 15px 30px; width: 100%; box-sizing: border-box; text-align: center; }
+        .article-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+        .article-desc {
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin: 0 0 15px 0;
+        }
+        .read-more {
+            color: var(--tg-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .read-more:hover { text-decoration: underline; }
+
+        footer {
+            margin-top: 40px;
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="grid-bg"></div>
-
-    <div class="hero">
-        <div class="status-badge">
-            <div class="pulse-dot"></div>
-            频道 24 小时监控中
+    <header>
+        <div class="header-inner">
+            <a href="#" class="logo">TESLA X AI</a>
+            <a href="https://t.me/Tesla_share" target="_blank" class="tg-btn-small">✈️ 加入频道</a>
         </div>
-        <h1>不错过马斯克生态的<br>每一次财富与技术信号。</h1>
-        <p class="subtitle">深度追踪 Tesla 财报、FSD 端到端演进、xAI 大模型突破与核心加密资产动态。信息密度极高，谢绝闲聊。</p>
+    </header>
+
+    <div class="container">
         
-        <a href="https://t.me/Tesla_share" target="_blank" class="cta-btn">
-            ✈️ 立即加入 Telegram 频道
-        </a>
-        <div style="color: #555; font-size: 0.85rem; margin-top: 20px;">完全免费 · 随时可退订</div>
-    </div>
-
-    <div class="teaser-section">
-        <div class="section-label">内部动态泄露 / RECENT ALERTS</div>
-
-        <div class="teaser-card">
-            <div class="teaser-time">🚨 突发情报</div>
-            <h3 class="teaser-title">FSD v12.4 内部测试数据泄露，零接管里程远超预期</h3>
-            <p class="teaser-text">据社区核心信源透露，特斯拉即将推送的 v12.4 版本在无保护左转和复杂环岛的处理上取得了突破性进展。不仅如此，其端到端模型的参数量似乎进行了……</p>
-            
-            <div class="blur-overlay">
-                <a href="https://t.me/Tesla_share" target="_blank" class="unlock-btn">
-                    🔒 去 Telegram 频道解锁完整数据
-                </a>
-            </div>
+        <div class="intro">
+            <h1>追踪马斯克生态与<br>前沿 AI 的核心信号。</h1>
+            <p>这里没有无意义的闲聊，只有经过深度提纯的 FSD 架构拆解、xAI 内部动态与硬核资产逻辑。第一时间获取最新研报，请订阅专属电报频道。</p>
+            <a href="https://t.me/Tesla_share" target="_blank" class="cta-main">
+                订阅 Telegram 频道 ↗
+            </a>
         </div>
 
-        <div class="teaser-card">
-            <div class="teaser-time">🧠 深度拆解</div>
-            <h3 class="teaser-title">xAI 的底层算力底牌：Grok 背后隐藏的集群规模</h3>
-            <p class="teaser-text">市场普遍低估了马斯克整合资源的能力。通过追踪最新的一批 H100 显卡去向，我们发现 xAI 正在德州构建一个前所未有的算力中心。这意味着 Grok 下一个版本的迭代速度将……</p>
-            
-            <div class="blur-overlay">
-                <a href="https://t.me/Tesla_share" target="_blank" class="unlock-btn">
-                    🔒 去 Telegram 频道阅读万字长文
-                </a>
+        <div class="feed-label">近期深度与快讯</div>
+
+        <article class="article-item">
+            <div class="meta">
+                <span class="tag">深度拆解</span>
+                <span class="date">刚刚更新</span>
             </div>
-        </div>
+            <h2 class="article-title">FSD v12.4 内部测试泄露：端到端模型参数量激增，零接管挑战突破边界</h2>
+            <p class="article-desc">彻底抛弃规则代码后，特斯拉如何利用海量视频数据训练出一个拥有“直觉”的驾驶系统？最新泄露的数据表明，其泛化能力远超市场预期。本文带你深入理解马斯克的 AI 降维打击逻辑...</p>
+            <a href="https://t.me/Tesla_share" target="_blank" class="read-more">在 Telegram 解锁完整报告 ↗</a>
+        </article>
+
+        <article class="article-item">
+            <div class="meta">
+                <span class="tag">xAI 动态</span>
+                <span class="date">昨天</span>
+            </div>
+            <h2 class="article-title">Grok 1.5 确认下周部署：数学与代码能力将迎来质变</h2>
+            <p class="article-desc">xAI 内部信源证实，最新版本的模型在长文本推理上取得了重大突破，并且即将对 X 平台的 Premium+ 用户全面开放推送。这意味着开源与闭源的底层模型战争进入新阶段...</p>
+            <a href="https://t.me/Tesla_share" target="_blank" class="read-more">阅读快讯原文 ↗</a>
+        </article>
+
+        <article class="article-item">
+            <div class="meta">
+                <span class="tag">宏观资产</span>
+                <span class="date">3月28日</span>
+            </div>
+            <h2 class="article-title">特斯拉 Q1 交付预期承压，但 Megapack 储能业务或成最大隐性利好</h2>
+            <p class="article-desc">华尔街纷纷下调下周特斯拉第一季度的汽车销量预期。但如果深入分析加州 Lathrop 工厂的 Megapack 出货量数据，市场可能严重低估了特斯拉作为能源公司的基本面价值...</p>
+            <a href="https://t.me/Tesla_share" target="_blank" class="read-more">查看核心数据追踪 ↗</a>
+        </article>
+
     </div>
+
+    <footer>
+        © 2026 TESLA X AI CHANNEL. 极简呈现，专注价值。
+    </footer>
 
 </body>
 </html>
