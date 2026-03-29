@@ -3,388 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla X AI | Pro Terminal - 专注马斯克生态与前沿AI资讯</title>
+    <title>Tesla X AI | 获取马斯克生态核心情报</title>
     <style>
         :root {
-            --bg-color: #000000;
-            --card-bg: #111;
-            --border-color: #222;
-            --accent-color: #2AABEE; /* Telegram 蓝 */
-            --accent-green: #00ffcc; /* 行情绿 */
-            --accent-red: #ff3b3b; /* 行情红 */
-            --text-main: #f0f0f0;
-            --text-dim: #888;
-            --monospace-font: "PingFang SC", "Microsoft YaHei", -apple-system, monospace;
+            --bg: #000000;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+            --tg-blue: #2AABEE;
+            --alert-red: #ff3333;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding-top: 64px; /* 为固定顶部栏留空 */
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
-        /* --- V6.1 核心：固定 Pro 状态栏 --- */
-        header {
-            width: 100%;
-            height: 64px;
-            background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
+        /* 极简网格背景，营造硬核技术感 */
+        .grid-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(to right, #111 1px, transparent 1px),
+                linear-gradient(to bottom, #111 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.5;
         }
-        .header-inner {
+
+        /* 核心视觉区：只讲一件事 */
+        .hero {
             width: 100%;
-            max-width: 1400px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
+            max-width: 800px;
+            padding: 100px 20px 40px;
+            text-align: center;
+            box-sizing: border-box;
         }
 
-        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
-
-        /* 行情条在左侧 */
-        .header-left { display: flex; align-items: center; gap: 20px; }
-        .ticker-bar {
-            width: 500px; /* 限制宽度 */
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .ticker-content {
-            display: inline-block;
-            font-family: var(--monospace-font);
-            font-size: 0.8rem;
-            animation: scroll-ticker 30s linear infinite;
-        }
-        .ticker-content:hover { animation-play-state: paused; }
-        .ticker-item { display: inline-block; margin: 0 20px; }
-        .ticker-symbol { color: var(--text-dim); margin-right: 5px; }
-        .price { color: #fff; margin-right: 5px; }
-        .up { color: var(--accent-green); }
-        .down { color: var(--accent-red); }
-
-        @keyframes scroll-ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .header-right { display: flex; align-items: center; gap: 15px; }
-        
-        /* 科技风搜索功能 */
-        .search-form { position: relative; }
-        .search-input {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: var(--text-main);
-            border-radius: 40px;
-            padding: 8px 15px 8px 35px;
-            font-size: 0.85rem;
-            width: 150px;
-            transition: width 0.3s ease;
-        }
-        .search-input:focus { width: 200px; outline: none; border-color: var(--accent-color); }
-        .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-dim); }
-
-        .tg-btn {
-            background: var(--accent-color);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.85rem;
+        .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            transition: opacity 0.2s;
-        }
-        .tg-btn:hover { opacity: 0.8; }
-
-        /* --- 主网格布局 --- */
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            display: grid;
-            grid-template-columns: 300px 1fr 320px; 
-            gap: 30px;
-            padding: 40px 20px;
-            box-sizing: border-box;
-        }
-
-        /* 头条焦点文章 (在专栏上方) */
-        .hero-section {
-            width: 100%;
-            max-width: 1400px;
-            padding: 0 20px;
-            box-sizing: border-box;
+            gap: 8px;
+            background: rgba(42, 171, 238, 0.1);
+            border: 1px solid rgba(42, 171, 238, 0.3);
+            color: var(--tg-blue);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: bold;
             margin-bottom: 30px;
-        }
-        .hero-card {
-            background: linear-gradient(135deg, rgba(42, 171, 238, 0.05), var(--card-bg));
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 40px;
-        }
-        .hero-tag { background: #1a1a1a; color: var(--accent-color); padding: 4px 10px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #333; display: inline-block; margin-bottom: 15px; }
-        .hero-title { font-size: 2rem; margin: 0 0 15px 0; line-height: 1.3; color: #fff; }
-        .hero-desc { color: var(--text-dim); font-size: 1.05rem; line-height: 1.6; margin: 0; }
-
-        /* --- 新增：借鉴 image_11.png 的专栏级选项卡导航 --- */
-        .col-nav-bar {
-            width: 100%;
-            max-width: 1400px;
-            padding: 0 20px 20px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
             letter-spacing: 1px;
         }
-        /* 第一个选项卡：高亮为蓝色按钮 */
-        .col-nav-btn.active {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 1rem;
-        }
-        /* 其他选项卡：文本链接 */
-        .col-nav-link {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-weight: normal;
-            transition: color 0.2s;
-        }
-        .col-nav-link:hover { color: #fff; }
+        .pulse-dot { width: 8px; height: 8px; background: var(--tg-blue); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(42,171,238,0.4); } 70% { box-shadow: 0 0 0 10px rgba(42,171,238,0); } 100% { box-shadow: 0 0 0 0 rgba(42,171,238,0); } }
 
-        .section-title {
-            font-size: 1rem;
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin: 0 auto 50px;
+            max-width: 600px;
+        }
+
+        /* 唯一的出口：极其显眼的转化按钮 */
+        .cta-btn {
+            display: inline-block;
+            background: var(--tg-blue);
+            color: #fff;
+            font-size: 1.4rem;
             font-weight: bold;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-top: 0;
+            text-decoration: none;
+            padding: 20px 50px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(42, 171, 238, 0.3);
+            transition: all 0.3s ease;
+        }
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(42, 171, 238, 0.5);
+        }
+
+        /* “诱饵”内容区：引发 FOMO */
+        .teaser-section {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px 100px;
+            box-sizing: border-box;
+        }
+
+        .section-label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .teaser-card {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 30px;
             margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teaser-time { color: var(--alert-red); font-size: 0.85rem; font-weight: bold; margin-bottom: 10px; font-family: monospace; }
+        .teaser-title { font-size: 1.3rem; margin: 0 0 15px 0; line-height: 1.4; }
+        .teaser-text { color: var(--text-dim); font-size: 1rem; line-height: 1.6; margin: 0; }
+        
+        /* 核心机制：信息截断模糊，强制去 TG 查看 */
+        .blur-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to bottom, rgba(10,10,10,0), rgba(10,10,10,1) 80%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 25px;
+        }
+
+        .unlock-btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
             display: flex;
             align-items: center;
             gap: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #ddd;
+            transition: border-color 0.2s;
         }
+        .unlock-btn:hover { border-color: var(--tg-blue); color: var(--tg-blue); }
 
-        /* ================= 左栏：快讯 ================= */
-        .flash-col { display: flex; flex-direction: column; }
-        .flash-item {
-            padding: 15px 0;
-            border-bottom: 1px dashed var(--border-color);
-            cursor: pointer;
-        }
-        .flash-item:hover .flash-title { color: var(--accent-color); }
-        .flash-time { font-size: 0.8rem; color: var(--accent-color); margin-bottom: 6px; font-family: var(--monospace-font); }
-        .flash-title { font-size: 0.9rem; line-height: 1.5; margin: 0; font-weight: normal; color: #ddd; transition: color 0.2s; }
-
-        /* ================= 中栏：深度 ================= */
-        .deep-col { display: flex; flex-direction: column; gap: 25px; }
-        .deep-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 30px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-        }
-        .deep-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            border-color: #333;
-        }
-        .deep-tag { background: #1a1a1a; color: var(--text-dim); padding: 4px 10px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #333; display: inline-block; margin-bottom: 15px; }
-        .deep-title { font-size: 1.4rem; margin: 0 0 15px 0; line-height: 1.4; color: #fff; }
-        .deep-desc { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; margin: 0; }
-
-        /* ================= 右栏：视频 ================= */
-        .video-col { display: flex; flex-direction: column; gap: 30px; }
-        
-        .video-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .video-card:hover .video-title { color: var(--accent-color); }
-        .video-thumbnail {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #1a1a1a;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .play-btn {
-            width: 40px; height: 40px;
-            background: rgba(255,255,255,0.1);
-            border: 2px solid rgba(255,255,255,0.5);
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            backdrop-filter: blur(4px);
-            transition: all 0.2s;
-        }
-        .play-btn::after {
-            content: ''; display: block;
-            border-style: solid; border-width: 8px 0 8px 12px;
-            border-color: transparent transparent transparent #fff; margin-left: 4px;
-        }
-        .video-card:hover .play-btn { background: var(--accent-color); border-color: var(--accent-color); transform: scale(1.1); }
-        
-        .video-info { padding: 15px; }
-        .video-title { font-size: 0.9rem; margin: 0 0 8px 0; line-height: 1.4; transition: color 0.2s; }
-        .video-duration { font-size: 0.75rem; color: var(--text-dim); font-family: var(--monospace-font); }
-
-        footer {
-            width: 100%;
-            max-width: 1400px;
-            padding: 40px 20px;
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            color: #555;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* 响应式调整 */
-        @media (max-width: 1100px) {
-            .container { grid-template-columns: 1fr 300px; } 
-            .flash-col { grid-column: span 2; }
-            .ticker-bar { display: none; } /* 较小屏幕隐藏行情 */
-        }
-        @media (max-width: 768px) {
-            .container { grid-template-columns: 1fr; } 
-            .flash-col { grid-column: span 1; }
-            .search-input { width: 100px; }
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .cta-btn { font-size: 1.2rem; padding: 15px 30px; width: 100%; box-sizing: border-box; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-inner">
-            <div class="header-left">
-                <div class="logo">TESLA X AI Terminal</div>
-                <div class="ticker-bar">
-                    <div class="ticker-content">
-                        <span class="ticker-item"><span class="ticker-symbol">TSLA</span><span class="price">175.22</span><span class="up">▲ 2.1%</span></span>
-                        <span class="ticker-item"><span class="ticker-symbol">BTC</span><span class="price">68,412</span><span class="up">▲ 1.5%</span></span>
-                        <span class="ticker-item"><span class="ticker-symbol">VIX</span><span class="price">14.10</span><span class="down">▼ 0.8%</span></span>
-                        <span class="ticker-item"><span class="ticker-symbol">LMND</span><span class="price">16.85</span><span class="up">▲ 0.4%</span></span>
-                        <span class="ticker-item"><span class="ticker-symbol">PENDLE</span><span class="price">6.25</span><span class="up">▲ 5.2%</span></span>
-                        <span class="ticker-item"><span class="ticker-symbol">ENA</span><span class="price">1.12</span><span class="down">▼ 1.2%</span></span>
-                        <span class="ticker-item"><span class="ticker-symbol">TSLA</span><span class="price">175.22</span><span class="up">▲ 2.1%</span></span>
-                    </div>
-                </div>
-            </div>
-            <div class="header-right">
-                <form class="search-form">
-                    <span class="search-icon">🔍</span>
-                    <input type="search" placeholder="搜索核心资讯..." class="search-input">
-                </form>
-                <a href="https://t.me/Tesla_share" target="_blank" class="tg-btn">
-                    ✈️ 加入 TELEGRAM
+    <div class="grid-bg"></div>
+
+    <div class="hero">
+        <div class="status-badge">
+            <div class="pulse-dot"></div>
+            频道 24 小时监控中
+        </div>
+        <h1>不错过马斯克生态的<br>每一次财富与技术信号。</h1>
+        <p class="subtitle">深度追踪 Tesla 财报、FSD 端到端演进、xAI 大模型突破与核心加密资产动态。信息密度极高，谢绝闲聊。</p>
+        
+        <a href="https://t.me/Tesla_share" target="_blank" class="cta-btn">
+            ✈️ 立即加入 Telegram 频道
+        </a>
+        <div style="color: #555; font-size: 0.85rem; margin-top: 20px;">完全免费 · 随时可退订</div>
+    </div>
+
+    <div class="teaser-section">
+        <div class="section-label">内部动态泄露 / RECENT ALERTS</div>
+
+        <div class="teaser-card">
+            <div class="teaser-time">🚨 突发情报</div>
+            <h3 class="teaser-title">FSD v12.4 内部测试数据泄露，零接管里程远超预期</h3>
+            <p class="teaser-text">据社区核心信源透露，特斯拉即将推送的 v12.4 版本在无保护左转和复杂环岛的处理上取得了突破性进展。不仅如此，其端到端模型的参数量似乎进行了……</p>
+            
+            <div class="blur-overlay">
+                <a href="https://t.me/Tesla_share" target="_blank" class="unlock-btn">
+                    🔒 去 Telegram 频道解锁完整数据
                 </a>
             </div>
         </div>
-    </header>
 
-    <div class="container" style="padding-top: 10px;"> <div class="hero-section" style="grid-column: span 3;">
-            <div class="hero-card">
-                <div class="hero-tag">深度研报 / DEEP DIVE</div>
-                <h1 class="hero-title">万字拆解 FSD v12 端到端架构：马斯克如何用 AI 重塑物理世界法则？</h1>
-                <p class="hero-desc">摆脱了 30 万行 C++ 规则代码，FSD v12 迎来了真正的“ChatGPT 时刻”。本文深度解析神经网络如何通过视频数据进行自我进化，以及其对自动驾驶行业的降维打击。</p>
+        <div class="teaser-card">
+            <div class="teaser-time">🧠 深度拆解</div>
+            <h3 class="teaser-title">xAI 的底层算力底牌：Grok 背后隐藏的集群规模</h3>
+            <p class="teaser-text">市场普遍低估了马斯克整合资源的能力。通过追踪最新的一批 H100 显卡去向，我们发现 xAI 正在德州构建一个前所未有的算力中心。这意味着 Grok 下一个版本的迭代速度将……</p>
+            
+            <div class="blur-overlay">
+                <a href="https://t.me/Tesla_share" target="_blank" class="unlock-btn">
+                    🔒 去 Telegram 频道阅读万字长文
+                </a>
             </div>
         </div>
-
-        <div class="col-nav-bar" style="grid-column: span 3;">
-            <a href="#" class="col-nav-btn active">⚡️ 7x24 快讯</a>
-            <a href="#" class="col-nav-link">🧠 深度分析</a>
-            <a href="#" class="col-nav-link">🎬 视频专栏</a>
-        </div>
-
-        <div class="flash-col">
-            <div class="flash-item">
-                <div class="flash-time">10 分钟前</div>
-                <h3 class="flash-title">xAI 内部消息确认，Grok 1.5 将全面增强数学及代码逻辑能力，预计下周推送。</h3>
-            </div>
-            <div class="flash-item">
-                <div class="flash-time">2 小时前</div>
-                <h3 class="flash-title">特斯拉 FSD v12.3.1 版本推送规模扩大，用户反馈城市拥堵路段平顺度显著提升。</h3>
-            </div>
-            <div class="flash-item">
-                <div class="flash-time">今日 09:30</div>
-                <h3 class="flash-title">VIX 恐慌指数盘前走低，纳指期货小幅上涨 0.4%。</h3>
-            </div>
-            <div class="flash-item">
-                <div class="flash-time">昨日 23:15</div>
-                <h3 class="flash-title">SpaceX 星舰第四次试飞 (IFT-4) 准备工作推进中，或将在 5 月初进行。</h3>
-            </div>
-        </div>
-
-        <div class="deep-col">
-            <div class="deep-card">
-                <div class="deep-tag">FSD 架构拆解</div>
-                <h3 class="deep-title">万字解析 FSD v12：为什么端到端神经网络是自动驾驶的终局？</h3>
-                <p class="deep-desc">彻底抛弃 30 万行硬编码 C++ 规则，特斯拉如何利用海量视频数据训练出一个拥有“直觉”的驾驶系统？本文带你深入理解马斯克的 AI 降维打击逻辑。</p>
-            </div>
-
-            <div class="deep-card">
-                <div class="deep-tag">宏观与财报</div>
-                <h3 class="deep-title">特斯拉 Q1 交付预期承压，但Megapack 储能业务爆发或挽救财报</h3>
-                <p class="deep-desc">分析师看衰汽车销量，但Megapack 储能装机量激增，或成潜在亮点。</p>
-            </div>
-        </div>
-
-        <div class="video-col">
-            <div class="video-card">
-                <div class="video-thumbnail">
-                    <div class="play-btn"></div>
-                </div>
-                <div class="video-info">
-                    <h3 class="video-title">FSD v12 洛杉矶复杂路况实测：零接管挑战</h3>
-                    <div class="video-duration">时长: 14:20</div>
-                </div>
-            </div>
-            <div class="video-card">
-                <div class="video-thumbnail">
-                    <div class="play-btn"></div>
-                </div>
-                <div class="video-info">
-                    <h3 class="video-title">马斯克最新访谈精华：通用人工智能 (AGI) 的未来</h3>
-                    <div class="video-duration">时长: 08:45</div>
-                </div>
-            </div>
-        </div>
-
     </div>
-
-    <footer>
-        © 2026 TESLA X AI CHANNEL. All rights reserved. // Powered by Vibecoding
-    </footer>
 
 </body>
 </html>
