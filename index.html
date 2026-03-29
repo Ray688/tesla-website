@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tesla X AI | 专业的马斯克生态与AI研究站</title>
     <style>
-        /* 借鉴律动的深色模式配色 */
         :root {
             --bg-color: #000000;
             --card-bg: #0a0a0a;
             --border-color: #1a1a1a;
-            --accent-color: #2AABEE; /* 保持 TG 蓝作为点缀 */
+            --accent-color: #2AABEE; 
             --text-main: #ffffff;
             --text-dim: #888888;
+            --hover-bg: #111111;
         }
 
         body {
@@ -25,7 +25,6 @@
             align-items: center;
         }
 
-        /* 顶部导航条 - 借鉴律动简洁风 */
         nav {
             width: 100%;
             height: 60px;
@@ -49,18 +48,16 @@
 
         .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; }
 
-        /* 主体内容区 - 借鉴律动的三栏/双栏感 */
         .container {
             width: 100%;
             max-width: 1200px;
             display: grid;
-            grid-template-columns: 300px 1fr; /* 左边侧栏，右边主内容 */
+            grid-template-columns: 300px 1fr; 
             gap: 20px;
             padding: 40px 20px;
             box-sizing: border-box;
         }
 
-        /* 左侧：个人/频道名片 & 标签 */
         .sidebar {
             display: flex;
             flex-direction: column;
@@ -85,7 +82,6 @@
             border-radius: 2px;
         }
 
-        /* 右侧：主资讯流 */
         .main-feed {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -115,14 +111,71 @@
             100% { opacity: 1; }
         }
 
-        /* 隐藏滚动条但保留功能 */
-        iframe {
-            width: 100%;
-            height: 900px;
-            border: none;
+        /* 原生快讯流样式设计 */
+        .news-list {
+            display: flex;
+            flex-direction: column;
         }
 
-        /* 响应式调整 */
+        .news-item {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s ease;
+            position: relative;
+        }
+
+        .news-item:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .news-time {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-family: monospace;
+        }
+
+        .news-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            color: #eeeeee;
+        }
+
+        .news-desc {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .news-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .news-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 左侧的时间线连接轴 */
+        .news-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 30px;
+            bottom: -30px;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+        .news-item:last-child::before {
+            display: none;
+        }
+
         @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; }
             .sidebar { display: none; }
@@ -167,11 +220,34 @@
                 <div class="live-dot"></div>
                 <span style="font-weight: bold; letter-spacing: 1px;">实时快讯 / LIVE FEED</span>
             </div>
-            <iframe src="https://t.me/s/Tesla_share" scrolling="yes"></iframe>
+            
+            <div class="news-list">
+                <div class="news-item">
+                    <div class="news-time">10 分钟前</div>
+                    <div class="news-title">马斯克最新确认：Grok 1.5 将于下周部署在 X 平台</div>
+                    <div class="news-desc">xAI 团队宣布，最新版本的 Grok 1.5 大语言模型推理能力得到显著提升，尤其是数学和代码编写能力。该版本将在下周向 X 平台的 Premium+ 用户全面开放推送。</div>
+                    <a href="https://t.me/Tesla_share" target="_blank" class="news-link">在 Telegram 查看原文 ↗</a>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-time">3 小时前</div>
+                    <div class="news-title">市场观察：VIX 恐慌指数盘中回落，纳指小幅收涨</div>
+                    <div class="news-desc">今日美股开盘后，VIX 恐慌指数一度跌破 14 关口。特斯拉（TSLA）盘中涨超 2%，市场正在消化即将发布的交付数据预期。加密市场方面，资金有明显的回暖迹象。</div>
+                    <a href="https://t.me/Tesla_share" target="_blank" class="news-link">在 Telegram 查看原文 ↗</a>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-time">昨天</div>
+                    <div class="news-title">深度拆解：FSD v12.3 版本的核心架构演进</div>
+                    <div class="news-desc">长文分析：为什么说 FSD v12 是特斯拉自动驾驶的“ChatGPT 时刻”？端到端神经网络如何彻底消灭了传统的 30 万行 C++ 规则代码。附详细路测数据对比。</div>
+                    <a href="https://t.me/Tesla_share" target="_blank" class="news-link">阅读深度研报 ↗</a>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <footer style="padding: 40px; color: #333; font-size: 0.7rem;">
+    <footer style="padding: 40px; color: #333; font-size: 0.7rem; text-align: center; width: 100%;">
         DESIGN INSPIRED BY BLOCKBEATS // BUILT BY NEXUS HUB
     </footer>
 
