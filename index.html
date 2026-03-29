@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla X AI - 核心动态追踪</title>
+    <title>Tesla X AI - Pro Terminal</title>
     <style>
+        /* 基础暗黑风格 */
         body {
-            background-color: #121212; /* 深色科技风背景 */
+            background-color: #0d0d0d;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
@@ -15,18 +16,58 @@
             flex-direction: column;
             align-items: center;
         }
+
+        /* --- 新增：顶部行情走马灯样式 --- */
+        .ticker-wrap {
+            width: 100%;
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #333;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 8px 0;
+        }
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            padding-right: 100%;
+            animation: ticker 25s linear infinite;
+        }
+        .ticker:hover {
+            animation-play-state: paused; /* 鼠标悬停时暂停滚动 */
+        }
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2rem;
+            font-size: 0.95rem;
+            color: #00ffcc; /* 极客荧光绿 */
+            font-family: monospace; /* 等宽字体更像终端 */
+        }
+        .ticker-item .label {
+            color: #aaaaaa;
+            margin-right: 5px;
+        }
+        .ticker-item .down {
+            color: #ff4444; /* 下跌显示红色 */
+        }
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+        /* ----------------------------- */
+
         header {
             text-align: center;
-            padding: 60px 20px;
+            padding: 50px 20px 30px;
             width: 100%;
-            background-color: #000000;
-            border-bottom: 1px solid #333;
             box-sizing: border-box;
         }
         h1 {
             font-size: 2.8rem;
             margin-bottom: 15px;
             letter-spacing: 2px;
+            background: linear-gradient(90deg, #ffffff, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         p.subtitle {
             color: #aaaaaa;
@@ -36,7 +77,7 @@
             line-height: 1.6;
         }
         .btn {
-            background-color: #2AABEE; /* Telegram 官方蓝 */
+            background-color: #2AABEE;
             color: white;
             text-decoration: none;
             padding: 14px 28px;
@@ -52,37 +93,48 @@
         .content {
             width: 100%;
             max-width: 800px;
-            padding: 40px 20px;
+            padding: 20px 20px 40px;
             box-sizing: border-box;
         }
         .feed-container {
-            background-color: #ffffff; /* 为了兼容 TG 挂件的底色 */
+            background-color: #ffffff;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #333;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.8);
         }
         footer {
-            margin-top: 40px;
+            margin-top: 20px;
             padding: 20px;
-            color: #666;
+            color: #555;
             font-size: 0.9rem;
             text-align: center;
             width: 100%;
+            border-top: 1px solid #222;
         }
     </style>
 </head>
 <body>
 
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-item"><span class="label">TSLA</span> 175.22 ▲ +2.1%</div>
+            <div class="ticker-item"><span class="label">VIX</span> 14.25 <span class="down">▼ -1.5%</span></div>
+            <div class="ticker-item"><span class="label">LMND</span> 16.80 ▲ +0.8%</div>
+            <div class="ticker-item"><span class="label">BTC</span> 68,500 ▲ +1.2%</div>
+            <div class="ticker-item"><span class="label">PENDLE</span> 6.20 ▲ +5.4%</div>
+            <div class="ticker-item"><span class="label">ENA</span> 1.15 <span class="down">▼ -0.3%</span></div>
+        </div>
+    </div>
+
     <header>
-        <h1>Tesla X AI</h1>
+        <h1>Tesla X AI Terminal</h1>
         <p class="subtitle">追踪马斯克生态：Tesla、FSD 与 xAI 核心动态。不错过任何一次技术革命与财富信号。</p>
         <a href="https://t.me/Tesla_share" target="_blank" class="btn">✈️ 立即加入 Telegram 频道</a>
     </header>
 
     <div class="content">
-        <h2>📡 频道实时同步</h2>
-        <p style="color: #888; margin-bottom: 20px;">最新资讯与深度分析：</p>
+        <h2 style="font-size: 1.2rem; color: #888; border-left: 4px solid #2AABEE; padding-left: 10px;">📡 实时数据与核心动态</h2>
         
         <div class="feed-container">
             <iframe src="https://t.me/s/Tesla_share" width="100%" height="600" frameborder="0" scrolling="auto"></iframe>
