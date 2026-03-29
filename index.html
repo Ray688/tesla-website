@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tesla X AI - Pro Terminal</title>
     <style>
-        /* 基础暗黑风格 */
+        /* 核心：暗黑背景 + 极简线条 */
         body {
-            background-color: #0d0d0d;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #050505;
+            color: #e0e0e0;
+            font-family: "SF Mono", "Monaco", "Inconsolata", monospace; /* 使用等宽字体，更有终端感 */
             margin: 0;
             padding: 0;
             display: flex;
@@ -17,132 +17,107 @@
             align-items: center;
         }
 
-        /* --- 新增：顶部行情走马灯样式 --- */
-        .ticker-wrap {
+        /* --- 方案二的灵魂：行情走马灯 --- */
+        .ticker-bar {
             width: 100%;
-            background-color: #1a1a1a;
-            border-bottom: 1px solid #333;
+            background-color: #111;
+            border-bottom: 1px solid #222;
             overflow: hidden;
-            box-sizing: border-box;
-            padding: 8px 0;
-        }
-        .ticker {
-            display: inline-block;
             white-space: nowrap;
-            padding-right: 100%;
-            animation: ticker 25s linear infinite;
+            padding: 10px 0;
         }
-        .ticker:hover {
-            animation-play-state: paused; /* 鼠标悬停时暂停滚动 */
+        .ticker-content {
+            display: inline-block;
+            animation: scroll-ticker 40s linear infinite; /* 调慢了速度，更显稳重 */
+        }
+        .ticker-content:hover {
+            animation-play-state: paused; /* 鼠标放上去暂停，方便细看 */
         }
         .ticker-item {
             display: inline-block;
-            padding: 0 2rem;
-            font-size: 0.95rem;
-            color: #00ffcc; /* 极客荧光绿 */
-            font-family: monospace; /* 等宽字体更像终端 */
+            margin: 0 40px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
-        .ticker-item .label {
-            color: #aaaaaa;
-            margin-right: 5px;
+        .symbol { color: #888; font-weight: bold; margin-right: 8px; }
+        .price { color: #fff; margin-right: 8px; }
+        .up { color: #00ff88; } /* 科技绿 */
+        .down { color: #ff3b3b; } /* 警示红 */
+
+        @keyframes scroll-ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* 循环滚动技巧 */
         }
-        .ticker-item .down {
-            color: #ff4444; /* 下跌显示红色 */
-        }
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
-        }
-        /* ----------------------------- */
 
         header {
             text-align: center;
-            padding: 50px 20px 30px;
-            width: 100%;
-            box-sizing: border-box;
+            padding: 80px 20px 40px;
         }
         h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, #ffffff, #888888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin: 0;
+            color: #fff;
         }
-        p.subtitle {
-            color: #aaaaaa;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            line-height: 1.6;
+        .divider {
+            width: 50px;
+            height: 2px;
+            background: #2AABEE;
+            margin: 20px auto;
         }
-        .btn {
-            background-color: #2AABEE;
-            color: white;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: opacity 0.3s;
-            display: inline-block;
-        }
-        .btn:hover {
-            opacity: 0.8;
-        }
+
         .content {
-            width: 100%;
-            max-width: 800px;
-            padding: 20px 20px 40px;
-            box-sizing: border-box;
+            width: 95%;
+            max-width: 1000px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px; /* 终端风通常用小圆角或直角 */
+            padding: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,1);
         }
-        .feed-container {
-            background-color: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #333;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.8);
+
+        iframe {
+            border: none;
+            /* 保持 TG 原生色调，不做滤镜，模拟多窗口查看感 */
         }
+
         footer {
-            margin-top: 20px;
-            padding: 20px;
-            color: #555;
-            font-size: 0.9rem;
-            text-align: center;
-            width: 100%;
-            border-top: 1px solid #222;
+            padding: 40px;
+            font-size: 0.7rem;
+            color: #444;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <div class="ticker-item"><span class="label">TSLA</span> 175.22 ▲ +2.1%</div>
-            <div class="ticker-item"><span class="label">VIX</span> 14.25 <span class="down">▼ -1.5%</span></div>
-            <div class="ticker-item"><span class="label">LMND</span> 16.80 ▲ +0.8%</div>
-            <div class="ticker-item"><span class="label">BTC</span> 68,500 ▲ +1.2%</div>
-            <div class="ticker-item"><span class="label">PENDLE</span> 6.20 ▲ +5.4%</div>
-            <div class="ticker-item"><span class="label">ENA</span> 1.15 <span class="down">▼ -0.3%</span></div>
+    <div class="ticker-bar">
+        <div class="ticker-content">
+            <span class="ticker-item"><span class="symbol">TSLA</span><span class="price">175.22</span><span class="up">▲ 2.1%</span></span>
+            <span class="ticker-item"><span class="symbol">BTC</span><span class="price">68,412</span><span class="up">▲ 1.5%</span></span>
+            <span class="ticker-item"><span class="symbol">VIX</span><span class="price">14.10</span><span class="down">▼ 0.8%</span></span>
+            <span class="ticker-item"><span class="symbol">LMND</span><span class="price">16.85</span><span class="up">▲ 0.4%</span></span>
+            <span class="ticker-item"><span class="symbol">PENDLE</span><span class="price">6.25</span><span class="up">▲ 5.2%</span></span>
+            <span class="ticker-item"><span class="symbol">ENA</span><span class="price">1.12</span><span class="down">▼ 1.2%</span></span>
+            <span class="ticker-item"><span class="symbol">TSLA</span><span class="price">175.22</span><span class="up">▲ 2.1%</span></span>
+            <span class="ticker-item"><span class="symbol">BTC</span><span class="price">68,412</span><span class="up">▲ 1.5%</span></span>
+            <span class="ticker-item"><span class="symbol">VIX</span><span class="price">14.10</span><span class="down">▼ 0.8%</span></span>
         </div>
     </div>
 
     <header>
         <h1>Tesla X AI Terminal</h1>
-        <p class="subtitle">追踪马斯克生态：Tesla、FSD 与 xAI 核心动态。不错过任何一次技术革命与财富信号。</p>
-        <a href="https://t.me/Tesla_share" target="_blank" class="btn">✈️ 立即加入 Telegram 频道</a>
+        <div class="divider"></div>
+        <p style="color: #666; font-size: 0.9rem;">Intelligence Feed for Tesla, FSD & xAI</p>
     </header>
 
     <div class="content">
-        <h2 style="font-size: 1.2rem; color: #888; border-left: 4px solid #2AABEE; padding-left: 10px;">📡 实时数据与核心动态</h2>
-        
-        <div class="feed-container">
-            <iframe src="https://t.me/s/Tesla_share" width="100%" height="600" frameborder="0" scrolling="auto"></iframe>
-        </div>
+        <iframe src="https://t.me/s/Tesla_share" width="100%" height="800" frameborder="0"></iframe>
     </div>
 
     <footer>
-        © 2026 Tesla X AI. 构建于 GitHub.
+        Terminal Session: 2026.03.29 // Ray688
     </footer>
 
 </body>
