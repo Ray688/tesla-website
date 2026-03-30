@@ -150,18 +150,23 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .intro-desc strong{font-weight:500;color:var(--text)}
 .intro-tags{display:flex;flex-wrap:wrap;gap:8px}
 .intro-tag{font-family:var(--mono);font-size:10px;color:var(--text2);border:1px solid var(--border);background:var(--bg2);padding:4px 10px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px}
-.intro-stats{display:flex;align-items:center;padding:16px 24px;background:var(--bg2)}
-.intro-stat{padding:0 24px 0 0}
-.intro-stat:first-child{padding-left:0}
-.intro-stat-val{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--black);line-height:1;margin-bottom:3px}
-.intro-stat-lbl{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
-.intro-stat-div{width:1px;height:32px;background:var(--border2);margin-right:24px;flex-shrink:0}
 
 .home-section{margin-top:32px}
 .home-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .home-section-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--black);letter-spacing:-.01em}
 .home-section-more{font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none;letter-spacing:.04em;transition:opacity .15s}
 .home-section-more:hover{opacity:.7}
+
+/* 图表相关 CSS */
+.data-grid-4 { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:28px; }
+.data-card { background:var(--bg2); border-radius:6px; padding:16px 14px; }
+.data-card .data-label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.08em; margin-bottom:8px; }
+.data-card .data-val { font-family:var(--serif); font-size:24px; font-weight:600; color:var(--black); margin-bottom:3px; }
+.data-card .data-change { font-family:var(--mono); font-size:11px; }
+.data-card .data-source { font-family:var(--mono); font-size:9px; color:var(--text3); margin-top:6px; letter-spacing:.04em; }
+.chart-block { border:1px solid var(--border); background:var(--bg); padding:20px; margin-bottom:16px; }
+.chart-label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.08em; margin-bottom:14px; }
+.chart-2col { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-bottom:16px; }
 
 .entity-section{border-top:1px solid var(--border);background:var(--bg2);padding:44px 24px}
 .entity-section-inner{max-width:var(--max);margin:0 auto}
@@ -182,8 +187,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .sub-label{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
 .sub-title{font-family:var(--serif);font-size:clamp(20px,2.5vw,28px);font-weight:600;color:#f5f5f5;margin-bottom:8px;line-height:1.3}
 .sub-desc{font-family:var(--sans);font-size:15px;font-weight:400;color:rgba(255,255,255,.45);line-height:1.9}
-.sub-btn{display:inline-flex;align-items:center;gap:9px;flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-family:var(--sans);font-size:15px;font-weight:500;padding:14px 32px;border:1px solid var(--red);transition:all .22s var(--ease);white-space:nowrap;border-radius:4px}
-.sub-btn:hover{background:transparent;color:var(--red)}
 
 footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);padding:36px 24px 24px}
 .footer-inner{max-width:var(--max);margin:0 auto}
@@ -218,7 +221,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .sr-title{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--black);line-height:1.4;margin-bottom:4px}
 .sr-title mark{background:rgba(204,41,41,.12);color:var(--red);border-radius:2px;padding:0 2px}
 
-/* 弹窗 (已去掉订阅频道样式) */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,14,.7);z-index:500;backdrop-filter:blur(4px);padding:24px;align-items:flex-start;justify-content:center}
 .modal-overlay.on{display:flex}
 .modal-box{background:var(--bg);width:100%;max-width:720px;max-height:90vh;overflow-y:auto;border:1px solid var(--border);position:relative;margin-top:20px}
@@ -245,12 +247,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   .footer-top{flex-direction:column}
   .footer-links{flex-wrap:wrap;gap:28px}
   .sub-banner-inner{flex-direction:column;text-align:center}
-  .sub-btn{width:100%;justify-content:center}
+  .data-grid-4 {grid-template-columns:repeat(2,1fr)}
+  .chart-2col {grid-template-columns:1fr}
 }
 @media(max-width:600px){
   .nav-search{display:none}
   .intro-top{flex-direction:column;align-items:flex-start;gap:12px}
-  .intro-tg-btn{width:100%;justify-content:center}
   .entity-full-grid{grid-template-columns:1fr}
   .modal-box{margin-top:0}
   .modal-head,.modal-body{padding:20px 18px}
@@ -286,10 +288,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       <button class="search-trigger" onclick="openSearch()" title="搜索">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       </button>
-      <a href="https://t.me/Tesla_share" target="_blank" class="nav-join">
-        订阅频道
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4M9.5 1.5V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      </a>
     </div>
   </div>
   
@@ -306,7 +304,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </nav>
 
-<!-- 首页 -->
 <div class="page on" id="page-home">
   <div class="wrap">
     <div class="two-col">
@@ -318,10 +315,9 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
               <span class="intro-name">Tesla情报站</span>
               <span class="intro-badge">中文媒体</span>
             </div>
-            <a href="https://t.me/Tesla_share" target="_blank" class="intro-tg-btn">订阅 Telegram 频道</a>
           </div>
           <div class="intro-body">
-            <p class="intro-desc">专注追踪马斯克商业生态的中文情报媒体。每日汇总 Tesla、SpaceX、xAI、Neuralink 的最新动态，涵盖实时快讯、深度分析、FSD 进展与市场数据，内容自动同步自 <strong>t.me/Tesla_share</strong> Telegram 频道。</p>
+            <p class="intro-desc">专注追踪马斯克商业生态的中文情报媒体。每日汇总 Tesla、SpaceX、xAI、Neuralink 的最新动态，涵盖实时快讯、深度分析、FSD 进展与市场数据。内容由 AI 量化雷达 24 小时全自动搜集排版。</p>
             <div class="intro-tags">
               <span class="intro-tag" style="display:inline-flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#E31937"/><path d="M10 11h12v2H19v9h-6v-9h-3v-2z" fill="white"/></svg> Tesla · $TSLA</span>
               <span class="intro-tag" style="display:inline-flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#1a1a2e"/><path d="M16 6c-.8 0-2.5 2-3.5 5.5-1.5-.3-2.8-.1-3.5.6-.7.7-.9 2-.6 3.5C5 16.6 3 18.3 3 19.1s2 2.5 5.5 3.5c.3 1.5.1 2.8-.6 3.5" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M16 8v16M12 12l8 8M20 12l-8 8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg> SpaceX · Starlink</span>
@@ -354,14 +350,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </a>
         </div>
 
-        <!-- 快讯预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">快讯</div>
             <a href="#" class="home-section-more" onclick="switchTab('flash');return false">查看全部 →</a>
           </div>
           <div class="flash-list">
-            <!-- [PY_ANCHOR_HOME_NEWS] -->
             <a class="flash-item" href="#" onclick="openModal('f1');return false">
               <div class="flash-time"><span>03-29</span><strong>09:14</strong></div>
               <div class="flash-body">
@@ -381,14 +375,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
-        <!-- 深度分析预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">深度分析</div>
             <a href="#" class="home-section-more" onclick="switchTab('analysis');return false">查看全部 →</a>
           </div>
           <div class="article-list">
-            <!-- [PY_ANCHOR_HOME_ANALYSIS] -->
             <a class="article-item" href="#" onclick="openModal('a1');return false">
               <div class="flash-time"><span>03-25</span><strong>14:30</strong></div>
               <div class="article-body">
@@ -408,14 +400,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
-        <!-- FSD预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">FSD · Robotaxi</div>
             <a href="#" class="home-section-more" onclick="switchTab('fsd');return false">查看全部 →</a>
           </div>
           <div class="article-list">
-            <!-- [PY_ANCHOR_HOME_FSD] -->
             <a class="article-item" href="#" onclick="openModal('fsd1');return false">
               <div class="flash-time"><span>03-27</span><strong>11:08</strong></div>
               <div class="article-body">
@@ -427,9 +417,46 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
+        <div class="home-section">
+          <div class="home-section-head">
+            <div class="home-section-title">市场数据</div>
+            <a href="#" class="home-section-more" onclick="switchTab('market');return false">查看完整看板 →</a>
+          </div>
+          <div class="data-grid-4">
+            <div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -1.28%</div><div class="data-source">昨日收盘</div></div>
+            <div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12%</div><div class="data-source">Q4财报</div></div>
+            <div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ +96颗/月</div><div class="data-source">SpaceX官方</div></div>
+            <div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">奥斯汀</div></div>
+          </div>
+          
+          <div class="chart-block">
+            <div class="chart-label">TSLA 股价走势（近12个月）</div>
+            <div style="position:relative;width:100%;height:160px"><canvas id="h-tsla"></canvas></div>
+          </div>
+          <div class="chart-2col">
+            <div class="chart-block" style="margin-bottom:0">
+              <div class="chart-label">Tesla 交付量（万辆/季）</div>
+              <div style="position:relative;width:100%;height:150px"><canvas id="h-delivery"></canvas></div>
+            </div>
+            <div class="chart-block" style="margin-bottom:0">
+              <div class="chart-label">FSD 订阅用户增长（万人）</div>
+              <div style="position:relative;width:100%;height:150px"><canvas id="h-fsd"></canvas></div>
+            </div>
+          </div>
+          <div class="chart-2col" style="margin-top:16px">
+            <div class="chart-block" style="margin-bottom:0">
+              <div class="chart-label">Starlink 在轨卫星趋势</div>
+              <div style="position:relative;width:100%;height:150px"><canvas id="h-starlink"></canvas></div>
+            </div>
+            <div class="chart-block" style="margin-bottom:0">
+              <div class="chart-label">Robotaxi 服务范围扩展（mi²）</div>
+              <div style="position:relative;width:100%;height:150px"><canvas id="h-robotaxi"></canvas></div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <!-- 侧边栏 -->
       <div class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
@@ -451,14 +478,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     各个专门页面
-══════════════════════════════════════════════ -->
 <div class="page" id="page-flash">
   <div class="wrap" style="max-width:780px">
     <div class="date-rule">最新快讯</div>
     <div class="flash-list">
-      <!-- [PY_ANCHOR_PAGE_NEWS] -->
       <a class="flash-item" href="#" onclick="openModal('f1');return false">
         <div class="flash-time"><span>03-29</span><strong>09:14</strong></div>
         <div class="flash-body">
@@ -483,7 +506,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   <div class="wrap" style="max-width:780px">
     <div class="date-rule">深度报告 · 研究分析</div>
     <div class="article-list">
-      <!-- [PY_ANCHOR_PAGE_ANALYSIS] -->
       <a class="article-item" href="#" onclick="openModal('a1');return false">
         <div class="flash-time"><span>03-25</span><strong>14:30</strong></div>
         <div class="article-body">
@@ -510,7 +532,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   <div class="wrap" style="max-width:780px">
     <div class="date-rule">FSD · Robotaxi 专题追踪</div>
     <div class="article-list">
-      <!-- [PY_ANCHOR_PAGE_FSD] -->
       <a class="article-item" href="#" onclick="openModal('fsd1');return false">
         <div class="flash-time"><span>03-27</span><strong>11:08</strong></div>
         <div class="article-body">
@@ -537,7 +558,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   <div class="wrap">
     <div class="date-rule">视频精选 · YouTube直播与回放</div>
     <div class="video-grid">
-      <!-- [PY_ANCHOR_PAGE_VIDEO] -->
       <div class="video-card">
         <div class="video-embed"><iframe src="https://www.youtube.com/embed/XGh6GhMqlMY" title="SpaceX星舰IFT-9" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
         <div class="video-info">
@@ -551,19 +571,55 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 </div>
 
 <div class="page" id="page-market">
-  <div class="wrap" style="max-width:780px">
-    <div class="date-rule">市场数据 · 机构评级</div>
-    <div class="article-list">
-      <!-- [PY_ANCHOR_PAGE_MARKET] -->
-      <a class="article-item" href="#" onclick="openModal('mk1');return false">
-        <div class="flash-time"><span>03-28</span><strong>20:37</strong></div>
-        <div class="article-body">
-          <div class="article-tag"><span class="h-tag market">市场数据</span></div>
-          <div class="article-title">摩根大通下调Tesla目标价至$135，维持减持评级</div>
-          <div class="article-desc">Q1交付不及预期，欧洲市场能见度低，FSD商业化节奏慢于预期。</div>
-          <div class="article-meta"><span class="src">Bloomberg</span></div>
-        </div>
-      </a>
+  <div class="wrap" style="max-width:900px">
+    <div class="date-rule">市场数据 · 数据看板</div>
+    
+    <div class="data-grid-4">
+      <div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -3.21 (-1.28%)</div><div class="data-source">纽交所 · 昨日收盘</div></div>
+      <div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12% 季度环比</div><div class="data-source">Tesla Q4财报</div></div>
+      <div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ 本月新增96颗</div><div class="data-source">SpaceX官方</div></div>
+      <div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">德州监管局</div></div>
+    </div>
+    
+    <div class="chart-block">
+      <div class="chart-label">TSLA 股价走势（近12个月）</div>
+      <div style="position:relative;width:100%;height:200px"><canvas id="c-tsla"></canvas></div>
+    </div>
+    
+    <div class="chart-2col">
+      <div class="chart-block" style="margin-bottom:0">
+        <div class="chart-label">Tesla 交付量（万辆/季）</div>
+        <div style="position:relative;width:100%;height:190px"><canvas id="c-delivery"></canvas></div>
+      </div>
+      <div class="chart-block" style="margin-bottom:0">
+        <div class="chart-label">FSD 订阅用户增长（万人）</div>
+        <div style="position:relative;width:100%;height:190px"><canvas id="c-fsd"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-2col" style="margin-top:16px">
+      <div class="chart-block" style="margin-bottom:0">
+        <div class="chart-label">Starlink 在轨卫星趋势</div>
+        <div style="position:relative;width:100%;height:170px"><canvas id="c-starlink"></canvas></div>
+      </div>
+      <div class="chart-block" style="margin-bottom:0">
+        <div class="chart-label">Robotaxi 服务范围（mi²）</div>
+        <div style="position:relative;width:100%;height:170px"><canvas id="c-robotaxi"></canvas></div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px">
+      <div class="date-rule">机构评级</div>
+      <div class="article-list" id="market-list">
+        <a class="article-item" href="#" onclick="openModal('mk1');return false">
+          <div class="flash-time"><span>03-28</span><strong>20:37</strong></div>
+          <div class="article-body">
+            <div class="article-tag"><span class="h-tag market">市场数据</span></div>
+            <div class="article-title">摩根大通下调Tesla目标价至$135，维持减持评级</div>
+            <div class="article-desc">Q1交付不及预期，欧洲市场能见度低，FSD商业化节奏慢于预期。</div>
+            <div class="article-meta"><span class="src">Bloomberg</span></div>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -572,7 +628,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   <div class="wrap" style="max-width:780px">
     <div class="date-rule">宏观环境 · 政策与利率</div>
     <div class="flash-list">
-      <!-- [PY_ANCHOR_PAGE_MACRO] -->
       <a class="flash-item" href="#" onclick="openModal('mac1');return false">
         <div class="flash-time"><span>03-25</span><strong>09:00</strong></div>
         <div class="flash-body">
@@ -593,32 +648,18 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- 追踪实体底部 -->
 <div class="entity-section">
   <div class="entity-section-inner">
     <div class="section-label">追踪实体</div>
     <div class="entity-full-grid">
-      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#E31937"/><path d="M10 11h12v2H19v9h-6v-9h-3v-2z" fill="white"/></svg></div><div class="ef-name">Tesla</div><div class="ef-ticker">$TSLA · 纽交所</div><div class="ef-desc">交付数据、财报解读、FSD进展、Cybertruck动态、全球产能追踪</div><div class="ef-count">本周 24 篇</div></div>
-      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#1a1a2e"/><path d="M16 6c-.8 0-2.5 2-3.5 5.5-1.5-.3-2.8-.1-3.5.6-.7.7-.9 2-.6 3.5C5 16.6 3 18.3 3 19.1s2 2.5 5.5 3.5c.3 1.5.1 2.8-.6 3.5" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M16 8v16M12 12l8 8M20 12l-8 8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="ef-name">SpaceX</div><div class="ef-ticker">私有 · 未上市</div><div class="ef-desc">星舰发射进展、Starlink卫星扩张、猎鹰9号、NASA合同动向</div><div class="ef-count">本周 11 篇</div></div>
-      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#111"/><path d="M10 10l12 12M22 10L10 22" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div><div class="ef-name">xAI · Grok</div><div class="ef-ticker">私有 · AI赛道</div><div class="ef-desc">Grok大模型迭代、Memphis超算集群建设、xAI融资与估值</div><div class="ef-count">本周 9 篇</div></div>
-      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#4f46e5"/><circle cx="16" cy="16" r="3" fill="white"/><path d="M16 9v4M16 19v4M9 16h4M19 16h4" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M11.5 11.5l2.8 2.8M17.7 17.7l2.8 2.8M20.5 11.5l-2.8 2.8M11.5 20.5l2.8-2.8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div><div class="ef-name">Neuralink</div><div class="ef-ticker">私有 · 生物科技</div><div class="ef-desc">脑机接口临床进展、FDA审批、竞争对手动向追踪</div><div class="ef-count">本周 4 篇</div></div>
+      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#E31937"/><path d="M10 11h12v2H19v9h-6v-9h-3v-2z" fill="white"/></svg></div><div class="ef-name">Tesla</div><div class="ef-ticker">$TSLA · 纽交所</div><div class="ef-desc">交付数据、财报解读、FSD进展、Cybertruck动态、全球产能追踪</div></div>
+      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#1a1a2e"/><path d="M16 6c-.8 0-2.5 2-3.5 5.5-1.5-.3-2.8-.1-3.5.6-.7.7-.9 2-.6 3.5C5 16.6 3 18.3 3 19.1s2 2.5 5.5 3.5c.3 1.5.1 2.8-.6 3.5" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M16 8v16M12 12l8 8M20 12l-8 8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="ef-name">SpaceX</div><div class="ef-ticker">私有 · 未上市</div><div class="ef-desc">星舰发射进展、Starlink卫星扩张、猎鹰9号、NASA合同动向</div></div>
+      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#111"/><path d="M10 10l12 12M22 10L10 22" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div><div class="ef-name">xAI · Grok</div><div class="ef-ticker">私有 · AI赛道</div><div class="ef-desc">Grok大模型迭代、Memphis超算集群建设、xAI融资与估值</div></div>
+      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#4f46e5"/><circle cx="16" cy="16" r="3" fill="white"/><path d="M16 9v4M16 19v4M9 16h4M19 16h4" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M11.5 11.5l2.8 2.8M17.7 17.7l2.8 2.8M20.5 11.5l-2.8 2.8M11.5 20.5l2.8-2.8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div><div class="ef-name">Neuralink</div><div class="ef-ticker">私有 · 生物科技</div><div class="ef-desc">脑机接口临床进展、FDA审批、竞争对手动向追踪</div></div>
     </div>
   </div>
 </div>
 
-<!-- 订阅横幅 -->
-<div class="sub-banner">
-  <div class="sub-banner-inner">
-    <div>
-      <div class="sub-label">免费订阅 · 每日更新</div>
-      <div class="sub-title">不错过马斯克宇宙的每个关键时刻</div>
-      <div class="sub-desc">加入数千名华人投资者，第一时间获取深度中文情报</div>
-    </div>
-    <a href="https://t.me/Tesla_share" target="_blank" class="sub-btn">订阅频道</a>
-  </div>
-</div>
-
-<!-- Footer -->
 <footer>
   <div class="footer-inner">
     <div class="footer-bottom">
@@ -628,7 +669,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </footer>
 
-<!-- 搜索蒙层 -->
 <div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
   <div class="search-box">
     <div class="search-input-row">
@@ -641,7 +681,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- 弹窗正文 -->
 <div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">×</button>
@@ -656,6 +695,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 // ── 标签切换 ──
 function switchTab(name) {
@@ -729,6 +769,70 @@ document.addEventListener('keydown', function(e) {
     else if (document.getElementById('search-overlay').classList.contains('on')) closeSearch();
   }
 });
+
+// ── 坚如磐石的图表绘制系统 ──
+function initCharts() {
+  if (typeof Chart === 'undefined') {
+    setTimeout(initCharts, 100);
+    return;
+  }
+
+  var tc = 'rgba(90,87,84,0.65)';
+  var gc = 'rgba(0,0,0,0.05)';
+
+  function createChart(elId, type, data, yFormat) {
+    var el = document.getElementById(elId);
+    if (!el) return;
+
+    var config = {
+      type: type,
+      data: JSON.parse(JSON.stringify(data)),
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
+        scales: {
+          x: { ticks: { color: tc, font: { size: 10 }, maxRotation: 0, autoSkip: false }, grid: { color: gc }, border: { display: false } },
+          y: { ticks: { color: tc, font: { size: 10 } }, grid: { color: gc }, border: { display: false } }
+        }
+      }
+    };
+
+    if (yFormat === 'price') {
+      config.options.scales.y.ticks.callback = function(v){ return '$' + v; };
+    } else if (yFormat === 'wan') {
+      config.options.scales.y.ticks.callback = function(v){ return v + '万'; };
+    } else if (yFormat === 'mi') {
+      config.options.scales.y.ticks.callback = function(v){ return v + ' mi²'; };
+    } else if (yFormat === 'num') {
+      config.options.scales.y.min = 5600;
+      config.options.scales.y.ticks.callback = function(v){ return v.toLocaleString(); };
+    }
+
+    new Chart(el, config);
+  }
+
+  var tslaData = { labels:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'], datasets:[{data:[402,388,356,371,342,318,295,280,271,262,255,248], borderColor:'#CC2929',backgroundColor:'rgba(204,41,41,0.07)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#CC2929',borderWidth:1.5}] };
+  var deliveryData = { labels:['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[38.7,44.4,46.2,49.5,33.6], backgroundColor:['#378ADD','#378ADD','#378ADD','#378ADD','#CC2929'], borderRadius:3,borderWidth:0}] };
+  var fsdData = { labels:['Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[32,41,52,64,78,95,110,124], borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.08)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#1D9E75',borderWidth:1.5}] };
+  var starlinkData = { labels:['3月','4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月','3月'], datasets:[{data:[5792,5912,6088,6231,6402,6580,6741,6892,7012,7108,7192,7248,7284], borderColor:'#534AB7',backgroundColor:'rgba(83,74,183,0.07)',fill:true,tension:0.4,pointRadius:2,borderWidth:1.5}] };
+  var robotaxiData = { labels:['1月上线','2月','3月'], datasets:[{data:[21,21,42], backgroundColor:['#639922','#639922','#1D9E75'], borderRadius:3,borderWidth:0}] };
+
+  // 市场数据页图表
+  createChart('c-tsla', 'line', tslaData, 'price');
+  createChart('c-delivery', 'bar', deliveryData, 'wan');
+  createChart('c-fsd', 'line', fsdData, 'wan');
+  createChart('c-starlink', 'line', starlinkData, 'num');
+  createChart('c-robotaxi', 'bar', robotaxiData, 'mi');
+
+  // 首页图表
+  createChart('h-tsla', 'line', tslaData, 'price');
+  createChart('h-delivery', 'bar', deliveryData, 'wan');
+  createChart('h-fsd', 'line', fsdData, 'wan');
+  createChart('h-starlink', 'line', starlinkData, 'num');
+  createChart('h-robotaxi', 'bar', robotaxiData, 'mi');
+}
+
+window.addEventListener('load', initCharts);
 </script>
 </body>
 </html>
