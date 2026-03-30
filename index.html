@@ -290,6 +290,102 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   .intro-stat{padding:0}
   .intro-stat-div{display:none}
 }
+
+/* ── 子页面侧边栏 ── */
+.entity-list { display:flex; flex-direction:column; gap:0; }
+.entity-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
+.entity-item:last-child { border-bottom:none; }
+.entity-item:hover { color:var(--red); }
+.entity-icon { font-size:16px; width:24px; text-align:center; flex-shrink:0; }
+.entity-name { font-size:13px; font-weight:500; color:var(--text); }
+.entity-sub { font-family:var(--mono); font-size:10px; color:var(--text3); }
+.entity-count { margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--text3); flex-shrink:0; }
+.tag-cloud { display:flex; flex-wrap:wrap; gap:6px; }
+.tag-pill { font-family:var(--mono); font-size:10px; color:var(--text2); border:1px solid var(--border); padding:3px 8px; cursor:pointer; transition:all .15s; white-space:nowrap; }
+.tag-pill:hover { border-color:var(--red); color:var(--red); }
+
+/* ── 视频2列网格 ── */
+.video-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.video-card-item { display:flex; flex-direction:column; border:1px solid var(--border); text-decoration:none; color:inherit; transition:border-color .18s, box-shadow .18s; background:var(--bg); }
+.video-card-item:hover { border-color:var(--border2); box-shadow:0 2px 12px rgba(0,0,0,.06); }
+.video-thumb { width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--bg3); }
+.video-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.video-thumb-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:28px; color:var(--text3); }
+.video-card-body { padding:14px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.video-card-title { font-family:var(--serif); font-size:14px; font-weight:600; color:var(--black); line-height:1.45; }
+.video-card-desc { font-size:12px; color:var(--text2); line-height:1.7; flex:1; }
+.video-card-meta { font-family:var(--mono); font-size:10px; color:var(--text3); display:flex; align-items:center; gap:6px; }
+
+
+/* ── 本周精选卡片 ── */
+.featured-card {
+  border:1px solid var(--border);
+  border-left:3px solid var(--red);
+  background:linear-gradient(135deg, rgba(204,41,41,.03) 0%, var(--bg) 60%);
+  padding:28px;
+  cursor:pointer;
+  transition:box-shadow .2s, border-color .2s;
+  margin-bottom:8px;
+}
+.featured-card:hover {
+  box-shadow:0 4px 20px rgba(204,41,41,.08);
+  border-color:var(--red);
+}
+.featured-label {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+.featured-badge {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#fff;
+  background:var(--red);
+  padding:3px 8px;
+}
+.featured-tag {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.1em;
+  color:var(--text3);
+  text-transform:uppercase;
+}
+.featured-title {
+  font-family:var(--serif);
+  font-size:clamp(18px,2vw,24px);
+  font-weight:700;
+  color:var(--black);
+  line-height:1.35;
+  margin-bottom:12px;
+  letter-spacing:-.01em;
+}
+.featured-desc {
+  font-size:14px;
+  color:var(--text2);
+  line-height:1.85;
+  margin-bottom:16px;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.featured-meta {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--text3);
+}
+.featured-read {
+  margin-left:auto;
+  color:var(--red);
+  font-weight:500;
+  letter-spacing:.04em;
+}
 </style>
 </head>
 <body>
@@ -475,40 +571,331 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
 <!-- ══ 快讯 ══ -->
 <div class="page" id="page-flash">
-  <div class="wrap single-col">
-    <div class="date-rule" id="flash-date-rule">最新快讯</div>
-    <div class="flash-list" id="flash-list">
-      <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载快讯...</div>
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="date-rule" id="flash-date-rule">最新快讯</div>
+        <div class="flash-list" id="flash-list">
+          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载快讯...</div>
+        </div>
+      </div>
+      <!-- 侧边栏 -->
+      <aside class="sidebar">
+        <div class="sb-block">
+          <div class="sb-head"><span>市场快览</span></div>
+          <div class="data-list">
+            <div class="data-row">
+              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
+              <div class="data-change dn">▼ 1.28%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
+              <div class="data-change up">▲ 12%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
+              <div class="data-change up">▲ 96颗/月</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
+              <div class="data-change up">▲ 翻倍</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
+          <div class="entity-list">
+            <div class="entity-item" onclick="doSearch('Tesla')">
+              <div class="entity-icon">⚡</div>
+              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
+              <div class="entity-count" id="sb-ef-tesla">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('SpaceX')">
+              <div class="entity-icon">🚀</div>
+              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-spacex">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('xAI')">
+              <div class="entity-icon">🧠</div>
+              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-xai">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('Neuralink')">
+              <div class="entity-icon">💡</div>
+              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-neuralink">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>热门话题</span></div>
+          <div class="tag-cloud">
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
+            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
+            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
+            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
+            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
+            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
+            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
+            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
+            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 </div>
 
 <!-- ══ 深度分析 ══ -->
 <div class="page" id="page-analysis">
-  <div class="wrap single-col">
-    <div class="date-rule">深度报告 · 研究分析</div>
-    <div class="article-list" id="analysis-list">
-      <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载深度分析...</div>
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="date-rule">深度报告 · 研究分析</div>
+
+        <!-- 本周精选 -->
+        <div class="featured-card" id="featured-card" style="display:none">
+          <div class="featured-header">
+            <div class="featured-badge-row">
+              <span class="featured-badge">★ 本周精选</span>
+              <span class="featured-tag" id="featured-tag"></span>
+            </div>
+            <span class="featured-entity-label" id="featured-entity"></span>
+          </div>
+          <div class="featured-title" id="featured-title"></div>
+          <div class="featured-desc" id="featured-desc"></div>
+          <div class="featured-footer">
+            <div class="featured-meta">
+              <span class="src" id="featured-src"></span>
+              <span class="meta-dot"></span>
+              <span id="featured-date"></span>
+            </div>
+            <button class="featured-btn" id="featured-btn">阅读全文 →</button>
+          </div>
+        </div>
+
+        <div class="date-rule" style="margin-top:28px">全部深度分析</div>
+        <div class="article-list" id="analysis-list">
+          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载深度分析...</div>
+        </div>
+      </div>
+      <!-- 侧边栏 -->
+      <aside class="sidebar">
+        <div class="sb-block">
+          <div class="sb-head"><span>市场快览</span></div>
+          <div class="data-list">
+            <div class="data-row">
+              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
+              <div class="data-change dn">▼ 1.28%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
+              <div class="data-change up">▲ 12%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
+              <div class="data-change up">▲ 96颗/月</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
+              <div class="data-change up">▲ 翻倍</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
+          <div class="entity-list">
+            <div class="entity-item" onclick="doSearch('Tesla')">
+              <div class="entity-icon">⚡</div>
+              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
+              <div class="entity-count" id="sb-ef-tesla">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('SpaceX')">
+              <div class="entity-icon">🚀</div>
+              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-spacex">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('xAI')">
+              <div class="entity-icon">🧠</div>
+              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-xai">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('Neuralink')">
+              <div class="entity-icon">💡</div>
+              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-neuralink">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>热门话题</span></div>
+          <div class="tag-cloud">
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
+            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
+            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
+            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
+            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
+            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
+            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
+            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
+            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 </div>
 
 <!-- ══ FSD · Robotaxi ══ -->
 <div class="page" id="page-fsd">
-  <div class="wrap single-col">
-    <div class="date-rule">FSD · Robotaxi 专题追踪</div>
-    <div class="article-list" id="fsd-list">
-      <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="date-rule">FSD · Robotaxi 专题追踪</div>
+        <div class="article-list" id="fsd-list">
+          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
+        </div>
+      </div>
+      <!-- 侧边栏 -->
+      <aside class="sidebar">
+        <div class="sb-block">
+          <div class="sb-head"><span>市场快览</span></div>
+          <div class="data-list">
+            <div class="data-row">
+              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
+              <div class="data-change dn">▼ 1.28%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
+              <div class="data-change up">▲ 12%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
+              <div class="data-change up">▲ 96颗/月</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
+              <div class="data-change up">▲ 翻倍</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
+          <div class="entity-list">
+            <div class="entity-item" onclick="doSearch('Tesla')">
+              <div class="entity-icon">⚡</div>
+              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
+              <div class="entity-count" id="sb-ef-tesla">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('SpaceX')">
+              <div class="entity-icon">🚀</div>
+              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-spacex">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('xAI')">
+              <div class="entity-icon">🧠</div>
+              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-xai">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('Neuralink')">
+              <div class="entity-icon">💡</div>
+              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-neuralink">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>热门话题</span></div>
+          <div class="tag-cloud">
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
+            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
+            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
+            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
+            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
+            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
+            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
+            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
+            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 </div>
 
 <!-- ══ 视频 ══ -->
 <div class="page" id="page-video">
-  <div class="wrap single-col">
-    <div class="date-rule">视频精选 · YouTube直播与回放</div>
-    <div class="video-card-list" id="video-list">
-      <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载视频...</div>
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="date-rule">视频精选 · YouTube直播与回放</div>
+        <div class="video-grid" id="video-list">
+          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载视频...</div>
+        </div>
+      </div>
+      <!-- 侧边栏 -->
+      <aside class="sidebar">
+        <div class="sb-block">
+          <div class="sb-head"><span>市场快览</span></div>
+          <div class="data-list">
+            <div class="data-row">
+              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
+              <div class="data-change dn">▼ 1.28%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
+              <div class="data-change up">▲ 12%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
+              <div class="data-change up">▲ 96颗/月</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
+              <div class="data-change up">▲ 翻倍</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
+          <div class="entity-list">
+            <div class="entity-item" onclick="doSearch('Tesla')">
+              <div class="entity-icon">⚡</div>
+              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
+              <div class="entity-count" id="sb-ef-tesla">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('SpaceX')">
+              <div class="entity-icon">🚀</div>
+              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-spacex">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('xAI')">
+              <div class="entity-icon">🧠</div>
+              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-xai">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('Neuralink')">
+              <div class="entity-icon">💡</div>
+              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-neuralink">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>热门话题</span></div>
+          <div class="tag-cloud">
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
+            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
+            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
+            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
+            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
+            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
+            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
+            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
+            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 </div>
@@ -558,10 +945,77 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
 <!-- ══ 宏观 ══ -->
 <div class="page" id="page-macro">
-  <div class="wrap single-col">
-    <div class="date-rule">宏观环境 · 政策与利率</div>
-    <div class="flash-list" id="macro-list">
-      <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="date-rule">宏观环境 · 政策与利率</div>
+        <div class="flash-list" id="macro-list">
+          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
+        </div>
+      </div>
+      <!-- 侧边栏 -->
+      <aside class="sidebar">
+        <div class="sb-block">
+          <div class="sb-head"><span>市场快览</span></div>
+          <div class="data-list">
+            <div class="data-row">
+              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
+              <div class="data-change dn">▼ 1.28%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
+              <div class="data-change up">▲ 12%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
+              <div class="data-change up">▲ 96颗/月</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
+              <div class="data-change up">▲ 翻倍</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
+          <div class="entity-list">
+            <div class="entity-item" onclick="doSearch('Tesla')">
+              <div class="entity-icon">⚡</div>
+              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
+              <div class="entity-count" id="sb-ef-tesla">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('SpaceX')">
+              <div class="entity-icon">🚀</div>
+              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-spacex">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('xAI')">
+              <div class="entity-icon">🧠</div>
+              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-xai">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('Neuralink')">
+              <div class="entity-icon">💡</div>
+              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-neuralink">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>热门话题</span></div>
+          <div class="tag-cloud">
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
+            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
+            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
+            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
+            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
+            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
+            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
+            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
+            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 </div>
@@ -724,6 +1178,16 @@ function highlight(text, kw) {
   if (!kw) return text;
   return text.replace(new RegExp('('+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
 }
+
+function searchTag(kw) {
+  openSearch();
+  setTimeout(function(){
+    var input = document.getElementById('search-input');
+    input.value = kw;
+    doSearch(kw);
+  }, 100);
+}
+
 function doSearch(q) {
   q = q.trim();
   var meta = document.getElementById('search-meta');
@@ -839,6 +1303,35 @@ function renderAll(items) {
   // 各板块
   setEl('flash-list',    flash.length    ? flash.slice(0,30).map(makeFlashItem).join('')    : empty('暂无快讯'));
   setEl('analysis-list', analysis.length ? analysis.slice(0,20).map(makeArticleItem).join('') : empty('暂无深度分析'));
+
+  // 本周精选：取深度分析第一条
+  var fc = document.getElementById('featured-card');
+  if (fc && analysis.length > 0) {
+    var top = analysis[0];
+    var fid = 'dyn_' + top.id;
+    document.getElementById('featured-tag').textContent = top.category || '深度分析';
+    document.getElementById('featured-entity').textContent = top.entity || '';
+    document.getElementById('featured-title').textContent = top.title || '';
+    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\n/g,' ').substring(0, 200) + '...';
+    document.getElementById('featured-src').textContent = top.entity || '';
+    document.getElementById('featured-date').textContent = (top.date || '') + ' ' + (top.time || '');
+    document.getElementById('featured-btn').onclick = function(){ openModal(fid); };
+    fc.style.display = 'block';
+  }
+
+  // 本周精选：取深度分析第一条
+  var fc = document.getElementById('featured-card');
+  if (fc && analysis.length > 0) {
+    var top = analysis[0];
+    var topId = 'dyn_' + top.id;
+    document.getElementById('featured-title').textContent = top.title || '';
+    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\n/g, ' ').substring(0, 200);
+    document.getElementById('featured-src').textContent = top.entity || '';
+    document.getElementById('featured-date').textContent = (top.date || '') + (top.time ? ' ' + top.time : '');
+    document.getElementById('featured-tag').textContent = top.category || '深度分析';
+    fc._featuredId = topId;
+    fc.style.display = 'block';
+  }
   setEl('fsd-list',      fsd.length      ? fsd.slice(0,20).map(makeArticleItem).join('')    : empty('暂无FSD内容'));
   setEl('video-list',    video.length    ? video.slice(0,20).map(makeVideoItem).join('')    : empty('暂无视频'));
   setEl('market-list',   market.length   ? market.slice(0,10).map(makeArticleItem).join('') : empty('暂无市场数据'));
@@ -882,6 +1375,10 @@ function renderAll(items) {
   setEl('ef-spacex',   counts.spacex   + '篇');
   setEl('ef-xai',      counts.xai      + '篇');
   setEl('ef-neuralink',counts.neuralink+ '篇');
+  setEl('sb-ef-tesla',    counts.tesla    + '篇');
+  setEl('sb-ef-spacex',   counts.spacex   + '篇');
+  setEl('sb-ef-xai',      counts.xai      + '篇');
+  setEl('sb-ef-neuralink',counts.neuralink+ '篇');
 }
 
 function loadFeed() {
