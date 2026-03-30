@@ -102,15 +102,17 @@ nav { position:sticky; top:0; z-index:200; background:rgba(250,250,248,.96); bac
 
 /* ── 深度文章列表 ── */
 .article-list { display:flex; flex-direction:column; gap:0; border:1px solid var(--border) }
-.article-item { display:grid; grid-template-columns:56px 1fr; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s var(--ease); text-decoration:none; color:inherit }
+.article-item { display:grid; grid-template-columns:80px 1fr; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s var(--ease); text-decoration:none; color:inherit }
 .article-item:last-child { border-bottom:none }
 .article-item:hover { background:var(--bg2) }
-.article-num { background:var(--bg2); border-right:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:11px; color:var(--border2); letter-spacing:.04em; flex-shrink:0 }
-.article-body { padding:20px 22px }
-.article-tag { margin-bottom:10px }
-.article-title { font-family:var(--serif); font-size:17px; font-weight:600; line-height:1.45; color:var(--black); margin-bottom:8px }
+.article-num { display:none }
+.article-date { background:var(--bg2); border-right:1px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px 8px; font-family:var(--mono); font-size:10px; color:var(--text3); text-align:center; line-height:1.5; letter-spacing:.03em; gap:2px; flex-shrink:0 }
+.article-date strong { font-size:13px; color:var(--text2); font-weight:400; letter-spacing:0 }
+.article-body { padding:16px 20px }
+.article-tag { margin-bottom:8px }
+.article-title { font-family:var(--serif); font-size:16px; font-weight:600; line-height:1.45; color:var(--black); margin-bottom:6px }
 .article-desc { font-family:var(--sans); font-size:15px; font-weight:400; color:var(--text2); line-height:1.9 }
-.article-meta { margin-top:12px; display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em }
+.article-meta { margin-top:10px; display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em }
 .article-meta .src { color:var(--red) }
 
 /* ── 视频网格 ── */
@@ -311,6 +313,92 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
   .modal-box { margin-top:0 }
   .modal-head,.modal-body { padding:20px 18px }
 }
+
+/* ── 搜索 ── */
+.search-trigger {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px;
+  background:none; border:1px solid var(--border); border-radius:5px;
+  color:var(--text2); cursor:pointer;
+  transition:all .18s var(--ease);
+}
+.search-trigger:hover { border-color:var(--border2); color:var(--text); background:var(--bg2); }
+
+.search-overlay {
+  display:none; position:fixed; inset:0; z-index:400;
+  background:rgba(15,15,14,.55); backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  align-items:flex-start; justify-content:center;
+  padding:80px 20px 20px;
+}
+.search-overlay.on { display:flex; }
+
+.search-box {
+  background:var(--bg); border:1px solid var(--border2);
+  width:100%; max-width:640px;
+  max-height:calc(100vh - 120px);
+  display:flex; flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 16px 48px rgba(0,0,0,.15);
+}
+
+.search-input-row {
+  display:flex; align-items:center; gap:10px;
+  padding:14px 16px; border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.search-input-row input {
+  flex:1; border:none; outline:none; background:none;
+  font-family:var(--sans); font-size:16px; color:var(--text);
+}
+.search-input-row input::placeholder { color:var(--text3); }
+
+.search-close-btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:28px; height:28px; background:none; border:none;
+  color:var(--text3); cursor:pointer; flex-shrink:0;
+  transition:color .15s;
+}
+.search-close-btn:hover { color:var(--text); }
+
+.search-meta {
+  padding:8px 16px;
+  font-family:var(--mono); font-size:10px; color:var(--text3);
+  letter-spacing:.06em; border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+
+.search-results { overflow-y:auto; flex:1; }
+
+.search-result-item {
+  display:block; padding:14px 18px; border-bottom:1px solid var(--border);
+  text-decoration:none; color:inherit;
+  transition:background .15s var(--ease); cursor:pointer;
+}
+.search-result-item:last-child { border-bottom:none; }
+.search-result-item:hover { background:var(--bg2); }
+
+.sr-tag {
+  font-family:var(--mono); font-size:9px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--text3);
+  margin-bottom:5px;
+}
+.sr-title {
+  font-family:var(--serif); font-size:15px; font-weight:600;
+  color:var(--black); line-height:1.4; margin-bottom:4px;
+}
+.sr-title mark {
+  background:rgba(204,41,41,.12); color:var(--red);
+  border-radius:2px; padding:0 2px;
+}
+.sr-meta {
+  font-family:var(--mono); font-size:10px; color:var(--text3);
+  letter-spacing:.04em;
+}
+.search-empty {
+  padding:40px 20px; text-align:center;
+  font-family:var(--sans); font-size:14px; color:var(--text3);
+}
 </style>
 </head>
 <body>
@@ -324,6 +412,12 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
       <span class="logo-sub">马斯克生态中文媒体</span>
     </a>
     <div class="nav-r">
+      <button class="search-trigger" onclick="openSearch()" title="搜索">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </button>
       <div class="live"><div class="dot"></div>实时更新</div>
       <a href="https://t.me/Tesla_share" target="_blank" class="nav-join">
         订阅频道
@@ -465,27 +559,27 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
           </div>
           <div class="article-list">
             <a class="article-item" href="#" onclick="openModal('a1');return false">
-              <div class="article-num">01</div>
+              <div class="article-date"><span>03-25</span><strong>14:30</strong></div>
               <div class="article-body">
                 <div class="article-tag"><span class="h-tag analysis">深度分析</span></div>
                 <div class="article-title">Grok 3 vs GPT-4o vs Gemini 2.0：六大基准测试横向对比与投资含义</div>
-                <div class="article-meta"><span class="src">xAI · OpenAI · Google</span><span class="meta-dot"></span><span>03-25</span></div>
+                <div class="article-meta"><span class="src">xAI · OpenAI · Google</span><span class="meta-dot"></span></div>
               </div>
             </a>
             <a class="article-item" href="#" onclick="openModal('a2');return false">
-              <div class="article-num">02</div>
+              <div class="article-date"><span>03-24</span><strong>09:15</strong></div>
               <div class="article-body">
                 <div class="article-tag"><span class="h-tag data">数据</span></div>
                 <div class="article-title">Tesla 2026 Q1全球交付数据拆解：中国逆势增长，欧洲创近8季新低</div>
-                <div class="article-meta"><span class="src">Tesla官方 · 多家机构</span><span class="meta-dot"></span><span>03-24</span></div>
+                <div class="article-meta"><span class="src">Tesla官方 · 多家机构</span><span class="meta-dot"></span></div>
               </div>
             </a>
             <a class="article-item" href="#" onclick="openModal('a3');return false">
-              <div class="article-num">03</div>
+              <div class="article-date"><span>03-22</span><strong>11:40</strong></div>
               <div class="article-body">
                 <div class="article-tag"><span class="h-tag analysis">深度分析</span></div>
                 <div class="article-title">SpaceX Starship商业化路径：NASA合同里程碑解读</div>
-                <div class="article-meta"><span class="src">NASA · SpaceX</span><span class="meta-dot"></span><span>03-22</span></div>
+                <div class="article-meta"><span class="src">NASA · SpaceX</span><span class="meta-dot"></span></div>
               </div>
             </a>
           </div>
@@ -499,19 +593,19 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
           </div>
           <div class="article-list">
             <a class="article-item" href="#" onclick="openModal('fsd1');return false">
-              <div class="article-num">01</div>
+              <div class="article-date"><span>03-27</span><strong>11:08</strong></div>
               <div class="article-body">
                 <div class="article-tag"><span class="h-tag fsd">FSD</span></div>
                 <div class="article-title">FSD v13.2.7大规模推送：新增高速自动并线，覆盖北美94万辆车</div>
-                <div class="article-meta"><span class="src">Not a Tesla App</span><span class="meta-dot"></span><span>03-27</span></div>
+                <div class="article-meta"><span class="src">Not a Tesla App</span><span class="meta-dot"></span></div>
               </div>
             </a>
             <a class="article-item" href="#" onclick="openModal('fsd2');return false">
-              <div class="article-num">02</div>
+              <div class="article-date"><span>03-26</span><strong>15:30</strong></div>
               <div class="article-body">
                 <div class="article-tag"><span class="h-tag fsd">Robotaxi</span></div>
                 <div class="article-title">奥斯汀Robotaxi扩区至42平方英里：运营数据、事故率与商业化节奏全解读</div>
-                <div class="article-meta"><span class="src">Tesla · 德州监管局</span><span class="meta-dot"></span><span>03-26</span></div>
+                <div class="article-meta"><span class="src">Tesla · 德州监管局</span><span class="meta-dot"></span></div>
               </div>
             </a>
           </div>
@@ -732,48 +826,48 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
     <div class="date-rule">深度报告 · 研究分析</div>
     <div class="article-list">
       <a class="article-item" href="#" onclick="openModal('a1');return false">
-        <div class="article-num">01</div>
+        <div class="article-date"><span>03-25</span><strong>14:30</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag analysis">深度分析</span></div>
           <div class="article-title">Grok 3 vs GPT-4o vs Gemini 2.0：六大基准测试横向对比与投资含义</div>
           <div class="article-desc">从MMLU、HumanEval、MATH等维度拆解最新结果，分析xAI差异化优势，以及对Tesla FSD路线图的潜在影响。</div>
-          <div class="article-meta"><span class="src">xAI · OpenAI · Google</span><span class="meta-dot"></span><span>03-25</span></div>
+          <div class="article-meta"><span class="src">xAI · OpenAI · Google</span><span class="meta-dot"></span></div>
         </div>
       </a>
       <a class="article-item" href="#" onclick="openModal('a2');return false">
-        <div class="article-num">02</div>
+        <div class="article-date"><span>03-24</span><strong>09:15</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag analysis">深度分析</span></div>
           <div class="article-title">Tesla 2026 Q1全球交付数据拆解：中国逆势增长，欧洲创近8季新低</div>
           <div class="article-desc">按地区、车型、季度环比分析完整交付数据，附华尔街主流机构最新目标价与评级变化汇总。</div>
-          <div class="article-meta"><span class="src">Tesla官方 · 多家机构</span><span class="meta-dot"></span><span>03-24</span></div>
+          <div class="article-meta"><span class="src">Tesla官方 · 多家机构</span><span class="meta-dot"></span></div>
         </div>
       </a>
       <a class="article-item" href="#" onclick="openModal('a3');return false">
-        <div class="article-num">03</div>
+        <div class="article-date"><span>03-22</span><strong>11:40</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag analysis">深度分析</span></div>
           <div class="article-title">SpaceX Starship商业化路径：从测试飞行到月球任务，NASA合同里程碑解读</div>
           <div class="article-desc">梳理SpaceX与NASA Artemis计划的合同进展、付款节点与技术验证要求。</div>
-          <div class="article-meta"><span class="src">NASA · SpaceX</span><span class="meta-dot"></span><span>03-22</span></div>
+          <div class="article-meta"><span class="src">NASA · SpaceX</span><span class="meta-dot"></span></div>
         </div>
       </a>
       <a class="article-item" href="#" onclick="openModal('a4');return false">
-        <div class="article-num">04</div>
+        <div class="article-date"><span>03-20</span><strong>16:00</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag analysis">深度分析</span></div>
           <div class="article-title">Neuralink首位患者植入270天完整数据：信号稳定性、操控精度与未来展望</div>
           <div class="article-desc">从官方披露的270天随访数据出发，解读BCI芯片在实际使用中的性能曲线。</div>
-          <div class="article-meta"><span class="src">Neuralink</span><span class="meta-dot"></span><span>03-20</span></div>
+          <div class="article-meta"><span class="src">Neuralink</span><span class="meta-dot"></span></div>
         </div>
       </a>
       <a class="article-item" href="#" onclick="openModal('a5');return false">
-        <div class="article-num">05</div>
+        <div class="article-date"><span>03-18</span><strong>10:20</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag analysis">深度分析</span></div>
           <div class="article-title">马斯克薪酬方案深度解读：12个绩效目标与Tesla估值的关联逻辑</div>
           <div class="article-desc">拆解各绩效触发条件，测算每个里程碑达成对股价的边际影响。</div>
-          <div class="article-meta"><span class="src">Tesla SEC文件</span><span class="meta-dot"></span><span>03-18</span></div>
+          <div class="article-meta"><span class="src">Tesla SEC文件</span><span class="meta-dot"></span></div>
         </div>
       </a>
     </div>
@@ -785,39 +879,39 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
     <div class="date-rule">FSD · Robotaxi 专题追踪</div>
     <div class="article-list">
       <a class="article-item" href="#" onclick="openModal('fsd1');return false">
-        <div class="article-num">01</div>
+        <div class="article-date"><span>03-27</span><strong>11:08</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag fsd">FSD</span></div>
           <div class="article-title">FSD v13.2.7大规模推送：新增高速自动并线，覆盖北美94万辆车</div>
           <div class="article-desc">Tesla OTA 2026.12.4核心升级包括高速公路匝道自动并线、城市道路红绿灯识别精度提升18%，以及雨天视觉鲁棒性改进。</div>
-          <div class="article-meta"><span class="src">Not a Tesla App</span><span class="meta-dot"></span><span>03-27</span></div>
+          <div class="article-meta"><span class="src">Not a Tesla App</span><span class="meta-dot"></span></div>
         </div>
       </a>
       <a class="article-item" href="#" onclick="openModal('fsd2');return false">
-        <div class="article-num">02</div>
+        <div class="article-date"><span>03-26</span><strong>15:30</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag fsd">Robotaxi</span></div>
           <div class="article-title">奥斯汀Robotaxi扩区至42平方英里：运营数据、事故率与商业化节奏全解读</div>
           <div class="article-desc">自2026年1月上路以来，服务范围已翻倍。本文汇总公开运营数据、乘客反馈与监管动向。</div>
-          <div class="article-meta"><span class="src">Tesla · 德州监管局</span><span class="meta-dot"></span><span>03-26</span></div>
+          <div class="article-meta"><span class="src">Tesla · 德州监管局</span><span class="meta-dot"></span></div>
         </div>
       </a>
       <a class="article-item" href="#" onclick="openModal('fsd3');return false">
-        <div class="article-num">03</div>
+        <div class="article-date"><span>03-24</span><strong>09:15</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag fsd">FSD</span></div>
           <div class="article-title">FSD订阅用户突破124万：转化率、留存率与1000万目标的距离</div>
           <div class="article-desc">Q4财报披露FSD活跃订阅用户同比翻倍，距马斯克薪酬方案触发条件仍有距离。</div>
-          <div class="article-meta"><span class="src">Tesla Q4财报</span><span class="meta-dot"></span><span>03-24</span></div>
+          <div class="article-meta"><span class="src">Tesla Q4财报</span><span class="meta-dot"></span></div>
         </div>
       </a>
       <a class="article-item" href="#" onclick="openModal('fsd4');return false">
-        <div class="article-num">04</div>
+        <div class="article-date"><span>03-22</span><strong>11:40</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag fsd">Robotaxi</span></div>
           <div class="article-title">Waymo vs Tesla Robotaxi：技术路线、运营规模与市场估值全面对比</div>
           <div class="article-desc">激光雷达+HD地图 vs 纯视觉端到端，两条路线的成本结构、可扩展性与监管风险深度对比。</div>
-          <div class="article-meta"><span class="src">多来源综合</span><span class="meta-dot"></span><span>03-22</span></div>
+          <div class="article-meta"><span class="src">多来源综合</span><span class="meta-dot"></span></div>
         </div>
       </a>
     </div>
@@ -953,21 +1047,21 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
     </div>
     <div class="article-list">
       <a class="article-item" href="#" onclick="openModal('mk1');return false">
-        <div class="article-num">01</div>
+        <div class="article-date"><span>03-28</span><strong>20:37</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag market">市场数据</span></div>
           <div class="article-title">摩根大通下调Tesla目标价至$135，维持减持评级</div>
           <div class="article-desc">Q1交付不及预期，欧洲市场能见度低，FSD商业化节奏慢于预期。</div>
-          <div class="article-meta"><span class="src">Bloomberg</span><span class="meta-dot"></span><span>03-28</span></div>
+          <div class="article-meta"><span class="src">Bloomberg</span><span class="meta-dot"></span></div>
         </div>
       </a>
       <a class="article-item" href="#" onclick="openModal('mk2');return false">
-        <div class="article-num">02</div>
+        <div class="article-date"><span>03-24</span><strong>09:15</strong></div>
         <div class="article-body">
           <div class="article-tag"><span class="h-tag market">市场数据</span></div>
           <div class="article-title">Tesla Q1交付33.6万辆：12家机构评级汇总与目标价分布</div>
           <div class="article-desc">目标价分布从$135到$400，分歧创近两年新高，核心分歧点在于FSD/Robotaxi商业化时间表。</div>
-          <div class="article-meta"><span class="src">多家机构</span><span class="meta-dot"></span><span>03-24</span></div>
+          <div class="article-meta"><span class="src">多家机构</span><span class="meta-dot"></span></div>
         </div>
       </a>
     </div>
@@ -1098,6 +1192,27 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
     </div>
   </div>
 </footer>
+
+
+<!-- ══ 搜索蒙层 ══ -->
+<div class="search-overlay" id="search-overlay" onclick="closeSearch(event)">
+  <div class="search-box" id="search-box">
+    <div class="search-input-row">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;color:var(--text3)">
+        <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/>
+        <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <input id="search-input" type="text" placeholder="搜索文章、快讯、公司名称…" autocomplete="off" oninput="doSearch(this.value)">
+      <button class="search-close-btn" onclick="closeSearch()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="search-meta" id="search-meta">输入关键词搜索全站内容</div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
 
 <!-- ══════════ 弹窗正文 ══════════ -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
@@ -1297,6 +1412,101 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal({
 
   initCharts();
 })();
+</script>
+
+
+<script>
+// ── 搜索数据索引 ──
+var searchIndex = [
+  // 快讯
+  {cat:'快讯', entity:'xAI · Grok', title:'马斯克：xAI Memphis集群年底部署超10万张H100，与多个主权财富基金接洽新融资，估值或突破450亿美元', modal:'f1', date:'03-29'},
+  {cat:'快讯', entity:'$TSLA', title:'摩根大通下调Tesla目标价至$135，维持减持评级', modal:'f2', date:'03-28'},
+  {cat:'快讯', entity:'SpaceX', title:'星舰IFT-9成功完成全程飞行，超重推进器由Mechazilla夹臂捕获', modal:'f3', date:'03-28'},
+  {cat:'快讯', entity:'$TSLA · FSD', title:'Tesla OTA 2026.12.4推送，FSD v13新增高速路口自动并线功能', modal:'f4', date:'03-27'},
+  {cat:'快讯', entity:'Neuralink', title:'Neuralink第三位患者完成植入手术，FDA批准扩大临床试验规模', modal:'f5', date:'03-26'},
+  {cat:'快讯', entity:'$TSLA · NHTSA', title:'NHTSA对Tesla Model 3/Y后摄像头延迟问题展开初步调查，涉及约84万辆车', modal:'f6', date:'03-25'},
+  {cat:'快讯', entity:'SpaceX · Starlink', title:'SpaceX本月第6次发射Starlink卫星，在轨总数突破7,284颗', modal:'f8', date:'03-24'},
+  {cat:'快讯', entity:'Tesla · Optimus', title:'马斯克：Optimus机器人2026年底产量目标上调至5万台', modal:'f7', date:'03-23'},
+  // 深度分析
+  {cat:'深度分析', entity:'xAI', title:'Grok 3 vs GPT-4o vs Gemini 2.0：六大基准测试横向对比与投资含义', modal:'a1', date:'03-25'},
+  {cat:'深度分析', entity:'Tesla', title:'Tesla 2026 Q1全球交付数据拆解：中国逆势增长，欧洲创近8季新低', modal:'a2', date:'03-24'},
+  {cat:'深度分析', entity:'SpaceX', title:'SpaceX Starship商业化路径：从测试飞行到月球任务，NASA合同里程碑解读', modal:'a3', date:'03-22'},
+  {cat:'深度分析', entity:'Neuralink', title:'Neuralink首位患者植入270天完整数据：信号稳定性、操控精度与未来展望', modal:'a4', date:'03-20'},
+  {cat:'深度分析', entity:'Tesla', title:'马斯克薪酬方案深度解读：12个绩效目标与Tesla估值的关联逻辑', modal:'a5', date:'03-18'},
+  // FSD
+  {cat:'FSD · Robotaxi', entity:'FSD', title:'FSD v13.2.7大规模推送：新增高速自动并线，覆盖北美94万辆车', modal:'fsd1', date:'03-27'},
+  {cat:'FSD · Robotaxi', entity:'Robotaxi', title:'奥斯汀Robotaxi扩区至42平方英里：运营数据、事故率与商业化节奏全解读', modal:'fsd2', date:'03-26'},
+  {cat:'FSD · Robotaxi', entity:'FSD', title:'FSD订阅用户突破124万：转化率、留存率与1000万目标的距离', modal:'fsd3', date:'03-24'},
+  {cat:'FSD · Robotaxi', entity:'Robotaxi', title:'Waymo vs Tesla Robotaxi：技术路线、运营规模与市场估值全面对比', modal:'fsd4', date:'03-22'},
+  // 市场数据
+  {cat:'市场数据', entity:'$TSLA', title:'摩根大通下调Tesla目标价至$135，维持减持评级', modal:'mk1', date:'03-28'},
+  {cat:'市场数据', entity:'$TSLA', title:'Tesla Q1交付33.6万辆：12家机构评级汇总与目标价分布', modal:'mk2', date:'03-24'},
+  // 宏观
+  {cat:'宏观', entity:'美联储 · FRED', title:'美联储3月议息会议纪要公布，年内降息1-2次仍是基准情景', modal:'mac1', date:'03-25'},
+  {cat:'宏观', entity:'DOE · 储能', title:'DOE新一批储能补贴项目公布，Tesla Megapack入围三个大型电网储能招标', modal:'mac2', date:'03-22'},
+  {cat:'宏观', entity:'CPI · 通胀', title:'美国2月CPI同比+2.8%，略高于预期，降息预期小幅推后', modal:'mac3', date:'03-20'},
+  {cat:'宏观', entity:'关税 · 贸易', title:'美国对华关税税率维持145%不变，特斯拉中国供应链成本压力持续', modal:'mac4', date:'03-18'},
+];
+
+function openSearch() {
+  document.getElementById('search-overlay').classList.add('on');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ document.getElementById('search-input').focus(); }, 80);
+}
+
+function closeSearch(e) {
+  if (e && e.target !== document.getElementById('search-overlay')) return;
+  document.getElementById('search-overlay').classList.remove('on');
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-results').innerHTML = '';
+  document.getElementById('search-meta').textContent = '输入关键词搜索全站内容';
+  document.body.style.overflow = '';
+}
+
+function highlight(text, kw) {
+  if (!kw) return text;
+  var re = new RegExp('(' + kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return text.replace(re, '<mark>$1</mark>');
+}
+
+function doSearch(q) {
+  q = q.trim();
+  var meta = document.getElementById('search-meta');
+  var results = document.getElementById('search-results');
+  if (!q) {
+    meta.textContent = '输入关键词搜索全站内容';
+    results.innerHTML = '';
+    return;
+  }
+  var kw = q.toLowerCase();
+  var hits = searchIndex.filter(function(item) {
+    return item.title.toLowerCase().includes(kw) ||
+           item.entity.toLowerCase().includes(kw) ||
+           item.cat.toLowerCase().includes(kw);
+  });
+  meta.textContent = hits.length > 0 ? '找到 ' + hits.length + ' 条结果' : '未找到相关内容';
+  if (hits.length === 0) {
+    results.innerHTML = '<div class="search-empty">未找到"' + q + '"相关内容<br><span style="font-size:12px;opacity:.6">试试其他关键词，如 Tesla、FSD、SpaceX</span></div>';
+    return;
+  }
+  results.innerHTML = hits.map(function(item) {
+    return '<div class="search-result-item" onclick="closeSearch();openModal(\'' + item.modal + '\')">' +
+      '<div class="sr-tag">' + item.cat + ' · ' + item.entity + ' · ' + item.date + '</div>' +
+      '<div class="sr-title">' + highlight(item.title, q) + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+document.addEventListener('keydown', function(e) {
+  if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) {
+    e.preventDefault(); openSearch();
+  }
+  if (e.key === 'Escape') {
+    if (document.getElementById('search-overlay').classList.contains('on')) {
+      closeSearch({ target: document.getElementById('search-overlay') });
+    }
+  }
+});
 </script>
 
 </body>
