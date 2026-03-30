@@ -157,6 +157,37 @@ nav { position:sticky; top:0; z-index:200; background:rgba(250,250,248,.96); bac
 .entity-ticker { font-family:var(--mono); font-size:9px; color:var(--text3); letter-spacing:.04em; margin-top:1px }
 .entity-count { font-family:var(--mono); font-size:10px; color:var(--text3) }
 
+
+/* ── 视频卡片列表 ── */
+.video-card-list { display:flex; flex-direction:column; gap:1px; background:var(--border); border:1px solid var(--border); }
+.video-card-item {
+  display:grid; grid-template-columns:200px 1fr;
+  background:var(--bg); text-decoration:none; color:inherit;
+  transition:background .15s var(--ease);
+  border-bottom:1px solid var(--border);
+}
+.video-card-item:last-child { border-bottom:none; }
+.video-card-item:hover { background:var(--bg2); }
+.video-thumb {
+  width:200px; height:113px;
+  background:#111; flex-shrink:0; overflow:hidden; position:relative;
+}
+.video-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.video-thumb-placeholder {
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background:#1a1a1a;
+}
+.video-play-icon { color:rgba(255,255,255,.6); font-size:32px; line-height:1; }
+.video-card-body { padding:16px 20px; display:flex; flex-direction:column; justify-content:space-between; }
+.video-card-title { font-family:var(--serif); font-size:16px; font-weight:600; color:var(--black); line-height:1.45; margin-bottom:8px; }
+.video-card-desc { font-family:var(--sans); font-size:13px; color:var(--text2); line-height:1.7; flex:1; }
+.video-card-meta { margin-top:12px; display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
+.video-card-meta .src { color:var(--red); }
+@media(max-width:600px){
+  .video-card-item { grid-template-columns:1fr; }
+  .video-thumb { width:100%; height:180px; }
+}
+
 /* ── 追踪实体全宽（底部）── */
 .entity-section { border-top:1px solid var(--border); background:var(--bg2); padding:44px 24px }
 .entity-section-inner { max-width:var(--max); margin:0 auto }
@@ -617,28 +648,15 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
             <div class="home-section-title">视频精选</div>
             <a href="#" class="home-section-more" onclick="switchTab('video');return false">查看全部 →</a>
           </div>
-          <div class="video-grid" style="grid-template-columns:repeat(2,1fr)">
-            <div class="video-card">
-              <div class="video-embed">
-                <iframe src="https://www.youtube.com/embed/XGh6GhMqlMY" title="SpaceX星舰IFT-9" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-              </div>
-              <div class="video-info">
-                <span class="h-tag video">SpaceX</span>
-                <div class="video-title">SpaceX 星舰 IFT-9 综合飞行测试 · 完整直播回放</div>
-                <div class="video-meta"><span class="src">SpaceX官方</span><span class="meta-dot"></span><span>03-27</span></div>
-              </div>
-            </div>
-            <div class="video-card">
-              <div class="video-embed">
-                <iframe src="https://www.youtube.com/embed/oBzFCNSIBWE" title="Tesla FSD实测" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-              </div>
-              <div class="video-info">
-                <span class="h-tag news">Tesla</span>
-                <div class="video-title">Tesla FSD v13.2 城市实测：雨天、夜间、复杂路口全覆盖</div>
-                <div class="video-meta"><span class="src">Tesla</span><span class="meta-dot"></span><span>03-25</span></div>
-              </div>
-            </div>
+          <div class="video-card-list" id="home-video-list">
+            <div style="padding:40px 20px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--text3)">正在加载...</div>
           </div>
+        </div>
+
+      </div>
+
+      </div>
+      </div>
         </div>
 
 
@@ -919,48 +937,12 @@ footer { background:var(--black); border-top:1px solid rgba(255,255,255,.07); pa
 </div>
 
 <div class="page" id="page-video">
-  <div class="wrap">
+  <div class="wrap" style="max-width:900px">
     <div class="date-rule">视频精选 · YouTube直播与回放</div>
-    <div class="video-grid">
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/XGh6GhMqlMY" title="SpaceX星舰IFT-9" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <div class="video-info">
-          <span class="h-tag video">SpaceX</span>
-          <div class="video-title">SpaceX 星舰 IFT-9 综合飞行测试 · 完整直播回放</div>
-          <div class="video-meta"><span class="src">SpaceX官方</span><span class="meta-dot"></span><span>03-27</span></div>
-        </div>
-      </div>
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/oBzFCNSIBWE" title="Tesla FSD v13实测" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <div class="video-info">
-          <span class="h-tag news">Tesla</span>
-          <div class="video-title">Tesla FSD v13.2 城市实测：雨天、夜间、复杂路口全覆盖</div>
-          <div class="video-meta"><span class="src">Tesla</span><span class="meta-dot"></span><span>03-25</span></div>
-        </div>
-      </div>
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/LqpS2DQqkuI" title="xAI Grok 3发布" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <div class="video-info">
-          <span class="h-tag fsd">xAI</span>
-          <div class="video-title">xAI Grok 3 发布会完整回放：基准测试、新功能与马斯克问答</div>
-          <div class="video-meta"><span class="src">xAI官方</span><span class="meta-dot"></span><span>03-20</span></div>
-        </div>
-      </div>
-      <div class="video-card">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/SjNLGKKXphs" title="Tesla Robotaxi实测" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <div class="video-info">
-          <span class="h-tag fsd">Robotaxi</span>
-          <div class="video-title">Tesla Robotaxi 奥斯汀无安全员实测：完整乘车体验记录</div>
-          <div class="video-meta"><span class="src">第三方测评</span><span class="meta-dot"></span><span>03-18</span></div>
-        </div>
+    <div class="video-card-list" id="video-card-list">
+      <!-- 动态内容由 feed.json 填充 -->
+      <div style="padding:60px 20px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--text3);letter-spacing:.06em">
+        正在加载视频内容...
       </div>
     </div>
   </div>
@@ -1636,6 +1618,63 @@ function renderFeed(items) {
   // 首页FSD预览（前2条）
   if (homeAnalysisEls.length > 1 && fsd.length > 0) {
     homeAnalysisEls[1].innerHTML = fsd.slice(0, 2).map(buildArticleItem).join('');
+  }
+
+  // 视频板块
+  var videoEl = document.getElementById('video-card-list');
+  if (videoEl && video.length > 0) {
+    videoEl.innerHTML = video.slice(0, 20).map(function(item) {
+      var ytId = '';
+      var url = item.source_url || '';
+      var m = url.match(/(?:v=|youtu\.be\/)([\w-]{11})/);
+      if (m) ytId = m[1];
+      var thumb = ytId
+        ? '<img src="https://img.youtube.com/vi/' + ytId + '/mqdefault.jpg" alt="" onerror="this.style.display='none'">'
+        : '<div class="video-thumb-placeholder"><div class="video-play-icon">▶</div></div>';
+      var modalId = 'dyn_' + item.id;
+      articles[modalId] = {
+        tag: 'video', label: '视频',
+        title: item.title || '',
+        src: item.entity || '',
+        date: (item.date || '') + ' ' + (item.time || ''),
+        body: '<p>' + (item.body || '').replace(/\n/g, '</p><p>') + '</p>' +
+          (url ? '<p style="margin-top:16px"><a href="' + url + '" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none;letter-spacing:.04em">→ 在YouTube观看</a></p>' : '')
+      };
+      return '<a class="video-card-item" href="' + (url || '#') + '" target="_blank">' +
+        '<div class="video-thumb">' + thumb + '</div>' +
+        '<div class="video-card-body">' +
+          '<div>' +
+            '<div class="article-tag" style="margin-bottom:8px"><span class="h-tag video">视频</span></div>' +
+            '<div class="video-card-title">' + (item.title || '') + '</div>' +
+            '<div class="video-card-desc">' + ((item.body || '').substring(0, 100)) + '...</div>' +
+          '</div>' +
+          '<div class="video-card-meta"><span class="src">' + (item.entity || '') + '</span><span class="meta-dot"></span><span>' + (item.date || '') + '</span></div>' +
+        '</div>' +
+      '</a>';
+    }).join('');
+  } else if (videoEl && video.length === 0) {
+    videoEl.innerHTML = '<div style="padding:60px 20px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--text3);letter-spacing:.06em">暂无视频内容，等待抓取中...</div>';
+  }
+
+  // 首页视频预览（前4条）
+  var homeVideoEl = document.getElementById('home-video-list');
+  if (homeVideoEl && video.length > 0) {
+    homeVideoEl.innerHTML = video.slice(0, 4).map(function(item) {
+      var ytId = '';
+      var url = item.source_url || '';
+      var m = url.match(/(?:v=|youtu\.be\/)([\w-]{11})/);
+      if (m) ytId = m[1];
+      var thumb = ytId
+        ? '<img src="https://img.youtube.com/vi/' + ytId + '/mqdefault.jpg" alt="">'
+        : '<div class="video-thumb-placeholder"><div class="video-play-icon">▶</div></div>';
+      return '<a class="video-card-item" href="' + (url || '#') + '" target="_blank">' +
+        '<div class="video-thumb">' + thumb + '</div>' +
+        '<div class="video-card-body">' +
+          '<div class="video-card-title">' + (item.title || '') + '</div>' +
+          '<div class="video-card-meta"><span class="src">' + (item.entity || '') + '</span><span class="meta-dot"></span><span>' + (item.date || '') + '</span></div>' +
+        '</div>' +
+      '</a>';
+    }).join('');
   }
 
   // 更新搜索索引
