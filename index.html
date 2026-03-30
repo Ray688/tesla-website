@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tesla情报站 · 马斯克生态中文媒体</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:#CC2929; --red-bg:rgba(204,41,41,.06);
+  --black:#0f0f0e; --bg:#fafaf8; --bg2:#f3f2ef; --bg3:#eceae5;
+  --border:#e5e3de; --border2:#d0cec8;
+  --text:#1a1917; --text2:#5a5754; --text3:#9a9794;
+  --serif:'Noto Serif SC','Songti SC',Georgia,serif;
+  --sans:'Noto Sans SC','PingFang SC',sans-serif;
+  --mono:'DM Mono','Courier New',monospace;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --max:1160px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-top{max-width:var(--max);margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-box{width:30px;height:30px;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center}
+.logo-box b{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--red);line-height:1}
+.logo-text{display:flex;flex-direction:column;justify-content:center}
+.logo-name{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--black);letter-spacing:.04em;line-height:1.2}
+.logo-sub{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.05em}
+
+.nav-ticker{flex:1;overflow:hidden;display:flex;align-items:center;position:relative;height:100%;mask-image:linear-gradient(to right,transparent,black 20px,black calc(100% - 20px),transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 20px,black calc(100% - 20px),transparent)}
+.ticker-track{display:inline-flex;align-items:center;white-space:nowrap;animation:scroll 35s linear infinite}
+.ticker-track:hover{animation-play-state:paused}
+.t-item{display:inline-flex;align-items:center;gap:6px;margin-right:32px;font-family:var(--mono);font-size:11px;letter-spacing:.04em}
+.t-sym{font-weight:600;color:var(--text)}
+.t-val{color:var(--text2)}
+.t-up{color:#16a34a}
+.t-dn{color:var(--red)}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.nav-r{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.search-trigger{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:none;border:1px solid var(--border);border-radius:5px;color:var(--text2);cursor:pointer;transition:all .18s var(--ease)}
+.search-trigger:hover{border-color:var(--border2);color:var(--text);background:var(--bg2)}
+.nav-join{display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;text-decoration:none;font-family:var(--sans);font-size:12px;font-weight:500;padding:8px 18px;border-radius:4px;border:1px solid transparent;transition:all .2s var(--ease)}
+.nav-join:hover{background:transparent;border-color:var(--red);color:var(--red)}
+
+.tab-bar{border-top:1px solid var(--border);overflow-x:auto;scrollbar-width:none;background:var(--bg)}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-bar-inner{max-width:var(--max);margin:0 auto;padding:10px 24px;display:flex;gap:6px;align-items:center}
+.tab{font-family:var(--sans);font-size:13.5px;font-weight:500;color:var(--text2);padding:8px 18px;border-radius:30px;cursor:pointer;white-space:nowrap;transition:all .2s var(--ease);user-select:none;border:1px solid transparent}
+.tab:hover{color:var(--text);background:var(--bg2)}
+.tab.on{background:var(--black);color:#fff;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+
+.page{display:none}
+.page.on{display:block}
+.wrap{max-width:var(--max);margin:0 auto;padding:32px 24px 64px}
+.single-col{display:block;max-width:780px}
+.two-col{display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:start}
+.date-rule{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.date-rule::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── UI 组件 ── */
+.hero-grid{display:grid;grid-template-columns:1.55fr 1fr;grid-template-rows:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:32px}
+.hero-card{background:var(--bg);padding:26px 24px;cursor:pointer;transition:background .18s var(--ease);display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:inherit}
+.hero-card:hover{background:#edece7}
+.hero-card.main{grid-row:1/3;min-height:320px}
+.h-tag{display:inline-flex !important;align-items:center;width:fit-content !important;font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;margin-bottom:14px}
+.h-tag.news{color:var(--red);border-color:rgba(204,41,41,.3);background:var(--red-bg)}
+.h-tag.analysis{color:#1d4ed8;border-color:rgba(29,78,216,.25);background:rgba(29,78,216,.04)}
+.h-tag.video{color:#059669;border-color:rgba(5,150,105,.25);background:rgba(5,150,105,.04)}
+.h-tag.data{color:#b45309;border-color:rgba(180,83,9,.25);background:rgba(180,83,9,.04)}
+.h-tag.fsd{color:#6d28d9;border-color:rgba(109,40,217,.25);background:rgba(109,40,217,.04)}
+.h-tag.market{color:#374151;border-color:rgba(55,65,81,.25);background:rgba(55,65,81,.04)}
+.h-tag.macro{color:#0369a1;border-color:rgba(3,105,161,.25);background:rgba(3,105,161,.04)}
+.hero-title{font-family:var(--serif);font-size:clamp(18px,2.2vw,26px);font-weight:600;line-height:1.3;color:var(--black);margin-bottom:10px;letter-spacing:-.01em}
+.hero-card.main .hero-title{font-size:clamp(22px,2.8vw,32px)}
+.hero-desc{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text2);line-height:1.9}
+.hero-meta{margin-top:16px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
+.hero-meta .src{color:var(--red)}
+
+.flash-time{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center;line-height:1.5;letter-spacing:.03em;gap:1px;flex-shrink:0}
+.flash-time strong{font-size:15px;color:var(--text2);font-weight:400;letter-spacing:0}
+
+.flash-list, .article-list{border:1px solid var(--border);background:var(--bg);display:flex;flex-direction:column;gap:0}
+.flash-item, .article-item{display:grid;grid-template-columns:68px 1fr;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s var(--ease);text-decoration:none;color:inherit}
+.flash-item:last-child, .article-item:last-child{border-bottom:none}
+.flash-item:hover, .article-item:hover{background:var(--bg2)}
+
+.flash-body{padding:14px 18px}
+.flash-entity{font-family:var(--mono);font-size:9px;color:var(--red);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.flash-text{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text);line-height:1.9}
+.flash-text strong{font-weight:500}
+.flash-source{margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
+
+.article-body{padding:16px 20px}
+.article-tag{margin-bottom:10px}
+.article-title{font-family:var(--serif);font-size:17px;font-weight:600;line-height:1.45;color:var(--black);margin-bottom:8px}
+.article-desc{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text2);line-height:1.9}
+.article-meta{margin-top:12px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
+.article-meta .src{color:var(--red)}
+
+.video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.video-card{background:var(--bg);transition:background .15s var(--ease)}
+.video-card:hover{background:var(--bg2)}
+.video-embed{position:relative;width:100%;padding-bottom:56.25%;background:#111}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-info{padding:16px 18px 20px}
+.video-title{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--black);line-height:1.45;margin:10px 0 10px}
+.video-meta{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
+
+.sidebar{display:flex;flex-direction:column;gap:20px}
+.sb-block{border:1px solid var(--border);background:var(--bg)}
+.sb-head{padding:12px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
+.topics{padding:12px 14px}
+.topic{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--text2);letter-spacing:.05em;padding:5px 9px;margin:3px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;transition:all .15s}
+.topic:hover{border-color:var(--red);color:var(--red);background:var(--red-bg)}
+.data-list{display:flex;flex-direction:column;gap:0}
+.data-row{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.data-row:last-child{border-bottom:none}
+.data-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em}
+.data-val{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--black)}
+.data-change{font-family:var(--mono);font-size:10px;letter-spacing:.04em}
+.up{color:#16a34a}.dn{color:var(--red)}.nt{color:var(--text3)}
+
+.entity-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.entity-row:last-child{border-bottom:none}
+.entity-row:hover{background:var(--bg2)}
+.entity-left{display:flex;align-items:center;gap:10px}
+.entity-icon{font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center}
+.entity-name{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--text)}
+.entity-ticker{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.04em;margin-top:1px}
+.entity-count{font-family:var(--mono);font-size:10px;color:var(--text3)}
+
+.intro-banner{border:1px solid var(--border);background:var(--bg);margin-bottom:28px;overflow:hidden}
+.intro-top{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border);background:var(--black)}
+.intro-logo-row{display:flex;align-items:center;gap:10px}
+.intro-logo-box{width:26px;height:26px;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.intro-logo-box b{font-family:var(--serif);font-size:13px;font-weight:700;color:var(--red);line-height:1}
+.intro-name{font-family:var(--serif);font-size:15px;font-weight:600;color:#f0f0f0;letter-spacing:.04em}
+.intro-badge{font-family:var(--mono);font-size:9px;color:var(--red);border:1px solid rgba(204,41,41,.4);padding:2px 7px;letter-spacing:.1em;text-transform:uppercase}
+.intro-tg-btn{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-family:var(--sans);font-size:12px;font-weight:500;padding:8px 16px;border:1px solid transparent;border-radius:4px;transition:all .2s var(--ease)}
+.intro-tg-btn:hover{background:transparent;border-color:var(--red);color:var(--red)}
+.intro-body{padding:20px 24px;border-bottom:1px solid var(--border)}
+.intro-desc{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text2);line-height:1.9;margin-bottom:16px}
+.intro-desc strong{font-weight:500;color:var(--text)}
+.intro-tags{display:flex;flex-wrap:wrap;gap:8px}
+.intro-tag{font-family:var(--mono);font-size:10px;color:var(--text2);border:1px solid var(--border);background:var(--bg2);padding:4px 10px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px}
+
+.home-section{margin-top:32px}
+.home-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.home-section-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--black);letter-spacing:-.01em}
+.home-section-more{font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none;letter-spacing:.04em;transition:opacity .15s}
+.home-section-more:hover{opacity:.7}
+
+/* 图表相关 CSS */
+.data-grid-4 { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:28px; }
+.data-card { background:var(--bg2); border-radius:6px; padding:16px 14px; }
+.data-card .data-label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.08em; margin-bottom:8px; }
+.data-card .data-val { font-family:var(--serif); font-size:24px; font-weight:600; color:var(--black); margin-bottom:3px; }
+.data-card .data-change { font-family:var(--mono); font-size:11px; }
+.data-card .data-source { font-family:var(--mono); font-size:9px; color:var(--text3); margin-top:6px; letter-spacing:.04em; }
+.chart-block { border:1px solid var(--border); background:var(--bg); padding:20px; margin-bottom:16px; }
+.chart-label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.08em; margin-bottom:14px; }
+.chart-2col { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-bottom:16px; }
+
+.entity-section{border-top:1px solid var(--border);background:var(--bg2);padding:44px 24px}
+.entity-section-inner{max-width:var(--max);margin:0 auto}
+.section-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.entity-full-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.entity-full-card{background:var(--bg);padding:26px 22px;position:relative;overflow:hidden;transition:background .18s var(--ease)}
+.entity-full-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.entity-full-card:hover{background:var(--bg2)}
+.entity-full-card:hover::before{transform:scaleX(1)}
+.ef-icon{font-size:24px;margin-bottom:12px;display:flex;align-items:center}
+.ef-name{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--black);margin-bottom:3px}
+.ef-ticker{font-family:var(--mono);font-size:9px;color:var(--red);letter-spacing:.08em;margin-bottom:10px}
+.ef-desc{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text2);line-height:1.9;margin-bottom:14px}
+
+.sub-banner{background:var(--black);border-top:3px solid var(--red);padding:48px 24px}
+.sub-banner-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.sub-label{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.sub-title{font-family:var(--serif);font-size:clamp(20px,2.5vw,28px);font-weight:600;color:#f5f5f5;margin-bottom:8px;line-height:1.3}
+.sub-desc{font-family:var(--sans);font-size:15px;font-weight:400;color:rgba(255,255,255,.45);line-height:1.9}
+
+footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);padding:36px 24px 24px}
+.footer-inner{max-width:var(--max);margin:0 auto}
+.footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:28px}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.footer-logo-box{width:26px;height:26px;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center}
+.footer-logo-box b{font-family:var(--serif);font-size:13px;font-weight:700;color:var(--red);line-height:1}
+.footer-logo-name{font-family:var(--serif);font-size:14px;font-weight:600;color:#f0f0f0;letter-spacing:.04em}
+.footer-tagline{font-family:var(--sans);font-size:12px;font-weight:400;color:rgba(255,255,255,.32);line-height:1.9;max-width:280px}
+.footer-links{display:flex;gap:48px}
+.footer-col h4{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.footer-col a{display:block;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:8px;transition:color .15s}
+.footer-col a:hover{color:var(--red)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:18px;display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.05em}
+.footer-tg{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
+.footer-tg:hover{color:var(--red)}
+
+.search-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(15,15,14,.55);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:80px 20px 20px}
+.search-overlay.on{display:flex}
+.search-box{background:var(--bg);border:1px solid var(--border2);width:100%;max-width:640px;max-height:calc(100vh - 120px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.15)}
+.search-input-row{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.search-input-row input{flex:1;border:none;outline:none;background:none;font-family:var(--sans);font-size:16px;color:var(--text)}
+.search-input-row input::placeholder{color:var(--text3)}
+.search-close-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:none;border:none;color:var(--text3);cursor:pointer;flex-shrink:0;transition:color .15s}
+.search-close-btn:hover{color:var(--text)}
+.search-meta{padding:8px 16px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;border-bottom:1px solid var(--border);flex-shrink:0}
+.search-results{overflow-y:auto;flex:1}
+.search-result-item{display:block;padding:14px 18px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:background .15s var(--ease);cursor:pointer}
+.search-result-item:hover{background:var(--bg2)}
+.sr-tag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
+.sr-title{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--black);line-height:1.4;margin-bottom:4px}
+.sr-title mark{background:rgba(204,41,41,.12);color:var(--red);border-radius:2px;padding:0 2px}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,14,.7);z-index:500;backdrop-filter:blur(4px);padding:24px;align-items:flex-start;justify-content:center}
+.modal-overlay.on{display:flex}
+.modal-box{background:var(--bg);width:100%;max-width:720px;max-height:90vh;overflow-y:auto;border:1px solid var(--border);position:relative;margin-top:20px}
+.modal-head{padding:28px 32px 20px;border-bottom:1px solid var(--border)}
+.modal-close{position:absolute;top:18px;right:20px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text3);font-size:20px;background:none;border:none;transition:color .15s;font-family:var(--sans)}
+.modal-close:hover{color:var(--text)}
+.modal-tag{margin-bottom:12px}
+.modal-title{font-family:var(--serif);font-size:clamp(20px,3vw,26px);font-weight:600;line-height:1.3;color:var(--black);margin-bottom:14px}
+.modal-meta{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
+.modal-meta .src{color:var(--red)}
+.modal-body{padding:28px 32px 36px}
+.modal-body p{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text);line-height:1.9;margin-bottom:18px}
+.modal-body p:last-child{margin-bottom:0}
+.modal-body strong{font-weight:500;color:var(--black)}
+
+@media(max-width:900px){
+  .nav-ticker{display:none}
+  .single-col{max-width:780px}
+  .two-col{grid-template-columns:1fr}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-card.main{grid-row:auto;min-height:180px}
+  .entity-full-grid{grid-template-columns:repeat(2,1fr)}
+  .video-grid{grid-template-columns:1fr}
+  .footer-top{flex-direction:column}
+  .footer-links{flex-wrap:wrap;gap:28px}
+  .sub-banner-inner{flex-direction:column;text-align:center}
+  .data-grid-4 {grid-template-columns:repeat(2,1fr)}
+  .chart-2col {grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .nav-search{display:none}
+  .intro-top{flex-direction:column;align-items:flex-start;gap:12px}
+  .entity-full-grid{grid-template-columns:1fr}
+  .modal-box{margin-top:0}
+  .modal-head,.modal-body{padding:20px 18px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <a href="#" class="logo" onclick="switchTab('home');return false">
+      <div class="logo-box"><b>T</b></div>
+      <div class="logo-text">
+        <span class="logo-name">Tesla情报站</span>
+        <span class="logo-sub">马斯克生态媒体</span>
+      </div>
+    </a>
+    
+    <div class="nav-ticker">
+      <div class="ticker-track">
+        <div class="t-item"><span class="t-sym">TSLA</span><span class="t-val">248.42</span><span class="t-dn">▼1.28%</span></div>
+        <div class="t-item"><span class="t-sym">LMND</span><span class="t-val">16.85</span><span class="t-up">▲0.4%</span></div>
+        <div class="t-item"><span class="t-sym">VIX</span><span class="t-val">14.10</span><span class="t-dn">▼0.8%</span></div>
+        <div class="t-item"><span class="t-sym">BTC</span><span class="t-val">68,412</span><span class="t-up">▲1.50%</span></div>
+        <div class="t-item"><span class="t-sym">FSD</span><span class="t-val">124万</span><span class="t-up">▲12%</span></div>
+        <div class="t-item"><span class="t-sym">TSLA</span><span class="t-val">248.42</span><span class="t-dn">▼1.28%</span></div>
+        <div class="t-item"><span class="t-sym">LMND</span><span class="t-val">16.85</span><span class="t-up">▲0.4%</span></div>
+        <div class="t-item"><span class="t-sym">VIX</span><span class="t-val">14.10</span><span class="t-dn">▼0.8%</span></div>
+      </div>
+    </div>
+
+    <div class="nav-r">
+      <button class="search-trigger" onclick="openSearch()" title="搜索">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+  
+  <div class="tab-bar">
+    <div class="tab-bar-inner">
+      <div class="tab on"  onclick="switchTab('home')">首页</div>
+      <div class="tab"     onclick="switchTab('flash')">快讯</div>
+      <div class="tab"     onclick="switchTab('analysis')">深度分析</div>
+      <div class="tab"     onclick="switchTab('fsd')">FSD · Robotaxi</div>
+      <div class="tab"     onclick="switchTab('video')">视频</div>
+      <div class="tab"     onclick="switchTab('market')">市场数据</div>
+      <div class="tab"     onclick="switchTab('macro')">宏观</div>
+    </div>
+  </div>
+</nav>
+
+<div class="page on" id="page-home">
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="intro-banner">
+          <div class="intro-top">
+            <div class="intro-logo-row">
+              <div class="intro-logo-box"><b>T</b></div>
+              <span class="intro-name">Tesla情报站</span>
+              <span class="intro-badge">中文媒体</span>
+            </div>
+          </div>
+          <div class="intro-body">
+            <p class="intro-desc">专注追踪马斯克商业生态的中文情报媒体。每日汇总 Tesla、SpaceX、xAI、Neuralink 的最新动态，涵盖实时快讯、深度分析、FSD 进展与市场数据。内容由 AI 量化雷达 24 小时全自动搜集排版。</p>
+            <div class="intro-tags">
+              <span class="intro-tag" style="display:inline-flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#E31937"/><path d="M10 11h12v2H19v9h-6v-9h-3v-2z" fill="white"/></svg> Tesla · $TSLA</span>
+              <span class="intro-tag" style="display:inline-flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#1a1a2e"/><path d="M16 6c-.8 0-2.5 2-3.5 5.5-1.5-.3-2.8-.1-3.5.6-.7.7-.9 2-.6 3.5C5 16.6 3 18.3 3 19.1s2 2.5 5.5 3.5c.3 1.5.1 2.8-.6 3.5" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M16 8v16M12 12l8 8M20 12l-8 8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg> SpaceX · Starlink</span>
+              <span class="intro-tag" style="display:inline-flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#111"/><path d="M10 10l12 12M22 10L10 22" stroke="white" stroke-width="2" stroke-linecap="round"/></svg> xAI · Grok</span>
+              <span class="intro-tag" style="display:inline-flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#4f46e5"/><circle cx="16" cy="16" r="3" fill="white"/><path d="M16 9v4M16 19v4M9 16h4M19 16h4" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M11.5 11.5l2.8 2.8M17.7 17.7l2.8 2.8M20.5 11.5l-2.8 2.8M11.5 20.5l2.8-2.8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg> Neuralink</span>
+              <span class="intro-tag">📊 FSD · Robotaxi</span>
+              <span class="intro-tag">🌐 宏观 · 市场</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="date-rule">今日总览</div>
+
+        <div class="hero-grid" style="margin-bottom:32px">
+          <a class="hero-card main" href="#" onclick="openModal('m1');return false">
+            <span class="h-tag news">快讯</span>
+            <div class="hero-title">马斯克确认xAI Memphis超算集群年底前部署超10万张H100，最新估值或突破450亿美元</div>
+            <div class="hero-desc">xAI正与多家主权财富基金接洽新一轮融资，Colossus超算中心加速扩建，算力规模将超越现有所有AI实验室。</div>
+            <div class="hero-meta"><span class="src">X平台</span><span class="meta-dot"></span><span>今日 09:14</span></div>
+          </a>
+          <a class="hero-card" href="#" onclick="openModal('m2');return false">
+            <span class="h-tag analysis">深度分析</span>
+            <div class="hero-title">Tesla Q1交付数据低于预期，欧洲市场承压成核心变量</div>
+            <div class="hero-meta"><span class="src">Electrek</span><span class="meta-dot"></span><span>昨日 20:37</span></div>
+          </a>
+          <a class="hero-card" href="#" onclick="openModal('m3');return false">
+            <span class="h-tag video">视频</span>
+            <div class="hero-title">星舰IFT-9完整直播回放：Mechazilla再次成功捕获超重推进器</div>
+            <div class="hero-meta"><span class="src">SpaceX官方</span><span class="meta-dot"></span><span>03-27</span></div>
+          </a>
+        </div>
+
+        <div class="home-section">
+          <div class="home-section-head">
+            <div class="home-section-title">快讯</div>
+            <a href="#" class="home-section-more" onclick="switchTab('flash');return false">查看全部 →</a>
+          </div>
+          <div class="flash-list">
+            <a class="flash-item" href="#" onclick="openModal('f1');return false">
+              <div class="flash-time"><span>03-29</span><strong>09:14</strong></div>
+              <div class="flash-body">
+                <div class="flash-entity">xAI · Grok</div>
+                <div class="flash-text"><strong>马斯克：xAI Memphis集群年底部署超10万张H100</strong>，与多个主权财富基金接洽新融资，估值或突破450亿美元</div>
+                <div class="flash-source">X平台</div>
+              </div>
+            </a>
+            <a class="flash-item" href="#" onclick="openModal('f2');return false">
+              <div class="flash-time"><span>03-28</span><strong>20:37</strong></div>
+              <div class="flash-body">
+                <div class="flash-entity">$TSLA</div>
+                <div class="flash-text">摩根大通下调Tesla目标价至$135，维持减持评级，理由是Q1交付不及预期且欧洲市场能见度低</div>
+                <div class="flash-source">Bloomberg</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="home-section">
+          <div class="home-section-head">
+            <div class="home-section-title">深度分析</div>
+            <a href="#" class="home-section-more" onclick="switchTab('analysis');return false">查看全部 →</a>
+          </div>
+          <div class="article-list">
+            <a class="article-item" href="#" onclick="openModal('a1');return false">
+              <div class="flash-time"><span>03-25</span><strong>14:30</strong></div>
+              <div class="article-body">
+                <div class="article-tag"><span class="h-tag analysis">深度分析</span></div>
+                <div class="article-title">Grok 3 vs GPT-4o vs Gemini 2.0：六大基准测试横向对比与投资含义</div>
+                <div class="article-meta"><span class="src">xAI · OpenAI · Google</span></div>
+              </div>
+            </a>
+            <a class="article-item" href="#" onclick="openModal('a2');return false">
+              <div class="flash-time"><span>03-24</span><strong>09:15</strong></div>
+              <div class="article-body">
+                <div class="article-tag"><span class="h-tag data">数据</span></div>
+                <div class="article-title">Tesla 2026 Q1全球交付数据拆解：中国逆势增长，欧洲创近8季新低</div>
+                <div class="article-meta"><span class="src">Tesla官方 · 多家机构</span></div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="home-section">
+          <div class="home-section-head">
+            <div class="home-section-title">FSD · Robotaxi</div>
+            <a href="#" class="home-section-more" onclick="switchTab('fsd');return false">查看全部 →</a>
+          </div>
+          <div class="article-list">
+            <a class="article-item" href="#" onclick="openModal('fsd1');return false">
+              <div class="flash-time"><span>03-27</span><strong>11:08</strong></div>
+              <div class="article-body">
+                <div class="article-tag"><span class="h-tag fsd">FSD</span></div>
+                <div class="article-title">FSD v13.2.7大规模推送：新增高速自动并线，覆盖北美94万辆车</div>
+                <div class="article-meta"><span class="src">Not a Tesla App</span></div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="home-section">
+          <div class="home-section-head">
+            <div class="home-section-title">市场数据</div>
+            <a href="#" class="home-section-more" onclick="switchTab('market');return false">查看完整看板 →</a>
+          </div>
+          <div class="data-grid-4">
+            <div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -1.28%</div><div class="data-source">昨日收盘</div></div>
+            <div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12%</div><div class="data-source">Q4财报</div></div>
+            <div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ +96颗/月</div><div class="data-source">SpaceX官方</div></div>
+            <div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">奥斯汀</div></div>
+          </div>
+          
+          <div class="chart-block">
+            <div class="chart-label">TSLA 股价走势（近12个月）</div>
+            <div style="position:relative;width:100%;height:160px"><canvas id="h-tsla"></canvas></div>
+          </div>
+          <div class="chart-2col">
+            <div class="chart-block" style="margin-bottom:0">
+              <div class="chart-label">Tesla 交付量（万辆/季）</div>
+              <div style="position:relative;width:100%;height:150px"><canvas id="h-delivery"></canvas></div>
+            </div>
+            <div class="chart-block" style="margin-bottom:0">
+              <div class="chart-label">FSD 订阅用户增长（万人）</div>
+              <div style="position:relative;width:100%;height:150px"><canvas id="h-fsd"></canvas></div>
+            </div>
+          </div>
+          <div class="chart-2col" style="margin-top:16px">
+            <div class="chart-block" style="margin-bottom:0">
+              <div class="chart-label">Starlink 在轨卫星趋势</div>
+              <div style="position:relative;width:100%;height:150px"><canvas id="h-starlink"></canvas></div>
+            </div>
+            <div class="chart-block" style="margin-bottom:0">
+              <div class="chart-label">Robotaxi 服务范围扩展（mi²）</div>
+              <div style="position:relative;width:100%;height:150px"><canvas id="h-robotaxi"></canvas></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sidebar">
+        <div class="sb-block">
+          <div class="sb-head"><span>市场快览</span></div>
+          <div class="data-list">
+            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
+            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
+            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
+            <div class="data-row"><div><div class="data-label">xAI 估值</div><div class="data-val">$450亿</div></div><div class="data-change nt">— 传言</div></div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>热门话题</span></div>
+          <div class="topics">
+            <span class="topic">#FSD</span><span class="topic">#Robotaxi</span><span class="topic">#星舰</span><span class="topic">#Grok3</span><span class="topic">#TSLA财报</span><span class="topic">#Optimus</span><span class="topic">#Starlink</span><span class="topic">#Neuralink</span><span class="topic">#Cybertruck</span><span class="topic">#NHTSA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-flash">
+  <div class="wrap" style="max-width:780px">
+    <div class="date-rule">最新快讯</div>
+    <div class="flash-list">
+      <a class="flash-item" href="#" onclick="openModal('f1');return false">
+        <div class="flash-time"><span>03-29</span><strong>09:14</strong></div>
+        <div class="flash-body">
+          <div class="flash-entity">xAI · Grok</div>
+          <div class="flash-text"><strong>马斯克：xAI Memphis集群年底部署超10万张H100</strong>，与多个主权财富基金接洽新融资，估值或突破450亿美元</div>
+          <div class="flash-source">X平台</div>
+        </div>
+      </a>
+      <a class="flash-item" href="#" onclick="openModal('f2');return false">
+        <div class="flash-time"><span>03-28</span><strong>20:37</strong></div>
+        <div class="flash-body">
+          <div class="flash-entity">$TSLA</div>
+          <div class="flash-text"><strong>摩根大通下调Tesla目标价至$135</strong>，维持减持评级，理由是Q1交付不及预期且欧洲市场能见度低</div>
+          <div class="flash-source">Bloomberg</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-analysis">
+  <div class="wrap" style="max-width:780px">
+    <div class="date-rule">深度报告 · 研究分析</div>
+    <div class="article-list">
+      <a class="article-item" href="#" onclick="openModal('a1');return false">
+        <div class="flash-time"><span>03-25</span><strong>14:30</strong></div>
+        <div class="article-body">
+          <div class="article-tag"><span class="h-tag analysis">深度分析</span></div>
+          <div class="article-title">Grok 3 vs GPT-4o vs Gemini 2.0：六大基准测试横向对比与投资含义</div>
+          <div class="article-desc">从MMLU、HumanEval、MATH等维度拆解最新结果，分析xAI差异化优势，以及对Tesla FSD路线图的潜在影响。</div>
+          <div class="article-meta"><span class="src">xAI · OpenAI · Google</span></div>
+        </div>
+      </a>
+      <a class="article-item" href="#" onclick="openModal('a2');return false">
+        <div class="flash-time"><span>03-24</span><strong>09:15</strong></div>
+        <div class="article-body">
+          <div class="article-tag"><span class="h-tag data">数据</span></div>
+          <div class="article-title">Tesla 2026 Q1全球交付数据拆解：中国逆势增长，欧洲创近8季新低</div>
+          <div class="article-desc">按地区、车型、季度环比分析完整交付数据，附华尔街主流机构最新目标价与评级变化汇总。</div>
+          <div class="article-meta"><span class="src">Tesla官方 · 多家机构</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-fsd">
+  <div class="wrap" style="max-width:780px">
+    <div class="date-rule">FSD · Robotaxi 专题追踪</div>
+    <div class="article-list">
+      <a class="article-item" href="#" onclick="openModal('fsd1');return false">
+        <div class="flash-time"><span>03-27</span><strong>11:08</strong></div>
+        <div class="article-body">
+          <div class="article-tag"><span class="h-tag fsd">FSD</span></div>
+          <div class="article-title">FSD v13.2.7大规模推送：新增高速自动并线，覆盖北美94万辆车</div>
+          <div class="article-desc">Tesla OTA 2026.12.4核心升级包括高速公路匝道自动并线、城市道路红绿灯识别精度提升18%，以及雨天视觉鲁棒性改进。</div>
+          <div class="article-meta"><span class="src">Not a Tesla App</span></div>
+        </div>
+      </a>
+      <a class="article-item" href="#" onclick="openModal('fsd2');return false">
+        <div class="flash-time"><span>03-26</span><strong>15:30</strong></div>
+        <div class="article-body">
+          <div class="article-tag"><span class="h-tag fsd">Robotaxi</span></div>
+          <div class="article-title">奥斯汀Robotaxi扩区至42平方英里：运营数据、事故率与商业化节奏全解读</div>
+          <div class="article-desc">自2026年1月上路以来，服务范围已翻倍。本文汇总公开运营数据、乘客反馈与监管动向。</div>
+          <div class="article-meta"><span class="src">Tesla · 德州监管局</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-video">
+  <div class="wrap">
+    <div class="date-rule">视频精选 · YouTube直播与回放</div>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-embed"><iframe src="https://www.youtube.com/embed/XGh6GhMqlMY" title="SpaceX星舰IFT-9" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>
+        <div class="video-info">
+          <span class="h-tag video">SpaceX</span>
+          <div class="video-title">SpaceX 星舰 IFT-9 综合飞行测试 · 完整直播回放</div>
+          <div class="video-meta"><span class="src">SpaceX官方</span><span class="meta-dot"></span><span>03-27</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-market">
+  <div class="wrap" style="max-width:900px">
+    <div class="date-rule">市场数据 · 数据看板</div>
+    
+    <div class="data-grid-4">
+      <div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -3.21 (-1.28%)</div><div class="data-source">纽交所 · 昨日收盘</div></div>
+      <div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12% 季度环比</div><div class="data-source">Tesla Q4财报</div></div>
+      <div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ 本月新增96颗</div><div class="data-source">SpaceX官方</div></div>
+      <div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">德州监管局</div></div>
+    </div>
+    
+    <div class="chart-block">
+      <div class="chart-label">TSLA 股价走势（近12个月）</div>
+      <div style="position:relative;width:100%;height:200px"><canvas id="c-tsla"></canvas></div>
+    </div>
+    
+    <div class="chart-2col">
+      <div class="chart-block" style="margin-bottom:0">
+        <div class="chart-label">Tesla 交付量（万辆/季）</div>
+        <div style="position:relative;width:100%;height:190px"><canvas id="c-delivery"></canvas></div>
+      </div>
+      <div class="chart-block" style="margin-bottom:0">
+        <div class="chart-label">FSD 订阅用户增长（万人）</div>
+        <div style="position:relative;width:100%;height:190px"><canvas id="c-fsd"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-2col" style="margin-top:16px">
+      <div class="chart-block" style="margin-bottom:0">
+        <div class="chart-label">Starlink 在轨卫星趋势</div>
+        <div style="position:relative;width:100%;height:170px"><canvas id="c-starlink"></canvas></div>
+      </div>
+      <div class="chart-block" style="margin-bottom:0">
+        <div class="chart-label">Robotaxi 服务范围（mi²）</div>
+        <div style="position:relative;width:100%;height:170px"><canvas id="c-robotaxi"></canvas></div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px">
+      <div class="date-rule">机构评级</div>
+      <div class="article-list" id="market-list">
+        <a class="article-item" href="#" onclick="openModal('mk1');return false">
+          <div class="flash-time"><span>03-28</span><strong>20:37</strong></div>
+          <div class="article-body">
+            <div class="article-tag"><span class="h-tag market">市场数据</span></div>
+            <div class="article-title">摩根大通下调Tesla目标价至$135，维持减持评级</div>
+            <div class="article-desc">Q1交付不及预期，欧洲市场能见度低，FSD商业化节奏慢于预期。</div>
+            <div class="article-meta"><span class="src">Bloomberg</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-macro">
+  <div class="wrap" style="max-width:780px">
+    <div class="date-rule">宏观环境 · 政策与利率</div>
+    <div class="flash-list">
+      <a class="flash-item" href="#" onclick="openModal('mac1');return false">
+        <div class="flash-time"><span>03-25</span><strong>09:00</strong></div>
+        <div class="flash-body">
+          <div class="flash-entity">美联储 · FRED</div>
+          <div class="flash-text"><strong>美联储3月议息会议纪要公布</strong>，年内降息1-2次仍是基准情景，科技股估值压力短期缓解</div>
+          <div class="flash-source">美联储官网 · FRED</div>
+        </div>
+      </a>
+      <a class="flash-item" href="#" onclick="openModal('mac2');return false">
+        <div class="flash-time"><span>03-22</span><strong>14:00</strong></div>
+        <div class="flash-body">
+          <div class="flash-entity">DOE · 储能</div>
+          <div class="flash-text"><strong>DOE新一批储能补贴项目公布</strong>，Tesla Megapack入围三个大型电网储能招标，合同总额超12亿美元</div>
+          <div class="flash-source">美国能源部</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="entity-section">
+  <div class="entity-section-inner">
+    <div class="section-label">追踪实体</div>
+    <div class="entity-full-grid">
+      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#E31937"/><path d="M10 11h12v2H19v9h-6v-9h-3v-2z" fill="white"/></svg></div><div class="ef-name">Tesla</div><div class="ef-ticker">$TSLA · 纽交所</div><div class="ef-desc">交付数据、财报解读、FSD进展、Cybertruck动态、全球产能追踪</div></div>
+      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#1a1a2e"/><path d="M16 6c-.8 0-2.5 2-3.5 5.5-1.5-.3-2.8-.1-3.5.6-.7.7-.9 2-.6 3.5C5 16.6 3 18.3 3 19.1s2 2.5 5.5 3.5c.3 1.5.1 2.8-.6 3.5" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M16 8v16M12 12l8 8M20 12l-8 8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="ef-name">SpaceX</div><div class="ef-ticker">私有 · 未上市</div><div class="ef-desc">星舰发射进展、Starlink卫星扩张、猎鹰9号、NASA合同动向</div></div>
+      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#111"/><path d="M10 10l12 12M22 10L10 22" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div><div class="ef-name">xAI · Grok</div><div class="ef-ticker">私有 · AI赛道</div><div class="ef-desc">Grok大模型迭代、Memphis超算集群建设、xAI融资与估值</div></div>
+      <div class="entity-full-card"><div class="ef-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" fill="#4f46e5"/><circle cx="16" cy="16" r="3" fill="white"/><path d="M16 9v4M16 19v4M9 16h4M19 16h4" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M11.5 11.5l2.8 2.8M17.7 17.7l2.8 2.8M20.5 11.5l-2.8 2.8M11.5 20.5l2.8-2.8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div><div class="ef-name">Neuralink</div><div class="ef-ticker">私有 · 生物科技</div><div class="ef-desc">脑机接口临床进展、FDA审批、竞争对手动向追踪</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Tesla情报站 · 自动更新引擎已启动</div>
+      <a href="https://t.me/Tesla_share" target="_blank" class="footer-tg">t.me/Tesla_share</a>
+    </div>
+  </div>
+</footer>
+
+<div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-box">
+    <div class="search-input-row">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;color:var(--text3)"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <input id="search-input" type="text" placeholder="搜索文章、快讯、公司名称…" autocomplete="off" oninput="doSearch(this.value)">
+      <button class="search-close-btn" onclick="closeSearch()">×</button>
+    </div>
+    <div class="search-meta" id="search-meta">输入关键词搜索全站内容</div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-head">
+      <div class="modal-tag" id="modal-tag"></div>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-meta" id="modal-meta"></div>
+    </div>
+    <div class="modal-body">
+      <div id="modal-content"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// ── 标签切换 ──
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  const tabMap = {home:0, flash:1, analysis:2, fsd:3, video:4, market:5, macro:6};
+  document.querySelectorAll('.tab')[tabMap[name]].classList.add('on');
+  document.getElementById('page-' + name).classList.add('on');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ── 弹窗正文内容（引擎自动插入区） ──
+const articles = {
+  /* [PY_ANCHOR_JS_ARTICLES] */
+  m1:  {tag:'news',label:'快讯',title:'马斯克确认xAI Memphis超算集群年底前部署超10万张H100',src:'X平台',date:'今日 09:14',body:'<p>算力规模将超越现有所有AI实验室。</p>'},
+  m2:  {tag:'analysis',label:'深度分析',title:'Tesla Q1交付数据低于预期，欧洲市场承压成核心变量',src:'Electrek',date:'昨日 20:37',body:'<p>欧洲市场承压是最核心的拖累因素。</p>'},
+  m3:  {tag:'video',label:'视频',title:'星舰IFT-9完整直播回放：Mechazilla再次成功捕获超重推进器',src:'SpaceX官方',date:'03-27',body:'<p>这是Mechazilla连续第二次成功捕获超重推进器，标志着该回收技术的成熟度大幅提升。</p>'},
+  f1:  {tag:'news',label:'快讯',title:'马斯克：xAI Memphis集群年底部署超10万张H100',src:'X平台',date:'03-29 09:14',body:'<p>估值或突破450亿美元。</p>'},
+  f2:  {tag:'news',label:'快讯',title:'摩根大通下调Tesla目标价至$135，维持减持评级',src:'Bloomberg',date:'03-28 20:37',body:'<p>理由是Q1交付不及预期且欧洲市场能见度低。</p>'},
+  a1:  {tag:'analysis',label:'深度分析',title:'Grok 3 vs GPT-4o vs Gemini 2.0：六大基准测试横向对比与投资含义',src:'xAI · OpenAI · Google',date:'03-25 14:30',body:'<p>对投资者而言，xAI的算力护城河比当前模型性能更具长期价值。</p>'},
+  a2:  {tag:'data',label:'数据报告',title:'Tesla 2026 Q1全球交付数据拆解：中国逆势增长，欧洲创近8季新低',src:'Tesla官方',date:'03-24 09:15',body:'<p>中国市场在价格调整后需求回暖，但利润率承压。二季度产能指引维持不变。</p>'},
+  fsd1:{tag:'fsd',label:'FSD',title:'FSD v13.2.7大规模推送：新增高速自动并线，覆盖北美94万辆车',src:'Not a Tesla App',date:'03-27 11:08',body:'<p>新增对紧急车辆的主动避让逻辑。</p>'},
+  mk1: {tag:'data',label:'市场',title:'摩根大通下调Tesla目标价至$135',src:'Bloomberg',date:'03-28 20:37',body:'<p>这是摩根大通2024年以来第三次下调Tesla目标价。</p>'},
+  mac1:{tag:'macro',label:'宏观',title:'美联储3月议息会议纪要：年内降息1-2次是基准情景',src:'美联储',date:'03-25 09:00',body:'<p>科技股估值压力短期缓解，有利于Tesla等高估值成长股。</p>'}
+};
+
+// ── 搜索数据索引（引擎自动插入区） ──
+var searchIndex = [
+  /* [PY_ANCHOR_JS_SEARCH] */
+  {cat:'快讯', entity:'xAI · Grok', title:'马斯克：xAI Memphis集群年底部署超10万张H100', modal:'f1', date:'03-29'},
+  {cat:'快讯', entity:'$TSLA', title:'摩根大通下调Tesla目标价至$135，维持减持评级', modal:'f2', date:'03-28'},
+  {cat:'深度分析', entity:'xAI', title:'Grok 3 vs GPT-4o vs Gemini 2.0：六大基准测试横向对比与投资含义', modal:'a1', date:'03-25'},
+  {cat:'FSD · Robotaxi', entity:'FSD', title:'FSD v13.2.7大规模推送：新增高速自动并线', modal:'fsd1', date:'03-27'},
+  {cat:'宏观', entity:'美联储', title:'美联储3月议息会议纪要公布，年内降息1-2次仍是基准情景', modal:'mac1', date:'03-25'},
+];
+
+function openModal(id) {
+  const a = articles[id];
+  if (!a) return;
+  const tagClass = {news:'news',analysis:'analysis',video:'video',data:'data',fsd:'fsd',macro:'macro',market:'market'}[a.tag] || 'news';
+  document.getElementById('modal-tag').innerHTML = `<span class="h-tag ${tagClass}">${a.label}</span>`;
+  document.getElementById('modal-title').textContent = a.title;
+  document.getElementById('modal-meta').innerHTML = `<span class="src">${a.src}</span><span class="meta-dot"></span><span>${a.date}</span>`;
+  document.getElementById('modal-content').innerHTML = a.body;
+  document.getElementById('modal-overlay').classList.add('on');
+  document.body.style.overflow = 'hidden';
+  return false;
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('on'); document.body.style.overflow = ''; }
+function openSearch() { document.getElementById('search-overlay').classList.add('on'); document.body.style.overflow = 'hidden'; setTimeout(function(){ document.getElementById('search-input').focus(); }, 80); }
+function closeSearch() { document.getElementById('search-overlay').classList.remove('on'); document.getElementById('search-input').value = ''; document.getElementById('search-results').innerHTML = ''; document.getElementById('search-meta').textContent = '输入关键词搜索全站内容'; document.body.style.overflow = ''; }
+function highlight(text, kw) { if (!kw) return text; return text.replace(new RegExp('('+kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')+')', 'gi'), '<mark>$1</mark>'); }
+function doSearch(q) {
+  q = q.trim();
+  var meta = document.getElementById('search-meta'), results = document.getElementById('search-results');
+  if (!q) { meta.textContent = '输入关键词搜索全站内容'; results.innerHTML = ''; return; }
+  var kw = q.toLowerCase();
+  var hits = searchIndex.filter(function(item) { return item.title.toLowerCase().includes(kw) || item.entity.toLowerCase().includes(kw) || item.cat.toLowerCase().includes(kw); });
+  meta.textContent = hits.length > 0 ? '找到 ' + hits.length + ' 条结果' : '未找到相关内容';
+  if (hits.length === 0) { results.innerHTML = '<div class="search-empty">未找到"'+q+'"相关内容</div>'; return; }
+  results.innerHTML = hits.map(function(item) {
+    return '<div class="search-result-item" onclick="closeSearch();openModal(\'' + item.modal + '\')">' +
+      '<div class="sr-tag">' + item.cat + ' · ' + item.entity + ' · ' + item.date + '</div>' +
+      '<div class="sr-title">' + highlight(item.title, q) + '</div></div>';
+  }).join('');
+}
+document.addEventListener('keydown', function(e) {
+  if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) { e.preventDefault(); openSearch(); }
+  if (e.key === 'Escape') {
+    if (document.getElementById('modal-overlay').classList.contains('on')) closeModal();
+    else if (document.getElementById('search-overlay').classList.contains('on')) closeSearch();
+  }
+});
+
+// ── 坚如磐石的图表绘制系统 ──
+function initCharts() {
+  if (typeof Chart === 'undefined') {
+    setTimeout(initCharts, 100);
+    return;
+  }
+
+  var tc = 'rgba(90,87,84,0.65)';
+  var gc = 'rgba(0,0,0,0.05)';
+
+  function createChart(elId, type, data, yFormat) {
+    var el = document.getElementById(elId);
+    if (!el) return;
+
+    var config = {
+      type: type,
+      data: JSON.parse(JSON.stringify(data)),
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
+        scales: {
+          x: { ticks: { color: tc, font: { size: 10 }, maxRotation: 0, autoSkip: false }, grid: { color: gc }, border: { display: false } },
+          y: { ticks: { color: tc, font: { size: 10 } }, grid: { color: gc }, border: { display: false } }
+        }
+      }
+    };
+
+    if (yFormat === 'price') {
+      config.options.scales.y.ticks.callback = function(v){ return '$' + v; };
+    } else if (yFormat === 'wan') {
+      config.options.scales.y.ticks.callback = function(v){ return v + '万'; };
+    } else if (yFormat === 'mi') {
+      config.options.scales.y.ticks.callback = function(v){ return v + ' mi²'; };
+    } else if (yFormat === 'num') {
+      config.options.scales.y.min = 5600;
+      config.options.scales.y.ticks.callback = function(v){ return v.toLocaleString(); };
+    }
+
+    new Chart(el, config);
+  }
+
+  var tslaData = { labels:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'], datasets:[{data:[402,388,356,371,342,318,295,280,271,262,255,248], borderColor:'#CC2929',backgroundColor:'rgba(204,41,41,0.07)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#CC2929',borderWidth:1.5}] };
+  var deliveryData = { labels:['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[38.7,44.4,46.2,49.5,33.6], backgroundColor:['#378ADD','#378ADD','#378ADD','#378ADD','#CC2929'], borderRadius:3,borderWidth:0}] };
+  var fsdData = { labels:['Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[32,41,52,64,78,95,110,124], borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.08)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#1D9E75',borderWidth:1.5}] };
+  var starlinkData = { labels:['3月','4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月','3月'], datasets:[{data:[5792,5912,6088,6231,6402,6580,6741,6892,7012,7108,7192,7248,7284], borderColor:'#534AB7',backgroundColor:'rgba(83,74,183,0.07)',fill:true,tension:0.4,pointRadius:2,borderWidth:1.5}] };
+  var robotaxiData = { labels:['1月上线','2月','3月'], datasets:[{data:[21,21,42], backgroundColor:['#639922','#639922','#1D9E75'], borderRadius:3,borderWidth:0}] };
+
+  // 市场数据页图表
+  createChart('c-tsla', 'line', tslaData, 'price');
+  createChart('c-delivery', 'bar', deliveryData, 'wan');
+  createChart('c-fsd', 'line', fsdData, 'wan');
+  createChart('c-starlink', 'line', starlinkData, 'num');
+  createChart('c-robotaxi', 'bar', robotaxiData, 'mi');
+
+  // 首页图表
+  createChart('h-tsla', 'line', tslaData, 'price');
+  createChart('h-delivery', 'bar', deliveryData, 'wan');
+  createChart('h-fsd', 'line', fsdData, 'wan');
+  createChart('h-starlink', 'line', starlinkData, 'num');
+  createChart('h-robotaxi', 'bar', robotaxiData, 'mi');
+}
+
+window.addEventListener('load', initCharts);
+</script>
+</body>
+</html>
