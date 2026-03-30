@@ -1511,3 +1511,177 @@ document.addEventListener('keydown', function(e) {
 
 </body>
 </html>
+
+<script>
+/* ═══════════════════════════════════════════
+   feed.json 动态加载模块
+   每60秒自动刷新一次
+═══════════════════════════════════════════ */
+
+var feedData = [];
+
+// ── 分类映射 ──
+var CAT_MAP = {
+  '快讯':    'flash',
+  'FSD':     'fsd',
+  '深度分析': 'analysis',
+  '视频':    'video',
+  '市场数据': 'market',
+  '宏观':    'macro'
+};
+
+var TAG_MAP = {
+  '快讯':    'news',
+  'FSD':     'fsd',
+  '深度分析': 'analysis',
+  '视频':    'video',
+  '市场数据': 'market',
+  '宏观':    'macro'
+};
+
+// ── 构建 flash-item HTML ──
+function buildFlashItem(item) {
+  var safeTitle = (item.title || '').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+  var safeBody  = (item.body  || '').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+  var modalId   = 'dyn_' + item.id;
+
+  // 存到全局 articles 对象供弹窗使用
+  articles[modalId] = {
+    tag:   TAG_MAP[item.category] || 'news',
+    label: item.category,
+    title: item.title || '',
+    src:   item.entity || '',
+    date:  (item.date || '') + ' ' + (item.time || ''),
+    body:  '<p>' + (item.body || '').replace(/\\n/g, '</p><p>') + '</p>'
+  };
+
+  return '<a class="flash-item" href="#" onclick="openModal(\'' + modalId + '\');return false">' +
+    '<div class="flash-time"><span>' + (item.date || '--') + '</span><strong>' + (item.time || '--') + '</strong></div>' +
+    '<div class="flash-body">' +
+      '<div class="flash-entity">' + (item.entity || '') + '</div>' +
+      '<div class="flash-text"><strong>' + (item.title || '') + '</strong></div>' +
+      '<div class="flash-source">' + (item.source_url ? '查看原文' : '') + '</div>' +
+    '</div>' +
+  '</a>';
+}
+
+// ── 构建 article-item HTML ──
+function buildArticleItem(item) {
+  var modalId = 'dyn_' + item.id;
+  var tagClass = TAG_MAP[item.category] || 'analysis';
+
+  articles[modalId] = {
+    tag:   tagClass,
+    label: item.category,
+    title: item.title || '',
+    src:   item.entity || '',
+    date:  (item.date || '') + ' ' + (item.time || ''),
+    body:  '<p>' + (item.body || '').replace(/\\n/g, '</p><p>') + '</p>'
+  };
+
+  return '<a class="article-item" href="#" onclick="openModal(\'' + modalId + '\');return false">' +
+    '<div class="article-date"><span>' + (item.date || '--') + '</span><strong>' + (item.time || '--') + '</strong></div>' +
+    '<div class="article-body">' +
+      '<div class="article-tag"><span class="h-tag ' + tagClass + '">' + item.category + '</span></div>' +
+      '<div class="article-title">' + (item.title || '') + '</div>' +
+      '<div class="article-desc">' + ((item.body || '').substring(0, 80)) + '...</div>' +
+      '<div class="article-meta"><span class="src">' + (item.entity || '') + '</span></div>' +
+    '</div>' +
+  '</a>';
+}
+
+// ── 渲染各板块 ──
+function renderFeed(items) {
+  if (!items || items.length === 0) return;
+
+  var flash    = items.filter(function(i){ return i.category === '快讯'; });
+  var analysis = items.filter(function(i){ return i.category === '深度分析'; });
+  var fsd      = items.filter(function(i){ return i.category === 'FSD'; });
+  var video    = items.filter(function(i){ return i.category === '视频'; });
+  var market   = items.filter(function(i){ return i.category === '市场数据'; });
+  var macro    = items.filter(function(i){ return i.category === '宏观'; });
+
+  // 快讯板块
+  var flashEl = document.querySelector('#page-flash .flash-list');
+  if (flashEl && flash.length > 0) {
+    flashEl.innerHTML = flash.slice(0, 20).map(buildFlashItem).join('');
+  }
+
+  // 深度分析板块
+  var analysisEl = document.querySelector('#page-analysis .article-list');
+  if (analysisEl && analysis.length > 0) {
+    analysisEl.innerHTML = analysis.slice(0, 20).map(buildArticleItem).join('');
+  }
+
+  // FSD板块
+  var fsdEl = document.querySelector('#page-fsd .article-list');
+  if (fsdEl && fsd.length > 0) {
+    fsdEl.innerHTML = fsd.slice(0, 20).map(buildArticleItem).join('');
+  }
+
+  // 宏观板块
+  var macroEl = document.querySelector('#page-macro .flash-list');
+  if (macroEl && macro.length > 0) {
+    macroEl.innerHTML = macro.slice(0, 20).map(buildFlashItem).join('');
+  }
+
+  // 首页快讯预览（前3条）
+  var homeFlashEl = document.querySelector('#page-home .flash-list');
+  if (homeFlashEl && flash.length > 0) {
+    homeFlashEl.innerHTML = flash.slice(0, 3).map(buildFlashItem).join('');
+  }
+
+  // 首页深度分析预览（前3条）
+  var homeAnalysisEls = document.querySelectorAll('#page-home .article-list');
+  if (homeAnalysisEls.length > 0 && analysis.length > 0) {
+    homeAnalysisEls[0].innerHTML = analysis.slice(0, 3).map(buildArticleItem).join('');
+  }
+
+  // 首页FSD预览（前2条）
+  if (homeAnalysisEls.length > 1 && fsd.length > 0) {
+    homeAnalysisEls[1].innerHTML = fsd.slice(0, 2).map(buildArticleItem).join('');
+  }
+
+  // 更新搜索索引
+  searchIndex = items.map(function(item) {
+    return {
+      cat:    item.category,
+      entity: item.entity || '',
+      title:  item.title  || '',
+      date:   item.date   || '',
+      modal:  'dyn_' + item.id
+    };
+  });
+
+  // 更新日期显示
+  if (items[0] && items[0].date) {
+    var dateEls = document.querySelectorAll('.date-rule');
+    dateEls.forEach(function(el) {
+      if (el.textContent.indexOf('2026') !== -1 || el.textContent.indexOf('今日') !== -1) {
+        el.textContent = items[0].date + ' · 最新内容';
+      }
+    });
+  }
+
+  console.log('[Tesla情报站] 已加载 ' + items.length + ' 条内容');
+}
+
+// ── 拉取 feed.json ──
+function loadFeed() {
+  fetch('/data/feed.json?t=' + Date.now())
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      feedData = data.items || [];
+      renderFeed(feedData);
+    })
+    .catch(function(e) {
+      console.warn('[Tesla情报站] feed.json 加载失败，使用静态内容', e);
+    });
+}
+
+// 页面加载时执行一次
+loadFeed();
+
+// 每60秒自动刷新
+setInterval(loadFeed, 60000);
+</script>
