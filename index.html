@@ -25,7 +25,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font
 
 /* NAV */
 nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
-.nav-top{max-width:var(--max);margin:0 auto;padding:0 24px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.nav-top{max-width:var(--max);margin:0 auto;padding:0 40px;height:54px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-box{width:28px;height:28px;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center}
 .logo-box b{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--red);line-height:1}
@@ -53,7 +53,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .page.on{display:block}
 
 /* 公用容器 */
-.wrap{max-width:var(--max);margin:0 auto;padding:32px 24px 64px}
+.wrap{max-width:var(--max);margin:0 auto;padding:32px 40px 64px}
 .two-col{display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:start}
 .single-col{display:block;max-width:780px}
 .date-rule{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
@@ -386,6 +386,188 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   font-weight:500;
   letter-spacing:.04em;
 }
+
+/* ── 左侧面板 ── */
+.left-panel { display:flex; flex-direction:column; gap:16px; margin-bottom:28px; }
+
+/* 情绪雷达 */
+.radar-block, .snapshot-block {
+  border:1px solid var(--border);
+  background:var(--bg);
+  padding:20px 22px;
+}
+.radar-title {
+  display:flex; align-items:center; justify-content:space-between;
+  font-family:var(--mono); font-size:10px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--text3);
+  margin-bottom:18px;
+}
+.radar-live { display:flex; align-items:center; gap:5px; color:#22c55e; }
+.radar-list { display:flex; flex-direction:column; gap:14px; }
+.radar-row { display:flex; align-items:center; gap:10px; }
+.radar-entity { display:flex; align-items:center; gap:6px; font-size:12px; font-weight:500; color:var(--text); width:76px; flex-shrink:0; }
+.radar-icon { font-size:13px; }
+.radar-bar-wrap { flex:1; height:5px; background:var(--bg3); border-radius:0; overflow:hidden; }
+.radar-bar { height:100%; background:var(--red); border-radius:0; transition:width 1s cubic-bezier(.4,0,.2,1); }
+.radar-bar.spacex { background:#1a56db; }
+.radar-bar.xai { background:#111; }
+.radar-bar.neuralink { background:#6d28d9; }
+.radar-pct { font-family:var(--mono); font-size:10px; color:var(--text3); width:28px; text-align:right; flex-shrink:0; }
+.radar-mood { font-family:var(--mono); font-size:9px; padding:2px 6px; border:1px solid; flex-shrink:0; width:38px; text-align:center; }
+.radar-mood.bull { color:#16a34a; border-color:rgba(22,163,74,.3); background:rgba(22,163,74,.06); }
+.radar-mood.bear { color:var(--red); border-color:rgba(204,41,41,.3); background:var(--red-bg); }
+.radar-mood.neutral { color:var(--text3); border-color:var(--border); }
+
+/* 今日快照 */
+.snapshot-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.snapshot-item { text-align:center; padding:12px 8px; background:var(--bg2); }
+.snapshot-val { font-family:var(--serif); font-size:22px; font-weight:700; color:var(--black); line-height:1; margin-bottom:5px; }
+.snapshot-lbl { font-family:var(--mono); font-size:9px; letter-spacing:.08em; color:var(--text3); text-transform:uppercase; }
+
+/* ── 情报面板 ── */
+.intel-panel {
+  border:1px solid var(--border);
+  background:var(--bg);
+  margin-bottom:28px;
+  overflow:hidden;
+}
+.intel-snapshot {
+  padding:20px 22px 18px;
+}
+.intel-snap-title {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--text3);
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.intel-dot {
+  width:6px; height:6px;
+  border-radius:50%;
+  background:#22c55e;
+  animation:pulse 2s ease-in-out infinite;
+  flex-shrink:0;
+}
+.intel-snap-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border:1px solid var(--border);
+}
+.intel-snap-item {
+  padding:14px 12px;
+  text-align:center;
+  border-right:1px solid var(--border);
+}
+.intel-snap-item:last-child { border-right:none; }
+.intel-snap-val {
+  font-family:var(--serif);
+  font-size:22px;
+  font-weight:700;
+  color:var(--black);
+  line-height:1;
+  margin-bottom:5px;
+}
+.intel-snap-lbl {
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--text3);
+  letter-spacing:.06em;
+}
+.intel-divider {
+  height:1px;
+  background:var(--border);
+}
+.intel-sentiment {
+  padding:18px 22px 20px;
+}
+.intel-sent-title {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--text3);
+  margin-bottom:14px;
+}
+.intel-tsla-row {
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin-bottom:16px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.intel-tsla-label {
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--text3);
+  letter-spacing:.08em;
+}
+.intel-tsla-price {
+  font-family:var(--serif);
+  font-size:20px;
+  font-weight:700;
+  color:var(--black);
+}
+.intel-tsla-change {
+  font-family:var(--mono);
+  font-size:12px;
+  margin-left:auto;
+}
+.intel-tsla-change.up { color:#16a34a; }
+.intel-tsla-change.dn { color:var(--red); }
+.intel-entity-rows { display:flex; flex-direction:column; gap:12px; }
+.intel-entity-row {}
+.intel-entity-head {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:5px;
+}
+.intel-entity-icon { font-size:13px; }
+.intel-entity-name {
+  font-size:12px;
+  font-weight:500;
+  color:var(--text);
+  flex:1;
+}
+.intel-entity-mood {
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.06em;
+  padding:2px 6px;
+  border:1px solid var(--border);
+  color:var(--text3);
+}
+.intel-bar-bg {
+  height:4px;
+  background:var(--bg3);
+  border-radius:0;
+  overflow:hidden;
+}
+.intel-bar-fill {
+  height:100%;
+  transition:width .8s cubic-bezier(.4,0,.2,1);
+  border-radius:0;
+}
+.intel-bar-fill.red    { background:var(--red); }
+.intel-bar-fill.blue   { background:#2563eb; }
+.intel-bar-fill.dark   { background:#111; }
+.intel-bar-fill.indigo { background:#4f46e5; }
+.intel-sent-note {
+  margin-top:12px;
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--text3);
+  letter-spacing:.04em;
+}
+
+.video-channel-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.video-channel { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
 </style>
 </head>
 <body>
@@ -427,6 +609,139 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   <div class="wrap">
     <div class="two-col">
       <div>
+        <!-- 情绪雷达 + 今日快照 -->
+        <div class="left-panel">
+
+          <div class="radar-block">
+            <div class="radar-title">
+              <span>生态情绪雷达</span>
+              <span class="radar-live"><span class="dot"></span>实时</span>
+            </div>
+            <div class="radar-list" id="radar-list">
+              <div class="radar-row">
+                <div class="radar-entity"><span class="radar-icon">⚡</span><span>Tesla</span></div>
+                <div class="radar-bar-wrap"><div class="radar-bar" id="bar-tesla" style="width:0%"></div></div>
+                <div class="radar-pct" id="pct-tesla">—</div>
+                <div class="radar-mood" id="mood-tesla">—</div>
+              </div>
+              <div class="radar-row">
+                <div class="radar-entity"><span class="radar-icon">🚀</span><span>SpaceX</span></div>
+                <div class="radar-bar-wrap"><div class="radar-bar spacex" id="bar-spacex" style="width:0%"></div></div>
+                <div class="radar-pct" id="pct-spacex">—</div>
+                <div class="radar-mood" id="mood-spacex">—</div>
+              </div>
+              <div class="radar-row">
+                <div class="radar-entity"><span class="radar-icon">🧠</span><span>xAI</span></div>
+                <div class="radar-bar-wrap"><div class="radar-bar xai" id="bar-xai" style="width:0%"></div></div>
+                <div class="radar-pct" id="pct-xai">—</div>
+                <div class="radar-mood" id="mood-xai">—</div>
+              </div>
+              <div class="radar-row">
+                <div class="radar-entity"><span class="radar-icon">💡</span><span>Neuralink</span></div>
+                <div class="radar-bar-wrap"><div class="radar-bar neuralink" id="bar-neuralink" style="width:0%"></div></div>
+                <div class="radar-pct" id="pct-neuralink">—</div>
+                <div class="radar-mood" id="mood-neuralink">—</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="snapshot-block">
+            <div class="radar-title"><span>今日数据快照</span></div>
+            <div class="snapshot-grid">
+              <div class="snapshot-item">
+                <div class="snapshot-val" id="snap-total">—</div>
+                <div class="snapshot-lbl">今日更新</div>
+              </div>
+              <div class="snapshot-item">
+                <div class="snapshot-val" id="snap-analysis">—</div>
+                <div class="snapshot-lbl">深度分析</div>
+              </div>
+              <div class="snapshot-item">
+                <div class="snapshot-val" id="snap-fsd">—</div>
+                <div class="snapshot-lbl">FSD相关</div>
+              </div>
+              <div class="snapshot-item">
+                <div class="snapshot-val" id="snap-time">—</div>
+                <div class="snapshot-lbl">最后更新</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 情报面板 -->
+        <div class="intel-panel">
+          <div class="intel-snapshot">
+            <div class="intel-snap-title">
+              <span class="intel-dot"></span>今日情报快照
+            </div>
+            <div class="intel-snap-grid">
+              <div class="intel-snap-item">
+                <div class="intel-snap-val" id="snap-total">—</div>
+                <div class="intel-snap-lbl">条更新</div>
+              </div>
+              <div class="intel-snap-item">
+                <div class="intel-snap-val" id="snap-analysis">—</div>
+                <div class="intel-snap-lbl">深度分析</div>
+              </div>
+              <div class="intel-snap-item">
+                <div class="intel-snap-val" id="snap-fsd">—</div>
+                <div class="intel-snap-lbl">FSD相关</div>
+              </div>
+              <div class="intel-snap-item">
+                <div class="intel-snap-val" id="snap-time">—</div>
+                <div class="intel-snap-lbl">最后更新</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="intel-divider"></div>
+
+          <div class="intel-sentiment">
+            <div class="intel-sent-title">生态情绪雷达</div>
+            <div class="intel-tsla-row">
+              <span class="intel-tsla-label">TSLA</span>
+              <span class="intel-tsla-price">$248.42</span>
+              <span class="intel-tsla-change dn">▼ 1.28%</span>
+            </div>
+            <div class="intel-entity-rows">
+              <div class="intel-entity-row">
+                <div class="intel-entity-head">
+                  <span class="intel-entity-icon">⚡</span>
+                  <span class="intel-entity-name">Tesla</span>
+                  <span class="intel-entity-mood" id="mood-tesla">—</span>
+                </div>
+                <div class="intel-bar-bg"><div class="intel-bar-fill red" id="bar-tesla" style="width:0%"></div></div>
+              </div>
+              <div class="intel-entity-row">
+                <div class="intel-entity-head">
+                  <span class="intel-entity-icon">🚀</span>
+                  <span class="intel-entity-name">SpaceX</span>
+                  <span class="intel-entity-mood" id="mood-spacex">—</span>
+                </div>
+                <div class="intel-bar-bg"><div class="intel-bar-fill blue" id="bar-spacex" style="width:0%"></div></div>
+              </div>
+              <div class="intel-entity-row">
+                <div class="intel-entity-head">
+                  <span class="intel-entity-icon">🧠</span>
+                  <span class="intel-entity-name">xAI · Grok</span>
+                  <span class="intel-entity-mood" id="mood-xai">—</span>
+                </div>
+                <div class="intel-bar-bg"><div class="intel-bar-fill dark" id="bar-xai" style="width:0%"></div></div>
+              </div>
+              <div class="intel-entity-row">
+                <div class="intel-entity-head">
+                  <span class="intel-entity-icon">💡</span>
+                  <span class="intel-entity-name">Neuralink</span>
+                  <span class="intel-entity-mood" id="mood-neuralink">—</span>
+                </div>
+                <div class="intel-bar-bg"><div class="intel-bar-fill indigo" id="bar-neuralink" style="width:0%"></div></div>
+              </div>
+            </div>
+            <div class="intel-sent-note">基于今日内容热度计算 · 仅供参考</div>
+          </div>
+        </div>
+
         <!-- 介绍横幅 -->
         <div class="intro-banner">
           <div class="intro-top">
@@ -1260,24 +1575,33 @@ function makeArticleItem(item) {
 }
 
 function makeVideoItem(item) {
-  var url = item.source_url||'';
-  var m = url.match(/(?:v=|youtu\.be\/)([\w-]{11})/);
-  var ytId = m ? m[1] : '';
+  var ytId = item.yt_id || '';
+  if (!ytId && item.source_url) {
+    var m = item.source_url.match(/(?:v=|youtu\.be\/)+([\w-]{11})/);
+    if (m) ytId = m[1];
+  }
+  var ytUrl = ytId ? 'https://www.youtube.com/watch?v=' + ytId : (item.source_url || '#');
   var thumb = ytId
-    ? '<img src="https://img.youtube.com/vi/'+ytId+'/mqdefault.jpg" alt="" loading="lazy">'
+    ? '<img src="https://img.youtube.com/vi/'+ytId+'/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src=\'https://img.youtube.com/vi/'+ytId+'/mqdefault.jpg\'">'
     : '<div class="video-thumb-placeholder">▶</div>';
-  return '<a class="video-card-item" href="'+(url||'#')+'" target="_blank">' +
+  var channel = item.source || item.entity || '';
+  return '<a class="video-card-item" href="'+ytUrl+'" target="_blank" rel="noopener">' +
     '<div class="video-thumb">'+thumb+'</div>' +
     '<div class="video-card-body">' +
       '<div>' +
-        '<div class="article-tag" style="margin-bottom:8px"><span class="h-tag video">视频</span></div>' +
+        '<div class="video-channel-row">' +
+          '<span class="h-tag video" style="margin-bottom:0">视频</span>' +
+          '<span class="video-channel">'+channel+'</span>' +
+        '</div>' +
         '<div class="video-card-title">'+(item.title||'')+'</div>' +
-        '<div class="video-card-desc">'+(item.body||'').substring(0,100)+'...</div>' +
       '</div>' +
-      '<div class="video-card-meta"><span class="src">'+(item.entity||'')+'</span><span class="meta-dot"></span><span>'+(item.date||'')+'</span></div>' +
+      '<div class="video-card-meta">' +
+        '<span>'+(item.date||'')+(item.time?' '+item.time:'')+'</span>' +
+        '<span class="meta-dot"></span>' +
+        '<span style="color:var(--red)">▶ YouTube</span>' +
+      '</div>' +
     '</div></a>';
 }
-
 function tagClass(cat) {
   var map = {'快讯':'news','深度分析':'analysis','FSD':'fsd','视频':'video','市场数据':'market','宏观':'macro'};
   return map[cat] || 'news';
@@ -1362,6 +1686,16 @@ function renderAll(items) {
     return {id:'dyn_'+item.id, cat:item.category, entity:item.entity||'', title:item.title||''};
   });
 
+  // 今日快照
+  var snapEl = document.getElementById('snap-total');
+  if (snapEl) snapEl.textContent = items.length;
+  var snapA = document.getElementById('snap-analysis');
+  if (snapA) snapA.textContent = analysis.length;
+  var snapF = document.getElementById('snap-fsd');
+  if (snapF) snapF.textContent = fsd.length;
+  var snapT = document.getElementById('snap-time');
+  if (snapT && items[0]) snapT.textContent = items[0].time || '--';
+
   // 实体计数
   var counts = {tesla:0,spacex:0,xai:0,neuralink:0};
   items.forEach(function(i){
@@ -1379,6 +1713,43 @@ function renderAll(items) {
   setEl('sb-ef-spacex',   counts.spacex   + '篇');
   setEl('sb-ef-xai',      counts.xai      + '篇');
   setEl('sb-ef-neuralink',counts.neuralink+ '篇');
+
+  // ── 情绪雷达 ──
+  var total = counts.tesla + counts.spacex + counts.xai + counts.neuralink || 1;
+  function moodLabel(n, t) {
+    var r = n/t;
+    if (r > 0.4) return ['看多','bull'];
+    if (r > 0.2) return ['中性','neutral'];
+    return ['观望','neutral'];
+  }
+  function setRadar(key, count) {
+    var pct = Math.round(count / total * 100);
+    var bar = document.getElementById('bar-' + key);
+    var pctEl = document.getElementById('pct-' + key);
+    var moodEl = document.getElementById('mood-' + key);
+    if (bar) setTimeout(function(){ bar.style.width = pct + '%'; }, 100);
+    if (pctEl) pctEl.textContent = pct + '%';
+    if (moodEl) {
+      var m = moodLabel(count, total);
+      moodEl.textContent = m[0];
+      moodEl.className = 'radar-mood ' + m[1];
+    }
+  }
+  setRadar('tesla',    counts.tesla);
+  setRadar('spacex',   counts.spacex);
+  setRadar('xai',      counts.xai);
+  setRadar('neuralink',counts.neuralink);
+
+  // ── 今日快照 ──
+  var today = new Date().toLocaleDateString('zh-CN',{month:'2-digit',day:'2-digit'}).replace('/','-');
+  var todayItems = items.filter(function(i){ return (i.date||'').indexOf(today.slice(-5)) !== -1; });
+  var snapAnalysis = todayItems.filter(function(i){ return i.category==='深度分析'; }).length;
+  var snapFsd      = todayItems.filter(function(i){ return i.category==='FSD'; }).length;
+  var lastTime = items.length > 0 ? (items[0].time || '--') : '--';
+  setEl('snap-total',    todayItems.length || items.length);
+  setEl('snap-analysis', snapAnalysis + '篇');
+  setEl('snap-fsd',      snapFsd + '条');
+  setEl('snap-time',     lastTime);
 }
 
 function loadFeed() {
