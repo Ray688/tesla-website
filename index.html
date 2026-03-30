@@ -59,25 +59,11 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .date-rule{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
 .date-rule::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* ── 核心升级：时间轴快讯样式 (仅在此处新增) ── */
-.timeline-date-header { font-family: var(--sans); font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
-.timeline-badge { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 4px; }
-.timeline-list { padding: 10px 0 20px 10px; }
-.timeline-item { position: relative; padding-left: 32px; padding-bottom: 36px; border-left: 2px solid #e5e7eb; }
-.timeline-item:last-child { border-left-color: transparent; padding-bottom: 0; }
-.timeline-dot { position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; box-shadow: 0 0 0 3px var(--bg); }
-.timeline-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
-.timeline-time { font-family: var(--sans); font-size: 16px; font-weight: 600; color: #111827; flex-shrink: 0; }
-.timeline-title { font-family: var(--sans); font-size: 17px; font-weight: 500; color: #2563eb; text-decoration: none; line-height: 1.4; transition: color .15s; }
-.timeline-title:hover { color: #1d4ed8; text-decoration: underline; }
-.timeline-body { font-size: 14px; color: #4b5563; line-height: 1.8; margin-bottom: 16px; }
-.timeline-actions { display: flex; align-items: center; justify-content: flex-end; gap: 16px; padding-top: 12px; border-top: 1px dashed #f3f4f6; }
-.timeline-source { font-family: var(--sans); font-size: 12px; color: #9ca3af; margin-right: auto; }
-.action-icons { display: flex; gap: 12px; color: #9ca3af; }
-.action-icons svg { cursor: pointer; transition: color .15s; }
-.action-icons svg:hover { color: #4b5563; }
-
-/* 其他基础样式保留 */
+/* 头条 */
+.hero-grid{display:grid;grid-template-columns:1.55fr 1fr;grid-template-rows:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:32px}
+.hero-card{background:var(--bg);padding:26px 24px;cursor:pointer;transition:background .18s var(--ease);display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:inherit}
+.hero-card:hover{background:#edece7}
+.hero-card.main{grid-row:1/3;min-height:320px}
 .h-tag{display:inline-flex !important;align-items:center;width:fit-content !important;max-width:fit-content !important;font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;margin-bottom:14px}
 .h-tag.news{color:var(--red);border-color:rgba(204,41,41,.3);background:var(--red-bg)}
 .h-tag.analysis{color:#1d4ed8;border-color:rgba(29,78,216,.25);background:rgba(29,78,216,.04)}
@@ -87,10 +73,24 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .h-tag.macro{color:#0369a1;border-color:rgba(3,105,161,.25);background:rgba(3,105,161,.04)}
 .h-tag.market{color:#374151;border-color:rgba(55,65,81,.25);background:rgba(55,65,81,.04)}
 .hero-title{font-family:var(--serif);font-size:clamp(18px,2.2vw,26px);font-weight:600;line-height:1.3;color:var(--black);margin-bottom:10px;letter-spacing:-.01em}
+.hero-card.main .hero-title{font-size:clamp(22px,2.8vw,32px)}
 .hero-desc{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text2);line-height:1.9}
 .hero-meta{margin-top:16px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
 .hero-meta .src{color:var(--red)}
 .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--border2)}
+
+/* 快讯流 */
+.flash-list-OLD{}
+.flash-item-OLD{}
+
+
+
+
+
+
+
+
+
 
 /* 文章列表 */
 .article-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--border)}
@@ -568,10 +568,25 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
 .video-channel-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
 .video-channel { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
+.flash-list{background:var(--bg)}
+.flash-news-item{padding:20px 0;border-bottom:1px solid var(--border);position:relative}
+.flash-news-item:last-child{border-bottom:none}
+.flash-news-header{display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
+.flash-news-time{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--text2);flex-shrink:0;letter-spacing:.02em}
+.flash-news-dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:2px;align-self:center}
+.flash-news-title{font-family:var(--sans);font-size:16px;font-weight:500;color:#1a6fc4;line-height:1.5;cursor:pointer;text-decoration:none}
+.flash-news-title:hover{text-decoration:underline;text-underline-offset:3px}
+.flash-news-body{font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.9;margin-left:20px;margin-top:6px}
+.flash-news-footer{display:flex;align-items:center;justify-content:space-between;margin-left:20px;margin-top:12px}
+.flash-news-source{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
+.flash-news-link{font-family:var(--mono);font-size:10px;color:var(--text3);text-decoration:none;letter-spacing:.04em;transition:color .15s}
+.flash-news-link:hover{color:var(--red)}
+.flash-important-badge{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--red);border:1px solid rgba(204,41,41,.3);padding:2px 6px;border-radius:2px;flex-shrink:0}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-top">
     <a href="#" class="logo" onclick="switchTab('home');return false">
@@ -603,10 +618,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </nav>
 
+<!-- ══ 首页 ══ -->
 <div class="page on" id="page-home">
   <div class="wrap">
     <div class="two-col">
       <div>
+        <!-- 情绪雷达 + 今日快照 -->
         <div class="left-panel">
 
           <div class="radar-block">
@@ -666,6 +683,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
         </div>
 
+        <!-- 情报面板 -->
         <div class="intel-panel">
           <div class="intel-snapshot">
             <div class="intel-snap-title">
@@ -738,6 +756,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
+        <!-- 介绍横幅 -->
         <div class="intro-banner">
           <div class="intro-top">
             <div class="intro-logo-row">
@@ -774,16 +793,18 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
         <div class="date-rule" id="home-date-rule">今日总览</div>
 
+        <!-- 快讯预览 -->
         <div class="home-section">
           <div class="home-section-head">
-            <div class="home-section-title">实时快讯</div>
-            <a href="#" class="home-section-more" onclick="switchTab('flash');return false">查看全部快讯 →</a>
+            <div class="home-section-title">快讯</div>
+            <a href="#" class="home-section-more" onclick="switchTab('flash');return false">查看全部 →</a>
           </div>
-          <div class="timeline-list" id="home-flash-list">
+          <div class="flash-list" id="home-flash-list">
             <div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
           </div>
         </div>
 
+        <!-- 深度分析预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">深度分析</div>
@@ -794,6 +815,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
+        <!-- FSD预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">FSD · Robotaxi</div>
@@ -804,6 +826,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
+        <!-- 视频预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">视频精选</div>
@@ -814,6 +837,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
+        <!-- 市场数据预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">市场数据</div>
@@ -843,6 +867,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
       </div>
 
+      <!-- 侧边栏 -->
       <div class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
@@ -873,15 +898,17 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<!-- ══ 快讯 ══ -->
 <div class="page" id="page-flash">
   <div class="wrap">
     <div class="two-col">
       <div>
-        <div class="date-rule" id="flash-date-rule">最新快讯</div>
-        <div class="timeline-list" id="flash-list">
+        <div class="date-rule" id="flash-date-rule" style="display:flex;align-items:center;justify-content:space-between"><span id="flash-date-text">最新快讯</span><span class="flash-important-badge">重要快讯</span></div>
+        <div class="flash-list" id="flash-list">
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载快讯...</div>
         </div>
       </div>
+      <!-- 侧边栏 -->
       <aside class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
@@ -948,12 +975,14 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<!-- ══ 深度分析 ══ -->
 <div class="page" id="page-analysis">
   <div class="wrap">
     <div class="two-col">
       <div>
         <div class="date-rule">深度报告 · 研究分析</div>
 
+        <!-- 本周精选 -->
         <div class="featured-card" id="featured-card" style="display:none">
           <div class="featured-header">
             <div class="featured-badge-row">
@@ -979,6 +1008,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载深度分析...</div>
         </div>
       </div>
+      <!-- 侧边栏 -->
       <aside class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
@@ -1007,22 +1037,22 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
             <div class="entity-item" onclick="doSearch('Tesla')">
               <div class="entity-icon">⚡</div>
               <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
-              <div class="entity-count" id="sb-ef-tesla2">—</div>
+              <div class="entity-count" id="sb-ef-tesla">—</div>
             </div>
             <div class="entity-item" onclick="doSearch('SpaceX')">
               <div class="entity-icon">🚀</div>
               <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-spacex2">—</div>
+              <div class="entity-count" id="sb-ef-spacex">—</div>
             </div>
             <div class="entity-item" onclick="doSearch('xAI')">
               <div class="entity-icon">🧠</div>
               <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-xai2">—</div>
+              <div class="entity-count" id="sb-ef-xai">—</div>
             </div>
             <div class="entity-item" onclick="doSearch('Neuralink')">
               <div class="entity-icon">💡</div>
               <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-neuralink2">—</div>
+              <div class="entity-count" id="sb-ef-neuralink">—</div>
             </div>
           </div>
         </div>
@@ -1045,6 +1075,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<!-- ══ FSD · Robotaxi ══ -->
 <div class="page" id="page-fsd">
   <div class="wrap">
     <div class="two-col">
@@ -1054,6 +1085,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
         </div>
       </div>
+      <!-- 侧边栏 -->
       <aside class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
@@ -1082,22 +1114,22 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
             <div class="entity-item" onclick="doSearch('Tesla')">
               <div class="entity-icon">⚡</div>
               <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
-              <div class="entity-count" id="sb-ef-tesla3">—</div>
+              <div class="entity-count" id="sb-ef-tesla">—</div>
             </div>
             <div class="entity-item" onclick="doSearch('SpaceX')">
               <div class="entity-icon">🚀</div>
               <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-spacex3">—</div>
+              <div class="entity-count" id="sb-ef-spacex">—</div>
             </div>
             <div class="entity-item" onclick="doSearch('xAI')">
               <div class="entity-icon">🧠</div>
               <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-xai3">—</div>
+              <div class="entity-count" id="sb-ef-xai">—</div>
             </div>
             <div class="entity-item" onclick="doSearch('Neuralink')">
               <div class="entity-icon">💡</div>
               <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-neuralink3">—</div>
+              <div class="entity-count" id="sb-ef-neuralink">—</div>
             </div>
           </div>
         </div>
@@ -1120,6 +1152,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<!-- ══ 视频 ══ -->
 <div class="page" id="page-video">
   <div class="wrap">
     <div class="two-col">
@@ -1129,6 +1162,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载视频...</div>
         </div>
       </div>
+      <!-- 侧边栏 -->
       <aside class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
@@ -1157,22 +1191,22 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
             <div class="entity-item" onclick="doSearch('Tesla')">
               <div class="entity-icon">⚡</div>
               <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
-              <div class="entity-count" id="sb-ef-tesla4">—</div>
+              <div class="entity-count" id="sb-ef-tesla">—</div>
             </div>
             <div class="entity-item" onclick="doSearch('SpaceX')">
               <div class="entity-icon">🚀</div>
               <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-spacex4">—</div>
+              <div class="entity-count" id="sb-ef-spacex">—</div>
             </div>
             <div class="entity-item" onclick="doSearch('xAI')">
               <div class="entity-icon">🧠</div>
               <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-xai4">—</div>
+              <div class="entity-count" id="sb-ef-xai">—</div>
             </div>
             <div class="entity-item" onclick="doSearch('Neuralink')">
               <div class="entity-icon">💡</div>
               <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-neuralink4">—</div>
+              <div class="entity-count" id="sb-ef-neuralink">—</div>
             </div>
           </div>
         </div>
@@ -1195,6 +1229,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<!-- ══ 市场数据 ══ -->
 <div class="page" id="page-market">
   <div class="wrap single-col">
     <div class="date-rule">市场数据 · 数据看板</div>
@@ -1229,7 +1264,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       </div>
     </div>
     <div style="margin-top:28px">
-      <div class="date-rule">机构评级深度分析</div>
+      <div class="date-rule">机构评级</div>
       <div class="article-list" id="market-list">
         <div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
       </div>
@@ -1237,20 +1272,84 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<!-- ══ 宏观 ══ -->
 <div class="page" id="page-macro">
   <div class="wrap">
     <div class="two-col">
       <div>
         <div class="date-rule">宏观环境 · 政策与利率</div>
-        <div class="timeline-list" id="macro-list">
+        <div class="flash-list" id="macro-list">
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
         </div>
       </div>
-      <aside class="sidebar"></aside>
+      <!-- 侧边栏 -->
+      <aside class="sidebar">
+        <div class="sb-block">
+          <div class="sb-head"><span>市场快览</span></div>
+          <div class="data-list">
+            <div class="data-row">
+              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
+              <div class="data-change dn">▼ 1.28%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
+              <div class="data-change up">▲ 12%</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
+              <div class="data-change up">▲ 96颗/月</div>
+            </div>
+            <div class="data-row">
+              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
+              <div class="data-change up">▲ 翻倍</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
+          <div class="entity-list">
+            <div class="entity-item" onclick="doSearch('Tesla')">
+              <div class="entity-icon">⚡</div>
+              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
+              <div class="entity-count" id="sb-ef-tesla">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('SpaceX')">
+              <div class="entity-icon">🚀</div>
+              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-spacex">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('xAI')">
+              <div class="entity-icon">🧠</div>
+              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-xai">—</div>
+            </div>
+            <div class="entity-item" onclick="doSearch('Neuralink')">
+              <div class="entity-icon">💡</div>
+              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
+              <div class="entity-count" id="sb-ef-neuralink">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="sb-block">
+          <div class="sb-head"><span>热门话题</span></div>
+          <div class="tag-cloud">
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
+            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
+            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
+            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
+            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
+            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
+            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
+            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
+            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 </div>
 
+<!-- ══ 追踪实体底部 ══ -->
 <div class="entity-section">
   <div class="entity-section-inner">
     <div class="section-label">追踪实体</div>
@@ -1263,6 +1362,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<!-- 订阅横幅 -->
 <div class="sub-banner">
   <div class="sub-banner-inner">
     <div>
@@ -1277,6 +1377,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<!-- Footer -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -1308,6 +1409,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </footer>
 
+<!-- 搜索蒙层 -->
 <div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
   <div class="search-box">
     <div class="search-input-row">
@@ -1322,6 +1424,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
+<!-- 弹窗正文 -->
 <div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">×</button>
@@ -1344,7 +1447,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 var feedItems = [];
 var searchIndex = [];
 var chartsDrawn = false;
-var dynArticles = {};
 
 // ══════════════════════════════════════════
 // 标签切换
@@ -1367,6 +1469,8 @@ function switchTab(name) {
 // ══════════════════════════════════════════
 // 弹窗
 // ══════════════════════════════════════════
+var dynArticles = {};
+
 function openModal(id) {
   var a = dynArticles[id];
   if (!a) return;
@@ -1448,33 +1552,27 @@ document.addEventListener('keydown', function(e){
 // ══════════════════════════════════════════
 function makeFlashItem(item) {
   var id = 'dyn_'+item.id;
-  var bodyHtml = (item.body||'').replace(/\\n/g, '<br>');
-  
   dynArticles[id] = {
     tag: tagClass(item.category), label: item.category,
     title: item.title||'', src: item.entity||'',
     date: (item.date||'')+(item.time?' '+item.time:''),
-    body: '<p>'+(item.body||'').replace(/\\n/g,'</p><p>')+'</p>' +
-      (item.source_url?'<p style="margin-top:16px"><a href="'+item.source_url+'" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none">→ 查看原文</a></p>':'')
+    body: '<p>'+(item.body||'').replace(/\n/g,'</p><p>')+'</p>' +
+      (item.source_url?'<p style="margin-top:16px"><a href="'+item.source_url+'" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none">→ 查看原文</a></p>':'')
   };
-
-  return '<div class="timeline-item">' +
-           '<div class="timeline-dot"></div>' +
-           'content">' +
-             '<div class="timeline-head">' +
-               '<span class="timeline-time">' + (item.time||'--') + '</span>' +
-               '<a href="#" class="timeline-title" onclick="openModal(\''+id+'\');return false;">' + (item.title||'') + '</a>' +
-             '</div>' +
-             '<div class="timeline-body">' + bodyHtml + '</div>' +
-             '<div class="timeline-actions">' +
-               '<span class="timeline-source">来源: ' + (item.source || item.entity || '网络获取') + '</span>' +
-               '<div class="action-icons">' +
-                 '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" onclick="alert(\'分享功能即将上线\')"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>' +
-                 '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" onclick="alert(\'收藏功能即将上线\')"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' +
-               '</div>' +
-             '</div>' +
-           '</div>' +
-         '</div>';
+  var body = (item.body||'').trim();
+  var hasLink = !!item.source_url;
+  return '<div class="flash-news-item">'+
+    '<div class="flash-news-header">'+
+      '<span class="flash-news-dot"></span>'+
+      '<span class="flash-news-time">'+(item.time||'--:--')+'</span>'+
+      '<a class="flash-news-title" href="#" onclick="openModal(\''+id+'\');return false">'+(item.title||'')+'</a>'+
+    '</div>'+
+    (body?'<div class="flash-news-body">'+body+'</div>':'')+
+    '<div class="flash-news-footer">'+
+      '<span class="flash-news-source">'+(item.source||item.entity||'')+'</span>'+
+      (hasLink?'<a class="flash-news-link" href="'+item.source_url+'" target="_blank" rel="noopener">→ 原文</a>':'')+
+    '</div>'+
+  '</div>';
 }
 
 function makeArticleItem(item) {
@@ -1555,38 +1653,60 @@ function renderAll(items) {
   var fc = document.getElementById('featured-card');
   if (fc && analysis.length > 0) {
     var top = analysis[0];
+    var fid = 'dyn_' + top.id;
+    document.getElementById('featured-tag').textContent = top.category || '深度分析';
+    document.getElementById('featured-entity').textContent = top.entity || '';
+    document.getElementById('featured-title').textContent = top.title || '';
+    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\n/g,' ').substring(0, 200) + '...';
+    document.getElementById('featured-src').textContent = top.entity || '';
+    document.getElementById('featured-date').textContent = (top.date || '') + ' ' + (top.time || '');
+    document.getElementById('featured-btn').onclick = function(){ openModal(fid); };
+    fc.style.display = 'block';
+  }
+
+  // 本周精选：取深度分析第一条
+  var fc = document.getElementById('featured-card');
+  if (fc && analysis.length > 0) {
+    var top = analysis[0];
     var topId = 'dyn_' + top.id;
     document.getElementById('featured-title').textContent = top.title || '';
-    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\n/g, ' ').substring(0, 200) + '...';
+    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\n/g, ' ').substring(0, 200);
     document.getElementById('featured-src').textContent = top.entity || '';
     document.getElementById('featured-date').textContent = (top.date || '') + (top.time ? ' ' + top.time : '');
     document.getElementById('featured-tag').textContent = top.category || '深度分析';
-    document.getElementById('featured-btn').onclick = function(){ openModal(topId); };
+    fc._featuredId = topId;
     fc.style.display = 'block';
   }
-  
   setEl('fsd-list',      fsd.length      ? fsd.slice(0,20).map(makeArticleItem).join('')    : empty('暂无FSD内容'));
   setEl('video-list',    video.length    ? video.slice(0,20).map(makeVideoItem).join('')    : empty('暂无视频'));
   setEl('market-list',   market.length   ? market.slice(0,10).map(makeArticleItem).join('') : empty('暂无市场数据'));
   setEl('macro-list',    macro.length    ? macro.slice(0,20).map(makeFlashItem).join('')    : empty('暂无宏观内容'));
 
   // 首页预览
-  setEl('home-flash-list',    flash.slice(0,4).map(makeFlashItem).join('')    || empty('正在加载...'));
+  setEl('home-flash-list', flash.slice(0,4).map(function(item){
+    var id='dyn_'+item.id;
+    dynArticles[id]=dynArticles[id]||{tag:tagClass(item.category),label:item.category,title:item.title||'',src:item.entity||'',date:(item.date||'')+(item.time?' '+item.time:''),body:'<p>'+(item.body||'').replace(/\n/g,'</p><p>')+'</p>'};
+    return '<div class="flash-news-item">'+
+      '<div class="flash-news-header">'+
+        '<span class="flash-news-dot"></span>'+
+        '<span class="flash-news-time">'+(item.time||'--:--')+'</span>'+
+        '<a class="flash-news-title" href="#" onclick="openModal(''+id+'');return false">'+(item.title||'')+'</a>'+
+      '</div>'+
+      '<div class="flash-news-footer" style="margin-top:6px">'+
+        '<span class="flash-news-source">'+(item.source||item.entity||'')+'</span>'+
+      '</div>'+
+    '</div>';
+  }).join('') || empty('正在加载...'));
   setEl('home-analysis-list', analysis.slice(0,3).map(makeArticleItem).join('') || empty('正在加载...'));
   setEl('home-fsd-list',      fsd.slice(0,2).map(makeArticleItem).join('')    || empty('正在加载...'));
   setEl('home-video-list',    video.slice(0,4).map(makeVideoItem).join('')    || empty('正在加载...'));
 
-  // 日期头部生成 (仅替换标题部分，不动其他)
+  // 日期
   if (items[0] && items[0].date) {
-    var d = new Date();
-    var dateStr = d.getFullYear() + '-' + items[0].date.replace('/','-'); 
-    var headerHtml = '<div class="timeline-date-header">' + dateStr + ' <span class="timeline-badge">✔ 重要快讯</span></div>';
-    
-    var homeRule = document.getElementById('home-date-rule');
-    if (homeRule) { homeRule.innerHTML = headerHtml; homeRule.className = ''; }
-    
-    var flashRule = document.getElementById('flash-date-rule');
-    if (flashRule) { flashRule.innerHTML = headerHtml; flashRule.className = ''; }
+    var dr = document.getElementById('home-date-rule');
+    if (dr) dr.textContent = items[0].date + ' · 今日总览';
+    var fr = document.getElementById('flash-date-rule');
+    var ftxt=document.getElementById('flash-date-text'); if(ftxt) ftxt.textContent=items[0].date+' · 最新快讯';
   }
 
   // 搜索索引
@@ -1600,7 +1720,7 @@ function renderAll(items) {
     return {id:'dyn_'+item.id, cat:item.category, entity:item.entity||'', title:item.title||''};
   });
 
-  // 今日快照及雷达数据
+  // 今日快照
   var snapEl = document.getElementById('snap-total');
   if (snapEl) snapEl.textContent = items.length;
   var snapA = document.getElementById('snap-analysis');
@@ -1610,6 +1730,7 @@ function renderAll(items) {
   var snapT = document.getElementById('snap-time');
   if (snapT && items[0]) snapT.textContent = items[0].time || '--';
 
+  // 实体计数
   var counts = {tesla:0,spacex:0,xai:0,neuralink:0};
   items.forEach(function(i){
     var e = (i.entity||'').toLowerCase();
@@ -1618,17 +1739,16 @@ function renderAll(items) {
     else if(e.includes('xai')||e.includes('grok')) counts.xai++;
     else if(e.includes('neuralink')) counts.neuralink++;
   });
-  
-  ['ef-tesla','ef-spacex','ef-xai','ef-neuralink',
-   'sb-ef-tesla','sb-ef-spacex','sb-ef-xai','sb-ef-neuralink',
-   'sb-ef-tesla2','sb-ef-spacex2','sb-ef-xai2','sb-ef-neuralink2',
-   'sb-ef-tesla3','sb-ef-spacex3','sb-ef-xai3','sb-ef-neuralink3',
-   'sb-ef-tesla4','sb-ef-spacex4','sb-ef-xai4','sb-ef-neuralink4'].forEach(function(id){
-     var cName = id.replace(/ef-|sb-|[0-9]/g, '');
-     setEl(id, counts[cName] + '篇');
-  });
+  setEl('ef-tesla',    counts.tesla    + '篇');
+  setEl('ef-spacex',   counts.spacex   + '篇');
+  setEl('ef-xai',      counts.xai      + '篇');
+  setEl('ef-neuralink',counts.neuralink+ '篇');
+  setEl('sb-ef-tesla',    counts.tesla    + '篇');
+  setEl('sb-ef-spacex',   counts.spacex   + '篇');
+  setEl('sb-ef-xai',      counts.xai      + '篇');
+  setEl('sb-ef-neuralink',counts.neuralink+ '篇');
 
-  // 情绪雷达更新
+  // ── 情绪雷达 ──
   var total = counts.tesla + counts.spacex + counts.xai + counts.neuralink || 1;
   function moodLabel(n, t) {
     var r = n/t;
@@ -1636,8 +1756,7 @@ function renderAll(items) {
     if (r > 0.2) return ['中性','neutral'];
     return ['观望','neutral'];
   }
-  ['tesla','spacex','xai','neuralink'].forEach(function(key){
-    var count = counts[key];
+  function setRadar(key, count) {
     var pct = Math.round(count / total * 100);
     var bar = document.getElementById('bar-' + key);
     var pctEl = document.getElementById('pct-' + key);
@@ -1649,8 +1768,13 @@ function renderAll(items) {
       moodEl.textContent = m[0];
       moodEl.className = 'radar-mood ' + m[1];
     }
-  });
+  }
+  setRadar('tesla',    counts.tesla);
+  setRadar('spacex',   counts.spacex);
+  setRadar('xai',      counts.xai);
+  setRadar('neuralink',counts.neuralink);
 
+  // ── 今日快照 ──
   var today = new Date().toLocaleDateString('zh-CN',{month:'2-digit',day:'2-digit'}).replace('/','-');
   var todayItems = items.filter(function(i){ return (i.date||'').indexOf(today.slice(-5)) !== -1; });
   var snapAnalysis = todayItems.filter(function(i){ return i.category==='深度分析'; }).length;
@@ -1671,7 +1795,7 @@ function loadFeed() {
       console.log('[Tesla情报站] 已加载 '+feedItems.length+' 条内容');
     })
     .catch(function(e){
-      console.warn('[Tesla情报站] feed.json 加载失败', e);
+      console.warn('[Tesla情报站] feed.json 加载失败，使用静态内容', e);
     });
 }
 
