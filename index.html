@@ -55,11 +55,11 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 /* 公用容器 */
 .wrap{max-width:var(--max);margin:0 auto;padding:32px 40px 64px}
 .two-col{display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:start}
-.single-col{display:block;max-width:780px}
+.single-col{display:block;max-width:780px;margin:0 auto;}
 .date-rule{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
 .date-rule::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* 头条 (保持原样) */
+/* 头条 */
 .hero-grid{display:grid;grid-template-columns:1.55fr 1fr;grid-template-rows:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:32px}
 .hero-card{background:var(--bg);padding:26px 24px;cursor:pointer;transition:background .18s var(--ease);display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:inherit}
 .hero-card:hover{background:#edece7}
@@ -79,7 +79,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .hero-meta .src{color:var(--red)}
 .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--border2)}
 
-/* ── 严谨增加：快讯时间轴专用样式 ── */
+/* ── 快讯时间轴样式 ── */
 .timeline-date-header { font-family: var(--sans); font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
 .timeline-badge { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 4px; }
 .timeline-list { padding: 10px 0 20px 10px; }
@@ -91,27 +91,29 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .timeline-title { font-family: var(--sans); font-size: 17px; font-weight: 500; color: #2563eb; text-decoration: none; line-height: 1.4; transition: color .15s; }
 .timeline-title:hover { color: #1d4ed8; text-decoration: underline; }
 .timeline-body { font-size: 14px; color: #4b5563; line-height: 1.8; margin-bottom: 16px; }
-.timeline-actions { display: flex; align-items: center; justify-content: flex-end; gap: 16px; padding-top: 12px; border-top: 1px dashed #f3f4f6; }
-.timeline-source { font-family: var(--sans); font-size: 12px; color: #9ca3af; margin-right: auto; }
-.action-icons { display: flex; gap: 12px; color: #9ca3af; }
-.action-icons svg { cursor: pointer; transition: color .15s; }
-.action-icons svg:hover { color: #4b5563; }
+.timeline-source { font-family: var(--sans); font-size: 12px; color: #9ca3af; margin-top:8px; }
 
-/* 深度分析文章列表 (保持原样) */
-.article-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--border)}
-.article-item{display:grid;grid-template-columns:80px 1fr;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s var(--ease);text-decoration:none;color:inherit}
-.article-item:last-child{border-bottom:none}
-.article-item:hover{background:var(--bg2)}
-.article-date{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 8px;font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center;line-height:1.5;letter-spacing:.03em;gap:2px;flex-shrink:0}
-.article-date strong{font-size:13px;color:var(--text2);font-weight:400;letter-spacing:0}
-.article-body{padding:16px 20px}
-.article-tag{margin-bottom:8px}
-.article-title{font-family:var(--serif);font-size:16px;font-weight:600;line-height:1.45;color:var(--black);margin-bottom:6px}
-.article-desc{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text2);line-height:1.9}
-.article-meta{margin-top:10px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
-.article-meta .src{color:var(--red)}
+/* ── 文章列表全新排版 (图文左右结构) ── */
+.article-list { display:flex; flex-direction:column; gap:0; border:1px solid var(--border); background:var(--bg); }
+.article-item { display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s var(--ease); text-decoration:none; color:inherit; gap:24px; }
+.article-item:last-child { border-bottom:none; }
+.article-item:hover { background:var(--bg2); }
+.article-content { flex:1; display:flex; flex-direction:column; justify-content:space-between; min-height:94px; }
+.article-title { font-family:var(--sans); font-size:17px; font-weight:600; color:var(--black); line-height:1.5; margin-bottom:12px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; transition:color .15s; }
+.article-item:hover .article-title { color:var(--red); }
+.article-bottom { display:flex; align-items:center; justify-content:space-between; }
+.article-tags { display:flex; gap:8px; font-family:var(--sans); font-size:13px; color:#3b82f6; }
+.article-meta { display:flex; align-items:center; gap:12px; font-family:var(--mono); font-size:12px; color:var(--text3); }
+.article-cover { width:140px; height:94px; border-radius:4px; overflow:hidden; flex-shrink:0; background:var(--bg2); display:flex; align-items:center; justify-content:center; color:var(--text3); font-family:var(--serif); font-size:20px; font-weight:bold; letter-spacing:1px; }
+.article-cover img { width:100%; height:100%; object-fit:cover; }
+@media(max-width:600px) {
+  .article-item { padding:16px; gap:12px; align-items:flex-start; }
+  .article-cover { width:100px; height:68px; }
+  .article-title { font-size:15px; margin-bottom:8px; }
+  .article-content { min-height:68px; }
+}
 
-/* 视频卡片列表 (保持原样) */
+/* 视频卡片列表 */
 .video-card-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
 .video-card-item{display:grid;grid-template-columns:200px 1fr;background:var(--bg);text-decoration:none;color:inherit;transition:background .15s var(--ease)}
 .video-card-item:hover{background:var(--bg2)}
@@ -124,7 +126,10 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .video-card-meta{margin-top:12px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
 .video-card-meta .src{color:var(--red)}
 
-/* 侧边栏基础 (保持原样) */
+/* 全局文章页内p标签间距 */
+#ad-body p { margin-bottom: 16px; }
+
+/* 侧边栏 */
 .sidebar{display:flex;flex-direction:column;gap:20px}
 .sb-block{border:1px solid var(--border);background:var(--bg)}
 .sb-head{padding:12px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
@@ -148,14 +153,14 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .entity-ticker{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.04em;margin-top:1px}
 .entity-count{font-family:var(--mono);font-size:10px;color:var(--text3)}
 
-/* 首页板块通用 */
+/* 首页板块 */
 .home-section{margin-top:32px}
 .home-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .home-section-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--black);letter-spacing:-.01em}
 .home-section-more{font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none;letter-spacing:.04em;transition:opacity .15s}
 .home-section-more:hover{opacity:.7}
 
-/* 首页介绍横幅 (保持原样) */
+/* 首页介绍横幅 */
 .intro-banner{border:1px solid var(--border);background:var(--bg);margin-bottom:28px;overflow:hidden}
 .intro-top{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border);background:var(--black)}
 .intro-logo-row{display:flex;align-items:center;gap:10px}
@@ -177,7 +182,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .intro-stat-lbl{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
 .intro-stat-div{width:1px;height:32px;background:var(--border2);margin-right:24px;flex-shrink:0}
 
-/* 数据看板图表区 (保持原样) */
+/* 数据看板 */
 .data-grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:28px}
 .data-card{background:var(--bg2);border-radius:6px;padding:16px 14px}
 .data-card .data-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;margin-bottom:8px}
@@ -188,7 +193,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .chart-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;margin-bottom:14px}
 .chart-2col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
 
-/* 追踪实体底部模块 (保持原样) */
+/* 追踪实体底部 */
 .entity-section{border-top:1px solid var(--border);background:var(--bg2);padding:44px 24px}
 .entity-section-inner{max-width:var(--max);margin:0 auto}
 .section-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
@@ -204,7 +209,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .ef-desc{font-family:var(--sans);font-size:12px;font-weight:400;color:var(--text2);line-height:1.9;margin-bottom:14px}
 .ef-count{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.05em}
 
-/* 订阅横幅底部 (保持原样) */
+/* 订阅横幅 */
 .sub-banner{background:var(--black);border-top:3px solid var(--red);padding:48px 24px}
 .sub-banner-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px}
 .sub-label{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
@@ -213,7 +218,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .sub-btn{display:inline-flex;align-items:center;gap:9px;flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-family:var(--sans);font-size:15px;font-weight:500;padding:14px 32px;border:1px solid var(--red);transition:all .22s var(--ease);white-space:nowrap}
 .sub-btn:hover{background:transparent;color:var(--red)}
 
-/* Footer (保持原样) */
+/* Footer */
 footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);padding:36px 24px 24px}
 .footer-inner{max-width:var(--max);margin:0 auto}
 .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:28px}
@@ -231,7 +236,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .footer-tg{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
 .footer-tg:hover{color:var(--red)}
 
-/* 弹窗 (保持原样) */
+/* 弹窗 */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,14,.7);z-index:500;backdrop-filter:blur(4px);padding:24px;align-items:flex-start;justify-content:center}
 .modal-overlay.on{display:flex}
 .modal-box{background:var(--bg);width:100%;max-width:720px;max-height:90vh;overflow-y:auto;border:1px solid var(--border);position:relative;margin-top:20px}
@@ -247,7 +252,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .modal-body p:last-child{margin-bottom:0}
 .modal-body strong{font-weight:500;color:var(--black)}
 
-/* 搜索 (保持原样) */
+/* 搜索 */
 .search-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(15,15,14,.55);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:80px 20px 20px}
 .search-overlay.on{display:flex}
 .search-box{background:var(--bg);border:1px solid var(--border2);width:100%;max-width:640px;max-height:calc(100vh - 120px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.15)}
@@ -266,7 +271,37 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .sr-title mark{background:rgba(204,41,41,.12);color:var(--red);border-radius:2px;padding:0 2px}
 .search-empty{padding:40px 20px;text-align:center;font-family:var(--sans);font-size:14px;color:var(--text3)}
 
-/* 侧边栏及子页面辅助 (保持原样) */
+/* SVG logo 尺寸 */
+.entity-icon svg,.intro-tag svg{display:block}
+
+/* 响应式 */
+@media(max-width:900px){
+  .two-col{grid-template-columns:1fr}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-card.main{grid-row:auto;min-height:180px}
+  .entity-full-grid{grid-template-columns:repeat(2,1fr)}
+  .video-card-item{grid-template-columns:1fr}
+  .video-thumb{width:100%;height:180px}
+  .footer-top{flex-direction:column}
+  .footer-links{flex-wrap:wrap;gap:28px}
+  .sub-banner-inner{flex-direction:column;text-align:center}
+  .sub-btn{width:100%;justify-content:center}
+  .data-grid-4{grid-template-columns:repeat(2,1fr)}
+  .chart-2col{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .nav-r .live{display:none}
+  .entity-full-grid{grid-template-columns:1fr}
+  .modal-box{margin-top:0}
+  .modal-head,.modal-body{padding:20px 18px}
+  .intro-top{flex-direction:column;align-items:flex-start;gap:12px}
+  .intro-tg-btn{width:100%;justify-content:center}
+  .intro-stats{flex-wrap:wrap;gap:16px}
+  .intro-stat{padding:0}
+  .intro-stat-div{display:none}
+}
+
+/* 侧边栏及子页面辅助 */
 .entity-list { display:flex; flex-direction:column; gap:0; }
 .entity-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
 .entity-item:last-child { border-bottom:none; }
@@ -289,7 +324,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .video-card-desc { font-size:12px; color:var(--text2); line-height:1.7; flex:1; }
 .video-card-meta { font-family:var(--mono); font-size:10px; color:var(--text3); display:flex; align-items:center; gap:6px; }
 
-/* 本周精选卡片 (保持原样) */
+/* 本周精选卡片 */
 .featured-card { border:1px solid var(--border); border-left:3px solid var(--red); background:linear-gradient(135deg, rgba(204,41,41,.03) 0%, var(--bg) 60%); padding:28px; cursor:pointer; transition:box-shadow .2s, border-color .2s; margin-bottom:8px; }
 .featured-card:hover { box-shadow:0 4px 20px rgba(204,41,41,.08); border-color:var(--red); }
 .featured-label { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
@@ -300,7 +335,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .featured-meta { display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10px; color:var(--text3); }
 .featured-read { margin-left:auto; color:var(--red); font-weight:500; letter-spacing:.04em; }
 
-/* 左侧面板 (保持原样) */
+/* 左侧面板 */
 .left-panel { display:flex; flex-direction:column; gap:16px; margin-bottom:28px; }
 .radar-block, .snapshot-block { border:1px solid var(--border); background:var(--bg); padding:20px 22px; }
 .radar-title { display:flex; align-items:center; justify-content:space-between; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--text3); margin-bottom:18px; }
@@ -324,7 +359,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .snapshot-val { font-family:var(--serif); font-size:22px; font-weight:700; color:var(--black); line-height:1; margin-bottom:5px; }
 .snapshot-lbl { font-family:var(--mono); font-size:9px; letter-spacing:.08em; color:var(--text3); text-transform:uppercase; }
 
-/* 情报面板 (保持原样) */
+/* 情报面板 */
 .intel-panel { border:1px solid var(--border); background:var(--bg); margin-bottom:28px; overflow:hidden; }
 .intel-snapshot { padding:20px 22px 18px; }
 .intel-snap-title { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--text3); margin-bottom:16px; display:flex; align-items:center; gap:6px; }
@@ -359,32 +394,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .video-channel-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
 .video-channel { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
 
-/* 响应式 (保持原样) */
-@media(max-width:900px){
-  .two-col{grid-template-columns:1fr}
-  .hero-grid{grid-template-columns:1fr}
-  .hero-card.main{grid-row:auto;min-height:180px}
-  .entity-full-grid{grid-template-columns:repeat(2,1fr)}
-  .video-card-item{grid-template-columns:1fr}
-  .video-thumb{width:100%;height:180px}
-  .footer-top{flex-direction:column}
-  .footer-links{flex-wrap:wrap;gap:28px}
-  .sub-banner-inner{flex-direction:column;text-align:center}
-  .sub-btn{width:100%;justify-content:center}
-  .data-grid-4{grid-template-columns:repeat(2,1fr)}
-  .chart-2col{grid-template-columns:1fr}
-}
-@media(max-width:600px){
-  .nav-r .live{display:none}
-  .entity-full-grid{grid-template-columns:1fr}
-  .modal-box{margin-top:0}
-  .modal-head,.modal-body{padding:20px 18px}
-  .intro-top{flex-direction:column;align-items:flex-start;gap:12px}
-  .intro-tg-btn{width:100%;justify-content:center}
-  .intro-stats{flex-wrap:wrap;gap:16px}
-  .intro-stat{padding:0}
-  .intro-stat-div{display:none}
-}
 </style>
 </head>
 <body>
@@ -425,6 +434,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
     <div class="two-col">
       <div>
         <div class="left-panel">
+
           <div class="radar-block">
             <div class="radar-title">
               <span>生态情绪雷达</span>
@@ -457,6 +467,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
               </div>
             </div>
           </div>
+
           <div class="snapshot-block">
             <div class="radar-title"><span>今日数据快照</span></div>
             <div class="snapshot-grid">
@@ -478,6 +489,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
               </div>
             </div>
           </div>
+
         </div>
 
         <div class="intel-panel">
@@ -504,7 +516,9 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
               </div>
             </div>
           </div>
+
           <div class="intel-divider"></div>
+
           <div class="intel-sentiment">
             <div class="intel-sent-title">生态情绪雷达</div>
             <div class="intel-tsla-row">
@@ -668,16 +682,16 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="sb-block">
           <div class="sb-head"><span>追踪实体</span><span>本周</span></div>
           <div class="entity-rows">
-            <div class="entity-row"><div class="entity-left"><span class="entity-icon">⚡</span><div><div class="entity-name">Tesla</div><div class="entity-ticker">$TSLA</div></div></div><span class="entity-count">—</span></div>
-            <div class="entity-row"><div class="entity-left"><span class="entity-icon">🚀</span><div><div class="entity-name">SpaceX</div><div class="entity-ticker">私有</div></div></div><span class="entity-count">—</span></div>
-            <div class="entity-row"><div class="entity-left"><span class="entity-icon">🧠</span><div><div class="entity-name">xAI · Grok</div><div class="entity-ticker">私有</div></div></div><span class="entity-count">—</span></div>
-            <div class="entity-row"><div class="entity-left"><span class="entity-icon">💡</span><div><div class="entity-name">Neuralink</div><div class="entity-ticker">私有</div></div></div><span class="entity-count">—</span></div>
+            <div class="entity-row"><div class="entity-left"><span class="entity-icon">⚡</span><div><div class="entity-name">Tesla</div><div class="entity-ticker">$TSLA</div></div></div><span class="entity-count" id="sb-ef-tesla">—</span></div>
+            <div class="entity-row"><div class="entity-left"><span class="entity-icon">🚀</span><div><div class="entity-name">SpaceX</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-spacex">—</span></div>
+            <div class="entity-row"><div class="entity-left"><span class="entity-icon">🧠</span><div><div class="entity-name">xAI · Grok</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-xai">—</span></div>
+            <div class="entity-row"><div class="entity-left"><span class="entity-icon">💡</span><div><div class="entity-name">Neuralink</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-neuralink">—</span></div>
           </div>
         </div>
         <div class="sb-block">
           <div class="sb-head"><span>热门话题</span></div>
           <div class="topics">
-            <span class="topic">#FSD</span><span class="topic">#Robotaxi</span><span class="topic">#星舰</span><span class="topic">#Grok</span><span class="topic">#TSLA财报</span><span class="topic">#Optimus</span><span class="topic">#Starlink</span><span class="topic">#Neuralink</span><span class="topic">#Cybertruck</span><span class="topic">#NHTSA</span>
+            <span class="topic" onclick="searchTag('FSD')">#FSD</span><span class="topic" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="topic" onclick="searchTag('星舰')">#星舰</span><span class="topic" onclick="searchTag('Grok')">#Grok</span><span class="topic" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="topic" onclick="searchTag('Optimus')">#Optimus</span><span class="topic" onclick="searchTag('Starlink')">#Starlink</span><span class="topic" onclick="searchTag('Neuralink')">#Neuralink</span><span class="topic" onclick="searchTag('Cybertruck')">#Cybertruck</span><span class="topic" onclick="searchTag('NHTSA')">#NHTSA</span>
           </div>
         </div>
       </div>
@@ -707,10 +721,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="sb-block">
           <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
           <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla">—</div></div>
-            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex">—</div></div>
-            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai">—</div></div>
-            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink">—</div></div>
+            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla2">—</div></div>
+            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex2">—</div></div>
+            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai2">—</div></div>
+            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink2">—</div></div>
           </div>
         </div>
         <div class="sb-block">
@@ -759,10 +773,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="sb-block">
           <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
           <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla2">—</div></div>
-            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex2">—</div></div>
-            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai2">—</div></div>
-            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink2">—</div></div>
+            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla3">—</div></div>
+            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex3">—</div></div>
+            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai3">—</div></div>
+            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink3">—</div></div>
           </div>
         </div>
         <div class="sb-block">
@@ -798,10 +812,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="sb-block">
           <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
           <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla3">—</div></div>
-            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex3">—</div></div>
-            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai3">—</div></div>
-            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink3">—</div></div>
+            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla4">—</div></div>
+            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex4">—</div></div>
+            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai4">—</div></div>
+            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink4">—</div></div>
           </div>
         </div>
         <div class="sb-block">
@@ -837,10 +851,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="sb-block">
           <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
           <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla4">—</div></div>
-            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex4">—</div></div>
-            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai4">—</div></div>
-            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink4">—</div></div>
+            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla5">—</div></div>
+            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex5">—</div></div>
+            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai5">—</div></div>
+            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink5">—</div></div>
           </div>
         </div>
         <div class="sb-block">
@@ -907,6 +921,22 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       </div>
       <aside class="sidebar"></aside>
     </div>
+  </div>
+</div>
+
+<div class="page" id="page-article-detail">
+  <div class="wrap single-col">
+    <button onclick="closeArticle()" style="background:none;border:none;color:var(--text2);cursor:pointer;margin-bottom:24px;font-size:14px;display:flex;align-items:center;gap:6px;padding:0;font-family:var(--sans);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      返回列表
+    </button>
+    <h1 id="ad-title" style="font-family:var(--serif);font-size:clamp(22px, 3vw, 32px);font-weight:700;color:var(--black);line-height:1.4;margin-bottom:16px;"></h1>
+    <div style="display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:12px;color:var(--text3);margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border);">
+      <span id="ad-meta"></span>
+      <span style="margin-left:auto;background:var(--bg2);padding:4px 8px;border-radius:4px;color:var(--text2);" id="ad-tag"></span>
+    </div>
+    <div style="background:var(--bg2);padding:18px 24px;border-left:3px solid var(--red);margin-bottom:32px;font-family:var(--sans);font-size:14px;color:var(--text2);line-height:1.8;" id="ad-summary"></div>
+    <div id="ad-body" style="font-family:var(--sans);font-size:16px;color:#111827;line-height:2;padding-bottom:60px;"></div>
   </div>
 </div>
 
@@ -997,12 +1027,20 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
+// ══════════════════════════════════════════
+// 全局状态
+// ══════════════════════════════════════════
 var feedItems = [];
 var searchIndex = [];
 var chartsDrawn = false;
 var dynArticles = {};
+var lastTab = 'home';
 
+// ══════════════════════════════════════════
+// 标签与页面切换
+// ══════════════════════════════════════════
 function switchTab(name) {
+  if (name !== 'article-detail') lastTab = name;
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
   var tabMap = {home:0,flash:1,analysis:2,fsd:3,video:4,market:5,macro:6};
@@ -1016,6 +1054,35 @@ function switchTab(name) {
   }
 }
 
+// ══════════════════════════════════════════
+// 全屏文章阅读逻辑
+// ══════════════════════════════════════════
+function openArticle(id) {
+  var a = dynArticles[id];
+  if (!a) return;
+  document.getElementById('ad-title').textContent = a.title;
+  document.getElementById('ad-meta').innerHTML = a.date + ' &nbsp;|&nbsp; 来源: ' + a.src;
+  document.getElementById('ad-tag').textContent = '#' + a.label;
+  
+  var tmp = document.createElement('div');
+  tmp.innerHTML = a.body;
+  var text = tmp.textContent || tmp.innerText || "";
+  document.getElementById('ad-summary').textContent = "摘要： " + text.substring(0, 120) + "...";
+  document.getElementById('ad-body').innerHTML = a.body;
+  
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
+  document.getElementById('page-article-detail').classList.add('on');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function closeArticle() {
+  switchTab(lastTab);
+}
+
+// ══════════════════════════════════════════
+// 弹窗 (保留供搜索结果调用)
+// ══════════════════════════════════════════
 function openModal(id) {
   var a = dynArticles[id];
   if (!a) return;
@@ -1033,6 +1100,9 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
+// ══════════════════════════════════════════
+// 搜索
+// ══════════════════════════════════════════
 function openSearch() {
   document.getElementById('search-overlay').classList.add('on');
   document.body.style.overflow = 'hidden';
@@ -1080,7 +1150,9 @@ document.addEventListener('keydown', function(e){
   }
 });
 
-// ── 核心替换点：重写时间轴项目渲染 ──
+// ══════════════════════════════════════════
+// feed.json 渲染
+// ══════════════════════════════════════════
 function makeFlashItem(item) {
   var id = 'dyn_'+item.id;
   var bodyHtml = (item.body||'').replace(/\\n/g, '<br>');
@@ -1091,22 +1163,16 @@ function makeFlashItem(item) {
     body: '<p>'+(item.body||'').replace(/\\n/g,'</p><p>')+'</p>' +
       (item.source_url?'<p style="margin-top:16px"><a href="'+item.source_url+'" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none">→ 查看原文</a></p>':'')
   };
+  
+  // 彻底修复乱码并简化样式
   return '<div class="timeline-item">' +
            '<div class="timeline-dot"></div>' +
-           'content">' +
-             '<div class="timeline-head">' +
-               '<span class="timeline-time">' + (item.time||'--') + '</span>' +
-               '<a href="#" class="timeline-title" onclick="openModal(\''+id+'\');return false;">' + (item.title||'') + '</a>' +
-             '</div>' +
-             '<div class="timeline-body">' + bodyHtml + '</div>' +
-             '<div class="timeline-actions">' +
-               '<span class="timeline-source">来源: ' + (item.source || item.entity || '网络获取') + '</span>' +
-               '<div class="action-icons">' +
-                 '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" onclick="alert(\'分享功能即将上线\')"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>' +
-                 '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" onclick="alert(\'收藏功能即将上线\')"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' +
-               '</div>' +
-             '</div>' +
+           '<div class="timeline-head">' +
+             '<span class="timeline-time">' + (item.time||'--') + '</span>' +
+             '<a href="#" class="timeline-title" onclick="openModal(\''+id+'\');return false;">' + (item.title||'') + '</a>' +
            '</div>' +
+           '<div class="timeline-body">' + bodyHtml + '</div>' +
+           '<div class="timeline-source">来源: ' + (item.source || item.entity || '网络获取') + '</div>' +
          '</div>';
 }
 
@@ -1119,14 +1185,28 @@ function makeArticleItem(item) {
     body: '<p>'+(item.body||'').replace(/\\n/g,'</p><p>')+'</p>' +
       (item.source_url?'<p style="margin-top:16px"><a href="'+item.source_url+'" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none">→ 查看原文</a></p>':'')
   };
-  return '<a class="article-item" href="#" onclick="openModal(\''+id+'\');return false">' +
-    '<div class="article-date"><span>'+(item.date||'--')+'</span><strong>'+(item.time||'--')+'</strong></div>' +
-    '<div class="article-body">' +
-      '<div class="article-tag"><span class="h-tag '+tc+'">'+item.category+'</span></div>' +
-      '<div class="article-title">'+(item.title||'')+'</div>' +
-      '<div class="article-desc">'+(item.body||'').substring(0,80)+'...</div>' +
-      '<div class="article-meta"><span class="src">'+(item.entity||'')+'</span></div>' +
-    '</div></a>';
+
+  var tags = '<span style="color:#3b82f6">#' + item.category + '</span>';
+  if (item.entity && item.entity !== item.category) {
+    tags += ' <span style="color:#3b82f6">#' + item.entity + '</span>';
+  }
+
+  // 自动生成质感封面
+  var bgColors = ['#1e293b', '#0f172a', '#334155', '#475569', '#1e1b4b'];
+  var bg = bgColors[(item.title||'').length % bgColors.length];
+  var initial = item.source ? item.source.substring(0,6) : 'NEWS';
+  var coverHtml = '<div style="width:100%;height:100%;background:'+bg+';color:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;">'+initial+'</div>';
+
+  return '<a class="article-item" href="#" onclick="openArticle(\''+id+'\');return false">' +
+           'content">' +
+             '<h3 class="article-title">' + (item.title||'') + '</h3>' +
+             '<div class="article-bottom">' +
+               '<div class="article-tags">' + tags + '</div>' +
+               '<div class="article-meta"><span>' + (item.date||'') + ' ' + (item.time||'') + '</span><span class="meta-dot"></span><span>' + (item.entity||'网络获取') + '</span></div>' +
+             '</div>' +
+           '</div>' +
+           '<div class="article-cover">' + coverHtml + '</div>' +
+         '</a>';
 }
 
 function makeVideoItem(item) {
@@ -1174,7 +1254,7 @@ function renderAll(items) {
     document.getElementById('featured-src').textContent = top.entity || '';
     document.getElementById('featured-date').textContent = (top.date || '') + (top.time ? ' ' + top.time : '');
     document.getElementById('featured-tag').textContent = top.category || '深度分析';
-    document.getElementById('featured-btn').onclick = function(){ openModal(topId); };
+    document.getElementById('featured-btn').onclick = function(){ openArticle(topId); };
     fc.style.display = 'block';
   }
   
@@ -1188,7 +1268,6 @@ function renderAll(items) {
   setEl('home-fsd-list',      fsd.slice(0,2).map(makeArticleItem).join('')    || empty('正在加载...'));
   setEl('home-video-list',    video.slice(0,4).map(makeVideoItem).join('')    || empty('正在加载...'));
 
-  // ── 替换快讯头部的日期标签 ──
   if (items[0] && items[0].date) {
     var d = new Date();
     var dateStr = d.getFullYear() + '-' + items[0].date.replace('/','-'); 
@@ -1208,7 +1287,7 @@ function renderAll(items) {
     return {id:'dyn_'+item.id, cat:item.category, entity:item.entity||'', title:item.title||''};
   });
 
-  // 原有计数与雷达计算逻辑 (不改动)
+  // 保留原有计数与雷达计算逻辑
   var snapEl = document.getElementById('snap-total');
   if (snapEl) snapEl.textContent = items.length;
   var snapA = document.getElementById('snap-analysis');
@@ -1244,16 +1323,13 @@ function renderAll(items) {
     return ['观望','neutral'];
   }
   
-  // 兼容雷达和情报面板的动画条
   ['tesla','spacex','xai','neuralink'].forEach(function(key){
     var count = counts[key];
     var pct = Math.round(count / total * 100);
-    // 使用 querySelectorAll 确保同名的动画条都会更新
     var bars = document.querySelectorAll('[id="bar-' + key + '"]');
     bars.forEach(function(bar){ setTimeout(function(){ bar.style.width = pct + '%'; }, 100); });
     var pctEl = document.getElementById('pct-' + key);
     if (pctEl) pctEl.textContent = pct + '%';
-    // 更新情绪标签
     var moodEls = document.querySelectorAll('[id="mood-' + key + '"]');
     var m = moodLabel(count, total);
     moodEls.forEach(function(el){ el.textContent = m[0]; el.className = (el.classList.contains('intel-entity-mood') ? 'intel-entity-mood' : 'radar-mood ' + m[1]); });
@@ -1265,7 +1341,6 @@ function renderAll(items) {
   var snapFsd      = todayItems.filter(function(i){ return i.category==='FSD'; }).length;
   var lastTime = items.length > 0 ? (items[0].time || '--') : '--';
   
-  // 更新情报看板
   document.querySelectorAll('[id="snap-total"]').forEach(function(el){ el.textContent = todayItems.length || items.length; });
   document.querySelectorAll('[id="snap-analysis"]').forEach(function(el){ el.textContent = snapAnalysis + '篇'; });
   document.querySelectorAll('[id="snap-fsd"]').forEach(function(el){ el.textContent = snapFsd + '条'; });
