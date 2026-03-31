@@ -57,7 +57,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .date-rule::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* ==============================================
-   UI修复核心区：完全杜绝内联样式泄露的CSS设计
+   UI修复核心区：干净的分享底栏CSS
    ============================================== */
 .share-footer { display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px dashed var(--border); font-family:var(--sans); }
 .share-src { font-size:12px; color:#2563eb; text-decoration:none; display:flex; align-items:center; gap:5px; }
@@ -105,6 +105,13 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .deep-cover { width:140px; height:94px; border-radius:4px; overflow:hidden; flex-shrink:0; background:var(--bg2); display:flex; align-items:center; justify-content:center; }
 .cover-bg { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
 .cover-brand { font-family:var(--serif); font-size:16px; font-weight:700; color:rgba(255,255,255,0.9); letter-spacing:1px; text-transform:uppercase; text-align:center; padding:0 10px; }
+@media(max-width:600px) {
+  .deep-card > a { flex-direction: column !important; gap:12px; align-items:flex-start; }
+  .deep-cover { width:100px; height:68px; }
+  .deep-title { font-size:15px; margin-bottom:8px; }
+  .deep-info { min-height:68px; }
+  .deep-bottom { flex-direction:column; align-items:flex-start; gap:6px; }
+}
 
 .macro-grid { display:flex; flex-direction:column; gap:16px; }
 .macro-card { background:#ffffff; border:1px solid var(--border); border-left:3px solid #0369a1; padding:24px; transition:all .2s ease; text-decoration:none; color:inherit; display:block; cursor:pointer; }
@@ -255,7 +262,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .modal-body p{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text);line-height:1.9;margin-bottom:18px}
 .modal-body p:last-child{margin-bottom:0}
 
-/* 左侧面板及图表逻辑样式保持不变 */
+/* 左侧面板及图表逻辑样式 */
 .left-panel { display:flex; flex-direction:column; gap:16px; margin-bottom:28px; }
 .radar-block, .snapshot-block { border:1px solid var(--border); background:var(--bg); padding:20px 22px; }
 .radar-title { display:flex; align-items:center; justify-content:space-between; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--text3); margin-bottom:18px; }
@@ -309,10 +316,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .intel-bar-fill.dark   { background:#111; }
 .intel-bar-fill.indigo { background:#4f46e5; }
 .intel-sent-note { margin-top:12px; font-family:var(--mono); font-size:9px; color:var(--text3); letter-spacing:.04em; }
-.video-channel-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-.video-channel { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
 
-/* 全屏沉浸式文章阅读页 (增加防白屏UI提示) */
+/* ── 全屏沉浸式文章阅读页 (完全防白屏设计) ── */
 #page-article-detail { background:#ffffff; min-height:100vh; }
 .ad-title { font-family:var(--serif); font-size:clamp(24px, 4vw, 34px); font-weight:700; color:var(--black); line-height:1.35; margin-bottom:20px; letter-spacing:-0.01em; margin-top:20px; }
 .ad-meta-row { display:flex; align-items:center; justify-content:space-between; padding-bottom:24px; border-bottom:1px solid var(--border); margin-bottom:32px; }
@@ -463,7 +468,7 @@ function showTabView(name) {
 }
 
 // ==============================================
-// 阅读页空白防护逻辑 (如果抓不到正文，提供链接)
+// 阅读页空白防护逻辑 (检查纯文本字数，不再被图片欺骗)
 // ==============================================
 function showArticleView(id) {
   var a = dynArticles[id];
@@ -472,8 +477,8 @@ function showArticleView(id) {
   var srcLinkHtml = a.source_url ? '&nbsp;&nbsp;<a href="'+a.source_url+'" target="_blank" style="color:#2563eb;text-decoration:none;"><i class="fa-solid fa-link"></i> 阅读原文链接</a>' : '';
   document.getElementById('ad-meta').innerHTML = (a.date||'') + ' &nbsp;|&nbsp; 来源: ' + (a.src||'网络获取') + srcLinkHtml;
   
-  if (!a.body || a.body.trim() === '' || a.body.length < 20) {
-      document.getElementById('ad-body').innerHTML = '<div class="ad-empty-notice"><p>该文章为外部深度长文，正文内容受到防爬保护未能完整加载，请点击下方按钮前往原网站阅读全貌。</p><a href="'+(a.source_url||'#')+'" target="_blank" class="ad-empty-btn">🔗 直达原网站阅读全篇</a></div>';
+  if (!a.raw_body || a.raw_body.trim().length < 15) {
+      document.getElementById('ad-body').innerHTML = '<div class="ad-empty-notice"><p>该文章为外部深度长文，系统未抓取到完整正文，请点击下方按钮前往原网站阅读全貌。</p><a href="'+(a.source_url||'#')+'" target="_blank" class="ad-empty-btn">🔗 直达原网站阅读全篇</a></div>';
   } else {
       document.getElementById('ad-body').innerHTML = a.body;
   }
@@ -492,7 +497,7 @@ function openModal(id) {
   document.getElementById('modal-title').textContent = a.title;
   var srcLinkHtml = a.source_url ? '<a href="'+a.source_url+'" target="_blank" style="margin-left:8px;color:#2563eb;text-decoration:none;"><i class="fa-solid fa-link"></i>原文</a>' : '';
   document.getElementById('modal-meta').innerHTML = '<span class="src">'+a.src+'</span>'+(a.date?'<span class="meta-dot"></span><span>'+a.date+'</span>':'') + srcLinkHtml;
-  document.getElementById('modal-detail').innerHTML = a.body || '<div style="color:var(--text3);text-align:center;">暂无正文内容</div>';
+  document.getElementById('modal-detail').innerHTML = (!a.raw_body || a.raw_body.trim().length < 10) ? '<div style="color:var(--text3);text-align:center;padding:40px;">暂无正文内容，请点击原文链接查看</div>' : a.body;
   document.getElementById('modal-overlay').classList.add('on');
   document.body.style.overflow = 'hidden';
 }
@@ -528,7 +533,6 @@ function safeBody(text) {
     return '<p>' + paras.join('</p><p>') + '</p>';
 }
 
-// 修复点：移除了恶心的内联Style，全部使用干净的CSS Class
 function makeShareFooter(item, id) {
     if (!item.source_url) return '';
     var shareTitle = encodeURIComponent('【' + (item.category||'情报') + '】' + (item.title || '') + '\n');
@@ -547,7 +551,7 @@ function makeShareFooter(item, id) {
 
 function makeFlashItem(item) {
   var id = 'dyn_'+item.id;
-  dynArticles[id] = { tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'', date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
+  dynArticles[id] = { raw_body: item.body || '', tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'', date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
   return '<div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-head"><span class="timeline-time">' + (item.time||'--') + '</span><span class="timeline-title" onclick="openModal(\''+id+'\')">' + (item.title||'') + '</span></div><div class="timeline-body">' + safeBody(item.body) + '</div>' + makeShareFooter(item, id) + '</div>';
 }
 
@@ -559,9 +563,9 @@ function makeDeepItem(item) {
   var realImageHtml = '';
   if (item.cover_img) {
       realImageHtml = '<img src="' + item.cover_img + '" alt="cover" style="width:100%;height:100%;object-fit:cover;display:block;">';
-      dynArticles[id] = { tag: tc, label: item.category, title: item.title||'', src: srcName, date: (item.date||'')+(item.time?' '+item.time:''), body: '<img src="' + item.cover_img + '" style="width:100%;border-radius:4px;margin-bottom:20px;">' + safeBody(item.body), source_url: item.source_url };
+      dynArticles[id] = { raw_body: item.body || '', tag: tc, label: item.category, title: item.title||'', src: srcName, date: (item.date||'')+(item.time?' '+item.time:''), body: '<img src="' + item.cover_img + '" style="width:100%;border-radius:4px;margin-bottom:20px;">' + safeBody(item.body), source_url: item.source_url };
   } else {
-      dynArticles[id] = { tag: tc, label: item.category, title: item.title||'', src: srcName, date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
+      dynArticles[id] = { raw_body: item.body || '', tag: tc, label: item.category, title: item.title||'', src: srcName, date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
   }
 
   var tagsHtml = '<span style="color:#3b82f6;margin-right:8px;">#' + item.category + '</span>';
@@ -579,7 +583,7 @@ function makeDeepItem(item) {
 
 function makeMacroItem(item) {
   var id = 'dyn_'+item.id;
-  dynArticles[id] = { tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'', date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
+  dynArticles[id] = { raw_body: item.body || '', tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'', date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
   return '<div class="macro-card"><a href="#article-' + id + '" style="text-decoration:none; color:inherit; display:block;"><div class="macro-head"><span class="macro-tag">#' + (item.entity||'宏观经济') + '</span><span class="macro-time">' + (item.date||'') + ' ' + (item.time||'') + '</span></div><h3 class="macro-title">' + (item.title||'') + '</h3><div class="macro-body">' + safeBody(item.body) + '</div></a>' + makeShareFooter(item, id) + '</div>';
 }
 
