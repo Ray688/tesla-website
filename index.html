@@ -24,7 +24,6 @@
 html{font-size:16px;scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* NAV */
 nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
 .nav-top{max-width:var(--max);margin:0 auto;padding:0 40px;height:54px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
@@ -41,7 +40,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .search-trigger{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:none;border:1px solid var(--border);border-radius:5px;color:var(--text2);cursor:pointer;transition:all .18s var(--ease)}
 .search-trigger:hover{border-color:var(--border2);color:var(--text);background:var(--bg2)}
 
-/* 标签栏 */
 .tab-bar{border-top:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
 .tab-bar::-webkit-scrollbar{display:none}
 .tab-bar-inner{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;gap:0}
@@ -49,18 +47,29 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .tab:hover{color:var(--black)}
 .tab.on{color:var(--red);border-bottom-color:var(--red);font-weight:700}
 
-/* 页面切换 */
 .page{display:none}
 .page.on{display:block}
 
-/* 公用容器 */
 .wrap{max-width:var(--max);margin:0 auto;padding:32px 40px 64px}
 .two-col{display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:start}
 .single-col{display:block;max-width:780px;margin:0 auto;}
 .date-rule{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
 .date-rule::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* 标签与徽章 */
+/* ==============================================
+   UI修复核心区：完全杜绝内联样式泄露的CSS设计
+   ============================================== */
+.share-footer { display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px dashed var(--border); font-family:var(--sans); }
+.share-src { font-size:12px; color:#2563eb; text-decoration:none; display:flex; align-items:center; gap:5px; }
+.share-src:hover { color:#1d4ed8; text-decoration:underline; }
+.share-actions { display:flex; align-items:center; gap:16px; font-size:15px; color:var(--text3); }
+.share-actions span { font-size:12px; }
+.share-btn { color:inherit; text-decoration:none; transition:color .15s; cursor:pointer; }
+.share-btn:hover { color:var(--text); }
+.share-btn.tg:hover { color:#0088cc; }
+.share-btn.tw:hover { color:#1da1f2; }
+
+/* 卡片排版 */
 .h-tag{display:inline-flex !important;align-items:center;width:fit-content !important;max-width:fit-content !important;font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;margin-bottom:14px}
 .h-tag.news{color:var(--red);border-color:rgba(204,41,41,.3);background:var(--red-bg)}
 .h-tag.analysis{color:#1d4ed8;border-color:rgba(29,78,216,.25);background:rgba(29,78,216,.04)}
@@ -71,7 +80,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .h-tag.market{color:#374151;border-color:rgba(55,65,81,.25);background:rgba(55,65,81,.04)}
 .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--border2)}
 
-/* ── 1. 快讯时间轴样式 ── */
 .timeline-date-header { font-family: var(--sans); font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
 .timeline-badge { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 4px; }
 .timeline-list { padding: 10px 0 20px 10px; }
@@ -84,7 +92,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .timeline-title:hover { color: #1d4ed8; text-decoration: underline; }
 .timeline-body { font-size: 14px; color: #4b5563; line-height: 1.8; margin-bottom: 16px; }
 
-/* ── 2. 深度/FSD/市场数据 统一高级图文排版 ── */
 .deep-list { display:flex; flex-direction:column; gap:0; border:1px solid var(--border); background:var(--bg); }
 .deep-card { display:flex; flex-direction:column; padding:20px 24px; border-bottom:1px solid var(--border); transition:background .15s var(--ease); text-decoration:none; color:inherit; gap:12px; cursor:pointer; }
 .deep-card:last-child { border-bottom:none; }
@@ -98,15 +105,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .deep-cover { width:140px; height:94px; border-radius:4px; overflow:hidden; flex-shrink:0; background:var(--bg2); display:flex; align-items:center; justify-content:center; }
 .cover-bg { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
 .cover-brand { font-family:var(--serif); font-size:16px; font-weight:700; color:rgba(255,255,255,0.9); letter-spacing:1px; text-transform:uppercase; text-align:center; padding:0 10px; }
-@media(max-width:600px) {
-  .deep-card > a { flex-direction: column !important; gap:12px; align-items:flex-start; }
-  .deep-cover { width:100px; height:68px; }
-  .deep-title { font-size:15px; margin-bottom:8px; }
-  .deep-info { min-height:68px; }
-  .deep-bottom { flex-direction:column; align-items:flex-start; gap:6px; }
-}
 
-/* ── 3. 宏观专属排版 (财经简报卡片) ── */
 .macro-grid { display:flex; flex-direction:column; gap:16px; }
 .macro-card { background:#ffffff; border:1px solid var(--border); border-left:3px solid #0369a1; padding:24px; transition:all .2s ease; text-decoration:none; color:inherit; display:block; cursor:pointer; }
 .macro-card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.04); border-color:#0369a1; }
@@ -117,7 +116,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .macro-card:hover .macro-title { color:#0369a1; }
 .macro-body { font-size:14px; color:#4b5563; line-height:1.8; margin-bottom:16px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 
-/* ── 4. 视频卡片列表 ── */
 .video-card-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
 .video-card-item{background:var(--bg);text-decoration:none;color:inherit;transition:background .15s var(--ease)}
 .video-card-item:hover{background:var(--bg2)}
@@ -130,7 +128,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .video-card-meta{margin-top:12px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em;white-space:nowrap;}
 .video-card-meta .src{color:var(--red)}
 
-/* 侧边栏及基础组件 */
 .sidebar{display:flex;flex-direction:column;gap:20px}
 .sb-block{border:1px solid var(--border);background:var(--bg)}
 .sb-head{padding:12px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
@@ -154,7 +151,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .entity-ticker{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.04em;margin-top:1px}
 .entity-count{font-family:var(--mono);font-size:10px;color:var(--text3)}
 
-/* 首页横幅与图表 */
 .home-section{margin-top:32px}
 .home-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .home-section-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--black);letter-spacing:-.01em}
@@ -189,8 +185,6 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .chart-block{border:1px solid var(--border);background:var(--bg);padding:20px;margin-bottom:16px}
 .chart-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;margin-bottom:14px}
 .chart-2col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
-
-/* 追踪实体与底部 */
 .entity-section{border-top:1px solid var(--border);background:var(--bg2);padding:44px 24px}
 .entity-section-inner{max-width:var(--max);margin:0 auto}
 .section-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
@@ -229,7 +223,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .footer-tg{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
 .footer-tg:hover{color:var(--red)}
 
-/* 搜索与弹窗 */
 .search-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(15,15,14,.55);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:80px 20px 20px}
 .search-overlay.on{display:flex}
 .search-box{background:var(--bg);border:1px solid var(--border2);width:100%;max-width:640px;max-height:calc(100vh - 120px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.15)}
@@ -261,9 +254,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .modal-body{padding:28px 32px 36px}
 .modal-body p{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text);line-height:1.9;margin-bottom:18px}
 .modal-body p:last-child{margin-bottom:0}
-.entity-icon svg,.intro-tag svg{display:block}
 
-/* 左侧面板图表与计算逻辑样式 */
+/* 左侧面板及图表逻辑样式保持不变 */
 .left-panel { display:flex; flex-direction:column; gap:16px; margin-bottom:28px; }
 .radar-block, .snapshot-block { border:1px solid var(--border); background:var(--bg); padding:20px 22px; }
 .radar-title { display:flex; align-items:center; justify-content:space-between; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--text3); margin-bottom:18px; }
@@ -320,16 +312,19 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .video-channel-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
 .video-channel { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
 
-/* ── 全屏沉浸式文章阅读页 (原生 Hash Routing，绝对无返回按钮) ── */
+/* 全屏沉浸式文章阅读页 (增加防白屏UI提示) */
 #page-article-detail { background:#ffffff; min-height:100vh; }
 .ad-title { font-family:var(--serif); font-size:clamp(24px, 4vw, 34px); font-weight:700; color:var(--black); line-height:1.35; margin-bottom:20px; letter-spacing:-0.01em; margin-top:20px; }
 .ad-meta-row { display:flex; align-items:center; justify-content:space-between; padding-bottom:24px; border-bottom:1px solid var(--border); margin-bottom:32px; }
-.ad-meta { font-family:var(--mono); font-size:13px; color:var(--text3); }
+.ad-meta { font-family:var(--mono); font-size:13px; color:var(--text3); display:flex; align-items:center; gap:8px; }
 .ad-body { font-family:var(--sans); font-size:16px; color:#1f2937; line-height:2; padding-bottom:80px; }
 .ad-body p { margin-bottom:24px; }
 .ad-body img { max-width:100%; height:auto; display:block; margin:24px 0; border-radius:4px; }
+.ad-empty-notice { background:var(--bg2); border:1px dashed var(--border2); padding:60px 20px; text-align:center; border-radius:8px; margin-top:20px; }
+.ad-empty-notice p { color:var(--text3); margin-bottom:20px; }
+.ad-empty-btn { display:inline-block; background:var(--red); color:#fff; text-decoration:none; padding:12px 24px; border-radius:4px; font-weight:500; transition:opacity .15s; }
+.ad-empty-btn:hover { opacity:0.9; }
 
-/* 响应式 */
 @media(max-width:900px){
   .two-col{grid-template-columns:1fr}
   .hero-grid{grid-template-columns:1fr}
@@ -356,7 +351,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   .intro-stat-div{display:none}
 }
 
-/* 本周精选卡片 */
 .featured-card { border:1px solid var(--border); border-left:3px solid var(--red); background:linear-gradient(135deg, rgba(204,41,41,.03) 0%, var(--bg) 60%); padding:28px; cursor:pointer; transition:box-shadow .2s, border-color .2s; margin-bottom:8px; text-decoration:none; display:block;}
 .featured-card:hover { box-shadow:0 4px 20px rgba(204,41,41,.08); border-color:var(--red); }
 .featured-label { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
@@ -379,8 +373,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .tag-cloud { display:flex; flex-wrap:wrap; gap:6px; }
 .tag-pill { font-family:var(--mono); font-size:10px; color:var(--text2); border:1px solid var(--border); padding:3px 8px; cursor:pointer; transition:all .15s; white-space:nowrap; }
 .tag-pill:hover { border-color:var(--red); color:var(--red); }
-.video-channel-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-.video-channel { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
 </style>
 </head>
 <body>
@@ -416,378 +408,13 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </nav>
 
-<div class="page on" id="page-home">
-  <div class="wrap">
-    <div class="two-col">
-      <div>
-        <div class="left-panel">
-          <div class="radar-block">
-            <div class="radar-title"><span>生态情绪雷达</span><span class="radar-live"><span class="dot"></span>实时</span></div>
-            <div class="radar-list" id="radar-list">
-              <div class="radar-row"><div class="radar-entity"><span class="radar-icon">⚡</span><span>Tesla</span></div><div class="radar-bar-wrap"><div class="radar-bar" id="bar-tesla" style="width:0%"></div></div><div class="radar-pct" id="pct-tesla">—</div><div class="radar-mood" id="mood-tesla">—</div></div>
-              <div class="radar-row"><div class="radar-entity"><span class="radar-icon">🚀</span><span>SpaceX</span></div><div class="radar-bar-wrap"><div class="radar-bar spacex" id="bar-spacex" style="width:0%"></div></div><div class="radar-pct" id="pct-spacex">—</div><div class="radar-mood" id="mood-spacex">—</div></div>
-              <div class="radar-row"><div class="radar-entity"><span class="radar-icon">🧠</span><span>xAI</span></div><div class="radar-bar-wrap"><div class="radar-bar xai" id="bar-xai" style="width:0%"></div></div><div class="radar-pct" id="pct-xai">—</div><div class="radar-mood" id="mood-xai">—</div></div>
-              <div class="radar-row"><div class="radar-entity"><span class="radar-icon">💡</span><span>Neuralink</span></div><div class="radar-bar-wrap"><div class="radar-bar neuralink" id="bar-neuralink" style="width:0%"></div></div><div class="radar-pct" id="pct-neuralink">—</div><div class="radar-mood" id="mood-neuralink">—</div></div>
-            </div>
-          </div>
-          <div class="snapshot-block">
-            <div class="radar-title"><span>今日数据快照</span></div>
-            <div class="snapshot-grid">
-              <div class="snapshot-item"><div class="snapshot-val" id="snap-total">—</div><div class="snapshot-lbl">今日更新</div></div>
-              <div class="snapshot-item"><div class="snapshot-val" id="snap-analysis">—</div><div class="snapshot-lbl">深度分析</div></div>
-              <div class="snapshot-item"><div class="snapshot-val" id="snap-fsd">—</div><div class="snapshot-lbl">FSD相关</div></div>
-              <div class="snapshot-item"><div class="snapshot-val" id="snap-time">—</div><div class="snapshot-lbl">最后更新</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="intel-panel">
-          <div class="intel-snapshot">
-            <div class="intel-snap-title"><span class="intel-dot"></span>今日情报快照</div>
-            <div class="intel-snap-grid">
-              <div class="intel-snap-item"><div class="intel-snap-val" id="snap-total">—</div><div class="intel-snap-lbl">条更新</div></div>
-              <div class="intel-snap-item"><div class="intel-snap-val" id="snap-analysis">—</div><div class="intel-snap-lbl">深度分析</div></div>
-              <div class="intel-snap-item"><div class="intel-snap-val" id="snap-fsd">—</div><div class="intel-snap-lbl">FSD相关</div></div>
-              <div class="intel-snap-item"><div class="intel-snap-val" id="snap-time">—</div><div class="intel-snap-lbl">最后更新</div></div>
-            </div>
-          </div>
-          <div class="intel-divider"></div>
-          <div class="intel-sentiment">
-            <div class="intel-sent-title">生态情绪雷达</div>
-            <div class="intel-tsla-row"><span class="intel-tsla-label">TSLA</span><span class="intel-tsla-price">$248.42</span><span class="intel-tsla-change dn">▼ 1.28%</span></div>
-            <div class="intel-entity-rows">
-              <div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">⚡</span><span class="intel-entity-name">Tesla</span><span class="intel-entity-mood" id="mood-tesla">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill red" id="bar-tesla" style="width:0%"></div></div></div>
-              <div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">🚀</span><span class="intel-entity-name">SpaceX</span><span class="intel-entity-mood" id="mood-spacex">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill blue" id="bar-spacex" style="width:0%"></div></div></div>
-              <div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">🧠</span><span class="intel-entity-name">xAI · Grok</span><span class="intel-entity-mood" id="mood-xai">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill dark" id="bar-xai" style="width:0%"></div></div></div>
-              <div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">💡</span><span class="intel-entity-name">Neuralink</span><span class="intel-entity-mood" id="mood-neuralink">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill indigo" id="bar-neuralink" style="width:0%"></div></div></div>
-            </div>
-            <div class="intel-sent-note">基于今日内容热度计算 · 仅供参考</div>
-          </div>
-        </div>
-
-        <div class="intro-banner">
-          <div class="intro-top">
-            <div class="intro-logo-row"><div class="intro-logo-box"><b>T</b></div><span class="intro-name">Tesla情报站</span><span class="intro-badge">中文媒体</span></div>
-            <a href="https://t.me/Tesla_share" target="_blank" class="intro-tg-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>订阅 Telegram 频道</a>
-          </div>
-          <div class="intro-body">
-            <p class="intro-desc">专注追踪马斯克商业生态的中文情报媒体。每日汇总 Tesla、SpaceX、xAI、Neuralink 的最新动态，涵盖实时快讯、深度分析、FSD 进展与市场数据，内容自动同步自 <strong>t.me/Tesla_share</strong> Telegram 频道。</p>
-            <div class="intro-tags">
-              <span class="intro-tag">Tesla · $TSLA</span><span class="intro-tag">SpaceX · Starlink</span><span class="intro-tag">xAI · Grok</span><span class="intro-tag">Neuralink</span><span class="intro-tag">FSD · Robotaxi</span><span class="intro-tag">宏观 · 市场</span>
-            </div>
-          </div>
-          <div class="intro-stats">
-            <div class="intro-stat"><div class="intro-stat-val">每日</div><div class="intro-stat-lbl">自动更新</div></div><div class="intro-stat-div"></div>
-            <div class="intro-stat"><div class="intro-stat-val">6+</div><div class="intro-stat-lbl">内容板块</div></div><div class="intro-stat-div"></div>
-            <div class="intro-stat"><div class="intro-stat-val">免费</div><div class="intro-stat-lbl">永久开放</div></div><div class="intro-stat-div"></div>
-            <div class="intro-stat"><div class="intro-stat-val">中文</div><div class="intro-stat-lbl">独家解读</div></div>
-          </div>
-        </div>
-
-        <div class="date-rule" id="home-date-rule">今日总览</div>
-
-        <div class="home-section">
-          <div class="home-section-head"><div class="home-section-title">实时快讯</div><a href="#tab-flash" class="home-section-more">查看全部快讯 →</a></div>
-          <div class="timeline-list" id="home-flash-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div>
-        </div>
-
-        <div class="home-section">
-          <div class="home-section-head"><div class="home-section-title">深度分析</div><a href="#tab-analysis" class="home-section-more">查看全部 →</a></div>
-          <div class="deep-list" id="home-analysis-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div>
-        </div>
-
-        <div class="home-section">
-          <div class="home-section-head"><div class="home-section-title">FSD · Robotaxi</div><a href="#tab-fsd" class="home-section-more">查看全部 →</a></div>
-          <div class="deep-list" id="home-fsd-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div>
-        </div>
-
-        <div class="home-section">
-          <div class="home-section-head"><div class="home-section-title">视频精选</div><a href="#tab-video" class="home-section-more">查看全部 →</a></div>
-          <div class="video-card-list" id="home-video-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div>
-        </div>
-
-        <div class="home-section">
-          <div class="home-section-head"><div class="home-section-title">市场数据</div><a href="#tab-market" class="home-section-more">查看完整看板 →</a></div>
-          <div class="data-grid-4">
-            <div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -1.28%</div><div class="data-source">昨日收盘</div></div>
-            <div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12%</div><div class="data-source">Q4财报</div></div>
-            <div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ +96颗/月</div><div class="data-source">SpaceX官方</div></div>
-            <div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">奥斯汀</div></div>
-          </div>
-          <div class="chart-block">
-            <div class="chart-label">TSLA 股价走势（近12个月）</div>
-            <div style="position:relative;width:100%;height:160px"><canvas id="h-tsla"></canvas></div>
-          </div>
-          <div class="chart-2col">
-            <div class="chart-block" style="margin-bottom:0"><div class="chart-label">Tesla 交付量（万辆/季）</div><div style="position:relative;width:100%;height:150px"><canvas id="h-delivery"></canvas></div></div>
-            <div class="chart-block" style="margin-bottom:0"><div class="chart-label">FSD 订阅用户增长（万人）</div><div style="position:relative;width:100%;height:150px"><canvas id="h-fsd"></canvas></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebar">
-        <div class="sb-block">
-          <div class="sb-head"><span>市场快览</span></div>
-          <div class="data-list">
-            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
-            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
-            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
-            <div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>追踪实体</span><span>本周</span></div>
-          <div class="entity-rows">
-            <div class="entity-row"><div class="entity-left"><span class="entity-icon">⚡</span><div><div class="entity-name">Tesla</div><div class="entity-ticker">$TSLA</div></div></div><span class="entity-count" id="sb-ef-tesla">—</span></div>
-            <div class="entity-row"><div class="entity-left"><span class="entity-icon">🚀</span><div><div class="entity-name">SpaceX</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-spacex">—</span></div>
-            <div class="entity-row"><div class="entity-left"><span class="entity-icon">🧠</span><div><div class="entity-name">xAI · Grok</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-xai">—</span></div>
-            <div class="entity-row"><div class="entity-left"><span class="entity-icon">💡</span><div><div class="entity-name">Neuralink</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-neuralink">—</span></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>热门话题</span></div>
-          <div class="topics">
-            <span class="topic" onclick="searchTag('FSD')">#FSD</span><span class="topic" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="topic" onclick="searchTag('星舰')">#星舰</span><span class="topic" onclick="searchTag('Grok')">#Grok</span><span class="topic" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="topic" onclick="searchTag('Optimus')">#Optimus</span><span class="topic" onclick="searchTag('Starlink')">#Starlink</span><span class="topic" onclick="searchTag('Neuralink')">#Neuralink</span><span class="topic" onclick="searchTag('Cybertruck')">#Cybertruck</span><span class="topic" onclick="searchTag('NHTSA')">#NHTSA</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="page" id="page-flash">
-  <div class="wrap">
-    <div class="two-col">
-      <div>
-        <div class="date-rule" id="flash-date-rule">最新快讯</div>
-        <div class="timeline-list" id="flash-list">
-          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载快讯...</div>
-        </div>
-      </div>
-      <aside class="sidebar">
-        <div class="sb-block">
-          <div class="sb-head"><span>市场快览</span></div>
-          <div class="data-list">
-            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
-            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
-            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
-            <div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
-          <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla2">—</div></div>
-            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex2">—</div></div>
-            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai2">—</div></div>
-            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink2">—</div></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>热门话题</span></div>
-          <div class="tag-cloud">
-            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </div>
-</div>
-
-<div class="page" id="page-analysis">
-  <div class="wrap">
-    <div class="two-col">
-      <div>
-        <div class="date-rule">深度报告 · 研究分析</div>
-        <a class="featured-card" id="featured-card" style="display:none" href="#">
-          <div class="featured-header">
-            <div class="featured-badge-row"><span class="featured-badge">★ 本周精选</span><span class="featured-tag" id="featured-tag"></span></div>
-          </div>
-          <div class="featured-title" id="featured-title"></div>
-          <div class="featured-desc" id="featured-desc"></div>
-          <div class="featured-footer">
-            <div class="featured-meta"><span class="src" id="featured-src"></span><span class="meta-dot"></span><span id="featured-date"></span></div>
-            <span class="featured-read">阅读全文 →</span>
-          </div>
-        </a>
-        <div class="date-rule" style="margin-top:28px">全部深度分析</div>
-        <div class="deep-list" id="analysis-list">
-          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载深度分析...</div>
-        </div>
-      </div>
-      <aside class="sidebar">
-        <div class="sb-block">
-          <div class="sb-head"><span>市场快览</span></div>
-          <div class="data-list">
-            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
-            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
-            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
-            <div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
-          <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla3">—</div></div>
-            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex3">—</div></div>
-            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai3">—</div></div>
-            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink3">—</div></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>热门话题</span></div>
-          <div class="tag-cloud">
-            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </div>
-</div>
-
-<div class="page" id="page-fsd">
-  <div class="wrap">
-    <div class="two-col">
-      <div>
-        <div class="date-rule">FSD · Robotaxi 专题追踪</div>
-        <div class="deep-list" id="fsd-list">
-          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
-        </div>
-      </div>
-      <aside class="sidebar">
-        <div class="sb-block">
-          <div class="sb-head"><span>市场快览</span></div>
-          <div class="data-list">
-            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
-            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
-            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
-            <div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
-          <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla4">—</div></div>
-            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex4">—</div></div>
-            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai4">—</div></div>
-            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink4">—</div></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>热门话题</span></div>
-          <div class="tag-cloud">
-            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </div>
-</div>
-
-<div class="page" id="page-video">
-  <div class="wrap">
-    <div class="two-col">
-      <div>
-        <div class="date-rule">视频精选 · YouTube直播与回放</div>
-        <div class="video-grid" id="video-list">
-          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载视频...</div>
-        </div>
-      </div>
-      <aside class="sidebar">
-        <div class="sb-block">
-          <div class="sb-head"><span>市场快览</span></div>
-          <div class="data-list">
-            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
-            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
-            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
-            <div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
-          <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla5">—</div></div>
-            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex5">—</div></div>
-            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai5">—</div></div>
-            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink5">—</div></div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>热门话题</span></div>
-          <div class="tag-cloud">
-            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </div>
-</div>
-
-<div class="page" id="page-market">
-  <div class="wrap single-col">
-    <div class="date-rule">市场数据 · 数据看板</div>
-    <div class="data-grid-4">
-      <div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -3.21 (-1.28%)</div><div class="data-source">纽交所 · 昨日收盘</div></div>
-      <div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12% 季度环比</div><div class="data-source">Tesla Q4财报</div></div>
-      <div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ 本月新增96颗</div><div class="data-source">SpaceX官方</div></div>
-      <div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">德州监管局</div></div>
-    </div>
-    <div class="chart-block">
-      <div class="chart-label">TSLA 股价走势（近12个月）</div>
-      <div style="position:relative;width:100%;height:200px"><canvas id="c-tsla"></canvas></div>
-    </div>
-    <div class="chart-2col">
-      <div class="chart-block" style="margin-bottom:0">
-        <div class="chart-label">Tesla 交付量（万辆/季）</div>
-        <div style="position:relative;width:100%;height:190px"><canvas id="c-delivery"></canvas></div>
-      </div>
-      <div class="chart-block" style="margin-bottom:0">
-        <div class="chart-label">FSD 订阅用户增长（万人）</div>
-        <div style="position:relative;width:100%;height:190px"><canvas id="c-fsd"></canvas></div>
-      </div>
-    </div>
-    <div class="chart-2col" style="margin-top:16px">
-      <div class="chart-block" style="margin-bottom:0">
-        <div class="chart-label">Starlink 在轨卫星趋势</div>
-        <div style="position:relative;width:100%;height:170px"><canvas id="c-starlink"></canvas></div>
-      </div>
-      <div class="chart-block" style="margin-bottom:0">
-        <div class="chart-label">Robotaxi 服务范围（mi²）</div>
-        <div style="position:relative;width:100%;height:170px"><canvas id="c-robotaxi"></canvas></div>
-      </div>
-    </div>
-    <div style="margin-top:28px">
-      <div class="date-rule">机构评级深度分析</div>
-      <div class="deep-list" id="market-list">
-        <div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="page" id="page-macro">
-  <div class="wrap">
-    <div class="two-col">
-      <div>
-        <div class="date-rule">宏观环境 · 政策与利率</div>
-        <div class="macro-grid" id="macro-list">
-          <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
-        </div>
-      </div>
-      <aside class="sidebar">
-        <div class="sb-block">
-          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
-          <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla6">—</div></div>
-            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex6">—</div></div>
-            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai6">—</div></div>
-            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink6">—</div></div>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </div>
-</div>
+<div class="page on" id="page-home"><div class="wrap"><div class="two-col"><div><div class="left-panel"><div class="radar-block"><div class="radar-title"><span>生态情绪雷达</span><span class="radar-live"><span class="dot"></span>实时</span></div><div class="radar-list" id="radar-list"><div class="radar-row"><div class="radar-entity"><span class="radar-icon">⚡</span><span>Tesla</span></div><div class="radar-bar-wrap"><div class="radar-bar" id="bar-tesla" style="width:0%"></div></div><div class="radar-pct" id="pct-tesla">—</div><div class="radar-mood" id="mood-tesla">—</div></div><div class="radar-row"><div class="radar-entity"><span class="radar-icon">🚀</span><span>SpaceX</span></div><div class="radar-bar-wrap"><div class="radar-bar spacex" id="bar-spacex" style="width:0%"></div></div><div class="radar-pct" id="pct-spacex">—</div><div class="radar-mood" id="mood-spacex">—</div></div><div class="radar-row"><div class="radar-entity"><span class="radar-icon">🧠</span><span>xAI</span></div><div class="radar-bar-wrap"><div class="radar-bar xai" id="bar-xai" style="width:0%"></div></div><div class="radar-pct" id="pct-xai">—</div><div class="radar-mood" id="mood-xai">—</div></div><div class="radar-row"><div class="radar-entity"><span class="radar-icon">💡</span><span>Neuralink</span></div><div class="radar-bar-wrap"><div class="radar-bar neuralink" id="bar-neuralink" style="width:0%"></div></div><div class="radar-pct" id="pct-neuralink">—</div><div class="radar-mood" id="mood-neuralink">—</div></div></div></div><div class="snapshot-block"><div class="radar-title"><span>今日数据快照</span></div><div class="snapshot-grid"><div class="snapshot-item"><div class="snapshot-val" id="snap-total">—</div><div class="snapshot-lbl">今日更新</div></div><div class="snapshot-item"><div class="snapshot-val" id="snap-analysis">—</div><div class="snapshot-lbl">深度分析</div></div><div class="snapshot-item"><div class="snapshot-val" id="snap-fsd">—</div><div class="snapshot-lbl">FSD相关</div></div><div class="snapshot-item"><div class="snapshot-val" id="snap-time">—</div><div class="snapshot-lbl">最后更新</div></div></div></div></div><div class="intel-panel"><div class="intel-snapshot"><div class="intel-snap-title"><span class="intel-dot"></span>今日情报快照</div><div class="intel-snap-grid"><div class="intel-snap-item"><div class="intel-snap-val" id="snap-total">—</div><div class="intel-snap-lbl">条更新</div></div><div class="intel-snap-item"><div class="intel-snap-val" id="snap-analysis">—</div><div class="intel-snap-lbl">深度分析</div></div><div class="intel-snap-item"><div class="intel-snap-val" id="snap-fsd">—</div><div class="intel-snap-lbl">FSD相关</div></div><div class="intel-snap-item"><div class="intel-snap-val" id="snap-time">—</div><div class="intel-snap-lbl">最后更新</div></div></div></div><div class="intel-divider"></div><div class="intel-sentiment"><div class="intel-sent-title">生态情绪雷达</div><div class="intel-tsla-row"><span class="intel-tsla-label">TSLA</span><span class="intel-tsla-price">$248.42</span><span class="intel-tsla-change dn">▼ 1.28%</span></div><div class="intel-entity-rows"><div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">⚡</span><span class="intel-entity-name">Tesla</span><span class="intel-entity-mood" id="mood-tesla">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill red" id="bar-tesla" style="width:0%"></div></div></div><div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">🚀</span><span class="intel-entity-name">SpaceX</span><span class="intel-entity-mood" id="mood-spacex">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill blue" id="bar-spacex" style="width:0%"></div></div></div><div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">🧠</span><span class="intel-entity-name">xAI · Grok</span><span class="intel-entity-mood" id="mood-xai">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill dark" id="bar-xai" style="width:0%"></div></div></div><div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">💡</span><span class="intel-entity-name">Neuralink</span><span class="intel-entity-mood" id="mood-neuralink">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill indigo" id="bar-neuralink" style="width:0%"></div></div></div></div><div class="intel-sent-note">基于今日内容热度计算 · 仅供参考</div></div></div><div class="intro-banner"><div class="intro-top"><div class="intro-logo-row"><div class="intro-logo-box"><b>T</b></div><span class="intro-name">Tesla情报站</span><span class="intro-badge">中文媒体</span></div><a href="https://t.me/Tesla_share" target="_blank" class="intro-tg-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>订阅 Telegram 频道</a></div><div class="intro-body"><p class="intro-desc">专注追踪马斯克商业生态的中文情报媒体。每日汇总 Tesla、SpaceX、xAI、Neuralink 的最新动态，涵盖实时快讯、深度分析、FSD 进展与市场数据，内容自动同步自 <strong>t.me/Tesla_share</strong> Telegram 频道。</p><div class="intro-tags"><span class="intro-tag">Tesla · $TSLA</span><span class="intro-tag">SpaceX · Starlink</span><span class="intro-tag">xAI · Grok</span><span class="intro-tag">Neuralink</span><span class="intro-tag">FSD · Robotaxi</span><span class="intro-tag">宏观 · 市场</span></div></div><div class="intro-stats"><div class="intro-stat"><div class="intro-stat-val">每日</div><div class="intro-stat-lbl">自动更新</div></div><div class="intro-stat-div"></div><div class="intro-stat"><div class="intro-stat-val">6+</div><div class="intro-stat-lbl">内容板块</div></div><div class="intro-stat-div"></div><div class="intro-stat"><div class="intro-stat-val">免费</div><div class="intro-stat-lbl">永久开放</div></div><div class="intro-stat-div"></div><div class="intro-stat"><div class="intro-stat-val">中文</div><div class="intro-stat-lbl">独家解读</div></div></div></div><div class="date-rule" id="home-date-rule">今日总览</div><div class="home-section"><div class="home-section-head"><div class="home-section-title">实时快讯</div><a href="#tab-flash" class="home-section-more">查看全部快讯 →</a></div><div class="timeline-list" id="home-flash-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><div class="home-section"><div class="home-section-head"><div class="home-section-title">深度分析</div><a href="#tab-analysis" class="home-section-more">查看全部 →</a></div><div class="deep-list" id="home-analysis-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><div class="home-section"><div class="home-section-head"><div class="home-section-title">FSD · Robotaxi</div><a href="#tab-fsd" class="home-section-more">查看全部 →</a></div><div class="deep-list" id="home-fsd-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><div class="home-section"><div class="home-section-head"><div class="home-section-title">视频精选</div><a href="#tab-video" class="home-section-more">查看全部 →</a></div><div class="video-card-list" id="home-video-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><div class="home-section"><div class="home-section-head"><div class="home-section-title">市场数据</div><a href="#tab-market" class="home-section-more">查看完整看板 →</a></div><div class="data-grid-4"><div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -1.28%</div><div class="data-source">昨日收盘</div></div><div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12%</div><div class="data-source">Q4财报</div></div><div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ +96颗/月</div><div class="data-source">SpaceX官方</div></div><div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">奥斯汀</div></div></div><div class="chart-block"><div class="chart-label">TSLA 股价走势（近12个月）</div><div style="position:relative;width:100%;height:160px"><canvas id="h-tsla"></canvas></div></div><div class="chart-2col"><div class="chart-block" style="margin-bottom:0"><div class="chart-label">Tesla 交付量（万辆/季）</div><div style="position:relative;width:100%;height:150px"><canvas id="h-delivery"></canvas></div></div><div class="chart-block" style="margin-bottom:0"><div class="chart-label">FSD 订阅用户增长（万人）</div><div style="position:relative;width:100%;height:150px"><canvas id="h-fsd"></canvas></div></div></div></div></div><div class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span>本周</span></div><div class="entity-rows"><div class="entity-row"><div class="entity-left"><span class="entity-icon">⚡</span><div><div class="entity-name">Tesla</div><div class="entity-ticker">$TSLA</div></div></div><span class="entity-count" id="sb-ef-tesla">—</span></div><div class="entity-row"><div class="entity-left"><span class="entity-icon">🚀</span><div><div class="entity-name">SpaceX</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-spacex">—</span></div><div class="entity-row"><div class="entity-left"><span class="entity-icon">🧠</span><div><div class="entity-name">xAI · Grok</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-xai">—</span></div><div class="entity-row"><div class="entity-left"><span class="entity-icon">💡</span><div><div class="entity-name">Neuralink</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-neuralink">—</span></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="topics"><span class="topic" onclick="searchTag('FSD')">#FSD</span><span class="topic" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="topic" onclick="searchTag('星舰')">#星舰</span><span class="topic" onclick="searchTag('Grok')">#Grok</span><span class="topic" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="topic" onclick="searchTag('Optimus')">#Optimus</span><span class="topic" onclick="searchTag('Starlink')">#Starlink</span><span class="topic" onclick="searchTag('Neuralink')">#Neuralink</span><span class="topic" onclick="searchTag('Cybertruck')">#Cybertruck</span><span class="topic" onclick="searchTag('NHTSA')">#NHTSA</span></div></div></div></div></div></div>
+<div class="page" id="page-flash"><div class="wrap"><div class="two-col"><div><div class="date-rule" id="flash-date-rule">最新快讯</div><div class="timeline-list" id="flash-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载快讯...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla2">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex2">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai2">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink2">—</div></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="tag-cloud"><span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span></div></div></aside></div></div></div>
+<div class="page" id="page-analysis"><div class="wrap"><div class="two-col"><div><div class="date-rule">深度报告 · 研究分析</div><a class="featured-card" id="featured-card" style="display:none" href="#"><div class="featured-header"><div class="featured-badge-row"><span class="featured-badge">★ 本周精选</span><span class="featured-tag" id="featured-tag"></span></div></div><div class="featured-title" id="featured-title"></div><div class="featured-desc" id="featured-desc"></div><div class="featured-footer"><div class="featured-meta"><span class="src" id="featured-src"></span><span class="meta-dot"></span><span id="featured-date"></span></div><span class="featured-read">阅读全文 →</span></div></a><div class="date-rule" style="margin-top:28px">全部深度分析</div><div class="deep-list" id="analysis-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载深度分析...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla3">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex3">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai3">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink3">—</div></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="tag-cloud"><span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span></div></div></aside></div></div></div>
+<div class="page" id="page-fsd"><div class="wrap"><div class="two-col"><div><div class="date-rule">FSD · Robotaxi 专题追踪</div><div class="deep-list" id="fsd-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla4">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex4">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai4">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink4">—</div></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="tag-cloud"><span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span></div></div></aside></div></div></div>
+<div class="page" id="page-video"><div class="wrap"><div class="two-col"><div><div class="date-rule">视频精选 · YouTube直播与回放</div><div class="video-grid" id="video-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载视频...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla5">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex5">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai5">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink5">—</div></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="tag-cloud"><span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span></div></div></aside></div></div></div>
+<div class="page" id="page-market"><div class="wrap single-col"><div class="date-rule">市场数据 · 数据看板</div><div class="data-grid-4"><div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -3.21 (-1.28%)</div><div class="data-source">纽交所 · 昨日收盘</div></div><div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12% 季度环比</div><div class="data-source">Tesla Q4财报</div></div><div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ 本月新增96颗</div><div class="data-source">SpaceX官方</div></div><div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">德州监管局</div></div></div><div class="chart-block"><div class="chart-label">TSLA 股价走势（近12个月）</div><div style="position:relative;width:100%;height:200px"><canvas id="c-tsla"></canvas></div></div><div class="chart-2col"><div class="chart-block" style="margin-bottom:0"><div class="chart-label">Tesla 交付量（万辆/季）</div><div style="position:relative;width:100%;height:190px"><canvas id="c-delivery"></canvas></div></div><div class="chart-block" style="margin-bottom:0"><div class="chart-label">FSD 订阅用户增长（万人）</div><div style="position:relative;width:100%;height:190px"><canvas id="c-fsd"></canvas></div></div></div><div class="chart-2col" style="margin-top:16px"><div class="chart-block" style="margin-bottom:0"><div class="chart-label">Starlink 在轨卫星趋势</div><div style="position:relative;width:100%;height:170px"><canvas id="c-starlink"></canvas></div></div><div class="chart-block" style="margin-bottom:0"><div class="chart-label">Robotaxi 服务范围（mi²）</div><div style="position:relative;width:100%;height:170px"><canvas id="c-robotaxi"></canvas></div></div></div><div style="margin-top:28px"><div class="date-rule">机构评级深度分析</div><div class="deep-list" id="market-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div></div></div>
+<div class="page" id="page-macro"><div class="wrap"><div class="two-col"><div><div class="date-rule">宏观环境 · 政策与利率</div><div class="macro-grid" id="macro-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla6">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex6">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai6">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink6">—</div></div></div></div></aside></div></div></div>
 
 <div class="page" id="page-article-detail">
   <div class="wrap single-col" style="max-width:760px; margin:0 auto; padding:40px 20px 80px;">
@@ -799,90 +426,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<div class="entity-section">
-  <div class="entity-section-inner">
-    <div class="section-label">追踪实体</div>
-    <div class="entity-full-grid">
-      <div class="entity-full-card"><div class="ef-icon">⚡</div><div class="ef-name">Tesla</div><div class="ef-ticker">$TSLA · 纽交所</div><div class="ef-desc">交付数据、财报解读、FSD进展、Cybertruck动态、全球产能追踪</div><div class="ef-count" id="ef-tesla">—</div></div>
-      <div class="entity-full-card"><div class="ef-icon">🚀</div><div class="ef-name">SpaceX</div><div class="ef-ticker">私有 · 未上市</div><div class="ef-desc">星舰发射进展、Starlink卫星扩张、猎鹰9号、NASA合同动向</div><div class="ef-count" id="ef-spacex">—</div></div>
-      <div class="entity-full-card"><div class="ef-icon">🧠</div><div class="ef-name">xAI · Grok</div><div class="ef-ticker">私有 · AI赛道</div><div class="ef-desc">Grok大模型迭代、Memphis超算集群建设、xAI融资与估值</div><div class="ef-count" id="ef-xai">—</div></div>
-      <div class="entity-full-card"><div class="ef-icon">💡</div><div class="ef-name">Neuralink</div><div class="ef-ticker">私有 · 生物科技</div><div class="ef-desc">脑机接口临床进展、FDA审批、竞争对手动向追踪</div><div class="ef-count" id="ef-neuralink">—</div></div>
-    </div>
-  </div>
-</div>
+<div class="entity-section"><div class="entity-section-inner"><div class="section-label">追踪实体</div><div class="entity-full-grid"><div class="entity-full-card"><div class="ef-icon">⚡</div><div class="ef-name">Tesla</div><div class="ef-ticker">$TSLA · 纽交所</div><div class="ef-desc">交付数据、财报解读、FSD进展、Cybertruck动态、全球产能追踪</div><div class="ef-count" id="ef-tesla">—</div></div><div class="entity-full-card"><div class="ef-icon">🚀</div><div class="ef-name">SpaceX</div><div class="ef-ticker">私有 · 未上市</div><div class="ef-desc">星舰发射进展、Starlink卫星扩张、猎鹰9号、NASA合同动向</div><div class="ef-count" id="ef-spacex">—</div></div><div class="entity-full-card"><div class="ef-icon">🧠</div><div class="ef-name">xAI · Grok</div><div class="ef-ticker">私有 · AI赛道</div><div class="ef-desc">Grok大模型迭代、Memphis超算集群建设、xAI融资与估值</div><div class="ef-count" id="ef-xai">—</div></div><div class="entity-full-card"><div class="ef-icon">💡</div><div class="ef-name">Neuralink</div><div class="ef-ticker">私有 · 生物科技</div><div class="ef-desc">脑机接口临床进展、FDA审批、竞争对手动向追踪</div><div class="ef-count" id="ef-neuralink">—</div></div></div></div></div>
+<div class="sub-banner"><div class="sub-banner-inner"><div><div class="sub-label">免费订阅 · 每日更新</div><div class="sub-title">不错过马斯克宇宙的每个关键时刻</div><div class="sub-desc">加入数千名华人投资者，第一时间获取深度中文情报</div></div><a href="https://t.me/Tesla_share" target="_blank" class="sub-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>加入 Telegram 频道</a></div></div>
+<footer><div class="footer-inner"><div class="footer-top"><div><div class="footer-logo"><div class="footer-logo-box"><b>T</b></div><span class="footer-logo-name">Tesla情报站</span></div><div class="footer-tagline">马斯克生态中文媒体，每日追踪Tesla、SpaceX、xAI、Neuralink最新动向。</div></div><div class="footer-links"><div class="footer-col"><h4>板块</h4><a href="#tab-home">首页</a><a href="#tab-flash">快讯</a><a href="#tab-analysis">深度分析</a><a href="#tab-fsd">FSD · Robotaxi</a><a href="#tab-video">视频</a><a href="#tab-market">市场数据</a><a href="#tab-macro">宏观</a></div><div class="footer-col"><h4>订阅</h4><a href="https://t.me/Tesla_share" target="_blank">Telegram 频道</a></div></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 Tesla情报站 · 内容仅供参考，不构成投资建议</div><a href="https://t.me/Tesla_share" target="_blank" class="footer-tg">t.me/Tesla_share</a></div></div></footer>
 
-<div class="sub-banner">
-  <div class="sub-banner-inner">
-    <div>
-      <div class="sub-label">免费订阅 · 每日更新</div>
-      <div class="sub-title">不错过马斯克宇宙的每个关键时刻</div>
-      <div class="sub-desc">加入数千名华人投资者，第一时间获取深度中文情报</div>
-    </div>
-    <a href="https://t.me/Tesla_share" target="_blank" class="sub-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-      加入 Telegram 频道
-    </a>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-logo"><div class="footer-logo-box"><b>T</b></div><span class="footer-logo-name">Tesla情报站</span></div>
-        <div class="footer-tagline">马斯克生态中文媒体，每日追踪Tesla、SpaceX、xAI、Neuralink最新动向。</div>
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <h4>板块</h4>
-          <a href="#tab-home">首页</a>
-          <a href="#tab-flash">快讯</a>
-          <a href="#tab-analysis">深度分析</a>
-          <a href="#tab-fsd">FSD · Robotaxi</a>
-          <a href="#tab-video">视频</a>
-          <a href="#tab-market">市场数据</a>
-          <a href="#tab-macro">宏观</a>
-        </div>
-        <div class="footer-col">
-          <h4>订阅</h4>
-          <a href="https://t.me/Tesla_share" target="_blank">Telegram 频道</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 Tesla情报站 · 内容仅供参考，不构成投资建议</div>
-      <a href="https://t.me/Tesla_share" target="_blank" class="footer-tg">t.me/Tesla_share</a>
-    </div>
-  </div>
-</footer>
-
-<div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
-  <div class="search-box">
-    <div class="search-input-row">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;color:var(--text3)"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <input id="search-input" type="text" placeholder="搜索文章、快讯、视频..." autocomplete="off" oninput="doSearch(this.value)">
-      <button class="search-close-btn" onclick="closeSearch()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="search-meta" id="search-meta">输入关键词搜索全站内容</div>
-    <div class="search-results" id="search-results"></div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div class="modal-head">
-      <div class="modal-tag" id="modal-tag"></div>
-      <div class="modal-title" id="modal-title"></div>
-      <div class="modal-meta" id="modal-meta"></div>
-    </div>
-    <div class="modal-body">
-      <div id="modal-detail"></div>
-    </div>
-  </div>
-</div>
+<div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()"><div class="search-box"><div class="search-input-row"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;color:var(--text3)"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><input id="search-input" type="text" placeholder="搜索文章、快讯、视频..." autocomplete="off" oninput="doSearch(this.value)"><button class="search-close-btn" onclick="closeSearch()"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div><div class="search-meta" id="search-meta">输入关键词搜索全站内容</div><div class="search-results" id="search-results"></div></div></div>
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-box"><button class="modal-close" onclick="closeModal()">×</button><div class="modal-head"><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div><div class="modal-meta" id="modal-meta"></div></div><div class="modal-body"><div id="modal-detail"></div></div></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
@@ -891,20 +440,13 @@ var searchIndex = [];
 var chartsDrawn = false;
 var dynArticles = {};
 
-// ══════════════════════════════════════════
-// 强大的原生 Hash 路由引擎 (完美支持手机滑动返回)
-// ══════════════════════════════════════════
 function handleHash() {
-  closeModal();
-  closeSearch();
-
+  closeModal(); closeSearch();
   var hash = location.hash || '#tab-home';
   if (hash.startsWith('#article-')) {
-    var id = hash.replace('#article-', '');
-    showArticleView(id);
+    showArticleView(hash.replace('#article-', ''));
   } else if (hash.startsWith('#tab-')) {
-    var tab = hash.replace('#tab-', '');
-    showTabView(tab);
+    showTabView(hash.replace('#tab-', ''));
   } else {
     showTabView('home');
   }
@@ -914,25 +456,27 @@ window.addEventListener('hashchange', handleHash);
 function showTabView(name) {
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
-  
-  var btn = document.getElementById('tab-btn-' + name);
-  if (btn) btn.classList.add('on');
-  
-  var pg = document.getElementById('page-' + name);
-  if (pg) pg.classList.add('on');
-  
+  var btn = document.getElementById('tab-btn-' + name); if (btn) btn.classList.add('on');
+  var pg = document.getElementById('page-' + name); if (pg) pg.classList.add('on');
   window.scrollTo({top:0, behavior:'smooth'});
-  if ((name==='market'||name==='home') && !chartsDrawn && typeof Chart!=='undefined') {
-    chartsDrawn = true; drawCharts();
-  }
+  if ((name==='market'||name==='home') && !chartsDrawn && typeof Chart!=='undefined') { chartsDrawn = true; drawCharts(); }
 }
 
+// ==============================================
+// 阅读页空白防护逻辑 (如果抓不到正文，提供链接)
+// ==============================================
 function showArticleView(id) {
   var a = dynArticles[id];
   if (!a) return; 
   document.getElementById('ad-title').textContent = a.title;
-  document.getElementById('ad-meta').innerHTML = (a.date||'') + ' &nbsp;|&nbsp; 来源: ' + (a.src||'网络获取');
-  document.getElementById('ad-body').innerHTML = a.body;
+  var srcLinkHtml = a.source_url ? '&nbsp;&nbsp;<a href="'+a.source_url+'" target="_blank" style="color:#2563eb;text-decoration:none;"><i class="fa-solid fa-link"></i> 阅读原文链接</a>' : '';
+  document.getElementById('ad-meta').innerHTML = (a.date||'') + ' &nbsp;|&nbsp; 来源: ' + (a.src||'网络获取') + srcLinkHtml;
+  
+  if (!a.body || a.body.trim() === '' || a.body.length < 20) {
+      document.getElementById('ad-body').innerHTML = '<div class="ad-empty-notice"><p>该文章为外部深度长文，正文内容受到防爬保护未能完整加载，请点击下方按钮前往原网站阅读全貌。</p><a href="'+(a.source_url||'#')+'" target="_blank" class="ad-empty-btn">🔗 直达原网站阅读全篇</a></div>';
+  } else {
+      document.getElementById('ad-body').innerHTML = a.body;
+  }
   
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
@@ -940,82 +484,42 @@ function showArticleView(id) {
   window.scrollTo({top:0});
 }
 
-// ══════════════════════════════════════════
-// 弹窗 (仅供搜索快讯时使用)
-// ══════════════════════════════════════════
 function openModal(id) {
   var a = dynArticles[id];
   if (!a) return;
   var tagClass = a.tag || 'news';
   document.getElementById('modal-tag').innerHTML = '<span class="h-tag '+tagClass+'">'+a.label+'</span>';
   document.getElementById('modal-title').textContent = a.title;
-  document.getElementById('modal-meta').innerHTML = '<span class="src">'+a.src+'</span>'+(a.date?'<span class="meta-dot"></span><span>'+a.date+'</span>':'');
-  document.getElementById('modal-detail').innerHTML = a.body;
+  var srcLinkHtml = a.source_url ? '<a href="'+a.source_url+'" target="_blank" style="margin-left:8px;color:#2563eb;text-decoration:none;"><i class="fa-solid fa-link"></i>原文</a>' : '';
+  document.getElementById('modal-meta').innerHTML = '<span class="src">'+a.src+'</span>'+(a.date?'<span class="meta-dot"></span><span>'+a.date+'</span>':'') + srcLinkHtml;
+  document.getElementById('modal-detail').innerHTML = a.body || '<div style="color:var(--text3);text-align:center;">暂无正文内容</div>';
   document.getElementById('modal-overlay').classList.add('on');
   document.body.style.overflow = 'hidden';
 }
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('on');
-  document.body.style.overflow = '';
-}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('on'); document.body.style.overflow = ''; }
 
-// ══════════════════════════════════════════
-// 搜索系统
-// ══════════════════════════════════════════
-function openSearch() {
-  document.getElementById('search-overlay').classList.add('on');
-  document.body.style.overflow = 'hidden';
-  setTimeout(function(){ document.getElementById('search-input').focus(); }, 80);
-}
-function closeSearch() {
-  document.getElementById('search-overlay').classList.remove('on');
-  document.getElementById('search-input').value = '';
-  document.getElementById('search-results').innerHTML = '';
-  document.getElementById('search-meta').textContent = '输入关键词搜索全站内容';
-  document.body.style.overflow = '';
-}
-function highlight(text, kw) {
-  if (!kw) return text;
-  return text.replace(new RegExp('('+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
-}
-function searchTag(kw) {
-  openSearch();
-  setTimeout(function(){ document.getElementById('search-input').value = kw; doSearch(kw); }, 100);
-}
+function openSearch() { document.getElementById('search-overlay').classList.add('on'); document.body.style.overflow = 'hidden'; setTimeout(function(){ document.getElementById('search-input').focus(); }, 80); }
+function closeSearch() { document.getElementById('search-overlay').classList.remove('on'); document.getElementById('search-input').value = ''; document.getElementById('search-results').innerHTML = ''; document.getElementById('search-meta').textContent = '输入关键词搜索全站内容'; document.body.style.overflow = ''; }
+function highlight(text, kw) { if (!kw) return text; return text.replace(new RegExp('('+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>'); }
+function searchTag(kw) { openSearch(); setTimeout(function(){ document.getElementById('search-input').value = kw; doSearch(kw); }, 100); }
 function doSearch(q) {
   q = q.trim();
   var meta = document.getElementById('search-meta'), results = document.getElementById('search-results');
   if (!q) { meta.textContent='输入关键词搜索全站内容'; results.innerHTML=''; return; }
   var kw = q.toLowerCase();
-  var hits = searchIndex.filter(function(item){
-    return (item.title||'').toLowerCase().includes(kw) || (item.entity||'').toLowerCase().includes(kw) || (item.cat||'').toLowerCase().includes(kw);
-  });
+  var hits = searchIndex.filter(function(item){ return (item.title||'').toLowerCase().includes(kw) || (item.entity||'').toLowerCase().includes(kw) || (item.cat||'').toLowerCase().includes(kw); });
   meta.textContent = hits.length>0 ? '找到 '+hits.length+' 条结果' : '未找到相关内容';
   if (hits.length===0) { results.innerHTML='<div class="search-empty">未找到"'+q+'"相关内容</div>'; return; }
   results.innerHTML = hits.map(function(item){
-    var clickAction;
-    if (item.cat === '视频') {
-        clickAction = "window.open('"+item.url+"', '_blank')";
-    } else if (item.cat === '快讯') {
-        clickAction = "openModal('"+item.id+"')";
-    } else {
-        clickAction = "location.hash='#article-"+item.id+"'";
-    }
-    return '<div class="search-result-item" onclick="closeSearch();' + clickAction + '">' +
-      '<div class="sr-tag">'+item.cat+' · '+item.entity+'</div><div class="sr-title">'+highlight(item.title,q)+'</div></div>';
+    var clickAction = (item.cat === '视频') ? "window.open('"+item.url+"', '_blank')" : ((item.cat === '快讯') ? "openModal('"+item.id+"')" : "location.hash='#article-"+item.id+"'");
+    return '<div class="search-result-item" onclick="closeSearch();' + clickAction + '"><div class="sr-tag">'+item.cat+' · '+item.entity+'</div><div class="sr-title">'+highlight(item.title,q)+'</div></div>';
   }).join('');
 }
 document.addEventListener('keydown', function(e){
   if ((e.key==='k'||e.key==='K')&&(e.metaKey||e.ctrlKey)){e.preventDefault();openSearch();}
-  if (e.key==='Escape'){
-    if(document.getElementById('modal-overlay').classList.contains('on')) closeModal();
-    else if(document.getElementById('search-overlay').classList.contains('on')) closeSearch();
-  }
+  if (e.key==='Escape'){ if(document.getElementById('modal-overlay').classList.contains('on')) closeModal(); else if(document.getElementById('search-overlay').classList.contains('on')) closeSearch(); }
 });
 
-// ══════════════════════════════════════════
-// 无敏感词 UI 渲染器 与 分享组件
-// ══════════════════════════════════════════
 function safeBody(text) {
     if (!text) return '';
     var replaced = text.replace(/\\n/g, '\n');
@@ -1024,39 +528,27 @@ function safeBody(text) {
     return '<p>' + paras.join('</p><p>') + '</p>';
 }
 
-// 彻底移除了 NexusHub 关联的分享栏生成器
+// 修复点：移除了恶心的内联Style，全部使用干净的CSS Class
 function makeShareFooter(item, id) {
     if (!item.source_url) return '';
-    var titleText = item.title || '';
-    var shareTitle = encodeURIComponent('【' + (item.category||'情报') + '】' + titleText + '\n');
+    var shareTitle = encodeURIComponent('【' + (item.category||'情报') + '】' + (item.title || '') + '\n');
     var shareUrl = encodeURIComponent(window.location.href.split('#')[0] + '#article-' + id);
     var tgUrl = 'https://t.me/share/url?url=' + shareUrl + '&text=' + shareTitle;
     var twUrl = 'https://twitter.com/intent/tweet?text=' + shareTitle + '&url=' + shareUrl + '&hashtags=Tesla情报站';
 
-    return 'content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px dashed var(--border); font-family:var(--sans);">' +
-           '<a href="'+item.source_url+'" target="_blank" style="font-size:12px; color:#2563eb; text-decoration:none; display:flex; align-items:center; gap:5px;"><i class="fa-solid fa-link"></i>来源链接</a>' +
-           '<div style="display:flex; align-items:center; gap:16px; font-size:15px; color:var(--text3);">' +
-           '<span style="font-size:12px">分享到</span>' +
-           '<a href="'+tgUrl+'" target="_blank" style="color:inherit; text-decoration:none;" onmouseover="this.style.color=\'#0088cc\'" onmouseout="this.style.color=\'\'"><i class="fa-brands fa-telegram"></i></a>' +
-           '<a href="'+twUrl+'" target="_blank" style="color:inherit; text-decoration:none;" onmouseover="this.style.color=\'#1da1f2\'" onmouseout="this.style.color=\'\'"><i class="fa-brands fa-x-twitter"></i></a>' +
+    return '<div class="share-footer">' +
+           '<a href="'+item.source_url+'" target="_blank" class="share-src"><i class="fa-solid fa-link"></i> 来源链接</a>' +
+           '<div class="share-actions">' +
+           '<span>分享到</span>' +
+           '<a href="'+tgUrl+'" target="_blank" class="share-btn tg" title="分享到 Telegram"><i class="fa-brands fa-telegram"></i></a>' +
+           '<a href="'+twUrl+'" target="_blank" class="share-btn tw" title="分享到 X"><i class="fa-brands fa-x-twitter"></i></a>' +
            '</div></div>';
 }
 
 function makeFlashItem(item) {
   var id = 'dyn_'+item.id;
-  dynArticles[id] = {
-    tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'',
-    date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body)
-  };
-  return '<div class="timeline-item">' +
-           '<div class="timeline-dot"></div>' +
-           '<div class="timeline-head">' +
-             '<span class="timeline-time">' + (item.time||'--') + '</span>' +
-             '<span class="timeline-title" onclick="openModal(\''+id+'\')">' + (item.title||'') + '</span>' +
-           '</div>' +
-           '<div class="timeline-body">' + safeBody(item.body) + '</div>' +
-           makeShareFooter(item, id) +
-         '</div>';
+  dynArticles[id] = { tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'', date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
+  return '<div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-head"><span class="timeline-time">' + (item.time||'--') + '</span><span class="timeline-title" onclick="openModal(\''+id+'\')">' + (item.title||'') + '</span></div><div class="timeline-body">' + safeBody(item.body) + '</div>' + makeShareFooter(item, id) + '</div>';
 }
 
 function makeDeepItem(item) {
@@ -1067,91 +559,37 @@ function makeDeepItem(item) {
   var realImageHtml = '';
   if (item.cover_img) {
       realImageHtml = '<img src="' + item.cover_img + '" alt="cover" style="width:100%;height:100%;object-fit:cover;display:block;">';
-      var imgTagForBody = '<img src="' + item.cover_img + '" style="width:100%;border-radius:4px;margin-bottom:20px;">';
-      dynArticles[id] = {
-        tag: tc, label: item.category, title: item.title||'', src: srcName, date: (item.date||'')+(item.time?' '+item.time:''),
-        body: imgTagForBody + safeBody(item.body)
-      };
+      dynArticles[id] = { tag: tc, label: item.category, title: item.title||'', src: srcName, date: (item.date||'')+(item.time?' '+item.time:''), body: '<img src="' + item.cover_img + '" style="width:100%;border-radius:4px;margin-bottom:20px;">' + safeBody(item.body), source_url: item.source_url };
   } else {
-      dynArticles[id] = {
-        tag: tc, label: item.category, title: item.title||'', src: srcName, date: (item.date||'')+(item.time?' '+item.time:''),
-        body: safeBody(item.body)
-      };
+      dynArticles[id] = { tag: tc, label: item.category, title: item.title||'', src: srcName, date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
   }
 
   var tagsHtml = '<span style="color:#3b82f6;margin-right:8px;">#' + item.category + '</span>';
   if (item.entity && item.entity !== item.category) { tagsHtml += '<span style="color:#3b82f6">#' + item.entity + '</span>'; }
 
-  var coverHtml = realImageHtml;
-  if (!coverHtml) {
-      var bgColors = ['linear-gradient(135deg, #1e293b, #0f172a)', 'linear-gradient(135deg, #0f172a, #1e1b4b)', 'linear-gradient(135deg, #172554, #312e81)', 'linear-gradient(135deg, #3f3f46, #111827)'];
-      var bg = bgColors[(item.title||'').length % bgColors.length];
-      var brandText = srcName;
-      if (brandText.includes('全网热搜')) brandText = 'HOT';
-      else if (brandText.length > 6) brandText = brandText.substring(0, 6);
-      if (!brandText) brandText = 'NEWS';
-      coverHtml = '<div class="cover-bg" style="background:'+bg+'"><span class="cover-brand">'+brandText.toUpperCase()+'</span></div>';
-  }
+  var coverHtml = realImageHtml || '<div class="cover-bg" style="background:linear-gradient(135deg, #1e293b, #0f172a)"><span class="cover-brand">' + (srcName.length > 6 ? srcName.substring(0,6) : srcName).toUpperCase() + '</span></div>';
 
-  return '<div class="deep-card" style="display:block; padding-bottom:12px">' +
-           '<a href="#article-' + id + '" style="display:flex; text-decoration:none; color:inherit; gap:24px; cursor:pointer;">' +
-             '<div class="deep-info">' +
-               '<h3 class="deep-title">' + (item.title||'') + '</h3>' +
-               '<div class="deep-bottom">' +
-                 '<div class="deep-tags">' + tagsHtml + '</div>' +
-                 '<div class="deep-meta"><span>' + (item.date||'') + ' ' + (item.time||'') + '</span><span class="meta-dot"></span><span>' + srcName + '</span></div>' +
-               '</div>' +
-             '</div>' +
+  return '<div class="deep-card">' +
+           '<a href="#article-' + id + '" style="display:flex; text-decoration:none; color:inherit; gap:24px;">' +
+             '<div class="deep-info"><h3 class="deep-title">' + (item.title||'') + '</h3><div class="deep-bottom"><div class="deep-tags">' + tagsHtml + '</div><div class="deep-meta"><span>' + (item.date||'') + ' ' + (item.time||'') + '</span><span class="meta-dot"></span><span>' + srcName + '</span></div></div></div>' +
              '<div class="deep-cover">' + coverHtml + '</div>' +
-           '</a>' +
-           makeShareFooter(item, id) +
+           '</a>' + makeShareFooter(item, id) +
          '</div>';
 }
 
 function makeMacroItem(item) {
   var id = 'dyn_'+item.id;
-  dynArticles[id] = {
-    tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'',
-    date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body)
-  };
-  return '<div class="macro-card">' +
-           '<a href="#article-' + id + '" style="text-decoration:none; color:inherit; display:block;">' +
-             '<div class="macro-head">' +
-               '<span class="macro-tag">#' + (item.entity||'宏观经济') + '</span>' +
-               '<span class="macro-time">' + (item.date||'') + ' ' + (item.time||'') + '</span>' +
-             '</div>' +
-             '<h3 class="macro-title">' + (item.title||'') + '</h3>' +
-             '<div class="macro-body">' + safeBody(item.body) + '</div>' +
-           '</a>' +
-           makeShareFooter(item, id) +
-         '</div>';
+  dynArticles[id] = { tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'', date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
+  return '<div class="macro-card"><a href="#article-' + id + '" style="text-decoration:none; color:inherit; display:block;"><div class="macro-head"><span class="macro-tag">#' + (item.entity||'宏观经济') + '</span><span class="macro-time">' + (item.date||'') + ' ' + (item.time||'') + '</span></div><h3 class="macro-title">' + (item.title||'') + '</h3><div class="macro-body">' + safeBody(item.body) + '</div></a>' + makeShareFooter(item, id) + '</div>';
 }
 
 function makeVideoItem(item) {
   var id = 'dyn_'+item.id;
   var ytId = item.yt_id || '';
-  if (!ytId && item.source_url) {
-    var m = item.source_url.match(/(?:v=|youtu\.be\/)+([\w-]{11})/);
-    if (m) ytId = m[1];
-  }
+  if (!ytId && item.source_url) { var m = item.source_url.match(/(?:v=|youtu\.be\/)+([\w-]{11})/); if (m) ytId = m[1]; }
   var ytUrl = ytId ? 'https://www.youtube.com/watch?v=' + ytId : (item.source_url || '#');
-  var thumb = ytId
-    ? '<img src="https://img.youtube.com/vi/'+ytId+'/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src=\'https://img.youtube.com/vi/'+ytId+'/mqdefault.jpg\'">'
-    : '<div class="video-thumb-placeholder">▶</div>';
-  var channel = item.source || item.entity || '';
-  return '<div class="video-card-item" style="display:flex; flex-direction:column;">' +
-    '<a href="'+ytUrl+'" target="_blank" rel="noopener" style="display:grid; grid-template-columns:200px 1fr; text-decoration:none; color:inherit;">' +
-      '<div class="video-thumb">'+thumb+'</div>' +
-      '<div class="video-card-body">' +
-        '<div>' +
-          '<div class="video-channel-row"><span class="h-tag video" style="margin-bottom:0">视频</span><span class="video-channel">'+channel+'</span></div>' +
-          '<div class="video-card-title">'+(item.title||'')+'</div>' +
-        '</div>' +
-        '<div class="video-card-meta"><span>'+(item.date||'')+(item.time?' '+item.time:'')+'</span><span class="meta-dot"></span><span style="color:var(--red)">▶ YouTube</span></div>' +
-      '</div>' +
-    '</a>' +
-    '<div style="padding: 0 20px 10px;">' + makeShareFooter(item, id) + '</div>' +
-    '</div>';
+  var thumb = ytId ? '<img src="https://img.youtube.com/vi/'+ytId+'/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src=\'https://img.youtube.com/vi/'+ytId+'/mqdefault.jpg\'">' : '<div class="video-thumb-placeholder">▶</div>';
+  return '<div class="video-card-item" style="display:flex; flex-direction:column;"><a href="'+ytUrl+'" target="_blank" rel="noopener" style="display:grid; grid-template-columns:200px 1fr; text-decoration:none; color:inherit;"><div class="video-thumb">'+thumb+'</div><div class="video-card-body"><div><div class="video-channel-row"><span class="h-tag video" style="margin-bottom:0">视频</span><span class="video-channel">'+(item.source||item.entity||'')+'</span></div><div class="video-card-title">'+(item.title||'')+'</div></div><div class="video-card-meta"><span>'+(item.date||'')+(item.time?' '+item.time:'')+'</span><span class="meta-dot"></span><span style="color:var(--red)">▶ YouTube</span></div></div></a><div style="padding: 0 20px 10px;">' + makeShareFooter(item, id) + '</div></div>';
 }
 
 function tagClass(cat) { var map = {'快讯':'news','深度分析':'analysis','FSD':'fsd','视频':'video','市场数据':'market','宏观':'macro'}; return map[cat] || 'news'; }
@@ -1166,7 +604,6 @@ function renderAll(items) {
   var market   = items.filter(function(i){ return i.category==='市场数据'; });
   var macro    = items.filter(function(i){ return i.category==='宏观'; });
 
-  // 严格隔离排版
   setEl('flash-list',    flash.length    ? flash.slice(0,30).map(makeFlashItem).join('')    : empty('暂无快讯'));
   setEl('analysis-list', analysis.length ? analysis.slice(0,20).map(makeDeepItem).join('')  : empty('暂无深度分析'));
   setEl('fsd-list',      fsd.length      ? fsd.slice(0,20).map(makeDeepItem).join('')       : empty('暂无FSD内容'));
@@ -1196,26 +633,14 @@ function renderAll(items) {
     var d = new Date();
     var dateStr = d.getFullYear() + '-' + items[0].date.replace('/','-'); 
     var headerHtml = '<div class="timeline-date-header">' + dateStr + ' <span class="timeline-badge">✔ 重要快讯</span></div>';
-    var dr = document.getElementById('home-date-rule');
-    if (dr) { dr.innerHTML = headerHtml; dr.className = ''; }
-    var fr = document.getElementById('flash-date-rule');
-    if (fr) { fr.innerHTML = headerHtml; fr.className = ''; }
+    var dr = document.getElementById('home-date-rule'); if (dr) { dr.innerHTML = headerHtml; dr.className = ''; }
+    var fr = document.getElementById('flash-date-rule'); if (fr) { fr.innerHTML = headerHtml; fr.className = ''; }
   }
 
   searchIndex = items.map(function(item){
     var yUrl = item.yt_id ? 'https://www.youtube.com/watch?v=' + item.yt_id : (item.source_url || '#');
     return {id:'dyn_'+item.id, cat:item.category, entity:item.entity||'', title:item.title||'', url:yUrl};
   });
-
-  // 原有统计面板与雷达逻辑
-  var snapEl = document.getElementById('snap-total');
-  if (snapEl) snapEl.textContent = items.length;
-  var snapA = document.getElementById('snap-analysis');
-  if (snapA) snapA.textContent = analysis.length;
-  var snapF = document.getElementById('snap-fsd');
-  if (snapF) snapF.textContent = fsd.length;
-  var snapT = document.getElementById('snap-time');
-  if (snapT && items[0]) snapT.textContent = items[0].time || '--';
 
   var counts = {tesla:0,spacex:0,xai:0,neuralink:0};
   items.forEach(function(i){
@@ -1226,71 +651,39 @@ function renderAll(items) {
     else if(e.includes('neuralink')) counts.neuralink++;
   });
   
-  ['ef-tesla','ef-spacex','ef-xai','ef-neuralink',
-   'sb-ef-tesla','sb-ef-spacex','sb-ef-xai','sb-ef-neuralink',
-   'sb-ef-tesla2','sb-ef-spacex2','sb-ef-xai2','sb-ef-neuralink2',
-   'sb-ef-tesla3','sb-ef-spacex3','sb-ef-xai3','sb-ef-neuralink3',
-   'sb-ef-tesla4','sb-ef-spacex4','sb-ef-xai4','sb-ef-neuralink4',
-   'sb-ef-tesla5','sb-ef-spacex5','sb-ef-xai5','sb-ef-neuralink5',
-   'sb-ef-tesla6','sb-ef-spacex6','sb-ef-xai6','sb-ef-neuralink6'].forEach(function(id){
-     var cName = id.replace(/ef-|sb-|[0-9]/g, '');
-     setEl(id, counts[cName] + '篇');
+  ['ef-tesla','ef-spacex','ef-xai','ef-neuralink', 'sb-ef-tesla','sb-ef-spacex','sb-ef-xai','sb-ef-neuralink', 'sb-ef-tesla2','sb-ef-spacex2','sb-ef-xai2','sb-ef-neuralink2', 'sb-ef-tesla3','sb-ef-spacex3','sb-ef-xai3','sb-ef-neuralink3', 'sb-ef-tesla4','sb-ef-spacex4','sb-ef-xai4','sb-ef-neuralink4', 'sb-ef-tesla5','sb-ef-spacex5','sb-ef-xai5','sb-ef-neuralink5', 'sb-ef-tesla6','sb-ef-spacex6','sb-ef-xai6','sb-ef-neuralink6'].forEach(function(id){
+     var cName = id.replace(/ef-|sb-|[0-9]/g, ''); setEl(id, counts[cName] + '篇');
   });
 
   var total = counts.tesla + counts.spacex + counts.xai + counts.neuralink || 1;
-  function moodLabel(n, t) {
-    var r = n/t;
-    if (r > 0.4) return ['看多','bull'];
-    if (r > 0.2) return ['中性','neutral'];
-    return ['观望','neutral'];
-  }
+  function moodLabel(n, t) { var r = n/t; if (r > 0.4) return ['看多','bull']; if (r > 0.2) return ['中性','neutral']; return ['观望','neutral']; }
   
   ['tesla','spacex','xai','neuralink'].forEach(function(key){
-    var count = counts[key];
-    var pct = Math.round(count / total * 100);
-    var bars = document.querySelectorAll('[id="bar-' + key + '"]');
-    bars.forEach(function(bar){ setTimeout(function(){ bar.style.width = pct + '%'; }, 100); });
-    var pctEls = document.querySelectorAll('[id="pct-' + key + '"]');
-    pctEls.forEach(function(el){ el.textContent = pct + '%'; });
-    var moodEls = document.querySelectorAll('[id="mood-' + key + '"]');
-    var m = moodLabel(count, total);
-    moodEls.forEach(function(el){ el.textContent = m[0]; el.className = (el.classList.contains('intel-entity-mood') ? 'intel-entity-mood' : 'radar-mood ' + m[1]); });
+    var count = counts[key]; var pct = Math.round(count / total * 100);
+    var bars = document.querySelectorAll('[id="bar-' + key + '"]'); bars.forEach(function(bar){ setTimeout(function(){ bar.style.width = pct + '%'; }, 100); });
+    var pctEls = document.querySelectorAll('[id="pct-' + key + '"]'); pctEls.forEach(function(el){ el.textContent = pct + '%'; });
+    var moodEls = document.querySelectorAll('[id="mood-' + key + '"]'); var m = moodLabel(count, total); moodEls.forEach(function(el){ el.textContent = m[0]; el.className = (el.classList.contains('intel-entity-mood') ? 'intel-entity-mood' : 'radar-mood ' + m[1]); });
   });
 
   var today = new Date().toLocaleDateString('zh-CN',{month:'2-digit',day:'2-digit'}).replace('/','-');
   var todayItems = items.filter(function(i){ return (i.date||'').indexOf(today.slice(-5)) !== -1; });
-  var snapAnalysis = todayItems.filter(function(i){ return i.category==='深度分析'; }).length;
-  var snapFsd      = todayItems.filter(function(i){ return i.category==='FSD'; }).length;
-  var lastTime = items.length > 0 ? (items[0].time || '--') : '--';
-  
   document.querySelectorAll('[id="snap-total"]').forEach(function(el){ el.textContent = todayItems.length || items.length; });
-  document.querySelectorAll('[id="snap-analysis"]').forEach(function(el){ el.textContent = snapAnalysis + '篇'; });
-  document.querySelectorAll('[id="snap-fsd"]').forEach(function(el){ el.textContent = snapFsd + '条'; });
-  document.querySelectorAll('[id="snap-time"]').forEach(function(el){ el.textContent = lastTime; });
+  document.querySelectorAll('[id="snap-analysis"]').forEach(function(el){ el.textContent = todayItems.filter(function(i){ return i.category==='深度分析'; }).length + '篇'; });
+  document.querySelectorAll('[id="snap-fsd"]').forEach(function(el){ el.textContent = todayItems.filter(function(i){ return i.category==='FSD'; }).length + '条'; });
+  document.querySelectorAll('[id="snap-time"]').forEach(function(el){ el.textContent = items.length > 0 ? (items[0].time || '--') : '--'; });
 
   if (!window._initialHashHandled) { window._initialHashHandled = true; handleHash(); }
 }
 
 function loadFeed() {
-  fetch('/data/feed.json?t='+Date.now())
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      feedItems = data.items || [];
-      renderAll(feedItems);
-    })
-    .catch(function(e){ console.warn('[Tesla情报站] feed.json 加载失败', e); });
+  fetch('/data/feed.json?t='+Date.now()).then(function(r){ return r.json(); }).then(function(data){ feedItems = data.items || []; renderAll(feedItems); }).catch(function(e){ console.warn('[Tesla情报站] feed.json 加载失败', e); });
 }
 
-loadFeed();
-setInterval(loadFeed, 60000);
+loadFeed(); setInterval(loadFeed, 60000);
 
 function drawCharts() {
   var tc = 'rgba(90,87,84,0.65)', gc = 'rgba(0,0,0,0.05)';
-  var base = {
-    responsive:true, maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
-    scales:{ x:{ticks:{color:tc,font:{size:10},maxRotation:0},grid:{color:gc},border:{display:false}}, y:{ticks:{color:tc,font:{size:10}},grid:{color:gc},border:{display:false}} }
-  };
+  var base = { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}}, scales:{ x:{ticks:{color:tc,font:{size:10},maxRotation:0},grid:{color:gc},border:{display:false}}, y:{ticks:{color:tc,font:{size:10}},grid:{color:gc},border:{display:false}} } };
   var tslaData = { labels:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'], datasets:[{data:[402,388,356,371,342,318,295,280,271,262,255,248], borderColor:'#CC2929',backgroundColor:'rgba(204,41,41,0.07)', fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#CC2929',borderWidth:1.5}] };
   var deliveryData = { labels:['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[38.7,44.4,46.2,49.5,33.6], backgroundColor:['#378ADD','#378ADD','#378ADD','#378ADD','#CC2929'], borderRadius:3,borderWidth:0}] };
   var fsdData = { labels:['Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[32,41,52,64,78,95,110,124], borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.08)', fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#1D9E75',borderWidth:1.5}] };
