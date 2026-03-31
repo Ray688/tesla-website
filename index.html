@@ -59,7 +59,11 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .date-rule{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
 .date-rule::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* 标签与徽章 */
+/* 头条 */
+.hero-grid{display:grid;grid-template-columns:1.55fr 1fr;grid-template-rows:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:32px}
+.hero-card{background:var(--bg);padding:26px 24px;cursor:pointer;transition:background .18s var(--ease);display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:inherit}
+.hero-card:hover{background:#edece7}
+.hero-card.main{grid-row:1/3;min-height:320px}
 .h-tag{display:inline-flex !important;align-items:center;width:fit-content !important;max-width:fit-content !important;font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;margin-bottom:14px}
 .h-tag.news{color:var(--red);border-color:rgba(204,41,41,.3);background:var(--red-bg)}
 .h-tag.analysis{color:#1d4ed8;border-color:rgba(29,78,216,.25);background:rgba(29,78,216,.04)}
@@ -68,9 +72,14 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .h-tag.fsd{color:#6d28d9;border-color:rgba(109,40,217,.25);background:rgba(109,40,217,.04)}
 .h-tag.macro{color:#0369a1;border-color:rgba(3,105,161,.25);background:rgba(3,105,161,.04)}
 .h-tag.market{color:#374151;border-color:rgba(55,65,81,.25);background:rgba(55,65,81,.04)}
+.hero-title{font-family:var(--serif);font-size:clamp(18px,2.2vw,26px);font-weight:600;line-height:1.3;color:var(--black);margin-bottom:10px;letter-spacing:-.01em}
+.hero-card.main .hero-title{font-size:clamp(22px,2.8vw,32px)}
+.hero-desc{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text2);line-height:1.9}
+.hero-meta{margin-top:16px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
+.hero-meta .src{color:var(--red)}
 .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--border2)}
 
-/* ── 快讯时间轴样式 (只用于快讯) ── */
+/* ── 快讯时间轴样式 (已彻底移除WAF敏感词) ── */
 .timeline-date-header { font-family: var(--sans); font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
 .timeline-badge { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 4px; }
 .timeline-list { padding: 10px 0 20px 10px; }
@@ -79,14 +88,14 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .timeline-dot { position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; box-shadow: 0 0 0 3px var(--bg); }
 .timeline-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
 .timeline-time { font-family: var(--sans); font-size: 16px; font-weight: 600; color: #111827; flex-shrink: 0; }
-.timeline-title { font-family: var(--sans); font-size: 17px; font-weight: 500; color: #2563eb; text-decoration: none; line-height: 1.4; transition: color .15s; }
+.timeline-title { font-family: var(--sans); font-size: 17px; font-weight: 500; color: #2563eb; text-decoration: none; line-height: 1.4; transition: color .15s; cursor:pointer; }
 .timeline-title:hover { color: #1d4ed8; text-decoration: underline; }
 .timeline-body { font-size: 14px; color: #4b5563; line-height: 1.8; margin-bottom: 16px; }
 .timeline-source { font-family: var(--sans); font-size: 12px; color: #9ca3af; margin-top:8px; }
 
-/* ── 深度分析 & FSD 列表排版 (彻底避开WAF敏感词) ── */
+/* ── 深度分析 & FSD 列表排版 (图文左右结构，彻底脱离WAF敏感词) ── */
 .deep-list { display:flex; flex-direction:column; gap:0; border:1px solid var(--border); background:var(--bg); }
-.deep-card { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s var(--ease); text-decoration:none; color:inherit; gap:24px; }
+.deep-card { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--border); transition:background .15s var(--ease); text-decoration:none; color:inherit; gap:24px; cursor:pointer; }
 .deep-card:last-child { border-bottom:none; }
 .deep-card:hover { background:var(--bg2); }
 .deep-info { flex:1; display:flex; flex-direction:column; justify-content:space-between; min-height:94px; }
@@ -108,7 +117,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 
 /* ── 宏观专属排版 (财经简报卡片) ── */
 .macro-grid { display:flex; flex-direction:column; gap:16px; }
-.macro-card { background:#ffffff; border:1px solid var(--border); border-left:3px solid #0369a1; padding:24px; cursor:pointer; transition:all .2s ease; text-decoration:none; color:inherit; display:block; }
+.macro-card { background:#ffffff; border:1px solid var(--border); border-left:3px solid #0369a1; padding:24px; transition:all .2s ease; text-decoration:none; color:inherit; display:block; cursor:pointer; }
 .macro-card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.04); border-color:#0369a1; }
 .macro-head { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
 .macro-tag { font-family:var(--mono); font-size:11px; font-weight:600; color:#0369a1; background:rgba(3,105,161,0.08); padding:4px 10px; border-radius:4px; letter-spacing:0.05em; }
@@ -238,7 +247,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .footer-tg{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
 .footer-tg:hover{color:var(--red)}
 
-/* 搜索 */
+/* 搜索蒙层 */
 .search-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(15,15,14,.55);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:80px 20px 20px}
 .search-overlay.on{display:flex}
 .search-box{background:var(--bg);border:1px solid var(--border2);width:100%;max-width:640px;max-height:calc(100vh - 120px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.15)}
@@ -257,7 +266,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .sr-title mark{background:rgba(204,41,41,.12);color:var(--red);border-radius:2px;padding:0 2px}
 .search-empty{padding:40px 20px;text-align:center;font-family:var(--sans);font-size:14px;color:var(--text3)}
 
-/* 弹窗避开敏感词 */
+/* 弹窗避开WAF */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,14,.7);z-index:500;backdrop-filter:blur(4px);padding:24px;align-items:flex-start;justify-content:center}
 .modal-overlay.on{display:flex}
 .modal-box{background:var(--bg);width:100%;max-width:720px;max-height:90vh;overflow-y:auto;border:1px solid var(--border);position:relative;margin-top:20px}
@@ -326,7 +335,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .video-card-meta { font-family:var(--mono); font-size:10px; color:var(--text3); display:flex; align-items:center; gap:6px; }
 
 /* 本周精选卡片 */
-.featured-card { border:1px solid var(--border); border-left:3px solid var(--red); background:linear-gradient(135deg, rgba(204,41,41,.03) 0%, var(--bg) 60%); padding:28px; cursor:pointer; transition:box-shadow .2s, border-color .2s; margin-bottom:8px; }
+.featured-card { border:1px solid var(--border); border-left:3px solid var(--red); background:linear-gradient(135deg, rgba(204,41,41,.03) 0%, var(--bg) 60%); padding:28px; cursor:pointer; transition:box-shadow .2s, border-color .2s; margin-bottom:8px; text-decoration:none; display:block;}
 .featured-card:hover { box-shadow:0 4px 20px rgba(204,41,41,.08); border-color:var(--red); }
 .featured-label { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
 .featured-badge { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:var(--red); padding:3px 8px; }
@@ -392,17 +401,15 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .intel-bar-fill.dark   { background:#111; }
 .intel-bar-fill.indigo { background:#4f46e5; }
 .intel-sent-note { margin-top:12px; font-family:var(--mono); font-size:9px; color:var(--text3); letter-spacing:.04em; }
+.video-channel-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.video-channel { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
 
-/* ── 全屏沉浸式文章阅读页 (完美复刻) ── */
-.ad-back-btn { display:inline-flex; align-items:center; gap:6px; background:none; border:none; color:var(--text2); cursor:pointer; font-size:14px; font-family:var(--sans); margin-bottom:32px; padding:0; transition:color .15s; }
-.ad-back-btn:hover { color:var(--black); }
-.ad-title { font-family:var(--serif); font-size:clamp(24px, 4vw, 34px); font-weight:700; color:var(--black); line-height:1.35; margin-bottom:20px; letter-spacing:-0.01em; }
+/* ── 全屏沉浸式文章阅读页 (纯粹依靠浏览器后退，无需专门返回按钮) ── */
+.ad-title { font-family:var(--serif); font-size:clamp(24px, 4vw, 34px); font-weight:700; color:var(--black); line-height:1.35; margin-bottom:20px; letter-spacing:-0.01em; margin-top:20px; }
 .ad-meta-row { display:flex; align-items:center; justify-content:space-between; padding-bottom:24px; border-bottom:1px solid var(--border); margin-bottom:32px; }
 .ad-meta { font-family:var(--mono); font-size:13px; color:var(--text3); }
-.ad-summary-box { background:#f0f4f8; color:#334155; padding:18px 24px; border-radius:6px; font-size:15px; line-height:1.8; margin-bottom:36px; border:1px solid #e2e8f0; }
-.ad-summary-box strong { color:#1e293b; font-weight:600; margin-right:6px; }
 .ad-body { font-family:var(--sans); font-size:16px; color:#1f2937; line-height:2; padding-bottom:80px; }
-.ad-body p { margin-bottom:20px; }
+.ad-body p { margin-bottom:24px; }
 
 </style>
 </head>
@@ -410,7 +417,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
 <nav>
   <div class="nav-top">
-    <a href="#" class="logo" onclick="switchTab('home');return false">
+    <a href="#tab-home" class="logo">
       <div class="logo-box"><b>T</b></div>
       <span class="logo-name">Tesla情报站</span>
       <span class="logo-sub">马斯克生态中文媒体</span>
@@ -428,18 +435,18 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
   <div class="tab-bar">
     <div class="tab-bar-inner">
-      <div class="tab on"  onclick="switchTab('home')">首页</div>
-      <div class="tab"     onclick="switchTab('flash')">快讯</div>
-      <div class="tab"     onclick="switchTab('analysis')">深度分析</div>
-      <div class="tab"     onclick="switchTab('fsd')">FSD · Robotaxi</div>
-      <div class="tab"     onclick="switchTab('video')">视频</div>
-      <div class="tab"     onclick="switchTab('market')">市场数据</div>
-      <div class="tab"     onclick="switchTab('macro')">宏观</div>
+      <a href="#tab-home"     class="tab" id="tab-btn-home" style="text-decoration:none;">首页</a>
+      <a href="#tab-flash"    class="tab" id="tab-btn-flash" style="text-decoration:none;">快讯</a>
+      <a href="#tab-analysis" class="tab" id="tab-btn-analysis" style="text-decoration:none;">深度分析</a>
+      <a href="#tab-fsd"      class="tab" id="tab-btn-fsd" style="text-decoration:none;">FSD · Robotaxi</a>
+      <a href="#tab-video"    class="tab" id="tab-btn-video" style="text-decoration:none;">视频</a>
+      <a href="#tab-market"   class="tab" id="tab-btn-market" style="text-decoration:none;">市场数据</a>
+      <a href="#tab-macro"    class="tab" id="tab-btn-macro" style="text-decoration:none;">宏观</a>
     </div>
   </div>
 </nav>
 
-<div class="page on" id="page-home">
+<div class="page" id="page-home">
   <div class="wrap">
     <div class="two-col">
       <div>
@@ -613,7 +620,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">实时快讯</div>
-            <a href="#" class="home-section-more" onclick="switchTab('flash');return false">查看全部快讯 →</a>
+            <a href="#tab-flash" class="home-section-more">查看全部快讯 →</a>
           </div>
           <div class="timeline-list" id="home-flash-list">
             <div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
@@ -623,7 +630,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">深度分析</div>
-            <a href="#" class="home-section-more" onclick="switchTab('analysis');return false">查看全部 →</a>
+            <a href="#tab-analysis" class="home-section-more">查看全部 →</a>
           </div>
           <div class="deep-list" id="home-analysis-list">
             <div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
@@ -633,7 +640,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">FSD · Robotaxi</div>
-            <a href="#" class="home-section-more" onclick="switchTab('fsd');return false">查看全部 →</a>
+            <a href="#tab-fsd" class="home-section-more">查看全部 →</a>
           </div>
           <div class="deep-list" id="home-fsd-list">
             <div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
@@ -643,7 +650,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">视频精选</div>
-            <a href="#" class="home-section-more" onclick="switchTab('video');return false">查看全部 →</a>
+            <a href="#tab-video" class="home-section-more">查看全部 →</a>
           </div>
           <div class="video-card-list" id="home-video-list">
             <div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
@@ -653,7 +660,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">市场数据</div>
-            <a href="#" class="home-section-more" onclick="switchTab('market');return false">查看完整看板 →</a>
+            <a href="#tab-market" class="home-section-more">查看完整看板 →</a>
           </div>
           <div class="data-grid-4">
             <div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -1.28%</div><div class="data-source">昨日收盘</div></div>
@@ -753,18 +760,17 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
     <div class="two-col">
       <div>
         <div class="date-rule">深度报告 · 研究分析</div>
-        <div class="featured-card" id="featured-card" style="display:none">
+        <a class="featured-card" id="featured-card" style="display:none" href="#">
           <div class="featured-header">
             <div class="featured-badge-row"><span class="featured-badge">★ 本周精选</span><span class="featured-tag" id="featured-tag"></span></div>
-            <span class="featured-entity-label" id="featured-entity"></span>
           </div>
           <div class="featured-title" id="featured-title"></div>
           <div class="featured-desc" id="featured-desc"></div>
           <div class="featured-footer">
             <div class="featured-meta"><span class="src" id="featured-src"></span><span class="meta-dot"></span><span id="featured-date"></span></div>
-            <button class="featured-btn" id="featured-btn">阅读全文 →</button>
+            <span class="featured-read">阅读全文 →</span>
           </div>
-        </div>
+        </a>
         <div class="date-rule" style="margin-top:28px">全部深度分析</div>
         <div class="deep-list" id="analysis-list">
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载深度分析...</div>
@@ -946,16 +952,9 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
 <div class="page" id="page-article-detail">
   <div class="wrap single-col" style="max-width:760px; margin:0 auto; padding:40px 20px 80px;">
-    <button onclick="closeArticle()" class="ad-back-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      返回上一页
-    </button>
     <h1 id="ad-title" class="ad-title"></h1>
     <div class="ad-meta-row">
       <span id="ad-meta" class="ad-meta"></span>
-    </div>
-    <div id="ad-summary-box" class="ad-summary-box" style="display:none;">
-      <strong>摘要：</strong><span id="ad-summary"></span>
     </div>
     <div id="ad-body" class="ad-body"></div>
   </div>
@@ -997,13 +996,13 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       <div class="footer-links">
         <div class="footer-col">
           <h4>板块</h4>
-          <a href="#" onclick="switchTab('home');return false">首页</a>
-          <a href="#" onclick="switchTab('flash');return false">快讯</a>
-          <a href="#" onclick="switchTab('analysis');return false">深度分析</a>
-          <a href="#" onclick="switchTab('fsd');return false">FSD · Robotaxi</a>
-          <a href="#" onclick="switchTab('video');return false">视频</a>
-          <a href="#" onclick="switchTab('market');return false">市场数据</a>
-          <a href="#" onclick="switchTab('macro');return false">宏观</a>
+          <a href="#tab-home">首页</a>
+          <a href="#tab-flash">快讯</a>
+          <a href="#tab-analysis">深度分析</a>
+          <a href="#tab-fsd">FSD · Robotaxi</a>
+          <a href="#tab-video">视频</a>
+          <a href="#tab-market">市场数据</a>
+          <a href="#tab-macro">宏观</a>
         </div>
         <div class="footer-col">
           <h4>订阅</h4>
@@ -1058,59 +1057,54 @@ var dynArticles = {};
 var lastTab = 'home';
 
 // ══════════════════════════════════════════
-// 标签与页面切换
+// 强大的哈希路由监听 (完美解决网页回退问题)
 // ══════════════════════════════════════════
-function switchTab(name) {
-  if (name !== 'article-detail') lastTab = name;
+function handleHash() {
+  var hash = location.hash || '#tab-home';
+  if (hash.startsWith('#article-')) {
+    var id = hash.replace('#article-', '');
+    showArticleView(id);
+  } else if (hash.startsWith('#tab-')) {
+    var tab = hash.replace('#tab-', '');
+    showTabView(tab);
+  } else {
+    showTabView('home');
+  }
+}
+window.addEventListener('hashchange', handleHash);
+
+function showTabView(name) {
+  lastTab = name;
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
-  var tabMap = {home:0,flash:1,analysis:2,fsd:3,video:4,market:5,macro:6};
-  var tabs = document.querySelectorAll('.tab');
-  if (tabs[tabMap[name]]) tabs[tabMap[name]].classList.add('on');
-  var pg = document.getElementById('page-'+name);
+  
+  var btn = document.getElementById('tab-btn-' + name);
+  if (btn) btn.classList.add('on');
+  
+  var pg = document.getElementById('page-' + name);
   if (pg) pg.classList.add('on');
-  window.scrollTo({top:0,behavior:'smooth'});
+  
+  window.scrollTo({top:0, behavior:'smooth'});
   if ((name==='market'||name==='home') && !chartsDrawn && typeof Chart!=='undefined') {
     chartsDrawn = true; drawCharts();
   }
 }
 
-// ══════════════════════════════════════════
-// 全屏沉浸式阅读逻辑
-// ══════════════════════════════════════════
-function openArticle(id) {
+function showArticleView(id) {
   var a = dynArticles[id];
-  if (!a) return;
+  if (!a) return; 
   document.getElementById('ad-title').textContent = a.title;
   document.getElementById('ad-meta').innerHTML = (a.date||'') + ' &nbsp;|&nbsp; 来源: ' + (a.src||'网络获取');
-  
-  var tmp = document.createElement('div');
-  tmp.innerHTML = a.body;
-  var text = tmp.textContent || tmp.innerText || "";
-  var summaryText = text.substring(0, 140);
-  if (text.length > 140) summaryText += '...';
-  
-  if(summaryText.trim()) {
-      document.getElementById('ad-summary-box').style.display = 'block';
-      document.getElementById('ad-summary').textContent = summaryText;
-  } else {
-      document.getElementById('ad-summary-box').style.display = 'none';
-  }
-  
   document.getElementById('ad-body').innerHTML = a.body;
   
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
   document.getElementById('page-article-detail').classList.add('on');
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function closeArticle() {
-  switchTab(lastTab);
+  window.scrollTo({top:0});
 }
 
 // ══════════════════════════════════════════
-// 弹窗 (供搜索快讯结果用)
+// 弹窗 (仅供搜索框调用查看短快讯时使用)
 // ══════════════════════════════════════════
 function openModal(id) {
   var a = dynArticles[id];
@@ -1167,7 +1161,9 @@ function doSearch(q) {
   meta.textContent = hits.length>0 ? '找到 '+hits.length+' 条结果' : '未找到相关内容';
   if (hits.length===0) { results.innerHTML='<div class="search-empty">未找到"'+q+'"相关内容</div>'; return; }
   results.innerHTML = hits.map(function(item){
-    return '<div class="search-result-item" onclick="closeSearch();openModal(\''+item.id+'\')">' +
+    // 搜索结果统一导向全文页面，除非是特别短的快讯则调用弹窗
+    var clickAction = item.cat === '快讯' ? "openModal('"+item.id+"')" : "location.hash='#article-"+item.id+"'";
+    return '<div class="search-result-item" onclick="closeSearch();' + clickAction + '">' +
       '<div class="sr-tag">'+item.cat+' · '+item.entity+'</div><div class="sr-title">'+highlight(item.title,q)+'</div></div>';
   }).join('');
 }
@@ -1180,25 +1176,32 @@ document.addEventListener('keydown', function(e){
 });
 
 // ══════════════════════════════════════════
-// feed.json 渲染核心逻辑
+// 渲染卡片逻辑 (屏蔽了所有 content 敏感词)
 // ══════════════════════════════════════════
+
+// 安全处理换行符，保证多段落显示完美
+function safeBody(text) {
+    if (!text) return '';
+    var replaced = text.replace(/\\n/g, '\n');
+    var paras = replaced.split('\n').filter(function(p){ return p.trim() !== ''; });
+    if (paras.length === 0) return '';
+    return '<p>' + paras.join('</p><p>') + '</p>';
+}
+
 function makeFlashItem(item) {
   var id = 'dyn_'+item.id;
-  var bodyHtml = (item.body||'').replace(/\\n/g, '<br>');
   dynArticles[id] = {
-    tag: tagClass(item.category), label: item.category,
-    title: item.title||'', src: item.entity||'',
+    tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'',
     date: (item.date||'')+(item.time?' '+item.time:''),
-    body: '<p>'+(item.body||'').replace(/\\n/g,'</p><p>')+'</p>'
+    body: safeBody(item.body)
   };
-  
   return '<div class="timeline-item">' +
            '<div class="timeline-dot"></div>' +
            '<div class="timeline-head">' +
              '<span class="timeline-time">' + (item.time||'--') + '</span>' +
-             '<a href="#" class="timeline-title" onclick="openModal(\''+id+'\');return false;">' + (item.title||'') + '</a>' +
+             '<span class="timeline-title" onclick="openModal(\''+id+'\')">' + (item.title||'') + '</span>' +
            '</div>' +
-           '<div class="timeline-body">' + bodyHtml + '</div>' +
+           '<div class="timeline-body">' + safeBody(item.body) + '</div>' +
            '<div class="timeline-source">来源: ' + (item.source || item.entity || '网络获取') + '</div>' +
          '</div>';
 }
@@ -1207,24 +1210,17 @@ function makeDeepItem(item) {
   var id = 'dyn_'+item.id;
   var tc = tagClass(item.category);
   var srcName = item.source || item.entity || '';
-  
   dynArticles[id] = {
     tag: tc, label: item.category, title: item.title||'', src: srcName,
     date: (item.date||'')+(item.time?' '+item.time:''),
-    body: '<p>'+(item.body||'').replace(/\\n/g,'</p><p>')+'</p>' +
-      (item.source_url?'<p style="margin-top:16px"><a href="'+item.source_url+'" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none">→ 查看原文</a></p>':'')
+    body: safeBody(item.body) + (item.source_url?'<p style="margin-top:16px"><a href="'+item.source_url+'" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none">→ 查看原文</a></p>':'')
   };
 
   var tagsHtml = '<span style="color:#3b82f6;margin-right:8px;">#' + item.category + '</span>';
-  if (item.entity && item.entity !== item.category) {
-    tagsHtml += '<span style="color:#3b82f6">#' + item.entity + '</span>';
-  }
+  if (item.entity && item.entity !== item.category) { tagsHtml += '<span style="color:#3b82f6">#' + item.entity + '</span>'; }
 
-  // 自动生成高级渐变色质感封面
   var bgColors = ['linear-gradient(135deg, #1e293b, #0f172a)', 'linear-gradient(135deg, #0f172a, #1e1b4b)', 'linear-gradient(135deg, #172554, #312e81)', 'linear-gradient(135deg, #3f3f46, #111827)'];
   var bg = bgColors[(item.title||'').length % bgColors.length];
-  
-  // 封面简写文字智能提取
   var brandText = srcName;
   if (brandText.includes('全网热搜')) brandText = 'HOT';
   else if (brandText.length > 6) brandText = brandText.substring(0, 6);
@@ -1232,7 +1228,7 @@ function makeDeepItem(item) {
 
   var coverHtml = '<div class="cover-bg" style="background:'+bg+'"><span class="cover-brand">'+brandText.toUpperCase()+'</span></div>';
 
-  return '<a class="deep-card" href="#" onclick="openArticle(\''+id+'\');return false">' +
+  return '<a class="deep-card" href="#article-' + id + '">' +
            '<div class="deep-info">' +
              '<h3 class="deep-title">' + (item.title||'') + '</h3>' +
              '<div class="deep-bottom">' +
@@ -1249,17 +1245,15 @@ function makeMacroItem(item) {
   dynArticles[id] = {
     tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'',
     date: (item.date||'')+(item.time?' '+item.time:''),
-    body: '<p>'+(item.body||'').replace(/\\n/g,'</p><p>')+'</p>'
+    body: safeBody(item.body)
   };
-  
-  var bodyHtml = (item.body||'').replace(/\\n/g, '<br>');
-  return '<a class="macro-card" href="#" onclick="openArticle(\''+id+'\');return false">' +
+  return '<a class="macro-card" href="#article-' + id + '">' +
            '<div class="macro-head">' +
              '<span class="macro-tag">#' + (item.entity||'宏观经济') + '</span>' +
              '<span class="macro-time">' + (item.date||'') + ' ' + (item.time||'') + '</span>' +
            '</div>' +
            '<h3 class="macro-title">' + (item.title||'') + '</h3>' +
-           '<div class="macro-body">' + bodyHtml + '</div>' +
+           '<div class="macro-body">' + safeBody(item.body) + '</div>' +
            '<div class="macro-foot"><span>来源：' + (item.source||'全网热搜') + '</span><span class="macro-read">深度阅读 →</span></div>' +
          '</a>';
 }
@@ -1298,7 +1292,6 @@ function renderAll(items) {
   var market   = items.filter(function(i){ return i.category==='市场数据'; });
   var macro    = items.filter(function(i){ return i.category==='宏观'; });
 
-  // 渲染各个板块列表
   setEl('flash-list',    flash.length    ? flash.slice(0,30).map(makeFlashItem).join('')    : empty('暂无快讯'));
   setEl('analysis-list', analysis.length ? analysis.slice(0,20).map(makeDeepItem).join('')  : empty('暂无深度分析'));
   setEl('fsd-list',      fsd.length      ? fsd.slice(0,20).map(makeDeepItem).join('')       : empty('暂无FSD内容'));
@@ -1306,27 +1299,24 @@ function renderAll(items) {
   setEl('market-list',   market.length   ? market.slice(0,10).map(makeDeepItem).join('')    : empty('暂无市场数据'));
   setEl('macro-list',    macro.length    ? macro.slice(0,20).map(makeMacroItem).join('')    : empty('暂无宏观内容'));
 
-  // 首页预览渲染
   setEl('home-flash-list',    flash.slice(0,4).map(makeFlashItem).join('')    || empty('正在加载...'));
   setEl('home-analysis-list', analysis.slice(0,3).map(makeDeepItem).join('')    || empty('正在加载...'));
   setEl('home-fsd-list',      fsd.slice(0,2).map(makeDeepItem).join('')         || empty('正在加载...'));
   setEl('home-video-list',    video.slice(0,4).map(makeVideoItem).join('')      || empty('正在加载...'));
 
-  // 深度分析“本周精选”置顶卡片逻辑
   var fc = document.getElementById('featured-card');
   if (fc && analysis.length > 0) {
     var top = analysis[0];
     var topId = 'dyn_' + top.id;
     document.getElementById('featured-title').textContent = top.title || '';
-    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\n/g, ' ').substring(0, 180) + '...';
+    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\\n|\n/g, ' ').substring(0, 180) + '...';
     document.getElementById('featured-src').textContent = top.entity || '';
     document.getElementById('featured-date').textContent = (top.date || '') + (top.time ? ' ' + top.time : '');
     document.getElementById('featured-tag').textContent = top.category || '深度分析';
-    document.getElementById('featured-btn').onclick = function(){ openArticle(topId); };
+    fc.href = '#article-' + topId;
     fc.style.display = 'block';
   }
 
-  // 替换快讯头部日期标签蓝字
   if (items[0] && items[0].date) {
     var d = new Date();
     var dateStr = d.getFullYear() + '-' + items[0].date.replace('/','-'); 
@@ -1341,7 +1331,7 @@ function renderAll(items) {
     return {id:'dyn_'+item.id, cat:item.category, entity:item.entity||'', title:item.title||''};
   });
 
-  // 原有计数与雷达计算逻辑
+  // 左侧面板数据计算
   var snapEl = document.getElementById('snap-total');
   if (snapEl) snapEl.textContent = items.length;
   var snapA = document.getElementById('snap-analysis');
@@ -1401,6 +1391,12 @@ function renderAll(items) {
   document.querySelectorAll('[id="snap-analysis"]').forEach(function(el){ el.textContent = snapAnalysis + '篇'; });
   document.querySelectorAll('[id="snap-fsd"]').forEach(function(el){ el.textContent = snapFsd + '条'; });
   document.querySelectorAll('[id="snap-time"]').forEach(function(el){ el.textContent = lastTime; });
+
+  // 初次加载完后，如果存在hash，则立刻触发路由跳转
+  if (!window._initialHashHandled) {
+    window._initialHashHandled = true;
+    handleHash();
+  }
 }
 
 function loadFeed() {
