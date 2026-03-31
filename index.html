@@ -59,7 +59,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .date-rule{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
 .date-rule::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* 头条 */
+/* 头条 (保持原样) */
 .hero-grid{display:grid;grid-template-columns:1.55fr 1fr;grid-template-rows:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:32px}
 .hero-card{background:var(--bg);padding:26px 24px;cursor:pointer;transition:background .18s var(--ease);display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:inherit}
 .hero-card:hover{background:#edece7}
@@ -79,20 +79,25 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .hero-meta .src{color:var(--red)}
 .meta-dot{width:3px;height:3px;border-radius:50%;background:var(--border2)}
 
-/* 快讯流 */
-.flash-list-OLD{}
-.flash-item-OLD{}
+/* ── 严谨增加：快讯时间轴专用样式 ── */
+.timeline-date-header { font-family: var(--sans); font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+.timeline-badge { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 4px; }
+.timeline-list { padding: 10px 0 20px 10px; }
+.timeline-item { position: relative; padding-left: 32px; padding-bottom: 36px; border-left: 2px solid #e5e7eb; }
+.timeline-item:last-child { border-left-color: transparent; padding-bottom: 0; }
+.timeline-dot { position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; box-shadow: 0 0 0 3px var(--bg); }
+.timeline-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.timeline-time { font-family: var(--sans); font-size: 16px; font-weight: 600; color: #111827; flex-shrink: 0; }
+.timeline-title { font-family: var(--sans); font-size: 17px; font-weight: 500; color: #2563eb; text-decoration: none; line-height: 1.4; transition: color .15s; }
+.timeline-title:hover { color: #1d4ed8; text-decoration: underline; }
+.timeline-body { font-size: 14px; color: #4b5563; line-height: 1.8; margin-bottom: 16px; }
+.timeline-actions { display: flex; align-items: center; justify-content: flex-end; gap: 16px; padding-top: 12px; border-top: 1px dashed #f3f4f6; }
+.timeline-source { font-family: var(--sans); font-size: 12px; color: #9ca3af; margin-right: auto; }
+.action-icons { display: flex; gap: 12px; color: #9ca3af; }
+.action-icons svg { cursor: pointer; transition: color .15s; }
+.action-icons svg:hover { color: #4b5563; }
 
-
-
-
-
-
-
-
-
-
-/* 文章列表 */
+/* 深度分析文章列表 (保持原样) */
 .article-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--border)}
 .article-item{display:grid;grid-template-columns:80px 1fr;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s var(--ease);text-decoration:none;color:inherit}
 .article-item:last-child{border-bottom:none}
@@ -106,7 +111,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .article-meta{margin-top:10px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
 .article-meta .src{color:var(--red)}
 
-/* 视频卡片列表 */
+/* 视频卡片列表 (保持原样) */
 .video-card-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
 .video-card-item{display:grid;grid-template-columns:200px 1fr;background:var(--bg);text-decoration:none;color:inherit;transition:background .15s var(--ease)}
 .video-card-item:hover{background:var(--bg2)}
@@ -119,7 +124,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .video-card-meta{margin-top:12px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
 .video-card-meta .src{color:var(--red)}
 
-/* 侧边栏 */
+/* 侧边栏基础 (保持原样) */
 .sidebar{display:flex;flex-direction:column;gap:20px}
 .sb-block{border:1px solid var(--border);background:var(--bg)}
 .sb-head{padding:12px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
@@ -143,14 +148,14 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .entity-ticker{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.04em;margin-top:1px}
 .entity-count{font-family:var(--mono);font-size:10px;color:var(--text3)}
 
-/* 首页板块 */
+/* 首页板块通用 */
 .home-section{margin-top:32px}
 .home-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .home-section-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--black);letter-spacing:-.01em}
 .home-section-more{font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none;letter-spacing:.04em;transition:opacity .15s}
 .home-section-more:hover{opacity:.7}
 
-/* 首页介绍横幅 */
+/* 首页介绍横幅 (保持原样) */
 .intro-banner{border:1px solid var(--border);background:var(--bg);margin-bottom:28px;overflow:hidden}
 .intro-top{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border);background:var(--black)}
 .intro-logo-row{display:flex;align-items:center;gap:10px}
@@ -172,7 +177,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .intro-stat-lbl{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
 .intro-stat-div{width:1px;height:32px;background:var(--border2);margin-right:24px;flex-shrink:0}
 
-/* 数据看板 */
+/* 数据看板图表区 (保持原样) */
 .data-grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:28px}
 .data-card{background:var(--bg2);border-radius:6px;padding:16px 14px}
 .data-card .data-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;margin-bottom:8px}
@@ -183,7 +188,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .chart-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;margin-bottom:14px}
 .chart-2col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
 
-/* 追踪实体底部 */
+/* 追踪实体底部模块 (保持原样) */
 .entity-section{border-top:1px solid var(--border);background:var(--bg2);padding:44px 24px}
 .entity-section-inner{max-width:var(--max);margin:0 auto}
 .section-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
@@ -199,7 +204,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .ef-desc{font-family:var(--sans);font-size:12px;font-weight:400;color:var(--text2);line-height:1.9;margin-bottom:14px}
 .ef-count{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.05em}
 
-/* 订阅横幅 */
+/* 订阅横幅底部 (保持原样) */
 .sub-banner{background:var(--black);border-top:3px solid var(--red);padding:48px 24px}
 .sub-banner-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px}
 .sub-label{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
@@ -208,7 +213,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-
 .sub-btn{display:inline-flex;align-items:center;gap:9px;flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-family:var(--sans);font-size:15px;font-weight:500;padding:14px 32px;border:1px solid var(--red);transition:all .22s var(--ease);white-space:nowrap}
 .sub-btn:hover{background:transparent;color:var(--red)}
 
-/* Footer */
+/* Footer (保持原样) */
 footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);padding:36px 24px 24px}
 .footer-inner{max-width:var(--max);margin:0 auto}
 .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:28px}
@@ -226,7 +231,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .footer-tg{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
 .footer-tg:hover{color:var(--red)}
 
-/* 弹窗 */
+/* 弹窗 (保持原样) */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,14,.7);z-index:500;backdrop-filter:blur(4px);padding:24px;align-items:flex-start;justify-content:center}
 .modal-overlay.on{display:flex}
 .modal-box{background:var(--bg);width:100%;max-width:720px;max-height:90vh;overflow-y:auto;border:1px solid var(--border);position:relative;margin-top:20px}
@@ -242,7 +247,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .modal-body p:last-child{margin-bottom:0}
 .modal-body strong{font-weight:500;color:var(--black)}
 
-/* 搜索 */
+/* 搜索 (保持原样) */
 .search-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(15,15,14,.55);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:80px 20px 20px}
 .search-overlay.on{display:flex}
 .search-box{background:var(--bg);border:1px solid var(--border2);width:100%;max-width:640px;max-height:calc(100vh - 120px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.15)}
@@ -261,10 +266,100 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 .sr-title mark{background:rgba(204,41,41,.12);color:var(--red);border-radius:2px;padding:0 2px}
 .search-empty{padding:40px 20px;text-align:center;font-family:var(--sans);font-size:14px;color:var(--text3)}
 
-/* SVG logo 尺寸 */
-.entity-icon svg,.intro-tag svg{display:block}
+/* 侧边栏及子页面辅助 (保持原样) */
+.entity-list { display:flex; flex-direction:column; gap:0; }
+.entity-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
+.entity-item:last-child { border-bottom:none; }
+.entity-item:hover { color:var(--red); }
+.entity-icon { font-size:16px; width:24px; text-align:center; flex-shrink:0; }
+.entity-name { font-size:13px; font-weight:500; color:var(--text); }
+.entity-sub { font-family:var(--mono); font-size:10px; color:var(--text3); }
+.entity-count { margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--text3); flex-shrink:0; }
+.tag-cloud { display:flex; flex-wrap:wrap; gap:6px; }
+.tag-pill { font-family:var(--mono); font-size:10px; color:var(--text2); border:1px solid var(--border); padding:3px 8px; cursor:pointer; transition:all .15s; white-space:nowrap; }
+.tag-pill:hover { border-color:var(--red); color:var(--red); }
+.video-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.video-card-item { display:flex; flex-direction:column; border:1px solid var(--border); text-decoration:none; color:inherit; transition:border-color .18s, box-shadow .18s; background:var(--bg); }
+.video-card-item:hover { border-color:var(--border2); box-shadow:0 2px 12px rgba(0,0,0,.06); }
+.video-thumb { width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--bg3); }
+.video-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.video-thumb-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:28px; color:var(--text3); }
+.video-card-body { padding:14px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.video-card-title { font-family:var(--serif); font-size:14px; font-weight:600; color:var(--black); line-height:1.45; }
+.video-card-desc { font-size:12px; color:var(--text2); line-height:1.7; flex:1; }
+.video-card-meta { font-family:var(--mono); font-size:10px; color:var(--text3); display:flex; align-items:center; gap:6px; }
 
-/* 响应式 */
+/* 本周精选卡片 (保持原样) */
+.featured-card { border:1px solid var(--border); border-left:3px solid var(--red); background:linear-gradient(135deg, rgba(204,41,41,.03) 0%, var(--bg) 60%); padding:28px; cursor:pointer; transition:box-shadow .2s, border-color .2s; margin-bottom:8px; }
+.featured-card:hover { box-shadow:0 4px 20px rgba(204,41,41,.08); border-color:var(--red); }
+.featured-label { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.featured-badge { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:var(--red); padding:3px 8px; }
+.featured-tag { font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--text3); text-transform:uppercase; }
+.featured-title { font-family:var(--serif); font-size:clamp(18px,2vw,24px); font-weight:700; color:var(--black); line-height:1.35; margin-bottom:12px; letter-spacing:-.01em; }
+.featured-desc { font-size:14px; color:var(--text2); line-height:1.85; margin-bottom:16px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.featured-meta { display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10px; color:var(--text3); }
+.featured-read { margin-left:auto; color:var(--red); font-weight:500; letter-spacing:.04em; }
+
+/* 左侧面板 (保持原样) */
+.left-panel { display:flex; flex-direction:column; gap:16px; margin-bottom:28px; }
+.radar-block, .snapshot-block { border:1px solid var(--border); background:var(--bg); padding:20px 22px; }
+.radar-title { display:flex; align-items:center; justify-content:space-between; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--text3); margin-bottom:18px; }
+.radar-live { display:flex; align-items:center; gap:5px; color:#22c55e; }
+.radar-list { display:flex; flex-direction:column; gap:14px; }
+.radar-row { display:flex; align-items:center; gap:10px; }
+.radar-entity { display:flex; align-items:center; gap:6px; font-size:12px; font-weight:500; color:var(--text); width:76px; flex-shrink:0; }
+.radar-icon { font-size:13px; }
+.radar-bar-wrap { flex:1; height:5px; background:var(--bg3); border-radius:0; overflow:hidden; }
+.radar-bar { height:100%; background:var(--red); border-radius:0; transition:width 1s cubic-bezier(.4,0,.2,1); }
+.radar-bar.spacex { background:#1a56db; }
+.radar-bar.xai { background:#111; }
+.radar-bar.neuralink { background:#6d28d9; }
+.radar-pct { font-family:var(--mono); font-size:10px; color:var(--text3); width:28px; text-align:right; flex-shrink:0; }
+.radar-mood { font-family:var(--mono); font-size:9px; padding:2px 6px; border:1px solid; flex-shrink:0; width:38px; text-align:center; }
+.radar-mood.bull { color:#16a34a; border-color:rgba(22,163,74,.3); background:rgba(22,163,74,.06); }
+.radar-mood.bear { color:var(--red); border-color:rgba(204,41,41,.3); background:var(--red-bg); }
+.radar-mood.neutral { color:var(--text3); border-color:var(--border); }
+.snapshot-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.snapshot-item { text-align:center; padding:12px 8px; background:var(--bg2); }
+.snapshot-val { font-family:var(--serif); font-size:22px; font-weight:700; color:var(--black); line-height:1; margin-bottom:5px; }
+.snapshot-lbl { font-family:var(--mono); font-size:9px; letter-spacing:.08em; color:var(--text3); text-transform:uppercase; }
+
+/* 情报面板 (保持原样) */
+.intel-panel { border:1px solid var(--border); background:var(--bg); margin-bottom:28px; overflow:hidden; }
+.intel-snapshot { padding:20px 22px 18px; }
+.intel-snap-title { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--text3); margin-bottom:16px; display:flex; align-items:center; gap:6px; }
+.intel-dot { width:6px; height:6px; border-radius:50%; background:#22c55e; animation:pulse 2s ease-in-out infinite; flex-shrink:0; }
+.intel-snap-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--border); }
+.intel-snap-item { padding:14px 12px; text-align:center; border-right:1px solid var(--border); }
+.intel-snap-item:last-child { border-right:none; }
+.intel-snap-val { font-family:var(--serif); font-size:22px; font-weight:700; color:var(--black); line-height:1; margin-bottom:5px; }
+.intel-snap-lbl { font-family:var(--mono); font-size:9px; color:var(--text3); letter-spacing:.06em; }
+.intel-divider { height:1px; background:var(--border); }
+.intel-sentiment { padding:18px 22px 20px; }
+.intel-sent-title { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--text3); margin-bottom:14px; }
+.intel-tsla-row { display:flex; align-items:baseline; gap:8px; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+.intel-tsla-label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.08em; }
+.intel-tsla-price { font-family:var(--serif); font-size:20px; font-weight:700; color:var(--black); }
+.intel-tsla-change { font-family:var(--mono); font-size:12px; margin-left:auto; }
+.intel-tsla-change.up { color:#16a34a; }
+.intel-tsla-change.dn { color:var(--red); }
+.intel-entity-rows { display:flex; flex-direction:column; gap:12px; }
+.intel-entity-row {}
+.intel-entity-head { display:flex; align-items:center; gap:6px; margin-bottom:5px; }
+.intel-entity-icon { font-size:13px; }
+.intel-entity-name { font-size:12px; font-weight:500; color:var(--text); flex:1; }
+.intel-entity-mood { font-family:var(--mono); font-size:9px; letter-spacing:.06em; padding:2px 6px; border:1px solid var(--border); color:var(--text3); }
+.intel-bar-bg { height:4px; background:var(--bg3); border-radius:0; overflow:hidden; }
+.intel-bar-fill { height:100%; transition:width .8s cubic-bezier(.4,0,.2,1); border-radius:0; }
+.intel-bar-fill.red    { background:var(--red); }
+.intel-bar-fill.blue   { background:#2563eb; }
+.intel-bar-fill.dark   { background:#111; }
+.intel-bar-fill.indigo { background:#4f46e5; }
+.intel-sent-note { margin-top:12px; font-family:var(--mono); font-size:9px; color:var(--text3); letter-spacing:.04em; }
+.video-channel-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.video-channel { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
+
+/* 响应式 (保持原样) */
 @media(max-width:900px){
   .two-col{grid-template-columns:1fr}
   .hero-grid{grid-template-columns:1fr}
@@ -290,303 +385,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   .intro-stat{padding:0}
   .intro-stat-div{display:none}
 }
-
-/* ── 子页面侧边栏 ── */
-.entity-list { display:flex; flex-direction:column; gap:0; }
-.entity-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
-.entity-item:last-child { border-bottom:none; }
-.entity-item:hover { color:var(--red); }
-.entity-icon { font-size:16px; width:24px; text-align:center; flex-shrink:0; }
-.entity-name { font-size:13px; font-weight:500; color:var(--text); }
-.entity-sub { font-family:var(--mono); font-size:10px; color:var(--text3); }
-.entity-count { margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--text3); flex-shrink:0; }
-.tag-cloud { display:flex; flex-wrap:wrap; gap:6px; }
-.tag-pill { font-family:var(--mono); font-size:10px; color:var(--text2); border:1px solid var(--border); padding:3px 8px; cursor:pointer; transition:all .15s; white-space:nowrap; }
-.tag-pill:hover { border-color:var(--red); color:var(--red); }
-
-/* ── 视频2列网格 ── */
-.video-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.video-card-item { display:flex; flex-direction:column; border:1px solid var(--border); text-decoration:none; color:inherit; transition:border-color .18s, box-shadow .18s; background:var(--bg); }
-.video-card-item:hover { border-color:var(--border2); box-shadow:0 2px 12px rgba(0,0,0,.06); }
-.video-thumb { width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--bg3); }
-.video-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
-.video-thumb-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:28px; color:var(--text3); }
-.video-card-body { padding:14px; display:flex; flex-direction:column; gap:8px; flex:1; }
-.video-card-title { font-family:var(--serif); font-size:14px; font-weight:600; color:var(--black); line-height:1.45; }
-.video-card-desc { font-size:12px; color:var(--text2); line-height:1.7; flex:1; }
-.video-card-meta { font-family:var(--mono); font-size:10px; color:var(--text3); display:flex; align-items:center; gap:6px; }
-
-
-/* ── 本周精选卡片 ── */
-.featured-card {
-  border:1px solid var(--border);
-  border-left:3px solid var(--red);
-  background:linear-gradient(135deg, rgba(204,41,41,.03) 0%, var(--bg) 60%);
-  padding:28px;
-  cursor:pointer;
-  transition:box-shadow .2s, border-color .2s;
-  margin-bottom:8px;
-}
-.featured-card:hover {
-  box-shadow:0 4px 20px rgba(204,41,41,.08);
-  border-color:var(--red);
-}
-.featured-label {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:14px;
-}
-.featured-badge {
-  font-family:var(--mono);
-  font-size:9px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:#fff;
-  background:var(--red);
-  padding:3px 8px;
-}
-.featured-tag {
-  font-family:var(--mono);
-  font-size:9px;
-  letter-spacing:.1em;
-  color:var(--text3);
-  text-transform:uppercase;
-}
-.featured-title {
-  font-family:var(--serif);
-  font-size:clamp(18px,2vw,24px);
-  font-weight:700;
-  color:var(--black);
-  line-height:1.35;
-  margin-bottom:12px;
-  letter-spacing:-.01em;
-}
-.featured-desc {
-  font-size:14px;
-  color:var(--text2);
-  line-height:1.85;
-  margin-bottom:16px;
-  display:-webkit-box;
-  -webkit-line-clamp:3;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-.featured-meta {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-family:var(--mono);
-  font-size:10px;
-  color:var(--text3);
-}
-.featured-read {
-  margin-left:auto;
-  color:var(--red);
-  font-weight:500;
-  letter-spacing:.04em;
-}
-
-/* ── 左侧面板 ── */
-.left-panel { display:flex; flex-direction:column; gap:16px; margin-bottom:28px; }
-
-/* 情绪雷达 */
-.radar-block, .snapshot-block {
-  border:1px solid var(--border);
-  background:var(--bg);
-  padding:20px 22px;
-}
-.radar-title {
-  display:flex; align-items:center; justify-content:space-between;
-  font-family:var(--mono); font-size:10px; letter-spacing:.1em;
-  text-transform:uppercase; color:var(--text3);
-  margin-bottom:18px;
-}
-.radar-live { display:flex; align-items:center; gap:5px; color:#22c55e; }
-.radar-list { display:flex; flex-direction:column; gap:14px; }
-.radar-row { display:flex; align-items:center; gap:10px; }
-.radar-entity { display:flex; align-items:center; gap:6px; font-size:12px; font-weight:500; color:var(--text); width:76px; flex-shrink:0; }
-.radar-icon { font-size:13px; }
-.radar-bar-wrap { flex:1; height:5px; background:var(--bg3); border-radius:0; overflow:hidden; }
-.radar-bar { height:100%; background:var(--red); border-radius:0; transition:width 1s cubic-bezier(.4,0,.2,1); }
-.radar-bar.spacex { background:#1a56db; }
-.radar-bar.xai { background:#111; }
-.radar-bar.neuralink { background:#6d28d9; }
-.radar-pct { font-family:var(--mono); font-size:10px; color:var(--text3); width:28px; text-align:right; flex-shrink:0; }
-.radar-mood { font-family:var(--mono); font-size:9px; padding:2px 6px; border:1px solid; flex-shrink:0; width:38px; text-align:center; }
-.radar-mood.bull { color:#16a34a; border-color:rgba(22,163,74,.3); background:rgba(22,163,74,.06); }
-.radar-mood.bear { color:var(--red); border-color:rgba(204,41,41,.3); background:var(--red-bg); }
-.radar-mood.neutral { color:var(--text3); border-color:var(--border); }
-
-/* 今日快照 */
-.snapshot-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.snapshot-item { text-align:center; padding:12px 8px; background:var(--bg2); }
-.snapshot-val { font-family:var(--serif); font-size:22px; font-weight:700; color:var(--black); line-height:1; margin-bottom:5px; }
-.snapshot-lbl { font-family:var(--mono); font-size:9px; letter-spacing:.08em; color:var(--text3); text-transform:uppercase; }
-
-/* ── 情报面板 ── */
-.intel-panel {
-  border:1px solid var(--border);
-  background:var(--bg);
-  margin-bottom:28px;
-  overflow:hidden;
-}
-.intel-snapshot {
-  padding:20px 22px 18px;
-}
-.intel-snap-title {
-  font-family:var(--mono);
-  font-size:9px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--text3);
-  margin-bottom:16px;
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.intel-dot {
-  width:6px; height:6px;
-  border-radius:50%;
-  background:#22c55e;
-  animation:pulse 2s ease-in-out infinite;
-  flex-shrink:0;
-}
-.intel-snap-grid {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:0;
-  border:1px solid var(--border);
-}
-.intel-snap-item {
-  padding:14px 12px;
-  text-align:center;
-  border-right:1px solid var(--border);
-}
-.intel-snap-item:last-child { border-right:none; }
-.intel-snap-val {
-  font-family:var(--serif);
-  font-size:22px;
-  font-weight:700;
-  color:var(--black);
-  line-height:1;
-  margin-bottom:5px;
-}
-.intel-snap-lbl {
-  font-family:var(--mono);
-  font-size:9px;
-  color:var(--text3);
-  letter-spacing:.06em;
-}
-.intel-divider {
-  height:1px;
-  background:var(--border);
-}
-.intel-sentiment {
-  padding:18px 22px 20px;
-}
-.intel-sent-title {
-  font-family:var(--mono);
-  font-size:9px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--text3);
-  margin-bottom:14px;
-}
-.intel-tsla-row {
-  display:flex;
-  align-items:baseline;
-  gap:8px;
-  margin-bottom:16px;
-  padding-bottom:14px;
-  border-bottom:1px solid var(--border);
-}
-.intel-tsla-label {
-  font-family:var(--mono);
-  font-size:10px;
-  color:var(--text3);
-  letter-spacing:.08em;
-}
-.intel-tsla-price {
-  font-family:var(--serif);
-  font-size:20px;
-  font-weight:700;
-  color:var(--black);
-}
-.intel-tsla-change {
-  font-family:var(--mono);
-  font-size:12px;
-  margin-left:auto;
-}
-.intel-tsla-change.up { color:#16a34a; }
-.intel-tsla-change.dn { color:var(--red); }
-.intel-entity-rows { display:flex; flex-direction:column; gap:12px; }
-.intel-entity-row {}
-.intel-entity-head {
-  display:flex;
-  align-items:center;
-  gap:6px;
-  margin-bottom:5px;
-}
-.intel-entity-icon { font-size:13px; }
-.intel-entity-name {
-  font-size:12px;
-  font-weight:500;
-  color:var(--text);
-  flex:1;
-}
-.intel-entity-mood {
-  font-family:var(--mono);
-  font-size:9px;
-  letter-spacing:.06em;
-  padding:2px 6px;
-  border:1px solid var(--border);
-  color:var(--text3);
-}
-.intel-bar-bg {
-  height:4px;
-  background:var(--bg3);
-  border-radius:0;
-  overflow:hidden;
-}
-.intel-bar-fill {
-  height:100%;
-  transition:width .8s cubic-bezier(.4,0,.2,1);
-  border-radius:0;
-}
-.intel-bar-fill.red    { background:var(--red); }
-.intel-bar-fill.blue   { background:#2563eb; }
-.intel-bar-fill.dark   { background:#111; }
-.intel-bar-fill.indigo { background:#4f46e5; }
-.intel-sent-note {
-  margin-top:12px;
-  font-family:var(--mono);
-  font-size:9px;
-  color:var(--text3);
-  letter-spacing:.04em;
-}
-
-.video-channel-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-.video-channel { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.04em; }
-.flash-list{background:var(--bg)}
-.flash-news-item{padding:20px 0;border-bottom:1px solid var(--border);position:relative}
-.flash-news-item:last-child{border-bottom:none}
-.flash-news-header{display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
-.flash-news-time{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--text2);flex-shrink:0;letter-spacing:.02em}
-.flash-news-dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:2px;align-self:center}
-.flash-news-title{font-family:var(--sans);font-size:16px;font-weight:500;color:#1a6fc4;line-height:1.5;cursor:pointer;text-decoration:none}
-.flash-news-title:hover{text-decoration:underline;text-underline-offset:3px}
-.flash-news-body{font-family:var(--sans);font-size:15px;color:var(--text);line-height:1.9;margin-left:20px;margin-top:6px}
-.flash-news-footer{display:flex;align-items:center;justify-content:space-between;margin-left:20px;margin-top:12px}
-.flash-news-source{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
-.flash-news-link{font-family:var(--mono);font-size:10px;color:var(--text3);text-decoration:none;letter-spacing:.04em;transition:color .15s}
-.flash-news-link:hover{color:var(--red)}
-.flash-important-badge{font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--red);border:1px solid rgba(204,41,41,.3);padding:2px 6px;border-radius:2px;flex-shrink:0}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-top">
     <a href="#" class="logo" onclick="switchTab('home');return false">
@@ -618,14 +420,11 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </nav>
 
-<!-- ══ 首页 ══ -->
 <div class="page on" id="page-home">
   <div class="wrap">
     <div class="two-col">
       <div>
-        <!-- 情绪雷达 + 今日快照 -->
         <div class="left-panel">
-
           <div class="radar-block">
             <div class="radar-title">
               <span>生态情绪雷达</span>
@@ -658,7 +457,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
               </div>
             </div>
           </div>
-
           <div class="snapshot-block">
             <div class="radar-title"><span>今日数据快照</span></div>
             <div class="snapshot-grid">
@@ -680,10 +478,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
               </div>
             </div>
           </div>
-
         </div>
 
-        <!-- 情报面板 -->
         <div class="intel-panel">
           <div class="intel-snapshot">
             <div class="intel-snap-title">
@@ -708,9 +504,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
               </div>
             </div>
           </div>
-
           <div class="intel-divider"></div>
-
           <div class="intel-sentiment">
             <div class="intel-sent-title">生态情绪雷达</div>
             <div class="intel-tsla-row">
@@ -756,7 +550,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
-        <!-- 介绍横幅 -->
         <div class="intro-banner">
           <div class="intro-top">
             <div class="intro-logo-row">
@@ -793,18 +586,16 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
         <div class="date-rule" id="home-date-rule">今日总览</div>
 
-        <!-- 快讯预览 -->
         <div class="home-section">
           <div class="home-section-head">
-            <div class="home-section-title">快讯</div>
-            <a href="#" class="home-section-more" onclick="switchTab('flash');return false">查看全部 →</a>
+            <div class="home-section-title">实时快讯</div>
+            <a href="#" class="home-section-more" onclick="switchTab('flash');return false">查看全部快讯 →</a>
           </div>
-          <div class="flash-list" id="home-flash-list">
+          <div class="timeline-list" id="home-flash-list">
             <div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
           </div>
         </div>
 
-        <!-- 深度分析预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">深度分析</div>
@@ -815,7 +606,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
-        <!-- FSD预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">FSD · Robotaxi</div>
@@ -826,7 +616,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
-        <!-- 视频预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">视频精选</div>
@@ -837,7 +626,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </div>
         </div>
 
-        <!-- 市场数据预览 -->
         <div class="home-section">
           <div class="home-section-head">
             <div class="home-section-title">市场数据</div>
@@ -867,7 +655,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
       </div>
 
-      <!-- 侧边栏 -->
       <div class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
@@ -898,76 +685,38 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- ══ 快讯 ══ -->
 <div class="page" id="page-flash">
   <div class="wrap">
     <div class="two-col">
       <div>
-        <div class="date-rule" id="flash-date-rule" style="display:flex;align-items:center;justify-content:space-between"><span id="flash-date-text">最新快讯</span><span class="flash-important-badge">重要快讯</span></div>
-        <div class="flash-list" id="flash-list">
+        <div class="date-rule" id="flash-date-rule">最新快讯</div>
+        <div class="timeline-list" id="flash-list">
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载快讯...</div>
         </div>
       </div>
-      <!-- 侧边栏 -->
       <aside class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
           <div class="data-list">
-            <div class="data-row">
-              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
-              <div class="data-change dn">▼ 1.28%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
-              <div class="data-change up">▲ 12%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
-              <div class="data-change up">▲ 96颗/月</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
-              <div class="data-change up">▲ 翻倍</div>
-            </div>
+            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
+            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
+            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
+            <div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div>
           </div>
         </div>
         <div class="sb-block">
           <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
           <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')">
-              <div class="entity-icon">⚡</div>
-              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
-              <div class="entity-count" id="sb-ef-tesla">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('SpaceX')">
-              <div class="entity-icon">🚀</div>
-              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-spacex">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('xAI')">
-              <div class="entity-icon">🧠</div>
-              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-xai">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('Neuralink')">
-              <div class="entity-icon">💡</div>
-              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-neuralink">—</div>
-            </div>
+            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla">—</div></div>
+            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex">—</div></div>
+            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai">—</div></div>
+            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink">—</div></div>
           </div>
         </div>
         <div class="sb-block">
           <div class="sb-head"><span>热门话题</span></div>
           <div class="tag-cloud">
-            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
-            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
-            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
-            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
-            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
-            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
-            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
-            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
-            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
           </div>
         </div>
       </aside>
@@ -975,99 +724,51 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- ══ 深度分析 ══ -->
 <div class="page" id="page-analysis">
   <div class="wrap">
     <div class="two-col">
       <div>
         <div class="date-rule">深度报告 · 研究分析</div>
-
-        <!-- 本周精选 -->
         <div class="featured-card" id="featured-card" style="display:none">
           <div class="featured-header">
-            <div class="featured-badge-row">
-              <span class="featured-badge">★ 本周精选</span>
-              <span class="featured-tag" id="featured-tag"></span>
-            </div>
+            <div class="featured-badge-row"><span class="featured-badge">★ 本周精选</span><span class="featured-tag" id="featured-tag"></span></div>
             <span class="featured-entity-label" id="featured-entity"></span>
           </div>
           <div class="featured-title" id="featured-title"></div>
           <div class="featured-desc" id="featured-desc"></div>
           <div class="featured-footer">
-            <div class="featured-meta">
-              <span class="src" id="featured-src"></span>
-              <span class="meta-dot"></span>
-              <span id="featured-date"></span>
-            </div>
+            <div class="featured-meta"><span class="src" id="featured-src"></span><span class="meta-dot"></span><span id="featured-date"></span></div>
             <button class="featured-btn" id="featured-btn">阅读全文 →</button>
           </div>
         </div>
-
         <div class="date-rule" style="margin-top:28px">全部深度分析</div>
         <div class="article-list" id="analysis-list">
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载深度分析...</div>
         </div>
       </div>
-      <!-- 侧边栏 -->
       <aside class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
           <div class="data-list">
-            <div class="data-row">
-              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
-              <div class="data-change dn">▼ 1.28%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
-              <div class="data-change up">▲ 12%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
-              <div class="data-change up">▲ 96颗/月</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
-              <div class="data-change up">▲ 翻倍</div>
-            </div>
+            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
+            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
+            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
+            <div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div>
           </div>
         </div>
         <div class="sb-block">
           <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
           <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')">
-              <div class="entity-icon">⚡</div>
-              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
-              <div class="entity-count" id="sb-ef-tesla">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('SpaceX')">
-              <div class="entity-icon">🚀</div>
-              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-spacex">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('xAI')">
-              <div class="entity-icon">🧠</div>
-              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-xai">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('Neuralink')">
-              <div class="entity-icon">💡</div>
-              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-neuralink">—</div>
-            </div>
+            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla2">—</div></div>
+            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex2">—</div></div>
+            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai2">—</div></div>
+            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink2">—</div></div>
           </div>
         </div>
         <div class="sb-block">
           <div class="sb-head"><span>热门话题</span></div>
           <div class="tag-cloud">
-            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
-            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
-            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
-            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
-            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
-            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
-            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
-            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
-            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
           </div>
         </div>
       </aside>
@@ -1075,7 +776,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- ══ FSD · Robotaxi ══ -->
 <div class="page" id="page-fsd">
   <div class="wrap">
     <div class="two-col">
@@ -1085,66 +785,29 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
         </div>
       </div>
-      <!-- 侧边栏 -->
       <aside class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
           <div class="data-list">
-            <div class="data-row">
-              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
-              <div class="data-change dn">▼ 1.28%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
-              <div class="data-change up">▲ 12%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
-              <div class="data-change up">▲ 96颗/月</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
-              <div class="data-change up">▲ 翻倍</div>
-            </div>
+            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
+            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
+            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
+            <div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div>
           </div>
         </div>
         <div class="sb-block">
           <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
           <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')">
-              <div class="entity-icon">⚡</div>
-              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
-              <div class="entity-count" id="sb-ef-tesla">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('SpaceX')">
-              <div class="entity-icon">🚀</div>
-              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-spacex">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('xAI')">
-              <div class="entity-icon">🧠</div>
-              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-xai">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('Neuralink')">
-              <div class="entity-icon">💡</div>
-              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-neuralink">—</div>
-            </div>
+            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla3">—</div></div>
+            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex3">—</div></div>
+            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai3">—</div></div>
+            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink3">—</div></div>
           </div>
         </div>
         <div class="sb-block">
           <div class="sb-head"><span>热门话题</span></div>
           <div class="tag-cloud">
-            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
-            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
-            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
-            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
-            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
-            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
-            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
-            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
-            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
           </div>
         </div>
       </aside>
@@ -1152,7 +815,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- ══ 视频 ══ -->
 <div class="page" id="page-video">
   <div class="wrap">
     <div class="two-col">
@@ -1162,66 +824,29 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载视频...</div>
         </div>
       </div>
-      <!-- 侧边栏 -->
       <aside class="sidebar">
         <div class="sb-block">
           <div class="sb-head"><span>市场快览</span></div>
           <div class="data-list">
-            <div class="data-row">
-              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
-              <div class="data-change dn">▼ 1.28%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
-              <div class="data-change up">▲ 12%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
-              <div class="data-change up">▲ 96颗/月</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
-              <div class="data-change up">▲ 翻倍</div>
-            </div>
+            <div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div>
+            <div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div>
+            <div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div>
+            <div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div>
           </div>
         </div>
         <div class="sb-block">
           <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
           <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')">
-              <div class="entity-icon">⚡</div>
-              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
-              <div class="entity-count" id="sb-ef-tesla">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('SpaceX')">
-              <div class="entity-icon">🚀</div>
-              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-spacex">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('xAI')">
-              <div class="entity-icon">🧠</div>
-              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-xai">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('Neuralink')">
-              <div class="entity-icon">💡</div>
-              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-neuralink">—</div>
-            </div>
+            <div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla4">—</div></div>
+            <div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex4">—</div></div>
+            <div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai4">—</div></div>
+            <div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink4">—</div></div>
           </div>
         </div>
         <div class="sb-block">
           <div class="sb-head"><span>热门话题</span></div>
           <div class="tag-cloud">
-            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
-            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
-            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
-            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
-            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
-            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
-            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
-            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
-            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
+            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
           </div>
         </div>
       </aside>
@@ -1229,7 +854,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- ══ 市场数据 ══ -->
 <div class="page" id="page-market">
   <div class="wrap single-col">
     <div class="date-rule">市场数据 · 数据看板</div>
@@ -1264,7 +888,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       </div>
     </div>
     <div style="margin-top:28px">
-      <div class="date-rule">机构评级</div>
+      <div class="date-rule">机构评级深度分析</div>
       <div class="article-list" id="market-list">
         <div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
       </div>
@@ -1272,84 +896,20 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- ══ 宏观 ══ -->
 <div class="page" id="page-macro">
   <div class="wrap">
     <div class="two-col">
       <div>
         <div class="date-rule">宏观环境 · 政策与利率</div>
-        <div class="flash-list" id="macro-list">
+        <div class="timeline-list" id="macro-list">
           <div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div>
         </div>
       </div>
-      <!-- 侧边栏 -->
-      <aside class="sidebar">
-        <div class="sb-block">
-          <div class="sb-head"><span>市场快览</span></div>
-          <div class="data-list">
-            <div class="data-row">
-              <div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div>
-              <div class="data-change dn">▼ 1.28%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div>
-              <div class="data-change up">▲ 12%</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div>
-              <div class="data-change up">▲ 96颗/月</div>
-            </div>
-            <div class="data-row">
-              <div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div>
-              <div class="data-change up">▲ 翻倍</div>
-            </div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div>
-          <div class="entity-list">
-            <div class="entity-item" onclick="doSearch('Tesla')">
-              <div class="entity-icon">⚡</div>
-              <div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div>
-              <div class="entity-count" id="sb-ef-tesla">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('SpaceX')">
-              <div class="entity-icon">🚀</div>
-              <div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-spacex">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('xAI')">
-              <div class="entity-icon">🧠</div>
-              <div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-xai">—</div>
-            </div>
-            <div class="entity-item" onclick="doSearch('Neuralink')">
-              <div class="entity-icon">💡</div>
-              <div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div>
-              <div class="entity-count" id="sb-ef-neuralink">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="sb-block">
-          <div class="sb-head"><span>热门话题</span></div>
-          <div class="tag-cloud">
-            <span class="tag-pill" onclick="searchTag('FSD')">#FSD</span>
-            <span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span>
-            <span class="tag-pill" onclick="searchTag('星舰')">#星舰</span>
-            <span class="tag-pill" onclick="searchTag('Grok')">#Grok</span>
-            <span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span>
-            <span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span>
-            <span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span>
-            <span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span>
-            <span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span>
-          </div>
-        </div>
-      </aside>
+      <aside class="sidebar"></aside>
     </div>
   </div>
 </div>
 
-<!-- ══ 追踪实体底部 ══ -->
 <div class="entity-section">
   <div class="entity-section-inner">
     <div class="section-label">追踪实体</div>
@@ -1362,7 +922,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- 订阅横幅 -->
 <div class="sub-banner">
   <div class="sub-banner-inner">
     <div>
@@ -1377,7 +936,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- Footer -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -1409,7 +967,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </footer>
 
-<!-- 搜索蒙层 -->
 <div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
   <div class="search-box">
     <div class="search-input-row">
@@ -1424,7 +981,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   </div>
 </div>
 
-<!-- 弹窗正文 -->
 <div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">×</button>
@@ -1441,16 +997,11 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-// ══════════════════════════════════════════
-// 全局状态
-// ══════════════════════════════════════════
 var feedItems = [];
 var searchIndex = [];
 var chartsDrawn = false;
+var dynArticles = {};
 
-// ══════════════════════════════════════════
-// 标签切换
-// ══════════════════════════════════════════
 function switchTab(name) {
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
@@ -1461,15 +1012,9 @@ function switchTab(name) {
   if (pg) pg.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
   if ((name==='market'||name==='home') && !chartsDrawn && typeof Chart!=='undefined') {
-    chartsDrawn = true;
-    drawCharts();
+    chartsDrawn = true; drawCharts();
   }
 }
-
-// ══════════════════════════════════════════
-// 弹窗
-// ══════════════════════════════════════════
-var dynArticles = {};
 
 function openModal(id) {
   var a = dynArticles[id];
@@ -1488,9 +1033,6 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-// ══════════════════════════════════════════
-// 搜索
-// ══════════════════════════════════════════
 function openSearch() {
   document.getElementById('search-overlay').classList.add('on');
   document.body.style.overflow = 'hidden';
@@ -1507,7 +1049,6 @@ function highlight(text, kw) {
   if (!kw) return text;
   return text.replace(new RegExp('('+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
 }
-
 function searchTag(kw) {
   openSearch();
   setTimeout(function(){
@@ -1516,27 +1057,19 @@ function searchTag(kw) {
     doSearch(kw);
   }, 100);
 }
-
 function doSearch(q) {
   q = q.trim();
-  var meta = document.getElementById('search-meta');
-  var results = document.getElementById('search-results');
+  var meta = document.getElementById('search-meta'), results = document.getElementById('search-results');
   if (!q) { meta.textContent='输入关键词搜索全站内容'; results.innerHTML=''; return; }
   var kw = q.toLowerCase();
   var hits = searchIndex.filter(function(item){
-    return (item.title||'').toLowerCase().includes(kw) ||
-           (item.entity||'').toLowerCase().includes(kw) ||
-           (item.cat||'').toLowerCase().includes(kw);
+    return (item.title||'').toLowerCase().includes(kw) || (item.entity||'').toLowerCase().includes(kw) || (item.cat||'').toLowerCase().includes(kw);
   });
   meta.textContent = hits.length>0 ? '找到 '+hits.length+' 条结果' : '未找到相关内容';
-  if (hits.length===0) {
-    results.innerHTML='<div class="search-empty">未找到"'+q+'"相关内容</div>'; return;
-  }
+  if (hits.length===0) { results.innerHTML='<div class="search-empty">未找到"'+q+'"相关内容</div>'; return; }
   results.innerHTML = hits.map(function(item){
     return '<div class="search-result-item" onclick="closeSearch();openModal(\''+item.id+'\')">' +
-      '<div class="sr-tag">'+item.cat+' · '+item.entity+'</div>' +
-      '<div class="sr-title">'+highlight(item.title,q)+'</div>' +
-    '</div>';
+      '<div class="sr-tag">'+item.cat+' · '+item.entity+'</div><div class="sr-title">'+highlight(item.title,q)+'</div></div>';
   }).join('');
 }
 document.addEventListener('keydown', function(e){
@@ -1547,40 +1080,41 @@ document.addEventListener('keydown', function(e){
   }
 });
 
-// ══════════════════════════════════════════
-// feed.json 渲染
-// ══════════════════════════════════════════
+// ── 核心替换点：重写时间轴项目渲染 ──
 function makeFlashItem(item) {
   var id = 'dyn_'+item.id;
+  var bodyHtml = (item.body||'').replace(/\\n/g, '<br>');
   dynArticles[id] = {
     tag: tagClass(item.category), label: item.category,
     title: item.title||'', src: item.entity||'',
     date: (item.date||'')+(item.time?' '+item.time:''),
-    body: '<p>'+(item.body||'').replace(/\n/g,'</p><p>')+'</p>' +
-      (item.source_url?'<p style="margin-top:16px"><a href="'+item.source_url+'" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none">→ 查看原文</a></p>':'')
+    body: '<p>'+(item.body||'').replace(/\\n/g,'</p><p>')+'</p>' +
+      (item.source_url?'<p style="margin-top:16px"><a href="'+item.source_url+'" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none">→ 查看原文</a></p>':'')
   };
-  var body = (item.body||'').trim();
-  var hasLink = !!item.source_url;
-  return '<div class="flash-news-item">'+
-    '<div class="flash-news-header">'+
-      '<span class="flash-news-dot"></span>'+
-      '<span class="flash-news-time">'+(item.time||'--:--')+'</span>'+
-      '<a class="flash-news-title" href="#" onclick="openModal(\''+id+'\');return false">'+(item.title||'')+'</a>'+
-    '</div>'+
-    (body?'<div class="flash-news-body">'+body+'</div>':'')+
-    '<div class="flash-news-footer">'+
-      '<span class="flash-news-source">'+(item.source||item.entity||'')+'</span>'+
-      (hasLink?'<a class="flash-news-link" href="'+item.source_url+'" target="_blank" rel="noopener">→ 原文</a>':'')+
-    '</div>'+
-  '</div>';
+  return '<div class="timeline-item">' +
+           '<div class="timeline-dot"></div>' +
+           'content">' +
+             '<div class="timeline-head">' +
+               '<span class="timeline-time">' + (item.time||'--') + '</span>' +
+               '<a href="#" class="timeline-title" onclick="openModal(\''+id+'\');return false;">' + (item.title||'') + '</a>' +
+             '</div>' +
+             '<div class="timeline-body">' + bodyHtml + '</div>' +
+             '<div class="timeline-actions">' +
+               '<span class="timeline-source">来源: ' + (item.source || item.entity || '网络获取') + '</span>' +
+               '<div class="action-icons">' +
+                 '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" onclick="alert(\'分享功能即将上线\')"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>' +
+                 '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" onclick="alert(\'收藏功能即将上线\')"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' +
+               '</div>' +
+             '</div>' +
+           '</div>' +
+         '</div>';
 }
 
 function makeArticleItem(item) {
   var id = 'dyn_'+item.id;
   var tc = tagClass(item.category);
   dynArticles[id] = {
-    tag: tc, label: item.category,
-    title: item.title||'', src: item.entity||'',
+    tag: tc, label: item.category, title: item.title||'', src: item.entity||'',
     date: (item.date||'')+(item.time?' '+item.time:''),
     body: '<p>'+(item.body||'').replace(/\\n/g,'</p><p>')+'</p>' +
       (item.source_url?'<p style="margin-top:16px"><a href="'+item.source_url+'" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none">→ 查看原文</a></p>':'')
@@ -1610,32 +1144,15 @@ function makeVideoItem(item) {
     '<div class="video-thumb">'+thumb+'</div>' +
     '<div class="video-card-body">' +
       '<div>' +
-        '<div class="video-channel-row">' +
-          '<span class="h-tag video" style="margin-bottom:0">视频</span>' +
-          '<span class="video-channel">'+channel+'</span>' +
-        '</div>' +
+        '<div class="video-channel-row"><span class="h-tag video" style="margin-bottom:0">视频</span><span class="video-channel">'+channel+'</span></div>' +
         '<div class="video-card-title">'+(item.title||'')+'</div>' +
       '</div>' +
-      '<div class="video-card-meta">' +
-        '<span>'+(item.date||'')+(item.time?' '+item.time:'')+'</span>' +
-        '<span class="meta-dot"></span>' +
-        '<span style="color:var(--red)">▶ YouTube</span>' +
-      '</div>' +
+      '<div class="video-card-meta"><span>'+(item.date||'')+(item.time?' '+item.time:'')+'</span><span class="meta-dot"></span><span style="color:var(--red)">▶ YouTube</span></div>' +
     '</div></a>';
 }
-function tagClass(cat) {
-  var map = {'快讯':'news','深度分析':'analysis','FSD':'fsd','视频':'video','市场数据':'market','宏观':'macro'};
-  return map[cat] || 'news';
-}
-
-function empty(msg) {
-  return '<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">'+msg+'</div>';
-}
-
-function setEl(id, html) {
-  var el = document.getElementById(id);
-  if (el) el.innerHTML = html;
-}
+function tagClass(cat) { var map = {'快讯':'news','深度分析':'analysis','FSD':'fsd','视频':'video','市场数据':'market','宏观':'macro'}; return map[cat] || 'news'; }
+function empty(msg) { return '<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">'+msg+'</div>'; }
+function setEl(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
 
 function renderAll(items) {
   var flash    = items.filter(function(i){ return i.category==='快讯'; });
@@ -1645,82 +1162,53 @@ function renderAll(items) {
   var market   = items.filter(function(i){ return i.category==='市场数据'; });
   var macro    = items.filter(function(i){ return i.category==='宏观'; });
 
-  // 各板块
   setEl('flash-list',    flash.length    ? flash.slice(0,30).map(makeFlashItem).join('')    : empty('暂无快讯'));
   setEl('analysis-list', analysis.length ? analysis.slice(0,20).map(makeArticleItem).join('') : empty('暂无深度分析'));
 
-  // 本周精选：取深度分析第一条
-  var fc = document.getElementById('featured-card');
-  if (fc && analysis.length > 0) {
-    var top = analysis[0];
-    var fid = 'dyn_' + top.id;
-    document.getElementById('featured-tag').textContent = top.category || '深度分析';
-    document.getElementById('featured-entity').textContent = top.entity || '';
-    document.getElementById('featured-title').textContent = top.title || '';
-    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\n/g,' ').substring(0, 200) + '...';
-    document.getElementById('featured-src').textContent = top.entity || '';
-    document.getElementById('featured-date').textContent = (top.date || '') + ' ' + (top.time || '');
-    document.getElementById('featured-btn').onclick = function(){ openModal(fid); };
-    fc.style.display = 'block';
-  }
-
-  // 本周精选：取深度分析第一条
   var fc = document.getElementById('featured-card');
   if (fc && analysis.length > 0) {
     var top = analysis[0];
     var topId = 'dyn_' + top.id;
     document.getElementById('featured-title').textContent = top.title || '';
-    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\n/g, ' ').substring(0, 200);
+    document.getElementById('featured-desc').textContent = (top.body || '').replace(/\n/g, ' ').substring(0, 200) + '...';
     document.getElementById('featured-src').textContent = top.entity || '';
     document.getElementById('featured-date').textContent = (top.date || '') + (top.time ? ' ' + top.time : '');
     document.getElementById('featured-tag').textContent = top.category || '深度分析';
-    fc._featuredId = topId;
+    document.getElementById('featured-btn').onclick = function(){ openModal(topId); };
     fc.style.display = 'block';
   }
+  
   setEl('fsd-list',      fsd.length      ? fsd.slice(0,20).map(makeArticleItem).join('')    : empty('暂无FSD内容'));
   setEl('video-list',    video.length    ? video.slice(0,20).map(makeVideoItem).join('')    : empty('暂无视频'));
   setEl('market-list',   market.length   ? market.slice(0,10).map(makeArticleItem).join('') : empty('暂无市场数据'));
   setEl('macro-list',    macro.length    ? macro.slice(0,20).map(makeFlashItem).join('')    : empty('暂无宏观内容'));
 
-  // 首页预览
-  setEl('home-flash-list', flash.slice(0,4).map(function(item){
-    var id='dyn_'+item.id;
-    dynArticles[id]=dynArticles[id]||{tag:tagClass(item.category),label:item.category,title:item.title||'',src:item.entity||'',date:(item.date||'')+(item.time?' '+item.time:''),body:'<p>'+(item.body||'').replace(/\n/g,'</p><p>')+'</p>'};
-    return '<div class="flash-news-item">'+
-      '<div class="flash-news-header">'+
-        '<span class="flash-news-dot"></span>'+
-        '<span class="flash-news-time">'+(item.time||'--:--')+'</span>'+
-        '<a class="flash-news-title" href="#" onclick="openModal(''+id+'');return false">'+(item.title||'')+'</a>'+
-      '</div>'+
-      '<div class="flash-news-footer" style="margin-top:6px">'+
-        '<span class="flash-news-source">'+(item.source||item.entity||'')+'</span>'+
-      '</div>'+
-    '</div>';
-  }).join('') || empty('正在加载...'));
+  setEl('home-flash-list',    flash.slice(0,4).map(makeFlashItem).join('')    || empty('正在加载...'));
   setEl('home-analysis-list', analysis.slice(0,3).map(makeArticleItem).join('') || empty('正在加载...'));
   setEl('home-fsd-list',      fsd.slice(0,2).map(makeArticleItem).join('')    || empty('正在加载...'));
   setEl('home-video-list',    video.slice(0,4).map(makeVideoItem).join('')    || empty('正在加载...'));
 
-  // 日期
+  // ── 替换快讯头部的日期标签 ──
   if (items[0] && items[0].date) {
+    var d = new Date();
+    var dateStr = d.getFullYear() + '-' + items[0].date.replace('/','-'); 
+    var headerHtml = '<div class="timeline-date-header">' + dateStr + ' <span class="timeline-badge">✔ 重要快讯</span></div>';
     var dr = document.getElementById('home-date-rule');
-    if (dr) dr.textContent = items[0].date + ' · 今日总览';
+    if (dr) { dr.innerHTML = headerHtml; dr.className = ''; }
     var fr = document.getElementById('flash-date-rule');
-    var ftxt=document.getElementById('flash-date-text'); if(ftxt) ftxt.textContent=items[0].date+' · 最新快讯';
+    if (fr) { fr.innerHTML = headerHtml; fr.className = ''; }
   }
 
-  // 搜索索引
   searchIndex = items.map(function(item){
     dynArticles['dyn_'+item.id] = dynArticles['dyn_'+item.id] || {
-      tag: tagClass(item.category), label: item.category,
-      title: item.title||'', src: item.entity||'',
+      tag: tagClass(item.category), label: item.category, title: item.title||'', src: item.entity||'',
       date: (item.date||'')+(item.time?' '+item.time:''),
       body: '<p>'+(item.body||'').replace(/\\n/g,'</p><p>')+'</p>'
     };
     return {id:'dyn_'+item.id, cat:item.category, entity:item.entity||'', title:item.title||''};
   });
 
-  // 今日快照
+  // 原有计数与雷达计算逻辑 (不改动)
   var snapEl = document.getElementById('snap-total');
   if (snapEl) snapEl.textContent = items.length;
   var snapA = document.getElementById('snap-analysis');
@@ -1730,7 +1218,6 @@ function renderAll(items) {
   var snapT = document.getElementById('snap-time');
   if (snapT && items[0]) snapT.textContent = items[0].time || '--';
 
-  // 实体计数
   var counts = {tesla:0,spacex:0,xai:0,neuralink:0};
   items.forEach(function(i){
     var e = (i.entity||'').toLowerCase();
@@ -1739,16 +1226,16 @@ function renderAll(items) {
     else if(e.includes('xai')||e.includes('grok')) counts.xai++;
     else if(e.includes('neuralink')) counts.neuralink++;
   });
-  setEl('ef-tesla',    counts.tesla    + '篇');
-  setEl('ef-spacex',   counts.spacex   + '篇');
-  setEl('ef-xai',      counts.xai      + '篇');
-  setEl('ef-neuralink',counts.neuralink+ '篇');
-  setEl('sb-ef-tesla',    counts.tesla    + '篇');
-  setEl('sb-ef-spacex',   counts.spacex   + '篇');
-  setEl('sb-ef-xai',      counts.xai      + '篇');
-  setEl('sb-ef-neuralink',counts.neuralink+ '篇');
+  
+  ['ef-tesla','ef-spacex','ef-xai','ef-neuralink',
+   'sb-ef-tesla','sb-ef-spacex','sb-ef-xai','sb-ef-neuralink',
+   'sb-ef-tesla2','sb-ef-spacex2','sb-ef-xai2','sb-ef-neuralink2',
+   'sb-ef-tesla3','sb-ef-spacex3','sb-ef-xai3','sb-ef-neuralink3',
+   'sb-ef-tesla4','sb-ef-spacex4','sb-ef-xai4','sb-ef-neuralink4'].forEach(function(id){
+     var cName = id.replace(/ef-|sb-|[0-9]/g, '');
+     setEl(id, counts[cName] + '篇');
+  });
 
-  // ── 情绪雷达 ──
   var total = counts.tesla + counts.spacex + counts.xai + counts.neuralink || 1;
   function moodLabel(n, t) {
     var r = n/t;
@@ -1756,34 +1243,33 @@ function renderAll(items) {
     if (r > 0.2) return ['中性','neutral'];
     return ['观望','neutral'];
   }
-  function setRadar(key, count) {
+  
+  // 兼容雷达和情报面板的动画条
+  ['tesla','spacex','xai','neuralink'].forEach(function(key){
+    var count = counts[key];
     var pct = Math.round(count / total * 100);
-    var bar = document.getElementById('bar-' + key);
+    // 使用 querySelectorAll 确保同名的动画条都会更新
+    var bars = document.querySelectorAll('[id="bar-' + key + '"]');
+    bars.forEach(function(bar){ setTimeout(function(){ bar.style.width = pct + '%'; }, 100); });
     var pctEl = document.getElementById('pct-' + key);
-    var moodEl = document.getElementById('mood-' + key);
-    if (bar) setTimeout(function(){ bar.style.width = pct + '%'; }, 100);
     if (pctEl) pctEl.textContent = pct + '%';
-    if (moodEl) {
-      var m = moodLabel(count, total);
-      moodEl.textContent = m[0];
-      moodEl.className = 'radar-mood ' + m[1];
-    }
-  }
-  setRadar('tesla',    counts.tesla);
-  setRadar('spacex',   counts.spacex);
-  setRadar('xai',      counts.xai);
-  setRadar('neuralink',counts.neuralink);
+    // 更新情绪标签
+    var moodEls = document.querySelectorAll('[id="mood-' + key + '"]');
+    var m = moodLabel(count, total);
+    moodEls.forEach(function(el){ el.textContent = m[0]; el.className = (el.classList.contains('intel-entity-mood') ? 'intel-entity-mood' : 'radar-mood ' + m[1]); });
+  });
 
-  // ── 今日快照 ──
   var today = new Date().toLocaleDateString('zh-CN',{month:'2-digit',day:'2-digit'}).replace('/','-');
   var todayItems = items.filter(function(i){ return (i.date||'').indexOf(today.slice(-5)) !== -1; });
   var snapAnalysis = todayItems.filter(function(i){ return i.category==='深度分析'; }).length;
   var snapFsd      = todayItems.filter(function(i){ return i.category==='FSD'; }).length;
   var lastTime = items.length > 0 ? (items[0].time || '--') : '--';
-  setEl('snap-total',    todayItems.length || items.length);
-  setEl('snap-analysis', snapAnalysis + '篇');
-  setEl('snap-fsd',      snapFsd + '条');
-  setEl('snap-time',     lastTime);
+  
+  // 更新情报看板
+  document.querySelectorAll('[id="snap-total"]').forEach(function(el){ el.textContent = todayItems.length || items.length; });
+  document.querySelectorAll('[id="snap-analysis"]').forEach(function(el){ el.textContent = snapAnalysis + '篇'; });
+  document.querySelectorAll('[id="snap-fsd"]').forEach(function(el){ el.textContent = snapFsd + '条'; });
+  document.querySelectorAll('[id="snap-time"]').forEach(function(el){ el.textContent = lastTime; });
 }
 
 function loadFeed() {
@@ -1792,63 +1278,25 @@ function loadFeed() {
     .then(function(data){
       feedItems = data.items || [];
       renderAll(feedItems);
-      console.log('[Tesla情报站] 已加载 '+feedItems.length+' 条内容');
     })
-    .catch(function(e){
-      console.warn('[Tesla情报站] feed.json 加载失败，使用静态内容', e);
-    });
+    .catch(function(e){ console.warn('[Tesla情报站] feed.json 加载失败', e); });
 }
 
-// 首次加载
 loadFeed();
-// 每60秒刷新
 setInterval(loadFeed, 60000);
 
-// ══════════════════════════════════════════
-// 图表（懒加载，只在可见时绘制）
-// ══════════════════════════════════════════
 function drawCharts() {
-  var tc = 'rgba(90,87,84,0.65)';
-  var gc = 'rgba(0,0,0,0.05)';
+  var tc = 'rgba(90,87,84,0.65)', gc = 'rgba(0,0,0,0.05)';
   var base = {
     responsive:true, maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
-    scales:{
-      x:{ticks:{color:tc,font:{size:10},maxRotation:0},grid:{color:gc},border:{display:false}},
-      y:{ticks:{color:tc,font:{size:10}},grid:{color:gc},border:{display:false}}
-    }
+    scales:{ x:{ticks:{color:tc,font:{size:10},maxRotation:0},grid:{color:gc},border:{display:false}}, y:{ticks:{color:tc,font:{size:10}},grid:{color:gc},border:{display:false}} }
   };
-
-  var tslaData = {
-    labels:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-    datasets:[{data:[402,388,356,371,342,318,295,280,271,262,255,248],
-      borderColor:'#CC2929',backgroundColor:'rgba(204,41,41,0.07)',
-      fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#CC2929',borderWidth:1.5}]
-  };
-  var deliveryData = {
-    labels:['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
-    datasets:[{data:[38.7,44.4,46.2,49.5,33.6],
-      backgroundColor:['#378ADD','#378ADD','#378ADD','#378ADD','#CC2929'],
-      borderRadius:3,borderWidth:0}]
-  };
-  var fsdData = {
-    labels:['Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
-    datasets:[{data:[32,41,52,64,78,95,110,124],
-      borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.08)',
-      fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#1D9E75',borderWidth:1.5}]
-  };
-  var starlinkData = {
-    labels:['3月','4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月','3月'],
-    datasets:[{data:[5792,5912,6088,6231,6402,6580,6741,6892,7012,7108,7192,7248,7284],
-      borderColor:'#534AB7',backgroundColor:'rgba(83,74,183,0.07)',
-      fill:true,tension:0.4,pointRadius:2,borderWidth:1.5}]
-  };
-  var robotaxiData = {
-    labels:['1月上线','2月','3月'],
-    datasets:[{data:[21,21,42],
-      backgroundColor:['#639922','#639922','#1D9E75'],
-      borderRadius:3,borderWidth:0}]
-  };
+  var tslaData = { labels:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'], datasets:[{data:[402,388,356,371,342,318,295,280,271,262,255,248], borderColor:'#CC2929',backgroundColor:'rgba(204,41,41,0.07)', fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#CC2929',borderWidth:1.5}] };
+  var deliveryData = { labels:['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[38.7,44.4,46.2,49.5,33.6], backgroundColor:['#378ADD','#378ADD','#378ADD','#378ADD','#CC2929'], borderRadius:3,borderWidth:0}] };
+  var fsdData = { labels:['Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[32,41,52,64,78,95,110,124], borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.08)', fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#1D9E75',borderWidth:1.5}] };
+  var starlinkData = { labels:['3月','4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月','3月'], datasets:[{data:[5792,5912,6088,6231,6402,6580,6741,6892,7012,7108,7192,7248,7284], borderColor:'#534AB7',backgroundColor:'rgba(83,74,183,0.07)', fill:true,tension:0.4,pointRadius:2,borderWidth:1.5}] };
+  var robotaxiData = { labels:['1月上线','2月','3月'], datasets:[{data:[21,21,42], backgroundColor:['#639922','#639922','#1D9E75'], borderRadius:3,borderWidth:0}] };
 
   var yPrice = Object.assign({},base,{scales:Object.assign({},base.scales,{y:Object.assign({},base.scales.y,{ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return '$'+v;}})})})});
   var yWan   = Object.assign({},base,{scales:Object.assign({},base.scales,{y:Object.assign({},base.scales.y,{ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return v+'万';}})})})});
@@ -1856,43 +1304,22 @@ function drawCharts() {
   var yNum   = Object.assign({},base,{scales:Object.assign({},base.scales,{y:Object.assign({},base.scales.y,{min:5600,ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return v.toLocaleString();}})})})});
   var xNoSkip= function(opts){ var o=JSON.parse(JSON.stringify(opts)); o.scales.x.ticks.autoSkip=false; return o; };
 
-  // 市场数据页图表
-  ['c-tsla','c-delivery','c-fsd','c-starlink','c-robotaxi'].forEach(function(id){
+  ['c-tsla','c-delivery','c-fsd','c-starlink','c-robotaxi','h-tsla','h-delivery','h-fsd'].forEach(function(id){
     var el = document.getElementById(id);
     if(el && !el._chart){
       var cfg;
-      if(id==='c-tsla')     cfg={type:'line',data:tslaData,options:yPrice};
-      if(id==='c-delivery') cfg={type:'bar', data:deliveryData,options:xNoSkip(yWan)};
-      if(id==='c-fsd')      cfg={type:'line',data:fsdData,options:xNoSkip(yWan)};
-      if(id==='c-starlink') cfg={type:'line',data:starlinkData,options:yNum};
-      if(id==='c-robotaxi') cfg={type:'bar', data:robotaxiData,options:xNoSkip(yMi)};
-      el._chart = new Chart(el, cfg);
-    }
-  });
-
-  // 首页图表
-  ['h-tsla','h-delivery','h-fsd'].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el && !el._chart){
-      var cfg;
-      if(id==='h-tsla')     cfg={type:'line',data:tslaData,options:yPrice};
-      if(id==='h-delivery') cfg={type:'bar', data:deliveryData,options:xNoSkip(yWan)};
-      if(id==='h-fsd')      cfg={type:'line',data:fsdData,options:xNoSkip(yWan)};
+      if(id.includes('tsla'))     cfg={type:'line',data:tslaData,options:yPrice};
+      if(id.includes('delivery')) cfg={type:'bar', data:deliveryData,options:xNoSkip(yWan)};
+      if(id.includes('fsd'))      cfg={type:'line',data:fsdData,options:xNoSkip(yWan)};
+      if(id==='c-starlink')       cfg={type:'line',data:starlinkData,options:yNum};
+      if(id==='c-robotaxi')       cfg={type:'bar', data:robotaxiData,options:xNoSkip(yMi)};
       el._chart = new Chart(el, cfg);
     }
   });
 }
 
-// 首页默认显示，直接画图
-if (typeof Chart !== 'undefined') {
-  chartsDrawn = true;
-  drawCharts();
-} else {
-  document.querySelector('script[src*="chart.umd"]').addEventListener('load', function(){
-    chartsDrawn = true;
-    drawCharts();
-  });
-}
+if (typeof Chart !== 'undefined') { chartsDrawn = true; drawCharts(); }
+else { var sc = document.querySelector('script[src*="chart.umd"]'); if (sc) sc.addEventListener('load', function(){ chartsDrawn = true; drawCharts(); }); }
 </script>
 </body>
 </html>
