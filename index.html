@@ -183,6 +183,96 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
 
 .spacer{height:20px}
 @media(max-width:900px){.grid-2,.grid-3,.grid-4,.grid-7{grid-template-columns:1fr 1fr}.breaking-grid{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(3,1fr)}.stats-row{display:none}}
+
+/* ══ RIGHT PANEL ══ */
+.panel-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 500;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+}
+.panel-overlay.open { opacity: 1; pointer-events: all; }
+
+.side-panel {
+  position: fixed; top: 0; right: -560px; bottom: 0;
+  width: 560px; max-width: 95vw;
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  z-index: 501;
+  transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.side-panel.open { right: 0; }
+
+.panel-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.panel-tags { display: flex; gap: 6px; margin-bottom: 10px; align-items: center; }
+
+.panel-title {
+  font-size: 18px; font-weight: 500;
+  line-height: 1.5; color: var(--text);
+}
+
+.panel-close {
+  font-family: var(--mono); font-size: 18px;
+  color: var(--muted); background: none; border: none;
+  cursor: pointer; padding: 4px 8px; flex-shrink: 0;
+  transition: color 0.2s;
+}
+.panel-close:hover { color: var(--text); }
+
+.panel-body {
+  flex: 1; overflow-y: auto;
+  padding: 24px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.panel-meta {
+  display: flex; gap: 16px; margin-bottom: 20px;
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.panel-content {
+  font-size: 14px; line-height: 1.9;
+  color: rgba(230,237,243,0.85);
+}
+
+.panel-content p { margin-bottom: 14px; }
+
+.panel-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 12px;
+  flex-shrink: 0;
+}
+
+.panel-btn {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+  padding: 8px 16px; border: 1px solid var(--border);
+  background: none; color: var(--muted); cursor: pointer;
+  transition: all 0.2s; border-radius: 3px;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.panel-btn:hover { color: var(--text); border-color: var(--cyan); }
+.panel-btn.primary { color: var(--cyan); border-color: var(--cyan); }
+.panel-btn.primary:hover { background: rgba(57,208,216,0.08); }
+
+.panel-yt {
+  width: 100%; aspect-ratio: 16/9;
+  border: none; margin-bottom: 16px;
+  background: #000;
+}
+
 </style>
 </head>
 <body>
@@ -627,7 +717,7 @@ async function loadFeed(){
 function newsHtml(n){
   const ec=n.entity?'ent-'+n.entity:'';
   const hasYT=n.yt_id&&n.yt_id.trim(),hasUrl=n.source_url&&!hasYT;
-  return `<div class="news-item">
+  return `<div class="news-item" onclick="openPanel(${JSON.stringify(n).replace(/'/g, '&apos;')})" style="cursor:pointer">
     <div class="news-time"><div class="nt-date">${esc(n.date||'')}</div><div class="nt-time">${esc(n.time||'')}</div></div>
     <div class="news-body">
       <div class="news-tags">
@@ -663,5 +753,88 @@ setInterval(loadStocks,60*1000);
 setInterval(loadFeed,5*60*1000);
 setInterval(loadTeslaData,60*60*1000);
 </script>
+
+<!-- RIGHT SIDE PANEL -->
+<div class="panel-overlay" id="panel-overlay" onclick="closePanel()"></div>
+<div class="side-panel" id="side-panel">
+  <div class="panel-header">
+    <div style="flex:1">
+      <div class="panel-tags" id="panel-tags"></div>
+      <div class="panel-title" id="panel-title"></div>
+    </div>
+    <button class="panel-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body">
+    <div class="panel-meta" id="panel-meta"></div>
+    <div id="panel-yt-wrap"></div>
+    <div class="panel-content" id="panel-content"></div>
+  </div>
+  <div class="panel-footer" id="panel-footer"></div>
+</div>
+
+<script>
+function openPanel(item) {
+  const ec = item.entity ? 'ent-'+item.entity : '';
+
+  // tags
+  document.getElementById('panel-tags').innerHTML = [
+    item.entity ? `<span class="n-entity ${ec}">${esc(item.entity)}</span>` : '',
+    item.category ? `<span class="n-cat">${esc(item.category)}</span>` : '',
+  ].filter(Boolean).join('');
+
+  // title
+  document.getElementById('panel-title').textContent = item.title || '';
+
+  // meta
+  document.getElementById('panel-meta').innerHTML = [
+    item.date && item.time ? `📅 ${item.date} ${item.time}` : '',
+    item.source ? `📰 ${esc(item.source)}` : '',
+  ].filter(Boolean).join('<span style="color:var(--border)"> · </span>');
+
+  // youtube embed
+  const ytWrap = document.getElementById('panel-yt-wrap');
+  if (item.yt_id && item.yt_id.trim()) {
+    ytWrap.innerHTML = `<iframe class="panel-yt" src="https://www.youtube.com/embed/${esc(item.yt_id)}" allowfullscreen></iframe>`;
+  } else {
+    ytWrap.innerHTML = '';
+  }
+
+  // content
+  const rawBody = item.body || item.content || '';
+  // 把<br><br>换成段落
+  const paras = rawBody.split(/<br\s*\/?><br\s*\/?>/i).filter(s=>s.trim());
+  document.getElementById('panel-content').innerHTML = paras.length > 1
+    ? paras.map(p => `<p>${p.replace(/<br\s*\/?>/gi, ' ')}</p>`).join('')
+    : `<p>${rawBody}</p>`;
+
+  // footer buttons
+  const btns = [];
+  if (item.source_url && !item.yt_id) {
+    btns.push(`<a class="panel-btn primary" href="${esc(item.source_url)}" target="_blank" rel="noopener">→ 阅读原文</a>`);
+  }
+  if (item.yt_id) {
+    btns.push(`<a class="panel-btn primary" href="https://www.youtube.com/watch?v=${esc(item.yt_id)}" target="_blank" rel="noopener">▶ YouTube</a>`);
+  }
+  btns.push(`<button class="panel-btn" onclick="closePanel()">✕ 关闭</button>`);
+  document.getElementById('panel-footer').innerHTML = btns.join('');
+
+  // open
+  document.getElementById('panel-overlay').classList.add('open');
+  document.getElementById('side-panel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePanel() {
+  document.getElementById('panel-overlay').classList.remove('open');
+  document.getElementById('side-panel').classList.remove('open');
+  document.body.style.overflow = '';
+  // stop youtube
+  document.getElementById('panel-yt-wrap').innerHTML = '';
+}
+
+// ESC key
+document.addEventListener('keydown', e => { if(e.key==='Escape') closePanel(); });
+</script>
+
 </body>
 </html>
