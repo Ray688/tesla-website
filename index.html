@@ -797,13 +797,25 @@ function openPanel(item) {
   // meta
   document.getElementById('panel-meta').innerHTML = [
     item.date && item.time ? `📅 ${item.date} ${item.time}` : '',
-    item.source ? `📰 ${esc(item.source)}` : '',
+    item.source ? `📰 ${item.source}` : '',
   ].filter(Boolean).join('<span style="color:var(--border)"> · </span>');
 
-  // youtube embed
+  // youtube thumbnail + click to open
   const ytWrap = document.getElementById('panel-yt-wrap');
   if (item.yt_id && item.yt_id.trim()) {
-    ytWrap.innerHTML = `<iframe class="panel-yt" src="https://www.youtube.com/embed/${esc(item.yt_id)}" allowfullscreen></iframe>`;
+    const ytId = item.yt_id.trim();
+    const thumb = `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
+    const fallback = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+    ytWrap.innerHTML = `
+      <a href="https://www.youtube.com/watch?v=${ytId}" target="_blank" rel="noopener" style="display:block;position:relative;cursor:pointer;margin-bottom:16px">
+        <img src="${thumb}" onerror="this.src='${fallback}'" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--border);background:#000">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);transition:background 0.2s" onmouseover="this.style.background='rgba(0,0,0,0.5)'" onmouseout="this.style.background='rgba(0,0,0,0.3)'">
+          <div style="width:64px;height:64px;background:rgba(255,0,0,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center">
+            <div style="width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:20px solid white;margin-left:4px"></div>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.8);color:#fff;font-family:var(--mono);font-size:9px;padding:3px 8px;letter-spacing:1px">▶ 点击在YouTube观看</div>
+      </a>`;
   } else {
     ytWrap.innerHTML = '';
   }
