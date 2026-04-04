@@ -1,782 +1,1346 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tesla情报站 · 马斯克生态中文媒体</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<title>MUSK NEXUS — 情报站概念稿</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;900&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --red:#CC2929; --red-bg:rgba(204,41,41,.06);
-  --black:#0f0f0e; --bg:#fafaf8; --bg2:#f3f2ef; --bg3:#eceae5;
-  --border:#e5e3de; --border2:#d0cec8;
-  --text:#1a1917; --text2:#5a5754; --text3:#9a9794;
-  --serif:'Noto Serif SC','Songti SC',Georgia,serif;
-  --sans:'Noto Sans SC','PingFang SC',sans-serif;
-  --mono:'DM Mono','Courier New',monospace;
-  --ease:cubic-bezier(.4,0,.2,1);
-  --max:1160px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  :root {
+    --bg: #030609;
+    --bg2: #070d14;
+    --panel: #0a1520;
+    --border: rgba(0,200,255,0.15);
+    --border-bright: rgba(0,200,255,0.5);
+    --cyan: #00c8ff;
+    --cyan-dim: rgba(0,200,255,0.6);
+    --orange: #ff6b00;
+    --orange-dim: rgba(255,107,0,0.6);
+    --green: #00ff88;
+    --green-dim: rgba(0,255,136,0.5);
+    --red: #ff3344;
+    --white: #e8f4ff;
+    --muted: rgba(180,210,240,0.45);
+    --tesla: #e31937;
+    --spacex: #005288;
+    --xai: #9b59b6;
+    --neuralink: #1abc9c;
+    --boring: #f39c12;
+    --x: #cccccc;
+  }
 
-nav{position:sticky;top:0;z-index:200;background:rgba(250,250,248,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
-.nav-top{max-width:var(--max);margin:0 auto;padding:0 40px;height:54px;display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-box{width:28px;height:28px;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center}
-.logo-box b{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--red);line-height:1}
-.logo-name{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--black);letter-spacing:.04em}
-.logo-sub{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.05em;margin-left:2px}
-.nav-r{display:flex;align-items:center;gap:18px}
-.live{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em}
-.dot{width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.45)}50%{opacity:.5;box-shadow:0 0 0 4px rgba(34,197,94,0)}}
-.nav-join{display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;text-decoration:none;font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 16px;border:1px solid transparent;transition:all .2s var(--ease)}
-.nav-join:hover{background:transparent;border-color:var(--red);color:var(--red)}
-.search-trigger{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:none;border:1px solid var(--border);border-radius:5px;color:var(--text2);cursor:pointer;transition:all .18s var(--ease)}
-.search-trigger:hover{border-color:var(--border2);color:var(--text);background:var(--bg2)}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.tab-bar{border-top:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
-.tab-bar::-webkit-scrollbar{display:none}
-.tab-bar-inner{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;gap:0}
-.tab{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--text2);padding:11px 20px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s var(--ease);user-select:none;text-decoration:none;}
-.tab:hover{color:var(--black)}
-.tab.on{color:var(--red);border-bottom-color:var(--red);font-weight:700}
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
 
-.page{display:none}
-.page.on{display:block}
+  /* ── SCANLINE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
 
-.wrap{max-width:var(--max);margin:0 auto;padding:32px 40px 64px}
-.two-col{display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:start}
-.single-col{display:block;max-width:780px;margin:0 auto;}
-.date-rule{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
-.date-rule::after{content:'';flex:1;height:1px;background:var(--border)}
+  /* ── NOISE TEXTURE ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.5;
+  }
 
-.share-footer { display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px dashed var(--border); font-family:var(--sans); }
-.share-src { font-size:12px; color:#2563eb; text-decoration:none; display:flex; align-items:center; gap:5px; }
-.share-src:hover { color:#1d4ed8; text-decoration:underline; }
-.share-actions { display:flex; align-items:center; gap:16px; font-size:15px; color:var(--text3); }
-.share-actions span { font-size:12px; }
-.share-btn { color:inherit; text-decoration:none; transition:color .15s; cursor:pointer; }
-.share-btn:hover { color:var(--text); }
-.share-btn.tg:hover { color:#0088cc; }
-.share-btn.tw:hover { color:#1da1f2; }
+  /* ── GLOBAL GRID ── */
+  .grid-overlay {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 1;
+  }
 
-.h-tag{display:inline-flex !important;align-items:center;width:fit-content !important;max-width:fit-content !important;font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;margin-bottom:14px}
-.h-tag.news{color:var(--red);border-color:rgba(204,41,41,.3);background:var(--red-bg)}
-.h-tag.analysis{color:#1d4ed8;border-color:rgba(29,78,216,.25);background:rgba(29,78,216,.04)}
-.h-tag.video{color:#059669;border-color:rgba(5,150,105,.25);background:rgba(5,150,105,.04)}
-.h-tag.data{color:#b45309;border-color:rgba(180,83,9,.25);background:rgba(180,83,9,.04)}
-.h-tag.fsd{color:#6d28d9;border-color:rgba(109,40,217,.25);background:rgba(109,40,217,.04)}
-.h-tag.macro{color:#0369a1;border-color:rgba(3,105,161,.25);background:rgba(3,105,161,.04)}
-.h-tag.market{color:#374151;border-color:rgba(55,65,81,.25);background:rgba(55,65,81,.04)}
-.meta-dot{width:3px;height:3px;border-radius:50%;background:var(--border2)}
+  /* ── TOP BAR ── */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 52px;
+    background: rgba(3,6,9,0.95);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+  }
 
-.timeline-date-header { font-family: var(--sans); font-size: 24px; font-weight: 700; color: #111827; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
-.timeline-badge { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 4px; }
-.timeline-list { padding: 10px 0 20px 10px; }
-.timeline-item { position: relative; padding-left: 32px; padding-bottom: 36px; border-left: 2px solid #e5e7eb; }
-.timeline-item:last-child { border-left-color: transparent; padding-bottom: 0; }
-.timeline-dot { position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; box-shadow: 0 0 0 3px var(--bg); }
-.timeline-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
-.timeline-time { font-family: var(--sans); font-size: 16px; font-weight: 600; color: #111827; flex-shrink: 0; }
-.timeline-title { font-family: var(--sans); font-size: 17px; font-weight: 500; color: #2563eb; text-decoration: none; line-height: 1.4; transition: color .15s; cursor:pointer; }
-.timeline-title:hover { color: #1d4ed8; text-decoration: underline; }
-.timeline-body { font-size: 14px; color: #4b5563; line-height: 1.8; margin-bottom: 16px; }
+  .logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 6px;
+    color: var(--cyan);
+    text-shadow: 0 0 20px rgba(0,200,255,0.6);
+  }
 
-.deep-list { display:flex; flex-direction:column; gap:0; border:1px solid var(--border); background:var(--bg); }
-.deep-card { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--border); transition:background .15s var(--ease); text-decoration:none; color:inherit; gap:24px; cursor:pointer; }
-.deep-card:last-child { border-bottom:none; }
-.deep-card:hover { background:var(--bg2); }
-.deep-info { flex:1; display:flex; flex-direction:column; justify-content:space-between; min-height:94px; }
-.deep-title { font-family:var(--sans); font-size:17px; font-weight:600; color:var(--black); line-height:1.5; margin-bottom:12px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; transition:color .15s; }
-.deep-card:hover .deep-title { color:var(--red); }
-.deep-bottom { display:flex; align-items:center; flex-wrap:wrap; gap:12px; }
-.deep-tags { display:flex; flex-wrap:nowrap; gap:8px; font-family:var(--sans); font-size:13px; color:#3b82f6; white-space:nowrap; }
-.deep-meta { display:flex; align-items:center; gap:12px; font-family:var(--mono); font-size:12px; color:var(--text3); white-space:nowrap; }
-.deep-cover { width:140px; height:94px; border-radius:4px; overflow:hidden; flex-shrink:0; background:var(--bg2); display:flex; align-items:center; justify-content:center; }
-.cover-bg { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
-.cover-brand { font-family:var(--serif); font-size:16px; font-weight:700; color:rgba(255,255,255,0.9); letter-spacing:1px; text-transform:uppercase; text-align:center; padding:0 10px; }
-@media(max-width:600px) {
-  .deep-card { padding:16px; gap:12px; align-items:flex-start; }
-  .deep-cover { width:100px; height:68px; }
-  .deep-title { font-size:15px; margin-bottom:8px; }
-  .deep-info { min-height:68px; }
-  .deep-bottom { flex-direction:column; align-items:flex-start; gap:6px; }
-}
+  .logo span {
+    color: var(--orange);
+    text-shadow: 0 0 20px rgba(255,107,0,0.6);
+  }
 
-.macro-grid { display:flex; flex-direction:column; gap:16px; }
-.macro-card { background:#ffffff; border:1px solid var(--border); border-left:3px solid #0369a1; padding:24px; transition:all .2s ease; text-decoration:none; color:inherit; display:block; cursor:pointer; }
-.macro-card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.04); border-color:#0369a1; }
-.macro-head { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-.macro-tag { font-family:var(--mono); font-size:11px; font-weight:600; color:#0369a1; background:rgba(3,105,161,0.08); padding:4px 10px; border-radius:4px; letter-spacing:0.05em; }
-.macro-time { font-family:var(--mono); font-size:11px; color:#9ca3af; }
-.macro-title { font-family:var(--serif); font-size:19px; font-weight:700; color:#111827; margin-bottom:10px; line-height:1.4; transition:color .15s; }
-.macro-card:hover .macro-title { color:#0369a1; }
-.macro-body { font-size:14px; color:#4b5563; line-height:1.8; margin-bottom:16px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
 
-.video-card-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
-.video-card-item{display:grid;grid-template-columns:200px 1fr;background:var(--bg);text-decoration:none;color:inherit;transition:background .15s var(--ease)}
-.video-card-item:hover{background:var(--bg2)}
-.video-thumb{width:200px;height:113px;background:#111;flex-shrink:0;overflow:hidden;position:relative}
-.video-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.video-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#1a1a1a;color:rgba(255,255,255,.5);font-size:28px}
-.video-card-body{padding:16px 20px;display:flex;flex-direction:column;justify-content:space-between}
-.video-card-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--black);line-height:1.45;margin-bottom:8px;transition:color .15s;}
-.video-card-item:hover .video-card-title{color:var(--red);}
-.video-card-meta{margin-top:12px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em;white-space:nowrap;}
-.video-card-meta .src{color:var(--red)}
+  .live-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--green);
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
 
-.sidebar{display:flex;flex-direction:column;gap:20px}
-.sb-block{border:1px solid var(--border);background:var(--bg)}
-.sb-head{padding:12px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
-.topics{padding:12px 14px}
-.topic{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--text2);letter-spacing:.05em;padding:5px 9px;margin:3px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;transition:all .15s}
-.topic:hover{border-color:var(--red);color:var(--red);background:var(--red-bg)}
-.data-list{display:flex;flex-direction:column;gap:0}
-.data-row{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.data-row:last-child{border-bottom:none}
-.data-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em}
-.data-val{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--black)}
-.data-change{font-family:var(--mono);font-size:10px;letter-spacing:.04em}
-.up{color:#16a34a}.dn{color:var(--red)}.nt{color:var(--text3)}
-.entity-rows{}
-.entity-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
-.entity-row:last-child{border-bottom:none}
-.entity-row:hover{background:var(--bg2)}
-.entity-left{display:flex;align-items:center;gap:10px}
-.entity-icon{font-size:18px;line-height:1}
-.entity-name{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--text)}
-.entity-ticker{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.04em;margin-top:1px}
-.entity-count{font-family:var(--mono);font-size:10px;color:var(--text3)}
+  .live-dot::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 10px var(--green);
+    animation: pulse 2s infinite;
+  }
 
-.home-section{margin-top:32px}
-.home-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.home-section-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--black);letter-spacing:-.01em}
-.home-section-more{font-family:var(--mono);font-size:11px;color:var(--red);text-decoration:none;letter-spacing:.04em;transition:opacity .15s}
-.home-section-more:hover{opacity:.7}
-.intro-banner{border:1px solid var(--border);background:var(--bg);margin-bottom:28px;overflow:hidden}
-.intro-top{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border);background:var(--black)}
-.intro-logo-row{display:flex;align-items:center;gap:10px}
-.intro-logo-box{width:26px;height:26px;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.intro-logo-box b{font-family:var(--serif);font-size:13px;font-weight:700;color:var(--red);line-height:1}
-.intro-name{font-family:var(--serif);font-size:15px;font-weight:600;color:#f0f0f0;letter-spacing:.04em}
-.intro-badge{font-family:var(--mono);font-size:9px;color:var(--red);border:1px solid rgba(204,41,41,.4);padding:2px 7px;letter-spacing:.1em;text-transform:uppercase}
-.intro-tg-btn{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-family:var(--sans);font-size:12px;font-weight:500;padding:8px 16px;border:1px solid transparent;transition:all .2s var(--ease)}
-.intro-tg-btn:hover{background:transparent;border-color:var(--red);color:var(--red)}
-.intro-body{padding:20px 24px;border-bottom:1px solid var(--border)}
-.intro-desc{font-family:var(--sans);font-size:14px;font-weight:400;color:var(--text2);line-height:1.9;margin-bottom:16px}
-.intro-desc strong{font-weight:500;color:var(--text)}
-.intro-tags{display:flex;flex-wrap:wrap;gap:8px}
-.intro-tag{font-family:var(--mono);font-size:10px;color:var(--text2);border:1px solid var(--border);background:var(--bg2);padding:4px 10px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px}
-.intro-stats{display:flex;align-items:center;padding:16px 24px;background:var(--bg2)}
-.intro-stat{padding:0 24px 0 0}
-.intro-stat:first-child{padding-left:0}
-.intro-stat-val{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--black);line-height:1;margin-bottom:3px}
-.intro-stat-lbl{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
-.intro-stat-div{width:1px;height:32px;background:var(--border2);margin-right:24px;flex-shrink:0}
-.data-grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:28px}
-.data-card{background:var(--bg2);border-radius:6px;padding:16px 14px}
-.data-card .data-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;margin-bottom:8px}
-.data-card .data-val{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--black);margin-bottom:3px}
-.data-card .data-change{font-family:var(--mono);font-size:11px}
-.data-card .data-source{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:6px;letter-spacing:.04em}
-.chart-block{border:1px solid var(--border);background:var(--bg);padding:20px;margin-bottom:16px}
-.chart-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;margin-bottom:14px}
-.chart-2col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
-.entity-section{border-top:1px solid var(--border);background:var(--bg2);padding:44px 24px}
-.entity-section-inner{max-width:var(--max);margin:0 auto}
-.section-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.entity-full-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
-.entity-full-card{background:var(--bg);padding:26px 22px;position:relative;overflow:hidden;transition:background .18s var(--ease)}
-.entity-full-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
-.entity-full-card:hover{background:var(--bg2)}
-.entity-full-card:hover::before{transform:scaleX(1)}
-.ef-icon{margin-bottom:14px;display:flex;align-items:center}
-.ef-name{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--black);margin-bottom:3px}
-.ef-ticker{font-family:var(--mono);font-size:9px;color:var(--red);letter-spacing:.08em;margin-bottom:10px}
-.ef-desc{font-family:var(--sans);font-size:12px;font-weight:400;color:var(--text2);line-height:1.9;margin-bottom:14px}
-.ef-count{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.05em}
-.sub-banner{background:var(--black);border-top:3px solid var(--red);padding:48px 24px}
-.sub-banner-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px}
-.sub-label{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
-.sub-title{font-family:var(--serif);font-size:clamp(20px,2.5vw,28px);font-weight:600;color:#f5f5f5;margin-bottom:8px;line-height:1.3}
-.sub-desc{font-family:var(--sans);font-size:14px;font-weight:400;color:rgba(255,255,255,.45);line-height:1.9}
-.sub-btn{display:inline-flex;align-items:center;gap:9px;flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-family:var(--sans);font-size:15px;font-weight:500;padding:14px 32px;border:1px solid var(--red);transition:all .22s var(--ease);white-space:nowrap}
-.sub-btn:hover{background:transparent;color:var(--red)}
-footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);padding:36px 24px 24px}
-.footer-inner{max-width:var(--max);margin:0 auto}
-.footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;margin-bottom:28px}
-.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.footer-logo-box{width:26px;height:26px;border:1.5px solid var(--red);display:flex;align-items:center;justify-content:center}
-.footer-logo-box b{font-family:var(--serif);font-size:13px;font-weight:700;color:var(--red);line-height:1}
-.footer-logo-name{font-family:var(--serif);font-size:14px;font-weight:600;color:#f0f0f0;letter-spacing:.04em}
-.footer-tagline{font-family:var(--sans);font-size:12px;font-weight:400;color:rgba(255,255,255,.32);line-height:1.9;max-width:280px}
-.footer-links{display:flex;gap:48px}
-.footer-col h4{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
-.footer-col a{display:block;font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:8px;transition:color .15s}
-.footer-col a:hover{color:var(--red)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:18px;display:flex;align-items:center;justify-content:space-between}
-.footer-copy{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.05em}
-.footer-tg{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
-.footer-tg:hover{color:var(--red)}
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
 
-.search-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(15,15,14,.55);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:80px 20px 20px}
-.search-overlay.on{display:flex}
-.search-box{background:var(--bg);border:1px solid var(--border2);width:100%;max-width:640px;max-height:calc(100vh - 120px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.15)}
-.search-input-row{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
-.search-input-row input{flex:1;border:none;outline:none;background:none;font-family:var(--sans);font-size:16px;color:var(--text)}
-.search-input-row input::placeholder{color:var(--text3)}
-.search-close-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:none;border:none;color:var(--text3);cursor:pointer;flex-shrink:0;transition:color .15s}
-.search-close-btn:hover{color:var(--text)}
-.search-meta{padding:8px 16px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;border-bottom:1px solid var(--border);flex-shrink:0}
-.search-results{overflow-y:auto;flex:1}
-.search-result-item{display:block;padding:14px 18px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;transition:background .15s var(--ease);cursor:pointer}
-.search-result-item:last-child{border-bottom:none}
-.search-result-item:hover{background:var(--bg2)}
-.sr-tag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}
-.sr-title{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--black);line-height:1.4;margin-bottom:4px}
-.sr-title mark{background:rgba(204,41,41,.12);color:var(--red);border-radius:2px;padding:0 2px}
-.search-empty{padding:40px 20px;text-align:center;font-family:var(--sans);font-size:14px;color:var(--text3)}
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
 
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,15,14,.7);z-index:500;backdrop-filter:blur(4px);padding:24px;align-items:flex-start;justify-content:center}
-.modal-overlay.on{display:flex}
-.modal-box{background:var(--bg);width:100%;max-width:720px;max-height:90vh;overflow-y:auto;border:1px solid var(--border);position:relative;margin-top:20px}
-.modal-head{padding:28px 32px 20px;border-bottom:1px solid var(--border)}
-.modal-close{position:absolute;top:18px;right:20px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text3);font-size:20px;transition:color .15s;background:none;border:none;font-family:var(--sans)}
-.modal-close:hover{color:var(--text)}
-.modal-tag{margin-bottom:12px}
-.modal-title{font-family:var(--serif);font-size:clamp(20px,3vw,26px);font-weight:600;line-height:1.3;color:var(--black);margin-bottom:14px;letter-spacing:-.01em}
-.modal-meta{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.04em}
-.modal-meta .src{color:var(--red)}
-.modal-body{padding:28px 32px 36px}
-.modal-body p{font-family:var(--sans);font-size:15px;font-weight:400;color:var(--text);line-height:1.9;margin-bottom:18px}
-.modal-body p:last-child{margin-bottom:0}
+  .nav-tab {
+    padding: 6px 14px;
+    border: 1px solid transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
 
-/* 左侧面板图表与计算逻辑样式 */
-.left-panel { display:flex; flex-direction:column; gap:16px; margin-bottom:28px; }
-.radar-block, .snapshot-block { border:1px solid var(--border); background:var(--bg); padding:20px 22px; }
-.radar-title { display:flex; align-items:center; justify-content:space-between; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--text3); margin-bottom:18px; }
-.radar-live { display:flex; align-items:center; gap:5px; color:#22c55e; }
-.radar-list { display:flex; flex-direction:column; gap:14px; }
-.radar-row { display:flex; align-items:center; gap:10px; }
-.radar-entity { display:flex; align-items:center; gap:6px; font-size:12px; font-weight:500; color:var(--text); width:76px; flex-shrink:0; }
-.radar-icon { font-size:13px; }
-.radar-bar-wrap { flex:1; height:5px; background:var(--bg3); border-radius:0; overflow:hidden; }
-.radar-bar { height:100%; background:var(--red); border-radius:0; transition:width 1s cubic-bezier(.4,0,.2,1); }
-.radar-bar.spacex { background:#1a56db; }
-.radar-bar.xai { background:#111; }
-.radar-bar.neuralink { background:#6d28d9; }
-.radar-pct { font-family:var(--mono); font-size:10px; color:var(--text3); width:28px; text-align:right; flex-shrink:0; }
-.radar-mood { font-family:var(--mono); font-size:9px; padding:2px 6px; border:1px solid; flex-shrink:0; width:38px; text-align:center; }
-.radar-mood.bull { color:#16a34a; border-color:rgba(22,163,74,.3); background:rgba(22,163,74,.06); }
-.radar-mood.bear { color:var(--red); border-color:rgba(204,41,41,.3); background:var(--red-bg); }
-.radar-mood.neutral { color:var(--text3); border-color:var(--border); }
-.snapshot-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.snapshot-item { text-align:center; padding:12px 8px; background:var(--bg2); }
-.snapshot-val { font-family:var(--serif); font-size:22px; font-weight:700; color:var(--black); line-height:1; margin-bottom:5px; }
-.snapshot-lbl { font-family:var(--mono); font-size:9px; letter-spacing:.08em; color:var(--text3); text-transform:uppercase; }
-.intel-panel { border:1px solid var(--border); background:var(--bg); margin-bottom:28px; overflow:hidden; }
-.intel-snapshot { padding:20px 22px 18px; }
-.intel-snap-title { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--text3); margin-bottom:16px; display:flex; align-items:center; gap:6px; }
-.intel-dot { width:6px; height:6px; border-radius:50%; background:#22c55e; animation:pulse 2s ease-in-out infinite; flex-shrink:0; }
-.intel-snap-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--border); }
-.intel-snap-item { padding:14px 12px; text-align:center; border-right:1px solid var(--border); }
-.intel-snap-item:last-child { border-right:none; }
-.intel-snap-val { font-family:var(--serif); font-size:22px; font-weight:700; color:var(--black); line-height:1; margin-bottom:5px; }
-.intel-snap-lbl { font-family:var(--mono); font-size:9px; color:var(--text3); letter-spacing:.06em; }
-.intel-divider { height:1px; background:var(--border); }
-.intel-sentiment { padding:18px 22px 20px; }
-.intel-sent-title { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--text3); margin-bottom:14px; }
-.intel-tsla-row { display:flex; align-items:baseline; gap:8px; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid var(--border); }
-.intel-tsla-label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.08em; }
-.intel-tsla-price { font-family:var(--serif); font-size:20px; font-weight:700; color:var(--black); }
-.intel-tsla-change { font-family:var(--mono); font-size:12px; margin-left:auto; }
-.intel-tsla-change.up { color:#16a34a; }
-.intel-tsla-change.dn { color:var(--red); }
-.intel-entity-rows { display:flex; flex-direction:column; gap:12px; }
-.intel-entity-row {}
-.intel-entity-head { display:flex; align-items:center; gap:6px; margin-bottom:5px; }
-.intel-entity-icon { font-size:13px; }
-.intel-entity-name { font-size:12px; font-weight:500; color:var(--text); flex:1; }
-.intel-entity-mood { font-family:var(--mono); font-size:9px; letter-spacing:.06em; padding:2px 6px; border:1px solid var(--border); color:var(--text3); }
-.intel-bar-bg { height:4px; background:var(--bg3); border-radius:0; overflow:hidden; }
-.intel-bar-fill { height:100%; transition:width .8s cubic-bezier(.4,0,.2,1); border-radius:0; }
-.intel-bar-fill.red    { background:var(--red); }
-.intel-bar-fill.blue   { background:#2563eb; }
-.intel-bar-fill.dark   { background:#111; }
-.intel-bar-fill.indigo { background:#4f46e5; }
-.intel-sent-note { margin-top:12px; font-family:var(--mono); font-size:9px; color:var(--text3); letter-spacing:.04em; }
+  .nav-tab.active {
+    color: var(--cyan);
+    border-color: var(--border-bright);
+    background: rgba(0,200,255,0.05);
+  }
 
-/* 全屏沉浸式阅读页 (路线A/C 自适应兜底) */
-#page-article-detail { background:#ffffff; min-height:100vh; }
-.ad-title { font-family:var(--serif); font-size:clamp(24px, 4vw, 34px); font-weight:700; color:var(--black); line-height:1.35; margin-bottom:20px; letter-spacing:-0.01em; margin-top:20px; }
-.ad-meta-row { display:flex; align-items:center; justify-content:space-between; padding-bottom:24px; border-bottom:1px solid var(--border); margin-bottom:32px; }
-.ad-meta { font-family:var(--mono); font-size:13px; color:var(--text3); display:flex; align-items:center; gap:8px; }
-.ad-body { font-family:var(--sans); font-size:16px; color:#1f2937; line-height:2; padding-bottom:80px; }
-.ad-body p { margin-bottom:24px; }
-.ad-body img { max-width:100%; height:auto; display:block; margin:24px 0; border-radius:4px; }
-.ad-empty-notice { background:var(--bg2); border:1px dashed var(--border2); padding:60px 20px; text-align:center; border-radius:8px; margin-top:20px; }
-.ad-empty-notice p { color:var(--text3); margin-bottom:20px; }
-.ad-empty-btn { display:inline-block; background:var(--red); color:#fff; text-decoration:none; padding:12px 24px; border-radius:4px; font-weight:500; transition:opacity .15s; }
-.ad-empty-btn:hover { opacity:0.9; }
+  .nav-tab:hover { color: var(--cyan); }
 
-@media(max-width:900px){
-  .two-col{grid-template-columns:1fr}
-  .entity-full-grid{grid-template-columns:repeat(2,1fr)}
-  .video-card-item{grid-template-columns:1fr}
-  .video-thumb{width:100%;height:180px}
-  .footer-top{flex-direction:column}
-  .footer-links{flex-wrap:wrap;gap:28px}
-  .sub-banner-inner{flex-direction:column;text-align:center}
-  .sub-btn{width:100%;justify-content:center}
-  .data-grid-4{grid-template-columns:repeat(2,1fr)}
-  .chart-2col{grid-template-columns:1fr}
-}
-@media(max-width:600px){
-  .nav-r .live{display:none}
-  .entity-full-grid{grid-template-columns:1fr}
-  .modal-box{margin-top:0}
-  .modal-head,.modal-body{padding:20px 18px}
-  .intro-top{flex-direction:column;align-items:flex-start;gap:12px}
-  .intro-tg-btn{width:100%;justify-content:center}
-  .intro-stats{flex-wrap:wrap;gap:16px}
-  .intro-stat{padding:0}
-  .intro-stat-div{display:none}
-}
+  /* ── MAIN LAYOUT ── */
+  .main {
+    padding-top: 52px;
+    min-height: 100vh;
+    position: relative;
+    z-index: 10;
+  }
 
-.featured-card { border:1px solid var(--border); border-left:3px solid var(--red); background:linear-gradient(135deg, rgba(204,41,41,.03) 0%, var(--bg) 60%); padding:28px; cursor:pointer; transition:box-shadow .2s, border-color .2s; margin-bottom:8px; text-decoration:none; display:block;}
-.featured-card:hover { box-shadow:0 4px 20px rgba(204,41,41,.08); border-color:var(--red); }
-.featured-label { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
-.featured-badge { font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:var(--red); padding:3px 8px; }
-.featured-tag { font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--text3); text-transform:uppercase; }
-.featured-title { font-family:var(--serif); font-size:clamp(18px,2vw,24px); font-weight:700; color:var(--black); line-height:1.35; margin-bottom:12px; letter-spacing:-.01em; }
-.featured-desc { font-size:14px; color:var(--text2); line-height:1.85; margin-bottom:16px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-.featured-meta { display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:10px; color:var(--text3); }
-.featured-read { margin-left:auto; color:var(--red); font-weight:500; letter-spacing:.04em; }
-.video-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.entity-list { display:flex; flex-direction:column; gap:0; }
-.entity-item { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .15s; }
-.entity-item:last-child { border-bottom:none; }
-.entity-item:hover { color:var(--red); }
-.entity-icon { font-size:16px; width:24px; text-align:center; flex-shrink:0; }
-.entity-name { font-size:13px; font-weight:500; color:var(--text); }
-.entity-sub { font-family:var(--mono); font-size:10px; color:var(--text3); }
-.entity-count { margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--text3); flex-shrink:0; }
-.tag-cloud { display:flex; flex-wrap:wrap; gap:6px; }
-.tag-pill { font-family:var(--mono); font-size:10px; color:var(--text2); border:1px solid var(--border); padding:3px 8px; cursor:pointer; transition:all .15s; white-space:nowrap; }
-.tag-pill:hover { border-color:var(--red); color:var(--red); }
+  /* ── HERO SECTION ── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Circular orbit animation */
+  .orbit-container {
+    position: absolute;
+    width: 700px; height: 700px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit-ring:nth-child(1) {
+    width: 200px; height: 200px;
+    border-color: rgba(0,200,255,0.2);
+    animation: spin 20s linear infinite;
+  }
+  .orbit-ring:nth-child(2) {
+    width: 350px; height: 350px;
+    border-color: rgba(255,107,0,0.15);
+    animation: spin 35s linear infinite reverse;
+  }
+  .orbit-ring:nth-child(3) {
+    width: 500px; height: 500px;
+    border-color: rgba(0,200,255,0.08);
+    animation: spin 55s linear infinite;
+  }
+  .orbit-ring:nth-child(4) {
+    width: 650px; height: 650px;
+    border-color: rgba(255,107,0,0.06);
+    animation: spin 80s linear infinite reverse;
+  }
+
+  @keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  /* Company nodes on orbits */
+  .node {
+    position: absolute;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+  }
+
+  .node:hover {
+    transform: scale(1.3);
+    z-index: 10;
+  }
+
+  .node-tesla {
+    background: rgba(227,25,55,0.2);
+    border: 1px solid rgba(227,25,55,0.7);
+    color: var(--tesla);
+    box-shadow: 0 0 15px rgba(227,25,55,0.3);
+    top: -18px; left: 50%; margin-left: -18px; /* top of ring 2 */
+  }
+
+  .node-spacex {
+    background: rgba(0,82,136,0.3);
+    border: 1px solid rgba(0,120,200,0.7);
+    color: #4fc3f7;
+    box-shadow: 0 0 15px rgba(0,120,200,0.3);
+    top: 50%; right: -18px; margin-top: -18px; /* right of ring 3 */
+  }
+
+  .node-xai {
+    background: rgba(155,89,182,0.2);
+    border: 1px solid rgba(155,89,182,0.7);
+    color: #ce93d8;
+    box-shadow: 0 0 15px rgba(155,89,182,0.3);
+    bottom: -18px; left: 50%; margin-left: -18px; /* bottom of ring 2 */
+  }
+
+  .node-neuralink {
+    background: rgba(26,188,156,0.2);
+    border: 1px solid rgba(26,188,156,0.7);
+    color: var(--neuralink);
+    box-shadow: 0 0 15px rgba(26,188,156,0.3);
+    top: 50%; left: -18px; margin-top: -18px; /* left of ring 4 */
+  }
+
+  .node-boring {
+    background: rgba(243,156,18,0.2);
+    border: 1px solid rgba(243,156,18,0.7);
+    color: var(--boring);
+    box-shadow: 0 0 15px rgba(243,156,18,0.3);
+    top: 15%; right: -18px; margin-right: 0;
+  }
+
+  .node-x {
+    background: rgba(200,200,200,0.1);
+    border: 1px solid rgba(200,200,200,0.5);
+    color: var(--x);
+    box-shadow: 0 0 15px rgba(200,200,200,0.15);
+    bottom: 15%; left: -18px;
+  }
+
+  /* CENTER LOGO */
+  .center-logo {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 5;
+  }
+
+  .center-logo .em {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 48px;
+    color: var(--cyan);
+    text-shadow: 0 0 40px rgba(0,200,255,0.8), 0 0 80px rgba(0,200,255,0.3);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .center-logo .sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: var(--muted);
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+
+  /* HERO TEXT */
+  .hero-title {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    margin-top: 380px;
+  }
+
+  .hero-title h1 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(28px, 4vw, 52px);
+    letter-spacing: 8px;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--cyan) 0%, #fff 50%, var(--orange) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+  }
+
+  .hero-title p {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    margin-top: 12px;
+  }
+
+  /* scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .scroll-hint .line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--cyan));
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+  }
+
+  /* ── SECTION: COMPANY GRID ── */
+  .section {
+    padding: 80px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--cyan);
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+    font-size: clamp(20px, 2.5vw, 32px);
+    letter-spacing: 2px;
+    margin-bottom: 48px;
+    color: var(--white);
+  }
+
+  /* COMPANY CARDS */
+  .company-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .company-card {
+    background: var(--bg2);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .company-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+
+  .company-card:hover {
+    background: rgba(0,200,255,0.03);
+  }
+
+  .company-card:hover::before {
+    width: 100%;
+    opacity: 0.03;
+  }
+
+  .company-card.tesla { --accent: var(--tesla); }
+  .company-card.spacex { --accent: #4fc3f7; }
+  .company-card.xai { --accent: #ce93d8; }
+  .company-card.neuralink { --accent: var(--neuralink); }
+  .company-card.boring { --accent: var(--boring); }
+  .company-card.x { --accent: var(--x); }
+
+  .card-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+
+  .card-name {
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .card-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .card-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .metric {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+  }
+
+  .metric-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+
+  /* ── DATA DASHBOARD SECTION ── */
+  .dashboard {
+    padding: 0 40px 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .dash-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .dash-panel {
+    background: var(--bg2);
+    padding: 28px;
+    position: relative;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .panel-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    text-transform: uppercase;
+  }
+
+  .panel-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    padding: 3px 8px;
+    border: 1px solid var(--border-bright);
+    color: var(--cyan);
+    letter-spacing: 2px;
+  }
+
+  /* Mini chart bars */
+  .mini-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 80px;
+    margin: 16px 0;
+  }
+
+  .bar {
+    flex: 1;
+    background: var(--accent, var(--cyan));
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    min-height: 4px;
+    position: relative;
+  }
+
+  .bar:hover { opacity: 1; }
+
+  .bar.highlight {
+    opacity: 1;
+    box-shadow: 0 0 8px var(--accent, var(--cyan));
+  }
+
+  /* TIMELINE / FEED */
+  .feed-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+
+  .feed-item:last-child { border-bottom: none; }
+
+  .feed-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    white-space: nowrap;
+    padding-top: 2px;
+    min-width: 60px;
+  }
+
+  .feed-content {}
+
+  .feed-source {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .source-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--dot-color, var(--cyan));
+  }
+
+  .source-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--dot-color, var(--cyan));
+    text-transform: uppercase;
+  }
+
+  .feed-title {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--white);
+  }
+
+  /* STAT SIDEBAR */
+  .stat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .stat-item {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stat-item:last-child { border-bottom: none; }
+
+  .stat-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .stat-val {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .stat-change {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-left: 8px;
+  }
+
+  .stat-change.up {
+    color: var(--green);
+    background: rgba(0,255,136,0.1);
+  }
+
+  .stat-change.down {
+    color: var(--red);
+    background: rgba(255,51,68,0.1);
+  }
+
+  /* ── FULLWIDTH TICKER ── */
+  .ticker {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(0,200,255,0.02);
+    padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+    margin: 40px 0;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 60px;
+    animation: ticker 30s linear infinite;
+    width: max-content;
+  }
+
+  @keyframes ticker {
+    to { transform: translateX(-50%); }
+  }
+
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .ticker-item .symbol {
+    color: var(--cyan);
+    font-weight: 700;
+  }
+
+  .ticker-item .price { color: var(--white); }
+  .ticker-item .pos { color: var(--green); }
+  .ticker-item .neg { color: var(--red); }
+
+  .ticker-sep {
+    color: var(--border-bright);
+    font-size: 16px;
+  }
+
+  /* ── ARCHITECTURE SECTION ── */
+  .arch-section {
+    padding: 80px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    background: var(--bg);
+  }
+
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  .arch-card {
+    background: var(--bg2);
+    padding: 28px;
+    position: relative;
+  }
+
+  .arch-num {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 40px;
+    color: rgba(0,200,255,0.1);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .arch-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .arch-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .arch-tag {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    opacity: 0.5;
+  }
+
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  /* ── CORNER DECORATIONS ── */
+  .corner-tl, .corner-br {
+    position: absolute;
+    width: 12px; height: 12px;
+    border-color: var(--cyan);
+    opacity: 0.5;
+  }
+
+  .corner-tl {
+    top: 12px; left: 12px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+  }
+
+  .corner-br {
+    bottom: 12px; right: 12px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .company-grid { grid-template-columns: repeat(2, 1fr); }
+    .arch-grid { grid-template-columns: repeat(2, 1fr); }
+    .dash-grid { grid-template-columns: 1fr; }
+    .hero-title { margin-top: 300px; }
+    .orbit-container { width: 500px; height: 500px; }
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    border: 1px solid var(--border-bright);
+    background: rgba(0,200,255,0.03);
+    padding: 20px 24px;
+    margin: 40px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--cyan-dim);
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .highlight-box::before {
+    content: '▸';
+    color: var(--cyan);
+    font-size: 14px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-top">
-    <a href="#tab-home" class="logo">
-      <div class="logo-box"><b>T</b></div>
-      <span class="logo-name">Tesla情报站</span>
-      <span class="logo-sub">马斯克生态中文媒体</span>
-    </a>
-    <div class="nav-r">
-      <div class="live"><div class="dot"></div>实时更新</div>
-      <button class="search-trigger" onclick="openSearch()" title="搜索 Ctrl+K">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      </button>
-      <a href="https://t.me/Tesla_share" target="_blank" rel="noopener noreferrer" class="nav-join">
-        订阅频道
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H4M9.5 1.5V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      </a>
+<div class="grid-overlay"></div>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="logo">MUSK<span>NEXUS</span></div>
+  <nav class="nav-tabs">
+    <div class="nav-tab active">总览</div>
+    <div class="nav-tab">特斯拉</div>
+    <div class="nav-tab">SpaceX</div>
+    <div class="nav-tab">xAI</div>
+    <div class="nav-tab">数据</div>
+    <div class="nav-tab">情报流</div>
+  </nav>
+  <div class="topbar-right">
+    <span class="live-dot">LIVE</span>
+    <span id="clock">--:--:--</span>
+    <span>北京 UTC+8</span>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="orbit-container">
+      <div class="orbit-ring">
+        <!-- inner ring: Tesla + xAI -->
+        <div class="node node-tesla">TSLA</div>
+        <div class="node node-xai">xAI</div>
+      </div>
+      <div class="orbit-ring">
+        <!-- middle ring -->
+        <div class="node node-spacex">SpaceX</div>
+        <div class="node node-boring">Boring</div>
+      </div>
+      <div class="orbit-ring">
+        <!-- outer ring -->
+        <div class="node node-neuralink">Neura</div>
+        <div class="node node-x">X</div>
+      </div>
+      <div class="orbit-ring"></div>
+
+      <div class="center-logo">
+        <div class="em">EM</div>
+        <div class="sub">Elon Musk Ecosystem</div>
+      </div>
+    </div>
+
+    <div class="hero-title">
+      <h1>马斯克宇宙<br>情报中枢</h1>
+      <p>REAL-TIME INTELLIGENCE · DATA · ANALYSIS</p>
+    </div>
+
+    <div class="scroll-hint">
+      SCROLL
+      <div class="line"></div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="symbol">TSLA</span><span class="price">$248.50</span><span class="pos">+3.21%</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item"><span class="symbol">DOGE</span><span class="price">$0.0821</span><span class="neg">-1.4%</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item">SpaceX 星舰 第七次试飞 <span class="pos">成功</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item"><span class="symbol">BTC</span><span class="price">$83,200</span><span class="neg">-0.8%</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item">Grok 3.5 正式发布 · xAI估值 <span class="pos">$1150亿</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item"><span class="symbol">TSLA</span>Q1交付量 <span class="pos">386,810辆</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item">Neuralink 第二代芯片 临床试验启动</div>
+      <div class="ticker-sep">·</div>
+      <!-- Duplicate for infinite scroll -->
+      <div class="ticker-item"><span class="symbol">TSLA</span><span class="price">$248.50</span><span class="pos">+3.21%</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item"><span class="symbol">DOGE</span><span class="price">$0.0821</span><span class="neg">-1.4%</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item">SpaceX 星舰 第七次试飞 <span class="pos">成功</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item"><span class="symbol">BTC</span><span class="price">$83,200</span><span class="neg">-0.8%</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item">Grok 3.5 正式发布 · xAI估值 <span class="pos">$1150亿</span></div>
+      <div class="ticker-sep">·</div>
+      <div class="ticker-item"><span class="symbol">TSLA</span>Q1交付量 <span class="pos">386,810辆</span></div>
+      <div class="ticker-sep">·</div>
     </div>
   </div>
-  <div class="tab-bar">
-    <div class="tab-bar-inner">
-      <a href="#tab-home"     class="tab" id="tab-btn-home">首页</a>
-      <a href="#tab-flash"    class="tab" id="tab-btn-flash">快讯</a>
-      <a href="#tab-analysis" class="tab" id="tab-btn-analysis">深度分析</a>
-      <a href="#tab-fsd"      class="tab" id="tab-btn-fsd">FSD · Robotaxi</a>
-      <a href="#tab-video"    class="tab" id="tab-btn-video">视频</a>
-      <a href="#tab-market"   class="tab" id="tab-btn-market">市场数据</a>
-      <a href="#tab-macro"    class="tab" id="tab-btn-macro">宏观</a>
+
+  <!-- COMPANY ECOSYSTEM -->
+  <section class="section">
+    <div class="section-label">01 — ECOSYSTEM</div>
+    <h2 class="section-title">六大帝国全景</h2>
+
+    <div class="company-grid">
+      <!-- Tesla -->
+      <div class="company-card tesla" style="position:relative">
+        <div class="corner-tl"></div>
+        <div class="card-tag">EV · ENERGY · AI</div>
+        <div class="card-name">TESLA</div>
+        <div class="card-desc">全球领先电动车与清洁能源公司。FSD全自动驾驶、Optimus人形机器人、Megapack储能——能源+AI的交汇点。</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val" style="color:var(--tesla)">$248B</div>
+            <div class="metric-label">市值</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--tesla)">1.8M</div>
+            <div class="metric-label">年交付量</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--tesla)">FSD v13</div>
+            <div class="metric-label">自动驾驶版本</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--tesla)">3</div>
+            <div class="metric-label">超级工厂</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SpaceX -->
+      <div class="company-card spacex" style="position:relative">
+        <div class="corner-tl"></div>
+        <div class="card-tag">SPACE · LAUNCH · STARLINK</div>
+        <div class="card-name">SPACEX</div>
+        <div class="card-desc">重塑人类太空格局。Starship超重型火箭、Starlink卫星互联网、猎鹰9号可复用火箭——迈向多星球文明。</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val" style="color:#4fc3f7">$350B</div>
+            <div class="metric-label">估值</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:#4fc3f7">6,500+</div>
+            <div class="metric-label">Starlink卫星</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:#4fc3f7">200+</div>
+            <div class="metric-label">年发射次数</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:#4fc3f7">火星</div>
+            <div class="metric-label">终极目标</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- xAI -->
+      <div class="company-card xai" style="position:relative">
+        <div class="corner-tl"></div>
+        <div class="card-tag">AI · LLM · GROK</div>
+        <div class="card-name">xAI</div>
+        <div class="card-desc">马斯克的AI反击战。Grok大模型深度整合X平台与Tesla数据——构建最真实、无审查的通用人工智能。</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val" style="color:#ce93d8">$115B</div>
+            <div class="metric-label">估值</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:#ce93d8">Grok 3</div>
+            <div class="metric-label">最新模型</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:#ce93d8">100K</div>
+            <div class="metric-label">H100 集群</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:#ce93d8">2023</div>
+            <div class="metric-label">成立年份</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neuralink -->
+      <div class="company-card neuralink" style="position:relative">
+        <div class="corner-tl"></div>
+        <div class="card-tag">BCI · NEURAL · MEDICAL</div>
+        <div class="card-name">NEURALINK</div>
+        <div class="card-desc">脑机接口的边界探索。N1芯片已成功植入人类大脑，患者实现意念控制电脑——人机融合时代正式开启。</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val" style="color:var(--neuralink)">5+</div>
+            <div class="metric-label">人体植入数</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--neuralink)">1024</div>
+            <div class="metric-label">电极通道数</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--neuralink)">无线</div>
+            <div class="metric-label">数据传输</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--neuralink)">$7B</div>
+            <div class="metric-label">估值</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Boring -->
+      <div class="company-card boring" style="position:relative">
+        <div class="corner-tl"></div>
+        <div class="card-tag">TUNNEL · TRANSIT · INFRA</div>
+        <div class="card-name">THE BORING CO.</div>
+        <div class="card-desc">用激进工程颠覆地下交通。拉斯维加斯Loop已运营，Prufrock钻机将隧道成本压降至传统方案1/10。</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val" style="color:var(--boring)">$5.7B</div>
+            <div class="metric-label">估值</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--boring)">Las Vegas</div>
+            <div class="metric-label">首个商业项目</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--boring)">Prufrock-3</div>
+            <div class="metric-label">最新钻机型号</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--boring)">1/10x</div>
+            <div class="metric-label">成本降幅目标</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- X -->
+      <div class="company-card x" style="position:relative">
+        <div class="corner-tl"></div>
+        <div class="card-tag">SOCIAL · PAYMENTS · AI</div>
+        <div class="card-name">X (TWITTER)</div>
+        <div class="card-desc">马斯克的「万能App」愿景。整合社交、支付、新闻、AI于一体——以$44B收购为起点，重建数字公共广场。</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val" style="color:var(--x)">600M</div>
+            <div class="metric-label">月活用户</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--x)">$19B</div>
+            <div class="metric-label">当前估值</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--x)">xMoney</div>
+            <div class="metric-label">支付产品</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val" style="color:var(--x)">$44B</div>
+            <div class="metric-label">收购成本</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</nav>
+  </section>
 
-<div class="page on" id="page-home"><div class="wrap"><div class="two-col"><div><div class="left-panel"><div class="radar-block"><div class="radar-title"><span>生态情绪雷达</span><span class="radar-live"><span class="dot"></span>实时</span></div><div class="radar-list" id="radar-list"><div class="radar-row"><div class="radar-entity"><span class="radar-icon">⚡</span><span>Tesla</span></div><div class="radar-bar-wrap"><div class="radar-bar js-bar-tesla" style="width:0%"></div></div><div class="radar-pct js-pct-tesla">—</div><div class="radar-mood js-mood-tesla">—</div></div><div class="radar-row"><div class="radar-entity"><span class="radar-icon">🚀</span><span>SpaceX</span></div><div class="radar-bar-wrap"><div class="radar-bar spacex js-bar-spacex" style="width:0%"></div></div><div class="radar-pct js-pct-spacex">—</div><div class="radar-mood js-mood-spacex">—</div></div><div class="radar-row"><div class="radar-entity"><span class="radar-icon">🧠</span><span>xAI</span></div><div class="radar-bar-wrap"><div class="radar-bar xai js-bar-xai" style="width:0%"></div></div><div class="radar-pct js-pct-xai">—</div><div class="radar-mood js-mood-xai">—</div></div><div class="radar-row"><div class="radar-entity"><span class="radar-icon">💡</span><span>Neuralink</span></div><div class="radar-bar-wrap"><div class="radar-bar neuralink js-bar-neuralink" style="width:0%"></div></div><div class="radar-pct js-pct-neuralink">—</div><div class="radar-mood js-mood-neuralink">—</div></div></div></div><div class="snapshot-block"><div class="radar-title"><span>今日数据快照</span></div><div class="snapshot-grid"><div class="snapshot-item"><div class="snapshot-val js-snap-total">—</div><div class="snapshot-lbl">今日更新</div></div><div class="snapshot-item"><div class="snapshot-val js-snap-analysis">—</div><div class="snapshot-lbl">深度分析</div></div><div class="snapshot-item"><div class="snapshot-val js-snap-fsd">—</div><div class="snapshot-lbl">FSD相关</div></div><div class="snapshot-item"><div class="snapshot-val js-snap-time">—</div><div class="snapshot-lbl">最后更新</div></div></div></div></div><div class="intel-panel"><div class="intel-snapshot"><div class="intel-snap-title"><span class="intel-dot"></span>今日情报快照</div><div class="intel-snap-grid"><div class="intel-snap-item"><div class="intel-snap-val js-snap-total">—</div><div class="intel-snap-lbl">条更新</div></div><div class="intel-snap-item"><div class="intel-snap-val js-snap-analysis">—</div><div class="intel-snap-lbl">深度分析</div></div><div class="intel-snap-item"><div class="intel-snap-val js-snap-fsd">—</div><div class="intel-snap-lbl">FSD相关</div></div><div class="intel-snap-item"><div class="intel-snap-val js-snap-time">—</div><div class="intel-snap-lbl">最后更新</div></div></div></div><div class="intel-divider"></div><div class="intel-sentiment"><div class="intel-sent-title">生态情绪雷达</div><div class="intel-tsla-row"><span class="intel-tsla-label">TSLA</span><span class="intel-tsla-price" id="rt-price-1">--</span><span class="intel-tsla-change" id="rt-change-1">--</span></div><div class="intel-entity-rows"><div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">⚡</span><span class="intel-entity-name">Tesla</span><span class="intel-entity-mood js-mood-tesla">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill red js-bar-tesla" style="width:0%"></div></div></div><div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">🚀</span><span class="intel-entity-name">SpaceX</span><span class="intel-entity-mood js-mood-spacex">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill blue js-bar-spacex" style="width:0%"></div></div></div><div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">🧠</span><span class="intel-entity-name">xAI · Grok</span><span class="intel-entity-mood js-mood-xai">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill dark js-bar-xai" style="width:0%"></div></div></div><div class="intel-entity-row"><div class="intel-entity-head"><span class="intel-entity-icon">💡</span><span class="intel-entity-name">Neuralink</span><span class="intel-entity-mood js-mood-neuralink">—</span></div><div class="intel-bar-bg"><div class="intel-bar-fill indigo js-bar-neuralink" style="width:0%"></div></div></div></div><div class="intel-sent-note">基于今日内容热度计算 · 仅供参考</div></div></div><div class="intro-banner"><div class="intro-top"><div class="intro-logo-row"><div class="intro-logo-box"><b>T</b></div><span class="intro-name">Tesla情报站</span><span class="intro-badge">中文媒体</span></div><a href="https://t.me/Tesla_share" target="_blank" rel="noopener noreferrer" class="intro-tg-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>订阅 Telegram 频道</a></div><div class="intro-body"><p class="intro-desc">专注追踪马斯克商业生态的中文情报媒体。每日汇总 Tesla、SpaceX、xAI、Neuralink 的最新动态，涵盖实时快讯、深度分析、FSD 进展与市场数据，内容自动同步自 <strong>t.me/Tesla_share</strong> Telegram 频道。</p><div class="intro-tags"><span class="intro-tag">Tesla · $TSLA</span><span class="intro-tag">SpaceX · Starlink</span><span class="intro-tag">xAI · Grok</span><span class="intro-tag">Neuralink</span><span class="intro-tag">FSD · Robotaxi</span><span class="intro-tag">宏观 · 市场</span></div></div><div class="intro-stats"><div class="intro-stat"><div class="intro-stat-val">每日</div><div class="intro-stat-lbl">自动更新</div></div><div class="intro-stat-div"></div><div class="intro-stat"><div class="intro-stat-val">6+</div><div class="intro-stat-lbl">内容板块</div></div><div class="intro-stat-div"></div><div class="intro-stat"><div class="intro-stat-val">免费</div><div class="intro-stat-lbl">永久开放</div></div><div class="intro-stat-div"></div><div class="intro-stat"><div class="intro-stat-val">中文</div><div class="intro-stat-lbl">独家解读</div></div></div></div><div class="date-rule" id="home-date-rule">今日总览</div><div class="home-section"><div class="home-section-head"><div class="home-section-title">实时快讯</div><a href="#tab-flash" class="home-section-more">查看全部快讯 →</a></div><div class="timeline-list" id="home-flash-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><div class="home-section"><div class="home-section-head"><div class="home-section-title">深度分析</div><a href="#tab-analysis" class="home-section-more">查看全部 →</a></div><div class="deep-list" id="home-analysis-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><div class="home-section"><div class="home-section-head"><div class="home-section-title">FSD · Robotaxi</div><a href="#tab-fsd" class="home-section-more">查看全部 →</a></div><div class="timeline-list" id="home-fsd-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><div class="home-section"><div class="home-section-head"><div class="home-section-title">视频精选</div><a href="#tab-video" class="home-section-more">查看全部 →</a></div><div class="video-card-list" id="home-video-list"><div style="padding:32px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><div class="home-section"><div class="home-section-head"><div class="home-section-title">市场数据</div><a href="#tab-market" class="home-section-more">查看完整看板 →</a></div><div class="data-grid-4"><div class="data-card"><div class="data-label">TSLA 股价</div><div class="data-val">$248.42</div><div class="data-change dn">▼ -1.28%</div><div class="data-source">昨日收盘</div></div><div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12%</div><div class="data-source">Q4财报</div></div><div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ +96颗/月</div><div class="data-source">SpaceX官方</div></div><div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">奥斯汀</div></div></div><div class="chart-block"><div class="chart-label">TSLA 股价走势（近12个月）</div><div style="position:relative;width:100%;height:160px"><canvas id="h-tsla"></canvas></div></div><div class="chart-2col"><div class="chart-block" style="margin-bottom:0"><div class="chart-label">Tesla 交付量（万辆/季）</div><div style="position:relative;width:100%;height:150px"><canvas id="h-delivery"></canvas></div></div><div class="chart-block" style="margin-bottom:0"><div class="chart-label">FSD 订阅用户增长（万人）</div><div style="position:relative;width:100%;height:150px"><canvas id="h-fsd"></canvas></div></div></div></div></div><div class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 实时</div><div class="data-val" id="rt-price-2">--</div></div><div class="data-change nt" id="rt-change-2">--</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span>本周</span></div><div class="entity-rows"><div class="entity-row"><div class="entity-left"><span class="entity-icon">⚡</span><div><div class="entity-name">Tesla</div><div class="entity-ticker">$TSLA</div></div></div><span class="entity-count" id="sb-ef-tesla">—</span></div><div class="entity-row"><div class="entity-left"><span class="entity-icon">🚀</span><div><div class="entity-name">SpaceX</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-spacex">—</span></div><div class="entity-row"><div class="entity-left"><span class="entity-icon">🧠</span><div><div class="entity-name">xAI · Grok</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-xai">—</span></div><div class="entity-row"><div class="entity-left"><span class="entity-icon">💡</span><div><div class="entity-name">Neuralink</div><div class="entity-ticker">私有</div></div></div><span class="entity-count" id="sb-ef-neuralink">—</span></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="topics"><span class="topic" onclick="searchTag('FSD')">#FSD</span><span class="topic" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="topic" onclick="searchTag('星舰')">#星舰</span><span class="topic" onclick="searchTag('Grok')">#Grok</span><span class="topic" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="topic" onclick="searchTag('Optimus')">#Optimus</span><span class="topic" onclick="searchTag('Starlink')">#Starlink</span><span class="topic" onclick="searchTag('Neuralink')">#Neuralink</span><span class="topic" onclick="searchTag('Cybertruck')">#Cybertruck</span><span class="topic" onclick="searchTag('NHTSA')">#NHTSA</span></div></div></div></div></div></div>
+  <!-- DASHBOARD -->
+  <section class="dashboard">
+    <div class="section-label">02 — INTELLIGENCE FEED</div>
+    <h2 class="section-title" style="margin-bottom:28px">实时情报 × 数据仪表盘</h2>
 
-<div class="page" id="page-flash"><div class="wrap"><div class="two-col"><div><div class="date-rule" id="flash-date-rule">最新快讯</div><div class="timeline-list" id="flash-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载快讯...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 实时</div><div class="data-val" id="rt-price-3">--</div></div><div class="data-change nt" id="rt-change-3">--</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla2">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex2">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai2">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink2">—</div></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="tag-cloud"><span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span></div></div></aside></div></div></div>
+    <div class="dash-grid">
 
-<div class="page" id="page-analysis"><div class="wrap"><div class="two-col"><div><div class="date-rule">深度报告 · 研究分析</div><a class="featured-card" id="featured-card" style="display:none" href="#"><div class="featured-header"><div class="featured-badge-row"><span class="featured-badge">★ 本周精选</span><span class="featured-tag" id="featured-tag"></span></div></div><div class="featured-title" id="featured-title"></div><div class="featured-desc" id="featured-desc"></div><div class="featured-footer"><div class="featured-meta"><span class="src" id="featured-src"></span><span class="meta-dot"></span><span id="featured-date"></span></div><span class="featured-read">阅读全文 →</span></div></a><div class="date-rule" style="margin-top:28px">全部深度分析</div><div class="deep-list" id="analysis-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载深度分析...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 实时</div><div class="data-val" id="rt-price-4">--</div></div><div class="data-change nt" id="rt-change-4">--</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla3">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex3">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai3">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink3">—</div></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="tag-cloud"><span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span></div></div></aside></div></div></div>
+      <!-- NEWS FEED -->
+      <div class="dash-panel">
+        <div class="panel-header">
+          <div class="panel-title">最新情报流</div>
+          <div class="panel-badge">AUTO-UPDATE</div>
+        </div>
 
-<div class="page" id="page-fsd"><div class="wrap"><div class="two-col"><div><div class="date-rule">FSD · Robotaxi 专题追踪</div><div class="timeline-list" id="fsd-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 收盘</div><div class="data-val">$248.42</div></div><div class="data-change dn">▼ 1.28%</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla4">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex4">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai4">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink4">—</div></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="tag-cloud"><span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span></div></div></aside></div></div></div>
+        <div class="feed-item">
+          <div class="feed-time">09:42<br>今天</div>
+          <div class="feed-content">
+            <div class="feed-source">
+              <div class="source-dot" style="--dot-color:var(--tesla)"></div>
+              <div class="source-name" style="--dot-color:var(--tesla)">Tesla</div>
+            </div>
+            <div class="feed-title">特斯拉Robotaxi无人出租车服务将于6月在奥斯汀正式开放公众预约，首批100辆Model Y投入运营</div>
+          </div>
+        </div>
 
-<div class="page" id="page-video"><div class="wrap"><div class="two-col"><div><div class="date-rule">视频精选 · YouTube直播与回放</div><div class="video-grid" id="video-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载视频...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>市场快览</span></div><div class="data-list"><div class="data-row"><div><div class="data-label">TSLA 实时</div><div class="data-val" id="rt-price-5">--</div></div><div class="data-change nt" id="rt-change-5">--</div></div><div class="data-row"><div><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div></div><div class="data-change up">▲ 12%</div></div><div class="data-row"><div><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div></div><div class="data-change up">▲ 96颗/月</div></div><div class="data-row"><div><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div></div><div class="data-change up">▲ 翻倍</div></div></div></div><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla5">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex5">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai5">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink5">—</div></div></div></div><div class="sb-block"><div class="sb-head"><span>热门话题</span></div><div class="tag-cloud"><span class="tag-pill" onclick="searchTag('FSD')">#FSD</span><span class="tag-pill" onclick="searchTag('Robotaxi')">#Robotaxi</span><span class="tag-pill" onclick="searchTag('星舰')">#星舰</span><span class="tag-pill" onclick="searchTag('Grok')">#Grok</span><span class="tag-pill" onclick="searchTag('TSLA财报')">#TSLA财报</span><span class="tag-pill" onclick="searchTag('Optimus')">#Optimus</span><span class="tag-pill" onclick="searchTag('Starlink')">#Starlink</span><span class="tag-pill" onclick="searchTag('Neuralink')">#Neuralink</span><span class="tag-pill" onclick="searchTag('Cybertruck')">#Cybertruck</span></div></div></aside></div></div></div>
+        <div class="feed-item">
+          <div class="feed-time">07:15<br>今天</div>
+          <div class="feed-content">
+            <div class="feed-source">
+              <div class="source-dot" style="--dot-color:#4fc3f7"></div>
+              <div class="source-name" style="--dot-color:#4fc3f7">SpaceX</div>
+            </div>
+            <div class="feed-title">星舰第八次综合飞行测试定档4月下旬，Super Heavy将尝试机械臂第二次完整回收</div>
+          </div>
+        </div>
 
-<div class="page" id="page-market"><div class="wrap single-col"><div class="date-rule">市场数据 · 数据看板</div><div class="data-grid-4"><div class="data-card"><div class="data-label">TSLA 实时报价</div><div class="data-val" id="rt-price-6">--</div><div class="data-change nt" id="rt-change-6">--</div><div class="data-source">Finnhub API</div></div><div class="data-card"><div class="data-label">FSD 订阅用户</div><div class="data-val">124万</div><div class="data-change up">▲ +12% 季度环比</div><div class="data-source">Tesla Q4财报</div></div><div class="data-card"><div class="data-label">Starlink 卫星</div><div class="data-val">7,284</div><div class="data-change up">▲ 本月新增96颗</div><div class="data-source">SpaceX官方</div></div><div class="data-card"><div class="data-label">Robotaxi</div><div class="data-val">42 mi²</div><div class="data-change up">▲ 扩区翻倍</div><div class="data-source">德州监管局</div></div></div><div class="chart-block"><div class="chart-label">TSLA 股价走势（近12个月）</div><div style="position:relative;width:100%;height:200px"><canvas id="c-tsla"></canvas></div></div><div class="chart-2col"><div class="chart-block" style="margin-bottom:0"><div class="chart-label">Tesla 交付量（万辆/季）</div><div style="position:relative;width:100%;height:190px"><canvas id="c-delivery"></canvas></div></div><div class="chart-block" style="margin-bottom:0"><div class="chart-label">FSD 订阅用户增长（万人）</div><div style="position:relative;width:100%;height:190px"><canvas id="c-fsd"></canvas></div></div></div><div class="chart-2col" style="margin-top:16px"><div class="chart-block" style="margin-bottom:0"><div class="chart-label">Starlink 在轨卫星趋势</div><div style="position:relative;width:100%;height:170px"><canvas id="c-starlink"></canvas></div></div><div class="chart-block" style="margin-bottom:0"><div class="chart-label">Robotaxi 服务范围（mi²）</div><div style="position:relative;width:100%;height:170px"><canvas id="c-robotaxi"></canvas></div></div></div></div></div>
+        <div class="feed-item">
+          <div class="feed-time">昨天</div>
+          <div class="feed-content">
+            <div class="feed-source">
+              <div class="source-dot" style="--dot-color:#ce93d8"></div>
+              <div class="source-name" style="--dot-color:#ce93d8">xAI</div>
+            </div>
+            <div class="feed-title">Grok 3 Ultra 多模态版本内测，新增实时视频理解能力，X Premium+用户率先体验</div>
+          </div>
+        </div>
 
-<div class="page" id="page-macro"><div class="wrap"><div class="two-col"><div><div class="date-rule">宏观环境 · 政策与利率</div><div class="macro-grid" id="macro-list"><div style="padding:60px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">正在加载...</div></div></div><aside class="sidebar"><div class="sb-block"><div class="sb-head"><span>追踪实体</span><span class="sb-week">本周</span></div><div class="entity-list"><div class="entity-item" onclick="doSearch('Tesla')"><div class="entity-icon">⚡</div><div><div class="entity-name">Tesla</div><div class="entity-sub">$TSLA</div></div><div class="entity-count" id="sb-ef-tesla6">—</div></div><div class="entity-item" onclick="doSearch('SpaceX')"><div class="entity-icon">🚀</div><div><div class="entity-name">SpaceX</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-spacex6">—</div></div><div class="entity-item" onclick="doSearch('xAI')"><div class="entity-icon">🧠</div><div><div class="entity-name">xAI · Grok</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-xai6">—</div></div><div class="entity-item" onclick="doSearch('Neuralink')"><div class="entity-icon">💡</div><div><div class="entity-name">Neuralink</div><div class="entity-sub">私有</div></div><div class="entity-count" id="sb-ef-neuralink6">—</div></div></div></div></aside></div></div></div>
+        <div class="feed-item">
+          <div class="feed-time">昨天</div>
+          <div class="feed-content">
+            <div class="feed-source">
+              <div class="source-dot" style="--dot-color:var(--neuralink)"></div>
+              <div class="source-name" style="--dot-color:var(--neuralink)">Neuralink</div>
+            </div>
+            <div class="feed-title">第三位患者成功完成N1芯片植入，患者可通过意念控制轮椅移动与通讯软件</div>
+          </div>
+        </div>
 
-<div class="page" id="page-article-detail">
-  <div class="wrap single-col" style="max-width:760px; margin:0 auto; padding:40px 20px 80px;">
-    <h1 id="ad-title" class="ad-title"></h1>
-    <div class="ad-meta-row">
-      <span id="ad-meta" class="ad-meta"></span>
+        <!-- Mini Chart -->
+        <div class="panel-header" style="margin-top:24px;margin-bottom:8px">
+          <div class="panel-title">TSLA 30日走势</div>
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--tesla)">$248.50  <span style="color:var(--green)">+3.21%</span></div>
+        </div>
+        <div class="mini-chart" style="--accent:var(--tesla)">
+          <div class="bar" style="height:45%"></div>
+          <div class="bar" style="height:38%"></div>
+          <div class="bar" style="height:52%"></div>
+          <div class="bar" style="height:48%"></div>
+          <div class="bar" style="height:61%"></div>
+          <div class="bar" style="height:55%"></div>
+          <div class="bar" style="height:70%"></div>
+          <div class="bar" style="height:65%"></div>
+          <div class="bar" style="height:72%"></div>
+          <div class="bar" style="height:68%"></div>
+          <div class="bar" style="height:80%"></div>
+          <div class="bar" style="height:75%"></div>
+          <div class="bar" style="height:85%"></div>
+          <div class="bar" style="height:78%"></div>
+          <div class="bar highlight" style="height:92%"></div>
+        </div>
+      </div>
+
+      <!-- STATS SIDEBAR -->
+      <div class="dash-panel">
+        <div class="panel-header">
+          <div class="panel-title">关键指标</div>
+        </div>
+
+        <div class="stat-list">
+          <div class="stat-item">
+            <div>
+              <div class="stat-name">TSLA 股价</div>
+              <div class="stat-val">$248.50<span class="stat-change up">+3.21%</span></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div>
+              <div class="stat-name">SpaceX 估值</div>
+              <div class="stat-val">$350B<span class="stat-change up">+最新融资</span></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div>
+              <div class="stat-name">xAI 估值</div>
+              <div class="stat-val">$115B<span class="stat-change up">+$6B融资</span></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div>
+              <div class="stat-name">Starlink 用户</div>
+              <div class="stat-val">4.6M<span class="stat-change up">+22%</span></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div>
+              <div class="stat-name">马斯克净资产</div>
+              <div class="stat-val">$3,100亿</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div>
+              <div class="stat-name">Optimus 产量目标</div>
+              <div class="stat-val">100万/年<span class="stat-change up">2026</span></div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div>
+              <div class="stat-name">FSD 累计里程</div>
+              <div class="stat-val">30亿英里<span class="stat-change up">+激增</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="ad-body" class="ad-body"></div>
-  </div>
-</div>
+  </section>
 
-<div class="entity-section"><div class="entity-section-inner"><div class="section-label">追踪实体</div><div class="entity-full-grid"><div class="entity-full-card"><div class="ef-icon">⚡</div><div class="ef-name">Tesla</div><div class="ef-ticker">$TSLA · 纽交所</div><div class="ef-desc">交付数据、财报解读、FSD进展、Cybertruck动态、全球产能追踪</div><div class="ef-count" id="ef-tesla">—</div></div><div class="entity-full-card"><div class="ef-icon">🚀</div><div class="ef-name">SpaceX</div><div class="ef-ticker">私有 · 未上市</div><div class="ef-desc">星舰发射进展、Starlink卫星扩张、猎鹰9号、NASA合同动向</div><div class="ef-count" id="ef-spacex">—</div></div><div class="entity-full-card"><div class="ef-icon">🧠</div><div class="ef-name">xAI · Grok</div><div class="ef-ticker">私有 · AI赛道</div><div class="ef-desc">Grok大模型迭代、Memphis超算集群建设、xAI融资与估值</div><div class="ef-count" id="ef-xai">—</div></div><div class="entity-full-card"><div class="ef-icon">💡</div><div class="ef-name">Neuralink</div><div class="ef-ticker">私有 · 生物科技</div><div class="ef-desc">脑机接口临床进展、FDA审批、竞争对手动向追踪</div><div class="ef-count" id="ef-neuralink">—</div></div></div></div></div>
-<div class="sub-banner"><div class="sub-banner-inner"><div><div class="sub-label">免费订阅 · 每日更新</div><div class="sub-title">不错过马斯克宇宙的每个关键时刻</div><div class="sub-desc">加入数千名华人投资者，第一时间获取深度中文情报</div></div><a href="https://t.me/Tesla_share" target="_blank" rel="noopener noreferrer" class="sub-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>加入 Telegram 频道</a></div></div>
-<footer><div class="footer-inner"><div class="footer-top"><div><div class="footer-logo"><div class="footer-logo-box"><b>T</b></div><span class="footer-logo-name">Tesla情报站</span></div><div class="footer-tagline">马斯克生态中文媒体，每日追踪Tesla、SpaceX、xAI、Neuralink最新动向。</div></div><div class="footer-links"><div class="footer-col"><h4>板块</h4><a href="#tab-home">首页</a><a href="#tab-flash">快讯</a><a href="#tab-analysis">深度分析</a><a href="#tab-fsd">FSD · Robotaxi</a><a href="#tab-video">视频</a><a href="#tab-market">市场数据</a><a href="#tab-macro">宏观</a></div><div class="footer-col"><h4>订阅</h4><a href="https://t.me/Tesla_share" target="_blank" rel="noopener noreferrer">Telegram 频道</a></div></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 Tesla情报站 · 内容仅供参考，不构成投资建议</div><a href="https://t.me/Tesla_share" target="_blank" rel="noopener noreferrer" class="footer-tg">t.me/Tesla_share</a></div></div></footer>
+  <!-- SITE ARCHITECTURE CONCEPT -->
+  <section class="arch-section">
+    <div class="section-label">03 — SITE ARCHITECTURE</div>
+    <h2 class="section-title">网站架构蓝图</h2>
 
-<div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()"><div class="search-box"><div class="search-input-row"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;color:var(--text3)"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><input id="search-input" type="text" placeholder="搜索文章、快讯、视频..." autocomplete="off" oninput="doSearch(this.value)"><button class="search-close-btn" onclick="closeSearch()"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div><div class="search-meta" id="search-meta">输入关键词搜索全站内容</div><div class="search-results" id="search-results"></div></div></div>
-<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-box"><button class="modal-close" onclick="closeModal()">×</button><div class="modal-head"><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div><div class="modal-meta" id="modal-meta"></div></div><div class="modal-body"><div id="modal-detail"></div></div></div></div>
+    <div class="highlight-box">
+      区别于传统新闻站的核心理念：每个页面都是一个「任务控制室」——数据驱动、空间感强、信息密度高但不混乱，让用户感觉在操控信息，而非被信息淹没。
+    </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-num">01</div>
+        <div class="arch-name">首页 · 全景仪表盘</div>
+        <div class="arch-desc">轨道动画展示六大公司关系、股价实时Ticker、今日最重要情报3条、全局情绪指数。</div>
+        <div class="arch-tag">HERO + DASHBOARD</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-num">02</div>
+        <div class="arch-name">公司详情页</div>
+        <div class="arch-desc">每家公司独立页面，左侧数据面板（股价/估值/里程碑时间线），右侧专属情报流，顶部大图英雄区。</div>
+        <div class="arch-tag">6 COMPANY PAGES</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-num">03</div>
+        <div class="arch-name">数据可视化中心</div>
+        <div class="arch-desc">TSLA股价历史、交付量趋势、Starlink卫星部署、xAI估值增长——纯数据图表页，Chart.js驱动。</div>
+        <div class="arch-tag">CHARTS + DATA</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-num">04</div>
+        <div class="arch-name">情报流 · 聚合频道</div>
+        <div class="arch-desc">按公司/主题筛选的新闻墙，支持关键词搜索，时间线布局，无限下拉加载，情绪标签分类。</div>
+        <div class="arch-tag">NEWS FEED</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-logo">MUSK NEXUS</div>
+  <div class="footer-copy">CONCEPT PROTOTYPE · BUILT WITH CLAUDE · 2026</div>
+</footer>
+
 <script>
-var feedItems = [];
-var searchIndex = [];
-var chartsDrawn = false;
-var dynArticles = {};
-
-function escapeHtml(str) {
-  if (str == null) return '';
-  return String(str).replace(/[&<>'"]/g, function(tag) {
-    var chars = {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'};
-    return chars[tag] || tag;
-  });
-}
-
-function handleHash() {
-  closeModal(); closeSearch();
-  var hash = location.hash || '#tab-home';
-  if (hash.startsWith('#article-')) {
-    showArticleView(hash.replace('#article-', ''));
-  } else if (hash.startsWith('#tab-')) {
-    showTabView(hash.replace('#tab-', ''));
-  } else {
-    showTabView('home');
+  // Live clock
+  function updateClock() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const s = String(now.getSeconds()).padStart(2,'0');
+    document.getElementById('clock').textContent = `${h}:${m}:${s}`;
   }
-}
-window.addEventListener('hashchange', handleHash);
+  setInterval(updateClock, 1000);
+  updateClock();
 
-function showTabView(name) {
-  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
-  var btn = document.getElementById('tab-btn-' + name); if (btn) btn.classList.add('on');
-  var pg = document.getElementById('page-' + name); if (pg) pg.classList.add('on');
-  window.scrollTo({top:0, behavior:'smooth'});
-  if ((name==='market'||name==='home') && !chartsDrawn && typeof Chart!=='undefined') { chartsDrawn = true; drawCharts(); }
-}
-
-function stripHtml(html) {
-  var tmp = document.createElement("div");
-  tmp.innerHTML = html || "";
-  return tmp.textContent || tmp.innerText || "";
-}
-
-function showArticleView(id) {
-  try {
-      var a = dynArticles[id];
-      if (!a) return; 
-      
-      var safeTitle = a.title ? a.title.replace(/[*#]/g, '').trim() : "无标题";
-      document.getElementById('ad-title').textContent = safeTitle;
-      var srcLinkHtml = a.source_url ? '&nbsp;&nbsp;<a href="'+escapeHtml(a.source_url)+'" target="_blank" rel="noopener noreferrer" style="color:#2563eb;text-decoration:none;"><i class="fa-solid fa-link"></i> 阅读原文链接</a>' : '';
-      document.getElementById('ad-meta').innerHTML = escapeHtml(a.date||'') + ' &nbsp;|&nbsp; 来源: ' + escapeHtml(a.src||'网络获取') + srcLinkHtml;
-      
-      var contentHtml = a.body || a.raw_body || "";
-      var plainText = stripHtml(contentHtml);
-      var bodyLen = plainText.replace(/[*#\s]/g, '').length;
-      
-      if (bodyLen < 50) {
-          document.getElementById('ad-body').innerHTML = '<div class="ad-empty-notice"><p>该文章为外部新闻或短摘要，系统无法抓取完整的长篇正文。请点击下方按钮前往原网站阅读全貌。</p><a href="'+escapeHtml(a.source_url||'#')+'" target="_blank" rel="noopener noreferrer" class="ad-empty-btn">🔗 直达原网站阅读全篇</a></div>';
-      } else {
-          document.getElementById('ad-body').innerHTML = contentHtml;
-      }
-      
-      document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
-      document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
-      document.getElementById('page-article-detail').classList.add('on');
-      window.scrollTo({top:0});
-  } catch (e) {
-      console.error("加载文章视图失败:", e);
-  }
-}
-
-function openModal(id) {
-  var a = dynArticles[id];
-  if (!a) return;
-  var tagClass = a.tag || 'news';
-  var safeTitle = a.title ? a.title.replace(/[*#]/g, '').trim() : "无标题";
-  
-  document.getElementById('modal-tag').innerHTML = '<span class="h-tag '+escapeHtml(tagClass)+'">'+escapeHtml(a.label)+'</span>';
-  document.getElementById('modal-title').textContent = safeTitle;
-  
-  var srcLinkHtml = a.source_url ? '<a href="'+escapeHtml(a.source_url)+'" target="_blank" rel="noopener noreferrer" style="margin-left:8px;color:#2563eb;text-decoration:none;"><i class="fa-solid fa-link"></i>原文</a>' : '';
-  document.getElementById('modal-meta').innerHTML = '<span class="src">'+escapeHtml(a.src)+'</span>'+(a.date?'<span class="meta-dot"></span><span>'+escapeHtml(a.date)+'</span>':'') + srcLinkHtml;
-  
-  var contentHtml = a.body || a.raw_body || "";
-  var plainText = stripHtml(contentHtml);
-  
-  document.getElementById('modal-detail').innerHTML = (plainText.replace(/[*#\s]/g, '').length < 10) ? '<div style="color:var(--text3);text-align:center;padding:40px;">暂无正文内容，请点击原文链接查看</div>' : contentHtml;
-  document.getElementById('modal-overlay').classList.add('on');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() { document.getElementById('modal-overlay').classList.remove('on'); document.body.style.overflow = ''; }
-
-function openSearch() { document.getElementById('search-overlay').classList.add('on'); document.body.style.overflow = 'hidden'; setTimeout(function(){ document.getElementById('search-input').focus(); }, 80); }
-function closeSearch() { document.getElementById('search-overlay').classList.remove('on'); document.getElementById('search-input').value = ''; document.getElementById('search-results').innerHTML = ''; document.getElementById('search-meta').textContent = '输入关键词搜索全站内容'; document.body.style.overflow = ''; }
-function highlight(text, kw) { if (!kw) return text; return text.replace(new RegExp('('+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>'); }
-function searchTag(kw) { openSearch(); setTimeout(function(){ document.getElementById('search-input').value = kw; doSearch(kw); }, 100); }
-function doSearch(q) {
-  q = q.trim();
-  var meta = document.getElementById('search-meta'), results = document.getElementById('search-results');
-  if (!q) { meta.textContent='输入关键词搜索全站内容'; results.innerHTML=''; return; }
-  var kw = q.toLowerCase();
-  var hits = searchIndex.filter(function(item){ return (item.title||'').toLowerCase().includes(kw) || (item.entity||'').toLowerCase().includes(kw) || (item.cat||'').toLowerCase().includes(kw); });
-  meta.textContent = hits.length>0 ? '找到 '+hits.length+' 条结果' : '未找到相关内容';
-  if (hits.length===0) { results.innerHTML='<div class="search-empty">未找到"'+escapeHtml(q)+'"相关内容</div>'; return; }
-  results.innerHTML = hits.map(function(item){
-    var url = item.cat === '视频' ? item.url : (item.cat === '快讯' || item.cat === '市场数据' ? 'javascript:void(0)' : '#article-'+item.id);
-    var oc = (item.cat === '快讯' || item.cat === '市场数据') ? 'onclick="closeSearch(); openModal(\''+escapeHtml(item.id)+'\')"' : 'onclick="closeSearch()"';
-    var tg = item.cat === '视频' ? 'target="_blank" rel="noopener noreferrer"' : '';
-    return '<a href="'+escapeHtml(url)+'" '+tg+' '+oc+' class="search-result-item"><div class="sr-tag">'+escapeHtml(item.cat)+' · '+escapeHtml(item.entity)+'</div><div class="sr-title">'+highlight(escapeHtml(item.title), escapeHtml(q))+'</div></a>';
-  }).join('');
-}
-document.addEventListener('keydown', function(e){
-  if ((e.key==='k'||e.key==='K')&&(e.metaKey||e.ctrlKey)){e.preventDefault();openSearch();}
-  if (e.key==='Escape'){ if(document.getElementById('modal-overlay').classList.contains('on')) closeModal(); else if(document.getElementById('search-overlay').classList.contains('on')) closeSearch(); }
-});
-
-function safeBody(text) {
-    if (!text) return '';
-    if (text.indexOf('<br>') !== -1 || text.indexOf('<p>') !== -1) return text;
-    var replaced = String(text).replace(/\\n/g, '\n');
-    var paras = replaced.split('\n').filter(function(p){ return p.trim() !== ''; });
-    if (paras.length === 0) return '';
-    return '<p>' + paras.map(escapeHtml).join('</p><p>') + '</p>';
-}
-
-function makeShareFooter(item, id) {
-    if (!item.source_url) return '';
-    var safeTitle = item.title ? item.title.replace(/[*#]/g, '') : '';
-    var shareTitle = encodeURIComponent('【' + (item.category||'情报') + '】' + safeTitle + '\n');
-    var shareUrl = encodeURIComponent(window.location.href.split('#')[0] + '#article-' + id);
-    var tgUrl = 'https://t.me/share/url?url=' + shareUrl + '&text=' + shareTitle;
-    var twUrl = 'https://twitter.com/intent/tweet?text=' + shareTitle + '&url=' + shareUrl + '&hashtags=Tesla情报站';
-
-    return '<div class="share-footer">' +
-           '<a href="'+escapeHtml(item.source_url)+'" target="_blank" rel="noopener noreferrer" class="share-src"><i class="fa-solid fa-link"></i> 来源链接</a>' +
-           '<div class="share-actions">' +
-           '<span>分享到</span>' +
-           '<a href="'+tgUrl+'" target="_blank" rel="noopener noreferrer" class="share-btn tg" title="分享到 Telegram"><i class="fa-brands fa-telegram"></i></a>' +
-           '<a href="'+twUrl+'" target="_blank" rel="noopener noreferrer" class="share-btn tw" title="分享到 X"><i class="fa-brands fa-x-twitter"></i></a>' +
-           '</div></div>';
-}
-
-function makeFlashItem(item) {
-  var id = 'dyn_'+item.id;
-  var safeTitle = item.title ? item.title.replace(/[*#]/g, '') : '';
-  dynArticles[id] = { raw_body: item.body || '', tag: tagClass(item.category), label: item.category, title: safeTitle, src: item.entity||'', date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
-  return '<div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-head"><span class="timeline-time">' + escapeHtml(item.time||'--') + '</span><span class="timeline-title" onclick="openModal(\''+escapeHtml(id)+'\')">' + escapeHtml(safeTitle) + '</span></div><div class="timeline-body">' + safeBody(item.body) + '</div>' + makeShareFooter(item, id) + '</div>';
-}
-
-function makeDeepItem(item) {
-  var id = 'dyn_'+item.id;
-  var tc = tagClass(item.category);
-  var srcName = item.source || item.entity || '';
-  var safeTitle = item.title ? item.title.replace(/[*#]/g, '') : '';
-  
-  var realImageHtml = '';
-  if (item.cover_img) {
-      realImageHtml = '<img src="' + escapeHtml(item.cover_img) + '" alt="cover" style="width:100%;height:100%;object-fit:cover;display:block;">';
-      dynArticles[id] = { raw_body: item.body || '', tag: tc, label: item.category, title: safeTitle, src: srcName, date: (item.date||'')+(item.time?' '+item.time:''), body: '<img src="' + escapeHtml(item.cover_img) + '" style="width:100%;border-radius:4px;margin-bottom:20px;">' + safeBody(item.body), source_url: item.source_url };
-  } else {
-      dynArticles[id] = { raw_body: item.body || '', tag: tc, label: item.category, title: safeTitle, src: srcName, date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
-  }
-
-  var tagsHtml = '<span style="color:#3b82f6;margin-right:8px;">#' + escapeHtml(item.category) + '</span>';
-  if (item.entity && item.entity !== item.category) { tagsHtml += '<span style="color:#3b82f6">#' + escapeHtml(item.entity) + '</span>'; }
-
-  var coverHtml = realImageHtml || '<div class="cover-bg" style="background:linear-gradient(135deg, #1e293b, #0f172a)"><span class="cover-brand">' + escapeHtml((srcName.length > 6 ? srcName.substring(0,6) : srcName).toUpperCase()) + '</span></div>';
-
-  return '<div class="deep-card">' +
-           '<a href="#article-' + escapeHtml(id) + '" style="display:flex; text-decoration:none; color:inherit; gap:24px;">' +
-             '<div class="deep-info"><h3 class="deep-title">' + escapeHtml(safeTitle) + '</h3><div class="deep-bottom"><div class="deep-tags">' + tagsHtml + '</div><div class="deep-meta"><span>' + escapeHtml(item.date||'') + ' ' + escapeHtml(item.time||'') + '</span><span class="meta-dot"></span><span>' + escapeHtml(srcName) + '</span></div></div></div>' +
-             '<div class="deep-cover">' + coverHtml + '</div>' +
-           '</a>' + makeShareFooter(item, id) +
-         '</div>';
-}
-
-function makeMacroItem(item) {
-  var id = 'dyn_'+item.id;
-  var safeTitle = item.title ? item.title.replace(/[*#]/g, '') : '';
-  dynArticles[id] = { raw_body: item.body || '', tag: tagClass(item.category), label: item.category, title: safeTitle, src: item.entity||'', date: (item.date||'')+(item.time?' '+item.time:''), body: safeBody(item.body), source_url: item.source_url };
-  return '<div class="macro-card"><a href="#article-' + escapeHtml(id) + '" style="text-decoration:none; color:inherit; display:block;"><div class="macro-head"><span class="macro-tag">#' + escapeHtml(item.entity||'宏观经济') + '</span><span class="macro-time">' + escapeHtml(item.date||'') + ' ' + escapeHtml(item.time||'') + '</span></div><h3 class="macro-title">' + escapeHtml(safeTitle) + '</h3><div class="macro-body">' + safeBody(item.body) + '</div></a>' + makeShareFooter(item, id) + '</div>';
-}
-
-function makeVideoItem(item) {
-  var id = 'dyn_'+item.id;
-  var ytId = item.yt_id || '';
-  if (!ytId && item.source_url) { var m = item.source_url.match(/(?:v=|youtu\.be\/)+([\w-]{11})/); if (m) ytId = m[1]; }
-  var ytUrl = ytId ? 'https://www.youtube.com/watch?v=' + ytId : (item.source_url || '#');
-  var thumb = ytId ? '<img src="https://img.youtube.com/vi/'+escapeHtml(ytId)+'/maxresdefault.jpg" alt="" loading="lazy" onerror="this.src=\'https://img.youtube.com/vi/'+escapeHtml(ytId)+'/mqdefault.jpg\'">' : '<div class="video-thumb-placeholder">▶</div>';
-  var safeTitle = item.title ? item.title.replace(/[*#]/g, '') : '';
-  return '<div class="video-card-item" style="display:flex; flex-direction:column;"><a href="'+escapeHtml(ytUrl)+'" target="_blank" rel="noopener noreferrer" style="display:grid; grid-template-columns:200px 1fr; text-decoration:none; color:inherit;"><div class="video-thumb">'+thumb+'</div><div class="video-card-body"><div><div class="video-channel-row"><span class="h-tag video" style="margin-bottom:0">视频</span><span class="video-channel">'+escapeHtml(item.source||item.entity||'')+'</span></div><div class="video-card-title">'+escapeHtml(safeTitle)+'</div></div><div class="video-card-meta"><span>'+escapeHtml((item.date||'')+(item.time?' '+item.time:''))+'</span><span class="meta-dot"></span><span style="color:var(--red)">▶ YouTube</span></div></div></a><div style="padding: 0 20px 10px;">' + makeShareFooter(item, id) + '</div></div>';
-}
-
-function tagClass(cat) { var map = {'快讯':'news','深度分析':'analysis','FSD':'fsd','视频':'video','市场数据':'market','宏观':'macro'}; return map[cat] || 'news'; }
-function empty(msg) { return '<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)">'+escapeHtml(msg)+'</div>'; }
-function setEl(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
-
-function renderAll(items) {
-  var flash    = items.filter(function(i){ var c=i.category||''; return c.includes('快讯') || c.includes('市场数据'); });
-  var analysis = items.filter(function(i){ return (i.category||'').includes('深度'); });
-  var fsd      = items.filter(function(i){ var c=i.category||''; return c.includes('FSD') || c.includes('Robotaxi'); });
-  var video    = items.filter(function(i){ return (i.category||'').includes('视频'); });
-  var market   = items.filter(function(i){ return (i.category||'').includes('市场数据'); });
-  var macro    = items.filter(function(i){ return (i.category||'').includes('宏观'); });
-
-  setEl('flash-list',    flash.length    ? flash.slice(0,30).map(makeFlashItem).join('')    : empty('暂无快讯'));
-  setEl('analysis-list', analysis.length ? analysis.slice(0,20).map(makeDeepItem).join('')  : empty('暂无深度分析'));
-  setEl('fsd-list',      fsd.length      ? fsd.slice(0,30).map(makeFlashItem).join('')      : empty('暂无FSD内容')); 
-  setEl('video-list',    video.length    ? video.slice(0,20).map(makeVideoItem).join('')    : empty('暂无视频'));
-  setEl('macro-list',    macro.length    ? macro.slice(0,20).map(makeMacroItem).join('')    : empty('暂无宏观内容'));
-
-  setEl('home-flash-list',    flash.slice(0,4).map(makeFlashItem).join('')    || empty('正在加载...'));
-  setEl('home-analysis-list', analysis.slice(0,3).map(makeDeepItem).join('')  || empty('正在加载...'));
-  setEl('home-fsd-list',      fsd.slice(0,4).map(makeFlashItem).join('')      || empty('正在加载...')); 
-  setEl('home-video-list',    video.slice(0,4).map(makeVideoItem).join('')    || empty('正在加载...'));
-
-  var fc = document.getElementById('featured-card');
-  if (fc && analysis.length > 0) {
-    var top = analysis[0];
-    var topId = 'dyn_' + top.id;
-    document.getElementById('featured-title').textContent = top.title ? top.title.replace(/[*#]/g, '') : '';
-    document.getElementById('featured-desc').textContent = stripHtml(top.body).replace(/\s+/g, ' ').substring(0, 180) + '...';
-    document.getElementById('featured-src').textContent = top.entity || '';
-    document.getElementById('featured-date').textContent = (top.date || '') + (top.time ? ' ' + top.time : '');
-    document.getElementById('featured-tag').textContent = top.category || '深度分析';
-    fc.href = '#article-' + topId;
-    fc.style.display = 'block';
-  }
-
-  if (items[0] && items[0].date) {
-    var d = new Date();
-    var dateStr = d.getFullYear() + '-' + items[0].date.replace('/','-'); 
-    var headerHtml = '<div class="timeline-date-header">' + escapeHtml(dateStr) + ' <span class="timeline-badge">✔ 重要快讯</span></div>';
-    var dr = document.getElementById('home-date-rule'); if (dr) { dr.innerHTML = headerHtml; dr.className = ''; }
-    var fr = document.getElementById('flash-date-rule'); if (fr) { fr.innerHTML = headerHtml; fr.className = ''; }
-  }
-
-  searchIndex = items.map(function(item){
-    var yUrl = item.yt_id ? 'https://www.youtube.com/watch?v=' + item.yt_id : (item.source_url || '#');
-    var safeTitle = item.title ? item.title.replace(/[*#]/g, '') : '';
-    return {id:'dyn_'+item.id, cat:item.category, entity:item.entity||'', title:safeTitle, url:yUrl};
-  });
-
-  var counts = {tesla:0,spacex:0,xai:0,neuralink:0};
-  items.forEach(function(i){
-    var e = (i.entity||'').toLowerCase();
-    if(e.includes('tesla')||e.includes('tsla')) counts.tesla++;
-    else if(e.includes('spacex')||e.includes('starlink')) counts.spacex++;
-    else if(e.includes('xai')||e.includes('grok')) counts.xai++;
-    else if(e.includes('neuralink')) counts.neuralink++;
-  });
-  
-  ['ef-tesla','ef-spacex','ef-xai','ef-neuralink', 'sb-ef-tesla','sb-ef-spacex','sb-ef-xai','sb-ef-neuralink', 'sb-ef-tesla2','sb-ef-spacex2','sb-ef-xai2','sb-ef-neuralink2', 'sb-ef-tesla3','sb-ef-spacex3','sb-ef-xai3','sb-ef-neuralink3', 'sb-ef-tesla4','sb-ef-spacex4','sb-ef-xai4','sb-ef-neuralink4', 'sb-ef-tesla5','sb-ef-spacex5','sb-ef-xai5','sb-ef-neuralink5', 'sb-ef-tesla6','sb-ef-spacex6','sb-ef-xai6','sb-ef-neuralink6'].forEach(function(id){
-     var cName = id.replace(/ef-|sb-|[0-9]/g, ''); setEl(id, counts[cName] + '篇');
-  });
-
-  var total = counts.tesla + counts.spacex + counts.xai + counts.neuralink || 1;
-  function moodLabel(n, t) { var r = n/t; if (r > 0.4) return ['看多','bull']; if (r > 0.2) return ['中性','neutral']; return ['观望','neutral']; }
-  
-  ['tesla','spacex','xai','neuralink'].forEach(function(key){
-    var count = counts[key]; var pct = Math.round(count / total * 100);
-    document.querySelectorAll('.js-bar-' + key).forEach(function(bar){ setTimeout(function(){ bar.style.width = pct + '%'; }, 100); });
-    document.querySelectorAll('.js-pct-' + key).forEach(function(el){ el.textContent = pct + '%'; });
-    var m = moodLabel(count, total); 
-    document.querySelectorAll('.js-mood-' + key).forEach(function(el){ 
-        el.textContent = m[0]; 
-        el.className = (el.classList.contains('intel-entity-mood') ? 'intel-entity-mood' : 'radar-mood ' + m[1]) + ' js-mood-' + key; 
+  // Nav tab interaction
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
     });
   });
 
-  var today = new Date().toLocaleDateString('zh-CN',{month:'2-digit',day:'2-digit'}).replace('/','-');
-  var todayItems = items.filter(function(i){ return (i.date||'').indexOf(today.slice(-5)) !== -1; });
-  
-  document.querySelectorAll('.js-snap-total').forEach(function(el){ el.textContent = todayItems.length || items.length; });
-  document.querySelectorAll('.js-snap-analysis').forEach(function(el){ el.textContent = todayItems.filter(function(i){ return (i.category||'').includes('深度'); }).length + '篇'; });
-  document.querySelectorAll('.js-snap-fsd').forEach(function(el){ el.textContent = todayItems.filter(function(i){ return (i.category||'').includes('FSD') || (i.category||'').includes('Robotaxi'); }).length + '条'; });
-  document.querySelectorAll('.js-snap-time').forEach(function(el){ el.textContent = items.length > 0 ? (items[0].time || '--') : '--'; });
-
-  if (!window._initialHashHandled) { window._initialHashHandled = true; handleHash(); }
-}
-
-function loadFeed() {
-  fetch('/data/feed.json?t='+Date.now()).then(function(r){ return r.json(); }).then(function(data){ 
-    feedItems = data.items || []; 
-    renderAll(feedItems); 
-    
-    if (data.market && data.market.price) {
-        var p = '$' + data.market.price;
-        var c = (data.market.change_val > 0 ? '▲ +' : '▼ ') + data.market.change_val + ' (' + (data.market.change_pct > 0 ? '+' : '') + data.market.change_pct + '%)';
-        var cls = data.market.change_val >= 0 ? 'up' : 'dn';
-        
-        [1,2,3,4,5,6].forEach(function(i) {
-            var pEl = document.getElementById('rt-price-' + i);
-            if (pEl) pEl.innerText = p;
-            var cEl = document.getElementById('rt-change-' + i);
-            if (cEl) {
-                cEl.innerText = c;
-                if (cEl.classList.contains('intel-tsla-change') || cEl.classList.contains('data-change')) {
-                    cEl.className = cEl.className.replace(/dn|up|nt/g, '') + ' ' + cls;
-                }
-            }
-        });
-    }
-  }).catch(function(e){ console.warn('[Tesla情报站] feed.json 加载失败', e); });
-}
-
-loadFeed(); setInterval(loadFeed, 60000);
-
-function drawCharts() {
-  var tc = 'rgba(90,87,84,0.65)', gc = 'rgba(0,0,0,0.05)';
-  var base = { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}}, scales:{ x:{ticks:{color:tc,font:{size:10},maxRotation:0},grid:{color:gc},border:{display:false}}, y:{ticks:{color:tc,font:{size:10}},grid:{color:gc},border:{display:false}} } };
-  var tslaData = { labels:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'], datasets:[{data:[402,388,356,371,342,318,295,280,271,262,255,248], borderColor:'#CC2929',backgroundColor:'rgba(204,41,41,0.07)', fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#CC2929',borderWidth:1.5}] };
-  var deliveryData = { labels:['Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[38.7,44.4,46.2,49.5,33.6], backgroundColor:['#378ADD','#378ADD','#378ADD','#378ADD','#CC2929'], borderRadius:3,borderWidth:0}] };
-  var fsdData = { labels:['Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'], datasets:[{data:[32,41,52,64,78,95,110,124], borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.08)', fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#1D9E75',borderWidth:1.5}] };
-  var starlinkData = { labels:['3月','4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月','3月'], datasets:[{data:[5792,5912,6088,6231,6402,6580,6741,6892,7012,7108,7192,7248,7284], borderColor:'#534AB7',backgroundColor:'rgba(83,74,183,0.07)', fill:true,tension:0.4,pointRadius:2,borderWidth:1.5}] };
-  var robotaxiData = { labels:['1月上线','2月','3月'], datasets:[{data:[21,21,42], backgroundColor:['#639922','#639922','#1D9E75'], borderRadius:3,borderWidth:0}] };
-
-  var yPrice = Object.assign({},base,{scales:Object.assign({},base.scales,{y:Object.assign({},base.scales.y,{ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return '$'+v;}})})})});
-  var yWan   = Object.assign({},base,{scales:Object.assign({},base.scales,{y:Object.assign({},base.scales.y,{ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return v+'万';}})})})});
-  var yMi    = Object.assign({},base,{scales:Object.assign({},base.scales,{y:Object.assign({},base.scales.y,{ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return v+' mi²';}})})})});
-  var yNum   = Object.assign({},base,{scales:Object.assign({},base.scales,{y:Object.assign({},base.scales.y,{min:5600,ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return v.toLocaleString();}})})})});
-  var xNoSkip= function(opts){ var o=JSON.parse(JSON.stringify(opts)); o.scales.x.ticks.autoSkip=false; return o; };
-
-  ['c-tsla','c-delivery','c-fsd','c-starlink','c-robotaxi','h-tsla','h-delivery','h-fsd'].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el && !el._chart){
-      var cfg;
-      if(id.includes('tsla'))     cfg={type:'line',data:tslaData,options:yPrice};
-      if(id.includes('delivery')) cfg={type:'bar', data:deliveryData,options:xNoSkip(yWan)};
-      if(id.includes('fsd'))      cfg={type:'line',data:fsdData,options:xNoSkip(yWan)};
-      if(id==='c-starlink')       cfg={type:'line',data:starlinkData,options:yNum};
-      if(id==='c-robotaxi')       cfg={type:'bar', data:robotaxiData,options:xNoSkip(yMi)};
-      el._chart = new Chart(el, cfg);
-    }
+  // Card hover glow
+  document.querySelectorAll('.company-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(0,200,255,0.04), #070d14 60%)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.background = '';
+    });
   });
-}
-
-if (typeof Chart !== 'undefined') { chartsDrawn = true; drawCharts(); }
-else { var sc = document.querySelector('script[src*="chart.umd"]'); if (sc) sc.addEventListener('load', function(){ chartsDrawn = true; drawCharts(); }); }
 </script>
 </body>
 </html>
