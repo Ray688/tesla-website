@@ -717,7 +717,7 @@ async function loadFeed(){
 function newsHtml(n){
   const ec=n.entity?'ent-'+n.entity:'';
   const hasYT=n.yt_id&&n.yt_id.trim(),hasUrl=n.source_url&&!hasYT;
-  return `<div class="news-item" onclick="openPanel(${JSON.stringify(n).replace(/'/g, '&apos;')})" style="cursor:pointer">
+  return `<div class="news-item" data-nid="${n.id}" onclick="handleNewsClick(this)" style="cursor:pointer">
     <div class="news-time"><div class="nt-date">${esc(n.date||'')}</div><div class="nt-time">${esc(n.time||'')}</div></div>
     <div class="news-body">
       <div class="news-tags">
@@ -773,6 +773,15 @@ setInterval(loadTeslaData,60*60*1000);
 </div>
 
 <script>
+// 全局新闻map
+const newsMap = {};
+
+function handleNewsClick(el) {
+  const nid = el.dataset.nid;
+  const item = newsMap[nid] || allNews.find(x=>x.id===nid);
+  if (item) openPanel(item);
+}
+
 function openPanel(item) {
   const ec = item.entity ? 'ent-'+item.entity : '';
 
