@@ -3,1091 +3,665 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXUS · 马斯克宇宙情报站</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;900&family=JetBrains+Mono:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<title>TSLA 情报终端 · NEXUS</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root {
-  --bg:      #02040a;
-  --bg2:     #060c18;
-  --bg3:     #0a1428;
-  --panel:   rgba(10,20,40,0.9);
-  --border:  rgba(0,180,255,0.12);
-  --borderB: rgba(0,180,255,0.4);
-  --cyan:    #00b4ff;
-  --cyanD:   rgba(0,180,255,0.5);
-  --orange:  #ff6a00;
-  --green:   #00e676;
-  --red:     #ff1744;
-  --white:   #ddeeff;
-  --muted:   rgba(180,210,240,0.4);
-  --mono:    'JetBrains Mono', monospace;
-  --display: 'Orbitron', monospace;
-  --body:    'Noto Sans SC', sans-serif;
-}
-
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--white);
-  font-family: var(--body);
-  font-weight: 300;
-  overflow-x: hidden;
-  cursor: default;
-  min-height: 100vh;
-}
-
-/* ── SCANLINES ── */
-body::before {
-  content:'';
-  position:fixed; inset:0;
-  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
-  pointer-events:none; z-index:9000;
-}
-
-/* ── GRID BG ── */
-.grid-bg {
-  position:fixed; inset:0;
-  background-image:
-    linear-gradient(rgba(0,180,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,180,255,0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
-  pointer-events:none; z-index:0;
-}
-
-/* ══════════════════════════════════════
-   TOPBAR
-══════════════════════════════════════ */
-.topbar {
-  position: fixed; top:0; left:0; right:0; height:52px;
-  background: rgba(2,4,10,0.96);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items:center; justify-content:space-between;
-  padding: 0 28px;
-  z-index: 1000;
-  backdrop-filter: blur(24px);
-}
-
-.logo {
-  font-family: var(--display);
-  font-weight: 900;
-  font-size: 16px;
-  letter-spacing: 8px;
-  color: var(--cyan);
-  text-shadow: 0 0 24px rgba(0,180,255,0.7);
-  text-decoration: none;
-}
-
-.nav {
-  display: flex; gap: 2px;
-}
-
-.nav-btn {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 2px;
-  padding: 6px 14px;
-  color: var(--muted);
-  background: none;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-transform: uppercase;
-}
-
-.nav-btn:hover, .nav-btn.active {
-  color: var(--cyan);
-  border-color: var(--border);
-  background: rgba(0,180,255,0.05);
-}
-
-.topbar-right {
-  display: flex; align-items:center; gap:20px;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
-}
-
-.live-badge {
-  display: flex; align-items:center; gap:6px;
-  color: var(--green);
-  letter-spacing: 2px;
-}
-
-.live-badge::before {
-  content:'';
-  width:6px; height:6px;
-  border-radius:50%;
-  background: var(--green);
-  box-shadow: 0 0 8px var(--green);
-  animation: blink 2s infinite;
-}
-
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-/* ══════════════════════════════════════
-   TICKER
-══════════════════════════════════════ */
-.ticker-wrap {
-  position:fixed; top:52px; left:0; right:0;
-  height:32px;
-  background: rgba(0,180,255,0.04);
-  border-bottom: 1px solid var(--border);
-  overflow:hidden;
-  z-index:999;
-  display:flex; align-items:center;
-}
-
-.ticker-track {
-  display:flex; align-items:center; gap:48px;
-  animation: tickerMove 40s linear infinite;
-  width: max-content;
-  padding-left: 100%;
-}
-
-@keyframes tickerMove { to { transform: translateX(-50%); } }
-
-.t-item {
-  display:flex; align-items:center; gap:8px;
-  font-family: var(--mono);
-  font-size: 10px;
-  white-space: nowrap;
-  color: var(--muted);
-}
-
-.t-sym { color: var(--cyan); font-weight:700; letter-spacing:1px; }
-.t-price { color: var(--white); }
-.t-up   { color: var(--green); }
-.t-dn   { color: var(--red); }
-.t-sep  { color: var(--border); font-size:14px; }
-.t-label { color: var(--cyanD); }
-
-/* ══════════════════════════════════════
-   MAIN LAYOUT
-══════════════════════════════════════ */
-.main {
-  padding-top: 84px;
-  min-height: 100vh;
-  position: relative; z-index:10;
-}
-
-/* ══════════════════════════════════════
-   HERO
-══════════════════════════════════════ */
-.hero {
-  position:relative;
-  padding: 60px 40px 40px;
-  display:flex; align-items:flex-end; justify-content:space-between;
-  gap:32px;
-  border-bottom: 1px solid var(--border);
-  overflow:hidden;
-}
-
-.hero::before {
-  content:'';
-  position:absolute;
-  top:-60px; right:-60px;
-  width:500px; height:500px;
-  background: radial-gradient(circle, rgba(0,180,255,0.06) 0%, transparent 70%);
-  pointer-events:none;
-}
-
-.hero-left {}
-
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 4px;
-  color: var(--cyan);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  display:flex; align-items:center; gap:10px;
-}
-
-.hero-eyebrow::before {
-  content:'';
-  width:24px; height:1px;
-  background: var(--cyan);
-}
-
-.hero-title {
-  font-family: var(--display);
-  font-weight: 900;
-  font-size: clamp(28px, 4vw, 52px);
-  letter-spacing: 2px;
-  line-height: 1.05;
-  color: var(--white);
-  text-shadow: 0 0 40px rgba(0,180,255,0.2);
-}
-
-.hero-title em {
-  font-style:normal;
-  color: var(--cyan);
-  text-shadow: 0 0 30px rgba(0,180,255,0.8);
-}
-
-.hero-sub {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 3px;
-  margin-top: 16px;
-}
-
-.hero-stats {
-  display:flex; gap:1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-}
-
-.hero-stat {
-  background: var(--bg2);
-  padding: 20px 28px;
-  min-width: 140px;
-  position:relative;
-}
-
-.hero-stat::before {
-  content:'';
-  position:absolute;
-  top:0; left:0; right:0;
-  height:2px;
-  background: var(--accent, var(--cyan));
-  opacity:0.6;
-}
-
-.hs-val {
-  font-family: var(--mono);
-  font-size: 22px;
-  font-weight:700;
-  color: var(--accent, var(--cyan));
-  line-height:1;
-}
-
-.hs-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--muted);
-  letter-spacing: 2px;
-  margin-top: 6px;
-  text-transform:uppercase;
-}
-
-.hs-change {
-  font-family: var(--mono);
-  font-size: 10px;
-  margin-top: 4px;
-}
-
-/* ══════════════════════════════════════
-   BODY LAYOUT
-══════════════════════════════════════ */
-.body-layout {
-  display:grid;
-  grid-template-columns: 1fr 320px;
-  gap:0;
-  border-top: 1px solid var(--border);
-}
-
-/* ── FEED COLUMN ── */
-.feed-col {
-  border-right: 1px solid var(--border);
-  min-height: 80vh;
-}
-
-.feed-header {
-  padding: 20px 28px;
-  border-bottom: 1px solid var(--border);
-  display:flex; align-items:center; justify-content:space-between;
-  position:sticky; top:84px;
-  background: rgba(2,4,10,0.95);
-  backdrop-filter: blur(12px);
-  z-index:50;
-}
-
-.feed-title {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: var(--cyan);
-  text-transform:uppercase;
-}
-
-.filter-tabs {
-  display:flex; gap:4px;
-}
-
-.filter-btn {
-  font-family: var(--mono);
-  font-size: 9px;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  background:none;
-  color: var(--muted);
-  cursor:pointer;
-  letter-spacing:1px;
-  transition: all 0.2s;
-}
-
-.filter-btn:hover, .filter-btn.active {
-  color: var(--cyan);
-  border-color: var(--borderB);
-  background: rgba(0,180,255,0.05);
-}
-
-/* ── NEWS ITEMS ── */
-.news-item {
-  display:grid;
-  grid-template-columns: 80px 1fr;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.2s;
-  cursor:pointer;
-  animation: fadeIn 0.4s ease both;
-}
-
-@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
-
-.news-item:hover {
-  background: rgba(0,180,255,0.03);
-}
-
-.news-time-col {
-  padding: 20px 16px;
-  border-right: 1px solid var(--border);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-}
-
-.news-date {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--muted);
-  letter-spacing:1px;
-}
-
-.news-time {
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--cyan);
-  font-weight:700;
-}
-
-.news-cat-dot {
-  width:6px; height:6px;
-  border-radius:50%;
-  margin-top:4px;
-  flex-shrink:0;
-}
-
-.news-content-col {
-  padding: 20px 24px;
-}
-
-.news-meta {
-  display:flex; align-items:center; gap:10px;
-  margin-bottom: 8px;
-}
-
-.news-entity {
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 2px;
-  color: var(--entity-color, var(--cyan));
-  text-transform:uppercase;
-  padding: 2px 6px;
-  border: 1px solid var(--entity-color, var(--cyan));
-  opacity:0.8;
-}
-
-.news-category {
-  font-family: var(--mono);
-  font-size: 8px;
-  color: var(--muted);
-  letter-spacing:1px;
-}
-
-.news-source {
-  font-family: var(--mono);
-  font-size: 8px;
-  color: var(--muted);
-  margin-left:auto;
-}
-
-.news-headline {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-
-.news-body {
-  font-size: 12px;
-  line-height: 1.7;
-  color: var(--muted);
-  display:-webkit-box;
-  -webkit-line-clamp:3;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-
-.news-yt {
-  display:inline-flex; align-items:center; gap:6px;
-  margin-top:10px;
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--orange);
-  letter-spacing:1px;
-  text-decoration:none;
-  border: 1px solid rgba(255,106,0,0.3);
-  padding: 3px 8px;
-  transition: all 0.2s;
-}
-
-.news-yt:hover {
-  background: rgba(255,106,0,0.08);
-  border-color: var(--orange);
-}
-
-.news-link {
-  display:inline-flex; align-items:center; gap:6px;
-  margin-top:10px;
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--cyanD);
-  letter-spacing:1px;
-  text-decoration:none;
-  transition: color 0.2s;
-}
-
-.news-link:hover { color: var(--cyan); }
-
-/* ── COVER IMAGE ── */
-.news-cover {
-  width:100%; max-height:160px;
-  object-fit:cover;
-  margin-bottom:10px;
-  opacity:0.85;
-  border: 1px solid var(--border);
-}
-
-/* ── EMPTY / LOADING ── */
-.feed-loading, .feed-empty {
-  padding: 60px 28px;
-  text-align:center;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing:2px;
-}
-
-.spinner {
-  width:24px; height:24px;
-  border: 2px solid var(--border);
-  border-top-color: var(--cyan);
-  border-radius:50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 16px;
-}
-
-@keyframes spin { to{transform:rotate(360deg)} }
-
-/* ── LOAD MORE ── */
-.load-more {
-  padding: 24px;
-  text-align:center;
-  border-top: 1px solid var(--border);
-}
-
-.load-more-btn {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: var(--cyan);
-  background:none;
-  border: 1px solid var(--border);
-  padding: 10px 28px;
-  cursor:pointer;
-  transition: all 0.2s;
-  text-transform:uppercase;
-}
-
-.load-more-btn:hover {
-  background: rgba(0,180,255,0.05);
-  border-color: var(--borderB);
-}
-
-/* ── RIGHT SIDEBAR ── */
-.sidebar {
-  background: var(--bg2);
-}
-
-.sidebar-section {
-  border-bottom: 1px solid var(--border);
-  padding: 20px;
-}
-
-.sidebar-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 3px;
-  color: var(--cyan);
-  text-transform:uppercase;
-  margin-bottom: 16px;
-  display:flex; align-items:center; justify-content:space-between;
-}
-
-.sidebar-update {
-  font-size:8px;
-  color: var(--muted);
-  letter-spacing:1px;
-}
-
-/* Stock rows */
-.stock-row {
-  display:flex; justify-content:space-between; align-items:center;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(0,180,255,0.06);
-}
-
-.stock-row:last-child { border-bottom:none; }
-
-.stock-sym {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight:700;
-  color: var(--white);
-  letter-spacing:1px;
-}
-
-.stock-name {
-  font-family: var(--mono);
-  font-size: 8px;
-  color: var(--muted);
-  letter-spacing:1px;
-  margin-top:2px;
-}
-
-.stock-price {
-  font-family: var(--mono);
-  font-size: 13px;
-  font-weight:700;
-  color: var(--white);
-  text-align:right;
-}
-
-.stock-change {
-  font-family: var(--mono);
-  font-size: 10px;
-  text-align:right;
-  margin-top:2px;
-}
-
-.up   { color: var(--green); }
-.dn   { color: var(--red); }
-
-/* Crypto rows */
-.crypto-row {
-  display:flex; justify-content:space-between; align-items:center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(0,180,255,0.06);
-}
-
-.crypto-row:last-child { border-bottom:none; }
-
-/* Launch items */
-.launch-item {
-  display:grid;
-  grid-template-columns: 28px 1fr;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(0,180,255,0.06);
-}
-
-.launch-item:last-child { border-bottom:none; }
-
-.launch-icon { font-size:16px; padding-top:2px; }
-
-.launch-name {
-  font-size: 12px;
-  color: var(--white);
-  line-height:1.4;
-  margin-bottom:4px;
-}
-
-.launch-when {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--cyan);
-  letter-spacing:1px;
-}
-
-.launch-status-ok  { color: var(--green); }
-.launch-status-fail { color: var(--red); }
-
-/* Updated time */
-.updated-row {
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--muted);
-  padding: 12px 20px;
-  letter-spacing:1px;
-  border-bottom: 1px solid var(--border);
-  text-align:right;
-}
-
-/* ══════════════════════════════════════
-   ENTITY COLORS
-══════════════════════════════════════ */
-.entity-Tesla     { --entity-color: #e31937; }
-.entity-SpaceX    { --entity-color: #4fc3f7; }
-.entity-xAI       { --entity-color: #ce93d8; }
-.entity-Neuralink { --entity-color: #00e676; }
-.entity-X         { --entity-color: #aaaaaa; }
-.entity-Boring    { --entity-color: #ffb300; }
-.entity-宏观      { --entity-color: #ff6a00; }
-
-.dot-Tesla     { background:#e31937; }
-.dot-SpaceX    { background:#4fc3f7; }
-.dot-xAI       { background:#ce93d8; }
-.dot-Neuralink { background:#00e676; }
-.dot-X         { background:#aaaaaa; }
-.dot-Boring    { background:#ffb300; }
-.dot-宏观      { background:#ff6a00; }
-.dot-default   { background:var(--cyan); }
-
-/* ══════════════════════════════════════
-   FOOTER
-══════════════════════════════════════ */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 20px 40px;
-  display:flex; justify-content:space-between; align-items:center;
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--muted);
-  letter-spacing: 2px;
-}
-
-/* ══════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════ */
-@media (max-width: 900px) {
-  .body-layout { grid-template-columns: 1fr; }
-  .sidebar { display:none; }
-  .hero { flex-direction:column; align-items:flex-start; }
-  .hero-stats { flex-wrap:wrap; }
-  .nav { display:none; }
-}
+  --bg:#0d1117; --bg2:#161b22; --bg3:#21262d;
+  --border:rgba(48,54,61,1); --text:#e6edf3; --muted:#8b949e;
+  --green:#00e676; --red:#f85149; --yellow:#e3b341;
+  --blue:#58a6ff; --cyan:#39d0d8; --orange:#ff7b29;
+  --mono:'JetBrains Mono',monospace; --sans:'Noto Sans SC',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;font-size:14px;min-height:100vh}
+
+/* STATUS BAR */
+.status-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:100}
+.brand{display:flex;flex-direction:column;margin-right:28px;padding-right:28px;border-right:1px solid var(--border)}
+.brand-top{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--yellow);letter-spacing:2px}
+.brand-bot{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:1px}
+.live-dot{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;color:var(--green);letter-spacing:1px;margin-right:20px}
+.live-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.price-block{display:flex;align-items:baseline;gap:10px;margin-right:24px;padding-right:24px;border-right:1px solid var(--border)}
+.price-main{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--text);letter-spacing:-1px}
+.price-change{font-family:var(--mono);font-size:13px;font-weight:500}
+.stats-row{display:flex;gap:20px;flex:1}
+.stat-pill{display:flex;flex-direction:column;gap:1px}
+.sp-label{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.sp-val{font-family:var(--mono);font-size:12px;color:var(--text);font-weight:500}
+.clock-block{margin-left:auto;text-align:right}
+.clock-time{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.clock-date{font-family:var(--mono);font-size:9px;color:var(--muted);opacity:.6}
+
+/* TICKER */
+.ticker{background:rgba(0,230,118,.04);border-bottom:1px solid rgba(0,230,118,.1);height:28px;overflow:hidden;display:flex;align-items:center}
+.ticker-track{display:flex;gap:40px;animation:scroll 35s linear infinite;width:max-content;padding-left:100%;font-family:var(--mono);font-size:11px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.ti{display:flex;align-items:center;gap:6px;white-space:nowrap;color:var(--muted)}
+.ti-sym{color:var(--cyan);font-weight:700}
+.ti-p{color:var(--text)}
+.up{color:var(--green)}
+.dn{color:var(--red)}
+
+/* TABS */
+.tabs-wrap{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.tab{font-family:var(--mono);font-size:11px;letter-spacing:1px;padding:14px 18px;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:7px}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--yellow);border-bottom-color:var(--yellow)}
+
+/* CONTENT */
+.content{max-width:1400px;margin:0 auto;padding:24px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* SECTION */
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.sec-title{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text);letter-spacing:1px}
+.sec-sub{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:2px}
+.sec-source{font-family:var(--mono);font-size:9px;color:var(--yellow);letter-spacing:1px}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.grid-7{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:16px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent,var(--border))}
+.card-label{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.card-val{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--text);line-height:1}
+.card-change{font-family:var(--mono);font-size:11px;margin-top:4px}
+.card-note{font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:6px}
+
+/* BREAKING */
+.breaking-card{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--yellow);border-radius:6px;padding:20px 24px;margin-bottom:20px}
+.breaking-tags{display:flex;gap:8px;margin-bottom:14px;align-items:center;justify-content:space-between}
+.tag{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 8px;letter-spacing:1px;border-radius:3px}
+.tag-red{background:rgba(248,81,73,.15);color:var(--red);border:1px solid rgba(248,81,73,.3)}
+.tag-yellow{background:rgba(227,179,65,.15);color:var(--yellow);border:1px solid rgba(227,179,65,.3)}
+.tag-green{background:rgba(0,230,118,.1);color:var(--green);border:1px solid rgba(0,230,118,.2)}
+.breaking-title{font-size:16px;font-weight:500;color:var(--text);margin-bottom:16px}
+.breaking-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* TABLES */
+.delivery-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+.delivery-table th{text-align:left;color:var(--muted);font-size:10px;letter-spacing:1px;padding:6px 8px;border-bottom:1px solid var(--border)}
+.delivery-table td{padding:8px 8px;border-bottom:1px solid rgba(48,54,61,.5)}
+.delivery-table tr:last-child td{border-bottom:none}
+.delivery-table .total-row td{color:var(--yellow);font-weight:700}
+.data-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+.data-table th{text-align:right;color:var(--muted);font-size:10px;letter-spacing:1px;padding:8px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+.data-table th:first-child{text-align:left}
+.data-table td{text-align:right;padding:9px 12px;border-bottom:1px solid rgba(48,54,61,.4);color:var(--muted)}
+.data-table td:first-child{text-align:left;color:var(--text);font-weight:500}
+.data-table tr:hover td{background:rgba(255,255,255,.02)}
+.data-table .highlight{color:var(--yellow);font-weight:700}
+.data-table .pos{color:var(--green)}
+.data-table .neg{color:var(--red)}
+
+/* TAKEAWAYS */
+.takeaways{display:flex;flex-direction:column;gap:10px}
+.takeaway{display:grid;grid-template-columns:18px 1fr;gap:8px;font-size:12px;line-height:1.5;color:var(--muted)}
+.takeaway-num{font-family:var(--mono);font-size:11px;color:var(--yellow);font-weight:700}
+
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-top:16px}
+.kpi-cell{background:var(--bg2);padding:12px 14px;text-align:center}
+.kpi-label{font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase}
+.kpi-val{font-family:var(--mono);font-size:16px;font-weight:700}
+
+/* CHART */
+.chart-box{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:20px}
+.chart-box canvas{display:block}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0;position:relative}
+.timeline::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:1px;background:var(--border)}
+.tl-item{display:grid;grid-template-columns:30px 1fr;gap:12px;padding:12px 0;position:relative}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--bg3);border:2px solid var(--border);margin-top:4px;z-index:1;flex-shrink:0;align-self:start;margin-left:9px}
+.tl-dot.done{border-color:var(--green);background:var(--green)}
+.tl-dot.pending{border-color:var(--yellow)}
+.tl-date{font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:3px}
+.tl-event{font-size:13px;color:var(--text);line-height:1.4}
+
+/* MILESTONE */
+.milestone{display:grid;grid-template-columns:100px 1fr auto;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(48,54,61,.5)}
+.milestone:last-child{border-bottom:none}
+.ms-date{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.ms-label{font-size:13px;color:var(--text)}
+.ms-status{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:3px}
+.ms-done{background:rgba(0,230,118,.1);color:var(--green)}
+.ms-pending{background:rgba(227,179,65,.1);color:var(--yellow)}
+
+/* SCENARIOS */
+.scenario-row{display:grid;grid-template-columns:16px 100px 1fr 1fr 1fr 1fr 2fr;gap:12px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border)}
+.scenario-row:last-child{border-bottom:none}
+.scenario-row.header{font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:1px;padding:10px 16px;border-bottom:1px solid var(--border)}
+.s-dot{width:10px;height:10px;border-radius:50%}
+.s-name{font-weight:500;font-size:13px}
+.s-val{font-family:var(--mono);font-size:13px;text-align:right}
+.s-note{font-size:12px;color:var(--muted)}
+
+/* NEWS */
+.news-item{display:grid;grid-template-columns:70px 1fr;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.news-item:hover{background:rgba(255,255,255,.02)}
+.news-time{padding:16px 12px;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:4px}
+.nt-date{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.nt-time{font-family:var(--mono);font-size:12px;color:var(--cyan);font-weight:700}
+.news-body{padding:14px 18px}
+.news-tags{display:flex;gap:6px;margin-bottom:7px;align-items:center}
+.n-entity{font-family:var(--mono);font-size:8px;padding:2px 6px;border:1px solid;letter-spacing:1px}
+.n-cat{font-family:var(--mono);font-size:8px;color:var(--muted)}
+.n-src{font-family:var(--mono);font-size:8px;color:var(--muted);margin-left:auto}
+.news-title{font-size:14px;font-weight:400;line-height:1.5;margin-bottom:6px}
+.news-body-text{font-size:12px;color:var(--muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.n-link{font-family:var(--mono);font-size:9px;color:var(--blue);text-decoration:none;margin-top:6px;display:inline-block;letter-spacing:1px}
+.n-link:hover{color:var(--cyan)}
+
+/* FILTER */
+.filter-bar{display:flex;gap:4px;padding:12px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.fb{font-family:var(--mono);font-size:9px;padding:5px 12px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;letter-spacing:1px;transition:all .15s;border-radius:3px}
+.fb:hover,.fb.active{color:var(--text);border-color:var(--cyan);background:rgba(57,208,216,.06)}
+
+/* ENTITY COLORS */
+.ent-Tesla{color:#e31937;border-color:rgba(227,25,55,.4)}
+.ent-SpaceX{color:#58a6ff;border-color:rgba(88,166,255,.4)}
+.ent-xAI{color:#ce93d8;border-color:rgba(206,147,216,.4)}
+.ent-Neuralink{color:#00e676;border-color:rgba(0,230,118,.4)}
+.ent-X{color:#aaa;border-color:rgba(170,170,170,.3)}
+.ent-Boring{color:#ffb300;border-color:rgba(255,179,0,.4)}
+.ent-宏观{color:#ff7b29;border-color:rgba(255,123,41,.4)}
+
+/* PROGRESS */
+.progress-wrap{background:var(--bg3);border-radius:4px;height:6px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;border-radius:4px;background:var(--fill-color,var(--green));transition:width 1s ease}
+
+.spacer{height:20px}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4,.grid-7{grid-template-columns:1fr 1fr}.breaking-grid{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(3,1fr)}.stats-row{display:none}}
 </style>
 </head>
 <body>
 
-<div class="grid-bg"></div>
-
-<!-- TOPBAR -->
-<header class="topbar">
-  <a class="logo" href="#">NEXUS</a>
-  <nav class="nav">
-    <button class="nav-btn active" data-filter="all">全部</button>
-    <button class="nav-btn" data-filter="快讯">快讯</button>
-    <button class="nav-btn" data-filter="深度分析">深度</button>
-    <button class="nav-btn" data-filter="视频">视频</button>
-    <button class="nav-btn" data-filter="Tesla">Tesla</button>
-    <button class="nav-btn" data-filter="SpaceX">SpaceX</button>
-    <button class="nav-btn" data-filter="xAI">xAI</button>
-  </nav>
-  <div class="topbar-right">
-    <span class="live-badge">LIVE</span>
-    <span id="clock">--:--:--</span>
-    <span>UTC+8</span>
+<div class="status-bar">
+  <div class="brand"><div class="brand-top">TSLA 终端</div><div class="brand-bot">NASDAQ · NEXUS</div></div>
+  <span class="live-dot">LIVE</span>
+  <div class="price-block">
+    <span class="price-main" id="tsla-price">--</span>
+    <span class="price-change" id="tsla-change">--</span>
   </div>
-</header>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track" id="ticker-track">
-    <span class="t-item"><span class="t-label">正在加载行情数据...</span></span>
+  <div class="stats-row">
+    <div class="stat-pill"><span class="sp-label">市值</span><span class="sp-val" id="sb-mktcap">--</span></div>
+    <div class="stat-pill"><span class="sp-label">市盈率</span><span class="sp-val" id="sb-pe">--</span></div>
+    <div class="stat-pill"><span class="sp-label">EPS</span><span class="sp-val" id="sb-eps">--</span></div>
+    <div class="stat-pill"><span class="sp-label">52周区间</span><span class="sp-val" id="sb-52w">--</span></div>
+    <div class="stat-pill"><span class="sp-label">下次财报</span><span class="sp-val" id="sb-earn" style="color:var(--yellow)">--</span></div>
+  </div>
+  <div class="clock-block">
+    <div class="clock-time" id="clock">--:--:--</div>
+    <div class="clock-date" id="clock-date">--</div>
   </div>
 </div>
 
-<main class="main">
+<div class="ticker"><div class="ticker-track" id="ticker-track"><span class="ti"><span class="ti-sym">加载中...</span></span></div></div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-left">
-      <div class="hero-eyebrow">马斯克宇宙 · 实时情报中枢</div>
-      <h1 class="hero-title">MUSK<br><em>NEXUS</em></h1>
-      <p class="hero-sub">TESLA · SPACEX · XAI · NEURALINK · BORING · X</p>
+<div class="tabs-wrap">
+  <button class="tab active" data-tab="overview">📊 财务健康</button>
+  <button class="tab" data-tab="delivery">🚗 交付与产能</button>
+  <button class="tab" data-tab="fsd">🤖 FSD · Robotaxi</button>
+  <button class="tab" data-tab="energy">⚡ 能源业务</button>
+  <button class="tab" data-tab="optimus">🦾 Optimus</button>
+  <button class="tab" data-tab="feed">📡 情报流</button>
+</div>
+
+<div class="content">
+
+<!-- TAB 1: 财务健康 -->
+<div class="tab-panel active" id="tab-overview">
+  <div class="breaking-card">
+    <div class="breaking-tags">
+      <div style="display:flex;gap:8px"><span class="tag tag-red">最新</span><span class="tag tag-yellow" id="bc-tag">Q1 2026 财报闪报</span></div>
+      <span style="font-family:var(--mono);font-size:10px;color:var(--muted)">发布于 2026年4月2日</span>
     </div>
-    <div class="hero-stats" id="hero-stats">
-      <div class="hero-stat" style="--accent:#e31937">
-        <div class="hs-val" id="hs-tsla-price">--</div>
-        <div class="hs-label">TSLA</div>
-        <div class="hs-change" id="hs-tsla-change">--</div>
-      </div>
-      <div class="hero-stat" style="--accent:#f7931a">
-        <div class="hs-val" id="hs-btc-price">--</div>
-        <div class="hs-label">BTC</div>
-        <div class="hs-change" id="hs-btc-change">--</div>
-      </div>
-      <div class="hero-stat" style="--accent:#00e676">
-        <div class="hs-val" id="hs-count">--</div>
-        <div class="hs-label">今日情报</div>
-        <div class="hs-change" id="hs-updated" style="color:var(--muted);font-size:9px">--</div>
-      </div>
+    <div class="breaking-title">特斯拉最新季度生产、交付与储能部署数据</div>
+    <div class="breaking-grid">
+      <table class="delivery-table">
+        <thead><tr><th>车型</th><th>生产</th><th>交付</th><th>环比变化</th></tr></thead>
+        <tbody>
+          <tr><td>Model 3/Y</td><td id="lt-m3y-prod">--</td><td id="lt-m3y-del">--</td><td id="lt-m3y-chg" class="neg">--</td></tr>
+          <tr><td>其他车型</td><td id="lt-oth-prod">--</td><td id="lt-oth-del">--</td><td id="lt-oth-chg" class="pos">--</td></tr>
+          <tr class="total-row"><td>合计</td><td id="lt-tot-prod">--</td><td id="lt-tot-del">--</td><td id="lt-tot-chg">--</td></tr>
+        </tbody>
+      </table>
+      <div class="takeaways" id="takeaways"></div>
     </div>
-  </section>
-
-  <!-- BODY -->
-  <div class="body-layout">
-
-    <!-- FEED -->
-    <section class="feed-col">
-      <div class="feed-header">
-        <div class="feed-title">情报流</div>
-        <div class="filter-tabs" id="filter-tabs">
-          <button class="filter-btn active" data-filter="all">全部</button>
-          <button class="filter-btn" data-filter="快讯">快讯</button>
-          <button class="filter-btn" data-filter="深度分析">深度</button>
-          <button class="filter-btn" data-filter="视频">视频</button>
-          <button class="filter-btn" data-filter="Tesla">Tesla</button>
-          <button class="filter-btn" data-filter="SpaceX">SpaceX</button>
-          <button class="filter-btn" data-filter="xAI">xAI</button>
-        </div>
-      </div>
-      <div id="feed-list">
-        <div class="feed-loading">
-          <div class="spinner"></div>
-          正在加载情报数据...
-        </div>
-      </div>
-      <div class="load-more" id="load-more-wrap" style="display:none">
-        <button class="load-more-btn" id="load-more-btn">加载更多</button>
-      </div>
-    </section>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-      <!-- TSLA stock -->
-      <div class="sidebar-section">
-        <div class="sidebar-label">
-          行情数据
-          <span class="sidebar-update" id="stocks-updated">--</span>
-        </div>
-        <div id="stocks-list">
-          <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">加载中...</div>
-        </div>
-      </div>
-
-      <!-- Crypto -->
-      <div class="sidebar-section">
-        <div class="sidebar-label">加密货币</div>
-        <div id="crypto-list">
-          <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">加载中...</div>
-        </div>
-      </div>
-
-      <!-- SpaceX launches -->
-      <div class="sidebar-section">
-        <div class="sidebar-label">SpaceX 发射计划</div>
-        <div id="launches-list">
-          <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">加载中...</div>
-        </div>
-      </div>
-
-    </aside>
+    <div class="kpi-row">
+      <div class="kpi-cell"><div class="kpi-label">同比交付</div><div class="kpi-val" id="kpi-yoy-del">--</div></div>
+      <div class="kpi-cell"><div class="kpi-label">环比交付</div><div class="kpi-val" id="kpi-qoq-del">--</div></div>
+      <div class="kpi-cell"><div class="kpi-label">同比生产</div><div class="kpi-val" id="kpi-yoy-prod">--</div></div>
+      <div class="kpi-cell"><div class="kpi-label">库存变化</div><div class="kpi-val" id="kpi-inv">--</div></div>
+      <div class="kpi-cell"><div class="kpi-label">最新毛利率</div><div class="kpi-val" id="kpi-gm">--</div></div>
+      <div class="kpi-cell"><div class="kpi-label">下次财报</div><div class="kpi-val" id="kpi-earn" style="color:var(--yellow);font-size:13px">--</div></div>
+    </div>
   </div>
 
-</main>
+  <div class="grid-7" style="margin-bottom:20px">
+    <div class="card" style="--accent:var(--blue)"><div class="card-label">TTM 营收</div><div class="card-val" id="fc-ttm">--</div><div class="card-change dn" id="fc-ttm-chg">--</div></div>
+    <div class="card" style="--accent:var(--yellow)"><div class="card-label">最新季营收</div><div class="card-val" id="fc-rev">--</div><div class="card-change" id="fc-rev-chg">--</div></div>
+    <div class="card" style="--accent:var(--green)"><div class="card-label">毛利率</div><div class="card-val" id="fc-gm">--</div><div class="card-change" id="fc-gm-chg">--</div></div>
+    <div class="card" style="--accent:var(--cyan)"><div class="card-label">营业利润</div><div class="card-val" id="fc-op">--</div><div class="card-note" id="fc-op-note">--</div></div>
+    <div class="card" style="--accent:var(--orange)"><div class="card-label">净利润</div><div class="card-val" id="fc-net">--</div><div class="card-note" id="fc-net-note">--</div></div>
+    <div class="card" style="--accent:var(--green)"><div class="card-label">自由现金流</div><div class="card-val" id="fc-fcf">--</div><div class="card-note" id="fc-fcf-note">--</div></div>
+    <div class="card" style="--accent:var(--yellow)"><div class="card-label">EPS</div><div class="card-val" id="fc-eps">--</div><div class="card-change" id="fc-eps-chg">--</div></div>
+  </div>
 
-<footer>
-  <span>NEXUS · 马斯克宇宙情报站</span>
-  <span id="footer-updated">数据实时更新中...</span>
-</footer>
+  <div class="grid-2" style="margin-bottom:20px">
+    <div class="chart-box">
+      <div class="sec-header"><div><div class="sec-title">各板块毛利率趋势</div><div class="sec-sub">汽车 / 储能 / 服务 — 近8季</div></div><span class="sec-source">来源：SEC 10-Q</span></div>
+      <canvas id="chart-margins" height="180"></canvas>
+    </div>
+    <div class="chart-box">
+      <div class="sec-header"><div><div class="sec-title">季度营收趋势</div><div class="sec-sub">十亿美元</div></div><span class="sec-source">来源：SEC 10-Q</span></div>
+      <canvas id="chart-revenue" height="180"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-box" style="margin-bottom:20px">
+    <div class="sec-header"><div><div class="sec-title">FY2026–2027 情景压力测试</div><div class="sec-sub">不同宏观条件下的营收与利润率假设</div></div><span class="sec-source">来源：分析师共识</span></div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+      <div class="scenario-row header"><div></div><div>情景</div><div style="text-align:right">FY26营收</div><div style="text-align:right">FY27营收</div><div style="text-align:right">FY26毛利率</div><div style="text-align:right">FY27毛利率</div><div>核心假设</div></div>
+      <div id="scenario-rows"></div>
+    </div>
+  </div>
+
+  <div class="chart-box">
+    <div class="sec-header"><div><div class="sec-title">季度财务瀑布表</div><div class="sec-sub">营收 → 净利润 — 近8季（十亿美元）</div></div><span class="sec-source">来源：SEC财报</span></div>
+    <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>季度</th><th>营收</th><th>毛利润</th><th>毛利率</th><th>营业利润</th><th>净利润</th><th>EPS</th><th>自由现金流</th></tr></thead><tbody id="fin-table-body"></tbody></table></div>
+  </div>
+</div>
+
+<!-- TAB 2: 交付 -->
+<div class="tab-panel" id="tab-delivery">
+  <div class="grid-2" style="margin-bottom:20px">
+    <div class="chart-box">
+      <div class="sec-header"><div><div class="sec-title">季度交付量趋势</div><div class="sec-sub">Model 3/Y + 其他车型</div></div><span class="sec-source">来源：特斯拉IR</span></div>
+      <canvas id="chart-delivery" height="200"></canvas>
+    </div>
+    <div class="chart-box">
+      <div class="sec-header"><div><div class="sec-title">生产 vs 交付</div><div class="sec-sub">库存积累/去化</div></div><span class="sec-source">来源：特斯拉IR</span></div>
+      <canvas id="chart-prod-del" height="200"></canvas>
+    </div>
+  </div>
+  <div class="chart-box">
+    <div class="sec-header"><div><div class="sec-title">历史交付数据</div></div><span class="sec-source">来源：特斯拉IR</span></div>
+    <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>季度</th><th>Model3/Y生产</th><th>其他生产</th><th>总生产</th><th>Model3/Y交付</th><th>其他交付</th><th>总交付</th><th>库存变化</th></tr></thead><tbody id="delivery-tbody"></tbody></table></div>
+  </div>
+</div>
+
+<!-- TAB 3: FSD -->
+<div class="tab-panel" id="tab-fsd">
+  <div class="grid-4" style="margin-bottom:20px">
+    <div class="card" style="--accent:var(--cyan)"><div class="card-label">FSD 累计里程</div><div class="card-val" id="fsd-miles">--</div><div class="card-note">全球用户累计</div></div>
+    <div class="card" style="--accent:var(--green)"><div class="card-label">当前版本</div><div class="card-val" style="font-size:18px" id="fsd-ver">--</div><div class="card-note">有监督模式</div></div>
+    <div class="card" style="--accent:var(--yellow)"><div class="card-label">有监督用户</div><div class="card-val" id="fsd-users">--</div><div class="card-note">付费激活</div></div>
+    <div class="card" style="--accent:var(--orange)"><div class="card-label">接管间隔</div><div class="card-val" style="font-size:16px" id="fsd-intv">--</div><div class="card-note">英里/次（估算）</div></div>
+  </div>
+  <div class="grid-2" style="margin-bottom:20px">
+    <div class="chart-box"><div class="sec-header"><div class="sec-title">FSD 里程碑时间线</div></div><div class="timeline" id="fsd-timeline"></div></div>
+    <div class="chart-box">
+      <div class="sec-header"><div><div class="sec-title">Robotaxi 部署进度</div><div class="sec-sub">奥斯汀计划</div></div><span class="tag tag-yellow" id="rt-status">--</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+        <div><div class="card-label">发布城市</div><div style="font-size:16px;font-weight:500;margin-top:4px" id="rt-city">--</div></div>
+        <div><div class="card-label">CyberCab目标价</div><div style="font-size:16px;font-weight:500;margin-top:4px;font-family:var(--mono)" id="rt-price">--</div></div>
+        <div>
+          <div class="card-label">当前车队</div>
+          <div style="font-size:16px;font-weight:500;margin-top:4px;font-family:var(--mono)" id="rt-fleet">--</div>
+          <div class="progress-wrap"><div class="progress-fill" id="rt-bar" style="--fill-color:var(--yellow);width:0%"></div></div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--muted);margin-top:4px">目标: <span id="rt-target">--</span></div>
+        </div>
+        <div><div class="card-label">公众开放</div><div style="font-size:16px;font-weight:500;margin-top:4px;color:var(--yellow)" id="rt-launch">--</div></div>
+      </div>
+      <div id="rt-milestones"></div>
+    </div>
+  </div>
+  <div class="chart-box"><div class="sec-header"><div class="sec-title">FSD · Robotaxi 最新情报</div></div><div id="fsd-news"><div style="padding:20px;color:var(--muted);font-family:var(--mono);font-size:11px">加载中...</div></div></div>
+</div>
+
+<!-- TAB 4: 能源 -->
+<div class="tab-panel" id="tab-energy">
+  <div class="grid-4" style="margin-bottom:20px">
+    <div class="card" style="--accent:var(--yellow)"><div class="card-label">2025年储能部署</div><div class="card-val" id="en-total">--</div><div class="card-note">GWh 全年</div></div>
+    <div class="card" style="--accent:var(--green)"><div class="card-label">Megapack积压订单</div><div class="card-val" id="en-backlog">--</div><div class="card-note">GW 待交付</div></div>
+    <div class="card" style="--accent:var(--cyan)"><div class="card-label">Powerwall累计</div><div class="card-val" id="en-pw">--</div><div class="card-note">百万台</div></div>
+    <div class="card" style="--accent:var(--orange)"><div class="card-label">拉斯罗普产能</div><div class="card-val" id="en-lathrop">--</div><div class="card-note">GWh/年</div></div>
+  </div>
+  <div class="chart-box">
+    <div class="sec-header"><div><div class="sec-title">季度储能部署量</div><div class="sec-sub">Megapack + Powerwall（GWh）</div></div><span class="sec-source">来源：特斯拉IR</span></div>
+    <canvas id="chart-energy" height="220"></canvas>
+  </div>
+</div>
+
+<!-- TAB 5: Optimus -->
+<div class="tab-panel" id="tab-optimus">
+  <div class="grid-4" style="margin-bottom:20px">
+    <div class="card" style="--accent:var(--cyan)"><div class="card-label">当前版本</div><div class="card-val" style="font-size:18px" id="op-ver">--</div><div class="card-note">量产版</div></div>
+    <div class="card" style="--accent:var(--green)"><div class="card-label">工厂在用</div><div class="card-val" id="op-factory">--</div><div class="card-note">弗里蒙特工厂</div></div>
+    <div class="card" style="--accent:var(--yellow)"><div class="card-label">2026年目标</div><div class="card-val" id="op-t26">--</div><div class="card-note">台</div></div>
+    <div class="card" style="--accent:var(--orange)"><div class="card-label">目标售价</div><div class="card-val" id="op-price">--</div><div class="card-note">美元/台（预计）</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="chart-box"><div class="sec-header"><div class="sec-title">Optimus 发展时间线</div></div><div class="timeline" id="op-timeline"></div></div>
+    <div class="chart-box">
+      <div class="sec-header"><div class="sec-title">关键技术参数</div></div>
+      <table class="data-table"><tbody>
+        <tr><td>行走速度</td><td class="highlight" id="op-speed">--</td></tr>
+        <tr><td>最大负载</td><td class="highlight" id="op-payload">--</td></tr>
+        <tr><td>自由度</td><td class="highlight" id="op-dof">--</td></tr>
+        <tr><td>2027年产量目标</td><td class="highlight" id="op-t27">--</td></tr>
+        <tr><td>当前状态</td><td class="highlight" style="color:var(--green)">工厂内部作业</td></tr>
+        <tr><td>对外销售预计</td><td class="highlight" style="color:var(--yellow)">2025年底</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 6: 情报流 -->
+<div class="tab-panel" id="tab-feed">
+  <div class="filter-bar">
+    <button class="fb active" data-filter="all">全部</button>
+    <button class="fb" data-filter="快讯">快讯</button>
+    <button class="fb" data-filter="深度分析">深度</button>
+    <button class="fb" data-filter="视频">视频</button>
+    <button class="fb" data-filter="Tesla">Tesla</button>
+    <button class="fb" data-filter="SpaceX">SpaceX</button>
+    <button class="fb" data-filter="xAI">xAI</button>
+    <button class="fb" data-filter="Neuralink">Neuralink</button>
+  </div>
+  <div id="news-list"></div>
+  <div style="padding:20px;text-align:center;display:none" id="load-more-wrap">
+    <button class="fb" id="load-more-btn" style="padding:10px 24px">加载更多</button>
+  </div>
+</div>
+
+</div>
 
 <script>
-// ══════════════════════════════════════
-// 工具函数
-// ══════════════════════════════════════
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
+const fmtN=(n,d=0)=>n!=null?n.toLocaleString('en-US',{maximumFractionDigits:d}):'--';
+const fmtB=(n,d=1)=>n!=null?'$'+Math.abs(n).toFixed(d)+'B':'--';
+const fmtP=(n)=>n!=null?n.toFixed(1)+'%':'--';
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function pctHtml(a,b){if(!a||!b)return '<span style="color:var(--muted)">--</span>';const v=((a-b)/Math.abs(b)*100);const s=v>=0?'+':'';return `<span class="${v>=0?'up':'dn'}">${s}${v.toFixed(1)}%</span>`}
+function pctRaw(a,b){if(!a||!b)return null;return ((a-b)/Math.abs(b)*100).toFixed(1)}
 
-function fmtPrice(p, dec=2) {
-  if (p==null||p===undefined) return '--';
-  if (p >= 1000) return '$' + p.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-  if (p >= 1)    return '$' + p.toFixed(dec);
-  return '$' + p.toFixed(4);
-}
+// Clock
+setInterval(()=>{const n=new Date();$('clock').textContent=n.toLocaleTimeString('zh-CN',{hour12:false});$('clock-date').textContent=n.toLocaleDateString('zh-CN')},1000);
 
-function fmtPct(p) {
-  if (p==null) return {text:'--', cls:''};
-  const sign = p>=0?'+':'';
-  return { text: sign+p.toFixed(2)+'%', cls: p>=0?'up':'dn' };
-}
+// Chart defaults
+Chart.defaults.color='#8b949e';
+Chart.defaults.borderColor='rgba(48,54,61,0.8)';
+Chart.defaults.font.family="'JetBrains Mono',monospace";
+Chart.defaults.font.size=11;
+const charts={};
+function dc(id){if(charts[id]){charts[id].destroy();delete charts[id]}}
 
-function relTime(ts) {
-  if (!ts) return '时间待定';
-  const diff = ts - Date.now()/1000;
-  const abs = Math.abs(diff);
-  const past = diff < 0;
-  if (abs < 3600)   return past ? Math.floor(abs/60)+'分钟前' : Math.floor(abs/60)+'分钟后';
-  if (abs < 86400)  return past ? Math.floor(abs/3600)+'小时前' : Math.floor(abs/3600)+'小时后';
-  if (abs < 86400*30) return past ? Math.floor(abs/86400)+'天前' : Math.floor(abs/86400)+'天后';
-  const d = new Date(ts*1000);
-  return d.toLocaleDateString('zh-CN',{month:'numeric',day:'numeric'});
-}
-
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function entityClass(e) {
-  const map = {Tesla:'Tesla',SpaceX:'SpaceX',xAI:'xAI',Neuralink:'Neuralink',X:'X',Boring:'Boring',宏观:'宏观'};
-  return map[e] || '';
-}
-
-function dotClass(e) {
-  const map = {Tesla:'dot-Tesla',SpaceX:'dot-SpaceX',xAI:'dot-xAI',Neuralink:'dot-xAI',X:'dot-X',Boring:'dot-Boring',宏观:'dot-宏观'};
-  return map[e] || 'dot-default';
-}
-
-// ══════════════════════════════════════
-// 时钟
-// ══════════════════════════════════════
-function updateClock() {
-  const now = new Date();
-  const h = String(now.getHours()).padStart(2,'0');
-  const m = String(now.getMinutes()).padStart(2,'0');
-  const s = String(now.getSeconds()).padStart(2,'0');
-  $('clock').textContent = h+':'+m+':'+s;
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// ══════════════════════════════════════
-// FEED 数据
-// ══════════════════════════════════════
-let allItems = [];
-let displayedCount = 0;
-let currentFilter = 'all';
-const PAGE_SIZE = 20;
-
-async function loadFeed() {
-  try {
-    const r = await fetch('/data/feed.json?t='+Date.now(), {cache:'no-store'});
-    const d = await r.json();
-    allItems = (d.items||[]).sort((a,b) => (b.ts||0)-(a.ts||0));
-
-    // hero stats
-    const today = new Date().toLocaleDateString('zh-CN',{month:'2-digit',day:'2-digit'}).replace('/','-');
-    const todayStr = (new Date().getMonth()+1).toString().padStart(2,'0') + '-' + new Date().getDate().toString().padStart(2,'0');
-    const todayCount = allItems.filter(x => x.date === todayStr).length;
-    $('hs-count').textContent = todayCount || allItems.length;
-    if (d.updated) {
-      $('hs-updated').textContent = d.updated.slice(11,16) + ' 更新';
-      $('footer-updated').textContent = '最后更新: ' + d.updated;
-    }
-
-    renderFeed(true);
-  } catch(e) {
-    $('feed-list').innerHTML = '<div class="feed-empty">暂无数据，采集中...</div>';
-    console.warn('feed加载失败:', e);
-  }
-}
-
-function getFiltered() {
-  if (currentFilter === 'all') return allItems;
-  return allItems.filter(x =>
-    x.category === currentFilter ||
-    x.entity === currentFilter
-  );
-}
-
-function renderFeed(reset=false) {
-  if (reset) { displayedCount = 0; $('feed-list').innerHTML = ''; }
-  const items = getFiltered();
-  const slice = items.slice(displayedCount, displayedCount + PAGE_SIZE);
-
-  if (items.length === 0) {
-    $('feed-list').innerHTML = '<div class="feed-empty">该分类暂无内容</div>';
-    $('load-more-wrap').style.display = 'none';
-    return;
-  }
-
-  slice.forEach((item, i) => {
-    const ec = entityClass(item.entity);
-    const dc = dotClass(item.entity);
-    const hasYT = item.yt_id && item.yt_id.trim();
-    const hasImg = item.cover_img && item.cover_img.trim();
-    const hasUrl = item.source_url && item.source_url.trim() && !hasYT;
-
-    const div = document.createElement('div');
-    div.className = 'news-item' + (ec ? ' entity-'+ec : '');
-    div.style.animationDelay = (i*0.04)+'s';
-    div.innerHTML = `
-      <div class="news-time-col">
-        <div class="news-date">${esc(item.date||'')}</div>
-        <div class="news-time">${esc(item.time||'')}</div>
-        <div class="news-cat-dot ${dc}"></div>
-      </div>
-      <div class="news-content-col">
-        <div class="news-meta">
-          ${item.entity ? `<span class="news-entity">${esc(item.entity)}</span>` : ''}
-          <span class="news-category">${esc(item.category||'')}</span>
-          ${item.source ? `<span class="news-source">${esc(item.source)}</span>` : ''}
-        </div>
-        ${hasImg ? `<img class="news-cover" src="${esc(item.cover_img)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
-        <div class="news-headline">${esc(item.title||'')}</div>
-        <div class="news-body">${item.body||item.content||''}</div>
-        ${hasYT ? `<a class="news-yt" href="https://www.youtube.com/watch?v=${esc(item.yt_id)}" target="_blank" rel="noopener">▶ 观看视频</a>` : ''}
-        ${hasUrl ? `<a class="news-link" href="${esc(item.source_url)}" target="_blank" rel="noopener">→ 阅读原文</a>` : ''}
-      </div>
-    `;
-    $('feed-list').appendChild(div);
+// TABS
+document.querySelectorAll('.tab').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    $('tab-'+b.dataset.tab).classList.add('active');
   });
-
-  displayedCount += slice.length;
-  $('load-more-wrap').style.display = displayedCount < items.length ? 'block' : 'none';
-}
-
-// 过滤器
-function setFilter(f) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn, .nav-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.filter === f);
-  });
-  renderFeed(true);
-}
-
-document.querySelectorAll('.filter-btn, .nav-btn').forEach(btn => {
-  btn.addEventListener('click', () => setFilter(btn.dataset.filter));
 });
 
-$('load-more-btn').addEventListener('click', () => renderFeed(false));
-
-// ══════════════════════════════════════
-// STOCKS 数据
-// ══════════════════════════════════════
-async function loadStocks() {
-  try {
-    const r = await fetch('/data/stocks.json?t='+Date.now(), {cache:'no-store'});
-    const d = await r.json();
-
-    // Ticker
-    const tickerItems = [];
-    (d.stocks||[]).forEach(s => {
-      const p = fmtPct(s.change_pct);
-      tickerItems.push(`<span class="t-item"><span class="t-sym">${s.symbol}</span><span class="t-price">${fmtPrice(s.price)}</span><span class="${p.cls}">${p.text}</span></span><span class="t-sep">·</span>`);
-    });
-    (d.crypto||[]).forEach(c => {
-      const p = fmtPct(c.change_pct);
-      tickerItems.push(`<span class="t-item"><span class="t-sym">${c.symbol}</span><span class="t-price">${fmtPrice(c.price)}</span><span class="${p.cls}">${p.text}</span></span><span class="t-sep">·</span>`);
-    });
-    // 无缝滚动复制
-    const html = tickerItems.join('') + tickerItems.join('');
-    $('ticker-track').innerHTML = html;
-
-    // Hero stats - TSLA
-    const tsla = (d.stocks||[]).find(s=>s.symbol==='TSLA');
-    if (tsla) {
-      $('hs-tsla-price').textContent = fmtPrice(tsla.price);
-      const p = fmtPct(tsla.change_pct);
-      const el = $('hs-tsla-change');
-      el.textContent = p.text;
-      el.className = 'hs-change ' + p.cls;
+// STOCKS
+async function loadStocks(){
+  try{
+    const d=await fetch('/data/stocks.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json());
+    const t=(d.stocks||[]).find(s=>s.symbol==='TSLA');
+    if(t){
+      $('tsla-price').textContent='$'+t.price.toFixed(2);
+      const el=$('tsla-change');
+      el.textContent=(t.change_pct>=0?'+':'')+t.change.toFixed(2)+' ('+(t.change_pct>=0?'+':'')+t.change_pct.toFixed(2)+'%)';
+      el.className='price-change '+(t.change_pct>=0?'up':'dn');
     }
+    const items=[];
+    (d.stocks||[]).forEach(s=>{const p=s.change_pct;items.push(`<span class="ti"><span class="ti-sym">${s.symbol}</span><span class="ti-p">$${s.price.toFixed(2)}</span><span class="${p>=0?'up':'dn'}">${p>=0?'+':''}${p.toFixed(2)}%</span></span><span style="color:var(--border)"> · </span>`)});
+    (d.crypto||[]).forEach(c=>{const p=c.change_pct;items.push(`<span class="ti"><span class="ti-sym">${c.symbol}</span><span class="ti-p">${c.price>=1000?'$'+Math.round(c.price).toLocaleString():'$'+c.price.toFixed(2)}</span><span class="${p>=0?'up':'dn'}">${p>=0?'+':''}${p.toFixed(2)}%</span></span><span style="color:var(--border)"> · </span>`)});
+    $('ticker-track').innerHTML=items.join('')+items.join('');
+  }catch(e){console.warn('stocks:',e)}
+}
 
-    // Hero stats - BTC
-    const btc = (d.crypto||[]).find(c=>c.symbol==='BTC');
-    if (btc) {
-      $('hs-btc-price').textContent = btc.price >= 1000
-        ? '$' + Math.round(btc.price).toLocaleString()
-        : fmtPrice(btc.price);
-      const p = fmtPct(btc.change_pct);
-      const el = $('hs-btc-change');
-      el.textContent = p.text;
-      el.className = 'hs-change ' + p.cls;
-    }
+// TESLA DATA
+let TD={};
+async function loadTeslaData(){
+  try{
+    TD=await fetch('/data/tesla_data.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json());
+    renderStatusBar();renderBreaking();renderFinCards();renderFinTable();
+    renderScenarios();renderDeliveryTable();renderFSD();renderRobotaxi();
+    renderOptimus();renderEnergy();renderCharts();
+  }catch(e){console.warn('tesla_data:',e)}
+}
 
-    // Sidebar stocks
-    $('stocks-list').innerHTML = (d.stocks||[]).map(s => {
-      const p = fmtPct(s.change_pct);
-      return `<div class="stock-row">
-        <div><div class="stock-sym">${s.symbol}</div><div class="stock-name">${s.name}</div></div>
-        <div><div class="stock-price">${fmtPrice(s.price)}</div><div class="stock-change ${p.cls}">${p.text}</div></div>
-      </div>`;
-    }).join('');
+function renderStatusBar(){
+  const se=TD.stock_extra||{};
+  $('sb-mktcap').textContent=se.market_cap||'--';
+  $('sb-pe').textContent=se.pe_ratio||'--';
+  $('sb-eps').textContent=se.eps?'$'+se.eps:'--';
+  $('sb-52w').textContent=(se.week52_low&&se.week52_high)?'$'+se.week52_low+'–$'+se.week52_high:'--';
+  $('sb-earn').textContent=se.next_earnings_label||'--';
+  $('kpi-earn').textContent=se.next_earnings?se.next_earnings.slice(5).replace('-','/'):'--';
+}
 
-    // Sidebar crypto
-    $('crypto-list').innerHTML = (d.crypto||[]).map(c => {
-      const p = fmtPct(c.change_pct);
-      return `<div class="crypto-row">
-        <div><div class="stock-sym">${c.symbol}</div><div class="stock-name">${c.name}</div></div>
-        <div><div class="stock-price">${fmtPrice(c.price)}</div><div class="stock-change ${p.cls}">${p.text}</div></div>
-      </div>`;
-    }).join('');
+function renderBreaking(){
+  const dels=TD.deliveries||[];if(!dels.length)return;
+  const lat=dels[dels.length-1],prv=dels[dels.length-2],yy=dels.length>=5?dels[dels.length-5]:null;
+  $('bc-tag').textContent=lat.quarter+' 财报闪报';
+  $('lt-m3y-prod').textContent=fmtN(lat.model3y);$('lt-m3y-del').textContent=fmtN(lat.model3y);
+  $('lt-oth-prod').textContent=fmtN(lat.other);$('lt-oth-del').textContent=fmtN(lat.other);
+  $('lt-tot-prod').textContent=fmtN(lat.production);$('lt-tot-del').textContent=fmtN(lat.total);
+  if(prv){
+    $('lt-tot-chg').innerHTML=pctHtml(lat.total,prv.total);
+    $('kpi-qoq-del').innerHTML=pctHtml(lat.total,prv.total);
+    $('kpi-qoq-del').className='kpi-val '+(lat.total>=prv.total?'up':'dn');
+    const inv=lat.production-lat.total;
+    $('kpi-inv').textContent=(inv>=0?'+':'')+fmtN(inv);
+    $('kpi-inv').className='kpi-val '+(inv>=0?'up':'dn');
+  }
+  if(yy){$('kpi-yoy-del').innerHTML=pctHtml(lat.total,yy.total);$('kpi-yoy-prod').innerHTML=pctHtml(lat.production,yy.production)}
+  const fins=TD.financials||[];
+  if(fins.length){const lf=fins[fins.length-1];$('kpi-gm').textContent=fmtP(lf.gm_pct);$('kpi-gm').className='kpi-val '+(lf.gm_pct>=20?'up':'');}
+  $('takeaways').innerHTML=[
+    `${lat.quarter} 总交付 <strong>${fmtN(lat.total)}</strong> 辆，生产 <strong>${fmtN(lat.production)}</strong> 辆`,
+    `Model 3/Y 交付 ${fmtN(lat.model3y)} 辆，其他车型 ${fmtN(lat.other)} 辆`,
+    prv?`环比上季度交付${lat.total>=prv.total?'<span class="up">增加':'<span class="dn">减少'} ${fmtN(Math.abs(lat.total-prv.total))} 辆</span>`:'',
+    `生产超交付 ${fmtN(lat.production-lat.total)} 辆，库存积累`,
+    `下次财报预计：${TD.stock_extra?.next_earnings_label||'待定'}`,
+  ].filter(Boolean).map((t,i)=>`<div class="takeaway"><span class="takeaway-num">${i+1}.</span><span>${t}</span></div>`).join('');
+}
 
-    if (d.updated) {
-      $('stocks-updated').textContent = d.updated.slice(11,16);
-    }
+function renderFinCards(){
+  const fins=TD.financials||[];if(fins.length<2)return;
+  const l=fins[fins.length-1],p=fins[fins.length-2];
+  const ttm=fins.slice(-4).reduce((s,f)=>s+(f.revenue||0),0);
+  $('fc-ttm').textContent='$'+ttm.toFixed(1)+'B';
+  $('fc-rev').textContent=fmtB(l.revenue);$('fc-rev-chg').innerHTML=pctHtml(l.revenue,p.revenue)+' 环比';
+  $('fc-gm').textContent=fmtP(l.gm_pct);$('fc-gm-chg').innerHTML=pctHtml(l.gm_pct,p.gm_pct)+' pp 环比';
+  $('fc-op').textContent=fmtB(l.op_income);$('fc-op-note').textContent=l.quarter;
+  $('fc-net').textContent=fmtB(l.net_income);$('fc-net-note').textContent=l.quarter;
+  $('fc-fcf').textContent=fmtB(l.fcf);$('fc-fcf-note').textContent=l.quarter;
+  $('fc-eps').textContent=l.eps?'$'+l.eps:'--';$('fc-eps-chg').innerHTML=pctHtml(l.eps,p.eps)+' 环比';
+}
 
-  } catch(e) {
-    console.warn('stocks加载失败:', e);
+function renderFinTable(){
+  const fins=(TD.financials||[]).slice(-8).reverse();
+  $('fin-table-body').innerHTML=fins.map(f=>`<tr>
+    <td>${esc(f.quarter)}</td><td>${fmtB(f.revenue)}</td><td>${fmtB(f.gross_profit)}</td>
+    <td class="highlight">${fmtP(f.gm_pct)}</td><td>${fmtB(f.op_income)}</td>
+    <td class="${(f.net_income||0)>=0?'pos':'neg'}">${fmtB(f.net_income)}</td>
+    <td>$${f.eps||'--'}</td><td class="${(f.fcf||0)>=0?'pos':'neg'}">${fmtB(f.fcf)}</td>
+  </tr>`).join('');
+}
+
+function renderScenarios(){
+  $('scenario-rows').innerHTML=(TD.analyst_consensus?.scenarios||[]).map(s=>`
+    <div class="scenario-row">
+      <div class="s-dot" style="background:${s.color}"></div><div class="s-name">${esc(s.label)}</div>
+      <div class="s-val" style="color:${s.color};text-align:right">$${s.fy2026_rev}B</div>
+      <div class="s-val" style="color:${s.color};text-align:right">$${s.fy2027_rev}B</div>
+      <div class="s-val" style="color:${s.color};text-align:right">${s.fy2026_gm}%</div>
+      <div class="s-val" style="color:${s.color};text-align:right">${s.fy2027_gm}%</div>
+      <div class="s-note">${esc(s.assumption)}</div>
+    </div>`).join('');
+}
+
+function renderDeliveryTable(){
+  $('delivery-tbody').innerHTML=(TD.deliveries||[]).slice().reverse().map(d=>{
+    const inv=(d.production||0)-d.total;
+    return `<tr><td>${esc(d.quarter)}</td><td>${fmtN(d.model3y)}</td><td>${fmtN(d.other)}</td>
+    <td class="highlight">${fmtN(d.production)}</td><td>${fmtN(d.model3y)}</td><td>${fmtN(d.other)}</td>
+    <td class="highlight">${fmtN(d.total)}</td><td class="${inv>=0?'pos':'neg'}">${inv>=0?'+':''}${fmtN(inv)}</td></tr>`;
+  }).join('');
+}
+
+function renderFSD(){
+  const f=TD.fsd||{};
+  $('fsd-miles').textContent=f.cumulative_miles_label||'--';
+  $('fsd-ver').textContent=f.current_version||'--';
+  $('fsd-users').textContent=f.supervised_users_label||'--';
+  $('fsd-intv').textContent=f.intervention_miles_label||'--';
+  $('fsd-timeline').innerHTML=(f.timeline||[]).map(t=>`<div class="tl-item"><div class="tl-dot done"></div><div><div class="tl-date">${t.date}</div><div class="tl-event">${esc(t.event)}</div></div></div>`).join('');
+}
+
+function renderRobotaxi(){
+  const r=TD.robotaxi||{};
+  $('rt-status').textContent=r.status||'--';
+  $('rt-city').textContent=r.launch_city||'--';
+  $('rt-price').textContent=r.cybercab_price_target?'$'+r.cybercab_price_target.toLocaleString():'--';
+  $('rt-fleet').textContent=fmtN(r.fleet_size_current)+' 辆';
+  $('rt-target').textContent=fmtN(r.fleet_size_target)+' 辆';
+  $('rt-launch').textContent=r.launch_date||'--';
+  if(r.fleet_size_current&&r.fleet_size_target)$('rt-bar').style.width=Math.min(100,r.fleet_size_current/r.fleet_size_target*100)+'%';
+  $('rt-milestones').innerHTML=(r.key_milestones||[]).map(m=>`<div class="milestone"><div class="ms-date">${m.date}</div><div class="ms-label">${esc(m.label)}</div><div class="ms-status ${m.done?'ms-done':'ms-pending'}">${m.done?'✓ 完成':'待完成'}</div></div>`).join('');
+}
+
+function renderOptimus(){
+  const o=TD.optimus||{};
+  $('op-ver').textContent=o.current_version||'--';
+  $('op-factory').textContent=fmtN(o.factory_units)+' 台';
+  $('op-t26').textContent=fmtN(o.production_target_2026);
+  $('op-price').textContent=o.price_target_usd?'$'+o.price_target_usd.toLocaleString():'--';
+  $('op-speed').textContent=o.walking_speed_kmh?o.walking_speed_kmh+' km/h':'--';
+  $('op-payload').textContent=o.payload_kg?o.payload_kg+' kg':'--';
+  $('op-dof').textContent=o.dof?o.dof+' DoF':'--';
+  $('op-t27').textContent=o.production_target_2027?fmtN(o.production_target_2027)+' 台':'--';
+  $('op-timeline').innerHTML=(o.timeline||[]).map(t=>`<div class="tl-item"><div class="tl-dot done"></div><div><div class="tl-date">${t.date}</div><div class="tl-event">${esc(t.event)}</div></div></div>`).join('');
+}
+
+function renderEnergy(){
+  const e=TD.energy||{};
+  $('en-total').textContent=e.megapack_gwh_deployed_2025?e.megapack_gwh_deployed_2025+' GWh':'--';
+  $('en-backlog').textContent=e.megapack_backlog_gw?e.megapack_backlog_gw+' GW':'--';
+  $('en-pw').textContent=e.powerwall_units_million?e.powerwall_units_million+'M 台':'--';
+  $('en-lathrop').textContent=e.lathrop_capacity_gwh?e.lathrop_capacity_gwh+' GWh':'--';
+}
+
+function renderCharts(){
+  const fins=TD.financials||[],dels=TD.deliveries||[],segs=TD.segment_margins||[],en=(TD.energy?.quarterly_deployed)||[];
+
+  dc('margins');if($('chart-margins')&&segs.length){
+    charts['margins']=new Chart($('chart-margins'),{type:'line',data:{labels:segs.map(s=>s.quarter),datasets:[
+      {label:'汽车',data:segs.map(s=>s.auto),borderColor:'#e3b341',backgroundColor:'transparent',tension:.4,pointRadius:3},
+      {label:'储能',data:segs.map(s=>s.energy),borderColor:'#00e676',backgroundColor:'transparent',tension:.4,pointRadius:3},
+      {label:'服务',data:segs.map(s=>s.services),borderColor:'#58a6ff',backgroundColor:'transparent',tension:.4,pointRadius:3},
+    ]},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>v+'%'}}}}});
+  }
+
+  dc('revenue');if($('chart-revenue')&&fins.length){
+    charts['revenue']=new Chart($('chart-revenue'),{type:'bar',data:{labels:fins.map(f=>f.quarter),datasets:[
+      {label:'营收(B)',data:fins.map(f=>f.revenue),backgroundColor:'rgba(227,179,65,.75)',borderColor:'rgba(227,179,65,1)',borderWidth:1},
+      {label:'毛利润(B)',data:fins.map(f=>f.gross_profit),backgroundColor:'rgba(0,230,118,.6)',borderColor:'rgba(0,230,118,1)',borderWidth:1},
+    ]},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>'$'+v+'B'}}}}});
+  }
+
+  dc('delivery');if($('chart-delivery')&&dels.length){
+    charts['delivery']=new Chart($('chart-delivery'),{type:'bar',data:{labels:dels.map(d=>d.quarter),datasets:[
+      {label:'Model 3/Y',data:dels.map(d=>d.model3y),backgroundColor:'rgba(227,179,65,.8)',stack:'a'},
+      {label:'其他车型',data:dels.map(d=>d.other),backgroundColor:'rgba(88,166,255,.7)',stack:'a'},
+    ]},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{x:{stacked:true},y:{stacked:true}}}});
+  }
+
+  dc('prod-del');if($('chart-prod-del')&&dels.length){
+    charts['prod-del']=new Chart($('chart-prod-del'),{type:'line',data:{labels:dels.map(d=>d.quarter),datasets:[
+      {label:'生产',data:dels.map(d=>d.production),borderColor:'#e3b341',backgroundColor:'rgba(227,179,65,.1)',fill:true,tension:.3,pointRadius:3},
+      {label:'交付',data:dels.map(d=>d.total),borderColor:'#00e676',backgroundColor:'rgba(0,230,118,.1)',fill:true,tension:.3,pointRadius:3},
+    ]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
+  }
+
+  dc('energy');if($('chart-energy')&&en.length){
+    charts['energy']=new Chart($('chart-energy'),{type:'bar',data:{labels:en.map(e=>e.quarter),datasets:[
+      {label:'储能部署(GWh)',data:en.map(e=>e.gwh),backgroundColor:'rgba(0,230,118,.75)',borderColor:'rgba(0,230,118,1)',borderWidth:1}
+    ]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v+' GWh'}}}}});
   }
 }
 
-// ══════════════════════════════════════
-// LAUNCHES 数据
-// ══════════════════════════════════════
-async function loadLaunches() {
-  try {
-    const r = await fetch('/data/launches.json?t='+Date.now(), {cache:'no-store'});
-    const d = await r.json();
-    const upcoming = (d.upcoming||[]).slice(0,4);
-    const past = (d.past||[]).slice(0,2);
+// NEWS
+let allNews=[],dispNews=0,nFilter='all';
+const NEWS_PG=20;
 
-    let html = '';
-    upcoming.forEach(lc => {
-      html += `<div class="launch-item">
-        <div class="launch-icon">🚀</div>
-        <div>
-          <div class="launch-name">${esc(lc.name)}</div>
-          <div class="launch-when">${relTime(lc.date_unix)}</div>
-        </div>
-      </div>`;
-    });
-    past.forEach(lc => {
-      const icon = lc.success===true?'✅':lc.success===false?'❌':'❓';
-      html += `<div class="launch-item">
-        <div class="launch-icon">${icon}</div>
-        <div>
-          <div class="launch-name">${esc(lc.name)}</div>
-          <div class="launch-when" style="color:var(--muted)">${relTime(lc.date_unix)}</div>
-        </div>
-      </div>`;
-    });
-
-    $('launches-list').innerHTML = html || '<div style="font-family:var(--mono);font-size:10px;color:var(--muted)">暂无数据</div>';
-  } catch(e) {
-    console.warn('launches加载失败:', e);
-  }
+async function loadFeed(){
+  try{
+    const d=await fetch('/data/feed.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json());
+    allNews=(d.items||[]).sort((a,b)=>(b.ts||0)-(a.ts||0));
+    renderNews(true);
+    const fsdNews=allNews.filter(n=>['fsd','robotaxi','autopilot','自动驾驶'].some(k=>(n.title||'').toLowerCase().includes(k))).slice(0,5);
+    $('fsd-news').innerHTML=fsdNews.length?fsdNews.map(newsHtml).join(''):'<div style="padding:20px;color:var(--muted);font-family:var(--mono);font-size:11px">暂无相关情报</div>';
+  }catch(e){console.warn('feed:',e)}
 }
 
-// ══════════════════════════════════════
-// 启动 & 定时刷新
-// ══════════════════════════════════════
-loadFeed();
-loadStocks();
-loadLaunches();
+function newsHtml(n){
+  const ec=n.entity?'ent-'+n.entity:'';
+  const hasYT=n.yt_id&&n.yt_id.trim(),hasUrl=n.source_url&&!hasYT;
+  return `<div class="news-item">
+    <div class="news-time"><div class="nt-date">${esc(n.date||'')}</div><div class="nt-time">${esc(n.time||'')}</div></div>
+    <div class="news-body">
+      <div class="news-tags">
+        ${n.entity?`<span class="n-entity ${ec}">${esc(n.entity)}</span>`:''}
+        <span class="n-cat">${esc(n.category||'')}</span>
+        ${n.source?`<span class="n-src">${esc(n.source)}</span>`:''}
+      </div>
+      <div class="news-title">${esc(n.title||'')}</div>
+      <div class="news-body-text">${n.body||n.content||''}</div>
+      ${hasYT?`<a class="n-link" href="https://www.youtube.com/watch?v=${esc(n.yt_id)}" target="_blank" rel="noopener">▶ 观看视频</a>`:''}
+      ${hasUrl?`<a class="n-link" href="${esc(n.source_url)}" target="_blank" rel="noopener">→ 阅读原文</a>`:''}
+    </div>
+  </div>`;
+}
 
-setInterval(loadFeed,   5 * 60 * 1000);   // 5分钟
-setInterval(loadStocks, 60 * 1000);        // 60秒
-setInterval(loadLaunches, 60 * 60 * 1000); // 1小时
+function getFiltered(){return nFilter==='all'?allNews:allNews.filter(n=>n.category===nFilter||n.entity===nFilter)}
+
+function renderNews(reset=false){
+  if(reset){dispNews=0;$('news-list').innerHTML=''}
+  const items=getFiltered(),slice=items.slice(dispNews,dispNews+NEWS_PG);
+  if(!items.length){$('news-list').innerHTML='<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted)">该分类暂无内容</div>';$('load-more-wrap').style.display='none';return}
+  $('news-list').insertAdjacentHTML('beforeend',slice.map(newsHtml).join(''));
+  dispNews+=slice.length;
+  $('load-more-wrap').style.display=dispNews<items.length?'block':'none';
+}
+
+document.querySelectorAll('.fb').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.fb').forEach(x=>x.classList.remove('active'));b.classList.add('active');nFilter=b.dataset.filter;renderNews(true)})});
+$('load-more-btn').addEventListener('click',()=>renderNews(false));
+
+// INIT
+loadStocks();loadTeslaData();loadFeed();
+setInterval(loadStocks,60*1000);
+setInterval(loadFeed,5*60*1000);
+setInterval(loadTeslaData,60*60*1000);
 </script>
 </body>
 </html>
