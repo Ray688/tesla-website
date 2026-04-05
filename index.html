@@ -345,12 +345,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
   .breaking-title { font-size: 14px; }
 
   /* 新闻条目 */
-  .news-item { grid-template-columns: 58px 1fr; }
-  .news-time { padding: 12px 8px; }
+  .news-item { grid-template-columns: 52px 1fr; min-width:0; overflow:hidden; }
+  .news-time { padding: 12px 4px; min-width:0; }
+  .nt-date { font-size: 8px; }
   .nt-time { font-size: 11px; }
-  .news-body { padding: 12px 12px; }
-  .news-title { font-size: 13px; }
-  .news-body-text { -webkit-line-clamp: 2; }
+  .news-body { padding: 12px 10px; min-width:0; overflow:hidden; }
+  .news-title { font-size: 13px; word-break:break-all; }
+  .news-body-text { -webkit-line-clamp: 2; word-break:break-all; }
+  .news-tags { flex-wrap:wrap; gap:4px; }
+  .n-src { margin-left:0; }
+
+  /* 防止横向滚动 */
+  body { overflow-x: hidden; }
+  .content, #news-list, #tab-feed { overflow-x: hidden; max-width: 100vw; }
 
   /* 过滤栏换行 */
   .filter-bar { flex-wrap: wrap; gap: 6px; }
@@ -982,7 +989,7 @@ function newsHtml(n){
   const ec=n.entity?'ent-'+n.entity:'';
   const hasYT=n.yt_id&&n.yt_id.trim(),hasUrl=n.source_url&&!hasYT;
   return `<div class="news-item" data-nid="${n.id}" onclick="handleNewsClick(this)" style="cursor:pointer">
-    <div class="news-time"><div class="nt-date">${esc(n.date||'')}</div><div class="nt-time">${esc(n.time||'')}</div></div>
+    <div class="news-time"><div class="nt-date">${esc(n.date||'')}</div><div class="nt-time">${esc(n.time||'')}</div><div style="font-family:var(--mono);font-size:8px;color:var(--muted);margin-top:3px">${timeAgo(n.ts)}</div></div>
     <div class="news-body">
       <div class="news-tags">
         ${n.entity?`<span class="n-entity ${ec}">${esc(n.entity)}</span>`:''}
