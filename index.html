@@ -305,6 +305,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
   <button class="tab" data-tab="fsd">🤖 FSD · Robotaxi</button>
   <button class="tab" data-tab="energy">⚡ 能源业务</button>
   <button class="tab" data-tab="optimus">🦾 Optimus</button>
+  <button class="tab" data-tab="china">🇨🇳 中国市场</button>
+  <button class="tab" data-tab="nexus">🕸️ 宇宙关联图</button>
   <button class="tab" data-tab="feed">📡 情报流</button>
 </div>
 
@@ -455,6 +457,95 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
         <tr><td>当前状态</td><td class="highlight" style="color:var(--green)">工厂内部作业</td></tr>
         <tr><td>对外销售预计</td><td class="highlight" style="color:var(--yellow)">2025年底</td></tr>
       </tbody></table>
+    </div>
+  </div>
+</div>
+
+
+<!-- TAB: 中国市场 -->
+<div class="tab-panel" id="tab-china">
+  <div class="grid-4" style="margin-bottom:20px">
+    <div class="card" style="--accent:var(--red)"><div class="card-label">特斯拉中国月销量</div><div class="card-val" id="cn-last-sales">--</div><div class="card-change" id="cn-sales-yoy">--</div></div>
+    <div class="card" style="--accent:var(--cyan)"><div class="card-label">本周保险上险</div><div class="card-val" id="cn-insurance">--</div><div class="card-note">辆（最新一周）</div></div>
+    <div class="card" style="--accent:var(--green)"><div class="card-label">超充站数量</div><div class="card-val" id="cn-chargers">--</div><div class="card-change" id="cn-chargers-yoy">--</div></div>
+    <div class="card" style="--accent:var(--yellow)"><div class="card-label">市场份额</div><div class="card-val" id="cn-share">--</div><div class="card-note">中国新能源市场</div></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:20px">
+    <div class="chart-box">
+      <div class="sec-header"><div><div class="sec-title">中国市场月销量对比</div><div class="sec-sub">特斯拉 vs 主要竞品（辆）</div></div><span class="sec-source">来源：乘联会</span></div>
+      <canvas id="chart-cn-sales" height="200"></canvas>
+    </div>
+    <div class="chart-box">
+      <div class="sec-header"><div><div class="sec-title">周度保险上险数</div><div class="sec-sub">特斯拉中国（辆）</div></div><span class="sec-source">来源：交强险数据</span></div>
+      <canvas id="chart-cn-insurance" height="200"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-box" style="margin-bottom:20px">
+    <div class="sec-header"><div><div class="sec-title">竞争对手快照</div><div class="sec-sub">中国主要新能源品牌对比</div></div><span class="sec-source">来源：各品牌公告</span></div>
+    <div style="overflow-x:auto">
+      <table class="data-table" id="competitor-table">
+        <thead><tr>
+          <th style="text-align:left">品牌</th>
+          <th>Q4 2025交付</th>
+          <th>市值</th>
+          <th>同比增速</th>
+          <th>智驾方案</th>
+          <th style="text-align:left">核心定位</th>
+        </tr></thead>
+        <tbody id="competitor-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: 宇宙关联图 -->
+<div class="tab-panel" id="tab-nexus">
+  <div class="chart-box" style="margin-bottom:20px">
+    <div class="sec-header">
+      <div><div class="sec-title">马斯克宇宙关联图</div><div class="sec-sub">六大公司资金流 · 技术共享 · 人员兼任 · 供应链关系</div></div>
+      <div style="display:flex;gap:8px;font-family:var(--mono);font-size:9px">
+        <span style="color:var(--green)">● 资金流</span>
+        <span style="color:var(--cyan)">● 技术共享</span>
+        <span style="color:var(--yellow)">● 人员兼任</span>
+        <span style="color:var(--orange)">● 供应链</span>
+      </div>
+    </div>
+    <div style="position:relative;width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;overflow:hidden" id="nexus-wrap">
+      <canvas id="nexus-canvas" style="display:block;width:100%"></canvas>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-box">
+      <div class="sec-header"><div class="sec-title">关键关系说明</div></div>
+      <table class="data-table">
+        <thead><tr><th style="text-align:left">关系</th><th style="text-align:left">类型</th><th style="text-align:left">说明</th></tr></thead>
+        <tbody>
+          <tr><td>Tesla → SpaceX</td><td><span style="color:var(--green)">资金</span></td><td style="text-align:left;color:var(--muted)">马斯克用Tesla股票质押融资投资SpaceX</td></tr>
+          <tr><td>Tesla ↔ xAI</td><td><span style="color:var(--cyan)">技术</span></td><td style="text-align:left;color:var(--muted)">Tesla车队数据训练Grok，xAI算法反哺FSD</td></tr>
+          <tr><td>Tesla ↔ Neuralink</td><td><span style="color:var(--cyan)">技术</span></td><td style="text-align:left;color:var(--muted)">神经接口技术共享，未来Optimus控制系统</td></tr>
+          <tr><td>SpaceX → Tesla</td><td><span style="color:var(--orange)">供应链</span></td><td style="text-align:left;color:var(--muted)">Starlink为Tesla车辆提供V2X通信基础</td></tr>
+          <tr><td>X → xAI</td><td><span style="color:var(--cyan)">技术</span></td><td style="text-align:left;color:var(--muted)">X平台实时数据是Grok训练的核心语料</td></tr>
+          <tr><td>Boring → Tesla</td><td><span style="color:var(--orange)">供应链</span></td><td style="text-align:left;color:var(--muted)">Tesla车辆是Boring Loop的专用运营车型</td></tr>
+          <tr><td>Tesla → Optimus</td><td><span style="color:var(--yellow)">人员</span></td><td style="text-align:left;color:var(--muted)">FSD团队直接负责Optimus视觉感知系统</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="chart-box">
+      <div class="sec-header"><div class="sec-title">高管兼任关系</div></div>
+      <table class="data-table">
+        <thead><tr><th style="text-align:left">人物</th><th style="text-align:left">兼任职位</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--yellow)">Elon Musk</td><td style="text-align:left;color:var(--muted)">Tesla CEO · SpaceX CEO · X CEO · xAI CEO · Boring CEO</td></tr>
+          <tr><td>Gwynne Shotwell</td><td style="text-align:left;color:var(--muted)">SpaceX COO（独立运营）</td></tr>
+          <tr><td>Andrej Karpathy</td><td style="text-align:left;color:var(--muted)">前Tesla AI负责人 → xAI顾问</td></tr>
+          <tr><td>Jared Birchall</td><td style="text-align:left;color:var(--muted)">马斯克家族办公室 → Neuralink董事</td></tr>
+          <tr><td>Steve Davis</td><td style="text-align:left;color:var(--muted)">Boring CEO · SpaceX高级工程师</td></tr>
+          <tr><td>Shivon Zilis</td><td style="text-align:left;color:var(--muted)">Neuralink运营总监 · OpenAI前成员</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -727,6 +818,7 @@ function newsHtml(n){
       </div>
       <div class="news-title">${esc(n.title||'')}</div>
       <div class="news-body-text">${n.body||n.content||''}</div>
+      ${n.insight ? `<div style="margin-top:8px;padding:6px 10px;background:rgba(0,230,118,0.06);border-left:2px solid var(--green);font-family:var(--mono);font-size:11px;color:rgba(0,230,118,0.9);line-height:1.5">${n.insight}</div>` : ''}
       ${hasYT?`<a class="n-link" href="https://www.youtube.com/watch?v=${esc(n.yt_id)}" target="_blank" rel="noopener">▶ 观看视频</a>`:''}
       ${hasUrl?`<a class="n-link" href="${esc(n.source_url)}" target="_blank" rel="noopener">→ 阅读原文</a>`:''}
     </div>
@@ -766,6 +858,7 @@ setInterval(loadTeslaData,60*60*1000);
   </div>
   <div class="panel-body">
     <div class="panel-meta" id="panel-meta"></div>
+    <div id="panel-insight" style="display:none;margin-bottom:16px;padding:10px 14px;background:rgba(0,230,118,0.06);border-left:3px solid var(--green);font-family:var(--mono);font-size:12px;color:rgba(0,230,118,0.9);line-height:1.6"></div>
     <div id="panel-yt-wrap"></div>
     <div class="panel-content" id="panel-content"></div>
   </div>
@@ -855,6 +948,126 @@ function closePanel() {
 
 // ESC key
 document.addEventListener('keydown', e => { if(e.key==='Escape') closePanel(); });
+
+
+// ══ 中国市场数据 ══
+let chinaData = {};
+
+async function loadChinaData() {
+  try {
+    chinaData = await fetch('/data/china_data.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json());
+    renderChinaTab();
+  } catch(e){ console.warn('china_data:',e); }
+}
+
+function renderChinaTab() {
+  const sales=chinaData.monthly_sales||[], ins=chinaData.insurance_registration||[];
+  const net=chinaData.charging_network||{}, share=chinaData.market_share||[];
+  const comps=chinaData.competitor_snapshot||[];
+  if(sales.length>=2){
+    const last=sales[sales.length-1], yoy=sales.length>=13?sales[sales.length-13]:null;
+    $('cn-last-sales').textContent=last.tesla?last.tesla.toLocaleString()+' 辆':'--';
+    if(yoy){const p=((last.tesla-yoy.tesla)/yoy.tesla*100).toFixed(1);$('cn-sales-yoy').innerHTML=`<span class="${p>=0?'up':'dn'}">${p>=0?'+':''}${p}% 同比</span>`}
+  }
+  if(ins.length){$('cn-insurance').textContent=ins[ins.length-1].tesla.toLocaleString();}
+  if(net.tesla_superchargers){$('cn-chargers').textContent=net.tesla_superchargers.toLocaleString()+' 站';$('cn-chargers-yoy').innerHTML=`<span class="up">+${net.tesla_superchargers_yoy}% 同比</span>`;}
+  if(share.length){$('cn-share').textContent=share[share.length-1].tesla_pct+'%';}
+
+  dc('cn-sales');
+  if($('chart-cn-sales')&&sales.length){
+    const sl=sales.slice(-12);
+    charts['cn-sales']=new Chart($('chart-cn-sales'),{type:'line',data:{labels:sl.map(s=>s.month.slice(5)),datasets:[
+      {label:'Tesla',data:sl.map(s=>s.tesla),borderColor:'#e31937',backgroundColor:'rgba(227,25,55,0.1)',tension:0.3,pointRadius:3,fill:true},
+      {label:'BYD EV',data:sl.map(s=>s.byd_ev),borderColor:'#1677FF',backgroundColor:'transparent',tension:0.3,pointRadius:2},
+      {label:'理想',data:sl.map(s=>s.li_auto),borderColor:'#FF6B35',backgroundColor:'transparent',tension:0.3,pointRadius:2},
+      {label:'蔚来',data:sl.map(s=>s.nio),borderColor:'#00C2FF',backgroundColor:'transparent',tension:0.3,pointRadius:2},
+      {label:'小鹏',data:sl.map(s=>s.xpeng),borderColor:'#3CDE8D',backgroundColor:'transparent',tension:0.3,pointRadius:2},
+    ]},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>v>=10000?Math.round(v/10000)+'万':v}}}}});
+  }
+
+  dc('cn-insurance');
+  if($('chart-cn-insurance')&&ins.length){
+    charts['cn-insurance']=new Chart($('chart-cn-insurance'),{type:'bar',data:{labels:ins.map(d=>d.week.slice(5)),datasets:[{label:'上险数',data:ins.map(d=>d.tesla),backgroundColor:'rgba(227,25,55,0.7)',borderColor:'#e31937',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}}}});
+  }
+
+  $('competitor-tbody').innerHTML=comps.map(c=>`<tr>
+    <td><span style="color:${c.color};font-weight:700">${c.name}</span> <span style="font-family:var(--mono);font-size:9px;color:var(--muted)">${c.ticker}</span></td>
+    <td>${c.q4_2025_deliveries?c.q4_2025_deliveries.toLocaleString():'--'}</td>
+    <td>${c.market_cap_cny||'--'}</td>
+    <td class="${c.yoy_growth&&c.yoy_growth.startsWith('+')?'pos':'neg'}">${c.yoy_growth||'--'}</td>
+    <td style="font-family:var(--mono);font-size:10px">${c.fsd_equiv||'--'}</td>
+    <td style="text-align:left;color:var(--muted);font-size:12px">${c.note||'--'}</td>
+  </tr>`).join('');
+}
+
+// ══ 马斯克宇宙关联图 ══
+function drawNexus() {
+  const wrap=$('nexus-wrap'), canvas=$('nexus-canvas');
+  if(!wrap||!canvas)return;
+  const W=wrap.clientWidth||900, H=Math.max(460,W*0.52);
+  canvas.width=W; canvas.height=H; canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2, cy=H/2, rv=Math.min(W,H)*0.34;
+  const ang=[-90,-30,30,90,150,210].map(a=>a*Math.PI/180);
+  const nodes=[
+    {id:'tesla',    label:'TESLA',    color:'#e31937',x:cx+rv*Math.cos(ang[0]),y:cy+rv*Math.sin(ang[0]),r:36},
+    {id:'spacex',   label:'SPACEX',   color:'#4fc3f7',x:cx+rv*Math.cos(ang[1]),y:cy+rv*Math.sin(ang[1]),r:32},
+    {id:'xai',      label:'xAI',      color:'#ce93d8',x:cx+rv*Math.cos(ang[2]),y:cy+rv*Math.sin(ang[2]),r:28},
+    {id:'x',        label:'X',        color:'#aaaaaa',x:cx+rv*Math.cos(ang[3]),y:cy+rv*Math.sin(ang[3]),r:24},
+    {id:'boring',   label:'BORING',   color:'#ffb300',x:cx+rv*Math.cos(ang[4]),y:cy+rv*Math.sin(ang[4]),r:24},
+    {id:'neuralink',label:'NEURALINK',color:'#00e676',x:cx+rv*Math.cos(ang[5]),y:cy+rv*Math.sin(ang[5]),r:26},
+    {id:'musk',     label:'MUSK',     color:'#e3b341',x:cx,y:cy,r:42},
+  ];
+  const nm={};nodes.forEach(n=>nm[n.id]=n);
+  const edges=[
+    {a:'musk',b:'tesla',    c:'rgba(0,230,118,0.8)',  w:2.5, d:[],   t:'主营'},
+    {a:'musk',b:'spacex',   c:'rgba(0,230,118,0.8)',  w:2.5, d:[],   t:'主营'},
+    {a:'musk',b:'xai',      c:'rgba(0,230,118,0.7)',  w:2,   d:[],   t:'创立'},
+    {a:'musk',b:'x',        c:'rgba(0,230,118,0.6)',  w:2,   d:[],   t:'收购'},
+    {a:'musk',b:'boring',   c:'rgba(0,230,118,0.6)',  w:1.5, d:[],   t:'创立'},
+    {a:'musk',b:'neuralink',c:'rgba(0,230,118,0.6)',  w:1.5, d:[],   t:'创立'},
+    {a:'tesla',b:'xai',     c:'rgba(57,208,216,0.7)', w:1.5, d:[],   t:'数据'},
+    {a:'tesla',b:'neuralink',c:'rgba(57,208,216,0.6)',w:1.5, d:[5,4],t:'技术'},
+    {a:'tesla',b:'boring',  c:'rgba(255,123,41,0.6)', w:1.5, d:[4,3],t:'车辆'},
+    {a:'spacex',b:'tesla',  c:'rgba(255,123,41,0.6)', w:1.5, d:[4,3],t:'Starlink'},
+    {a:'x',b:'xai',         c:'rgba(57,208,216,0.7)', w:1.5, d:[],   t:'语料'},
+  ];
+  edges.forEach(e=>{
+    const a=nm[e.a],b=nm[e.b];if(!a||!b)return;
+    const ox=(b.y-a.y)*0.15, oy=-(b.x-a.x)*0.15;
+    ctx.beginPath();
+    ctx.moveTo(a.x,a.y);
+    ctx.quadraticCurveTo((a.x+b.x)/2+ox,(a.y+b.y)/2+oy,b.x,b.y);
+    ctx.strokeStyle=e.c; ctx.lineWidth=e.w;
+    ctx.setLineDash(e.d); ctx.stroke(); ctx.setLineDash([]);
+    const mx=(a.x+b.x)/2+ox*0.5, my=(a.y+b.y)/2+oy*0.5-6;
+    ctx.font='9px JetBrains Mono,monospace'; ctx.fillStyle=e.c;
+    ctx.textAlign='center'; ctx.fillText(e.t,mx,my);
+  });
+  nodes.forEach(n=>{
+    const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*2.2);
+    g.addColorStop(0,n.color+'25'); g.addColorStop(1,'transparent');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(n.x,n.y,n.r*2.2,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle='#161b22'; ctx.fill();
+    ctx.strokeStyle=n.color; ctx.lineWidth=2; ctx.stroke();
+    ctx.fillStyle=n.color;
+    ctx.font=`bold ${n.id==='musk'?13:10}px JetBrains Mono,monospace`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(n.label,n.x,n.y);
+  });
+}
+
+document.querySelectorAll('.tab').forEach(b=>{
+  b.addEventListener('click',()=>{
+    if(b.dataset.tab==='nexus')setTimeout(drawNexus,80);
+    if(b.dataset.tab==='china'&&!chinaData.monthly_sales)loadChinaData();
+  });
+});
+
+loadChinaData();
+
 </script>
 
 </body>
