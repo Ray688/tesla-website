@@ -14,6 +14,23 @@
   --blue:#58a6ff; --cyan:#39d0d8; --orange:#ff7b29;
   --mono:'JetBrains Mono',monospace; --sans:'Noto Sans SC',sans-serif;
 }
+
+/* ── 浅色主题 ── */
+body.light {
+  --bg:#f0f4f8; --bg2:#ffffff; --bg3:#e8edf3;
+  --border:rgba(200,210,220,1); --text:#1a2332; --muted:#6b7a8d;
+  --green:#0a8a4a; --red:#c0392b; --yellow:#b07800;
+  --blue:#1a6bbf; --cyan:#0a8a9a; --orange:#c05000;
+}
+
+body.light .status-bar { background: rgba(240,244,248,0.97); }
+body.light .tabs-wrap   { background: #ffffff; }
+body.light .ticker      { background: rgba(10,138,74,0.06); border-bottom-color: rgba(10,138,74,0.15); }
+body.light .card        { box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+body.light .chart-box   { box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+body.light .side-panel  { box-shadow: -4px 0 24px rgba(0,0,0,0.12); }
+body.light .data-table td { color: var(--muted); }
+body.light .data-table td:first-child { color: var(--text); }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;font-size:14px;min-height:100vh}
@@ -291,9 +308,36 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
     <div class="stat-pill"><span class="sp-label">52周区间</span><span class="sp-val" id="sb-52w">--</span></div>
     <div class="stat-pill"><span class="sp-label">下次财报</span><span class="sp-val" id="sb-earn" style="color:var(--yellow)">--</span></div>
   </div>
-  <div class="clock-block">
-    <div class="clock-time" id="clock">--:--:--</div>
-    <div class="clock-date" id="clock-date">--</div>
+  <div style="display:flex;align-items:center;gap:10px;margin-left:auto">
+    <!-- TG按钮 -->
+    <a href="https://t.me/Tesla_share" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:7px;
+              background:linear-gradient(135deg,#0088cc,#0066aa);
+              color:#fff;font-family:var(--mono);font-size:10px;
+              letter-spacing:1px;padding:7px 14px;border-radius:20px;
+              text-decoration:none;font-weight:500;
+              box-shadow:0 2px 8px rgba(0,136,204,0.4);
+              transition:all 0.2s;white-space:nowrap"
+       onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(0,136,204,0.5)'"
+       onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,136,204,0.4)'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.008 9.454c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.37l-2.96-.924c-.643-.203-.658-.643.136-.953l11.57-4.463c.537-.194 1.006.131.646.218z"/>
+      </svg>
+      加入频道
+    </a>
+    <!-- 主题切换 -->
+    <button id="theme-toggle" onclick="toggleTheme()"
+       style="background:none;border:1px solid var(--border);
+              color:var(--muted);font-size:15px;
+              width:32px;height:32px;border-radius:50%;
+              cursor:pointer;display:flex;align-items:center;justify-content:center;
+              transition:all 0.2s"
+       title="切换浅色/深色">🌙</button>
+    <!-- 时钟 -->
+    <div class="clock-block">
+      <div class="clock-time" id="clock">--:--:--</div>
+      <div class="clock-date" id="clock-date">--</div>
+    </div>
   </div>
 </div>
 
@@ -1067,6 +1111,25 @@ document.querySelectorAll('.tab').forEach(b=>{
 });
 
 loadChinaData();
+
+
+// ── 主题切换 ──
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  const btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = isLight ? '🌞' : '🌙';
+  localStorage.setItem('nexus-theme', isLight ? 'light' : 'dark');
+}
+
+// 启动时恢复主题
+(function(){
+  const saved = localStorage.getItem('nexus-theme');
+  if (saved === 'light') {
+    document.body.classList.add('light');
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = '🌞';
+  }
+})();
 
 </script>
 
