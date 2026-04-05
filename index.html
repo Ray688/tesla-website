@@ -290,6 +290,136 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
   background: #000;
 }
 
+
+/* ══ 手机端适配 ══ */
+@media (max-width: 768px) {
+
+  /* 状态栏 */
+  .status-bar {
+    padding: 0 14px;
+    height: 52px;
+    gap: 10px;
+  }
+  .brand { margin-right: 10px; padding-right: 10px; }
+  .brand-top { font-size: 10px; letter-spacing: 1px; }
+  .price-main { font-size: 20px; }
+  .price-change { font-size: 11px; }
+  .stats-row { display: none; }
+  .price-block { margin-right: 0; padding-right: 0; border-right: none; }
+
+  /* TG按钮简化 */
+  .tg-btn-text { display: none; }
+  .tg-btn { padding: 6px 10px !important; border-radius: 50% !important; width: 32px; height: 32px; }
+
+  /* Ticker */
+  .ticker-track { font-size: 10px; gap: 28px; }
+
+  /* Tabs - 横向滚动 */
+  .tabs-wrap {
+    padding: 0 10px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabs-wrap::-webkit-scrollbar { display: none; }
+  .tab { font-size: 10px; padding: 12px 12px; gap: 4px; }
+  .tab .tab-icon { font-size: 12px; }
+
+  /* Content */
+  .content { padding: 14px 12px; }
+
+  /* Grid全部单列 */
+  .grid-2, .grid-3, .grid-4, .grid-7 { grid-template-columns: 1fr !important; }
+
+  /* 卡片 */
+  .card { padding: 14px; }
+  .card-val { font-size: 18px; }
+
+  /* KPI行 */
+  .kpi-row { grid-template-columns: repeat(3, 1fr) !important; }
+  .kpi-val { font-size: 13px; }
+  .kpi-label { font-size: 7px; }
+
+  /* Breaking card */
+  .breaking-grid { grid-template-columns: 1fr !important; }
+  .breaking-card { padding: 14px; }
+  .breaking-title { font-size: 14px; }
+
+  /* 新闻条目 */
+  .news-item { grid-template-columns: 58px 1fr; }
+  .news-time { padding: 12px 8px; }
+  .nt-time { font-size: 11px; }
+  .news-body { padding: 12px 12px; }
+  .news-title { font-size: 13px; }
+  .news-body-text { -webkit-line-clamp: 2; }
+
+  /* 过滤栏换行 */
+  .filter-bar { flex-wrap: wrap; gap: 6px; }
+  .fb { font-size: 10px; padding: 5px 10px; }
+
+  /* 右侧面板 → 底部弹出 */
+  .side-panel {
+    top: auto !important;
+    right: 0 !important;
+    left: 0 !important;
+    bottom: -100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 85vh;
+    border-left: none !important;
+    border-top: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    transition: bottom 0.35s cubic-bezier(0.4,0,0.2,1) !important;
+  }
+  .side-panel.open {
+    bottom: 0 !important;
+    right: auto !important;
+  }
+
+  /* 面板顶部拖动条 */
+  .panel-header::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 50%;
+    transform: translateX(-50%);
+    width: 36px; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+  .panel-header { padding-top: 24px; }
+
+  /* 表格横向滚动 */
+  .data-table { font-size: 11px; }
+  .data-table th, .data-table td { padding: 7px 8px; }
+
+  /* 宇宙关联图 */
+  #nexus-canvas { touch-action: none; }
+
+  /* 时钟简化 */
+  .clock-date { display: none; }
+  .clock-time { font-size: 10px; }
+
+  /* 场景行 */
+  .scenario-row { grid-template-columns: 12px 70px 1fr 1fr; gap: 8px; font-size: 11px; }
+  .scenario-row > *:nth-child(5),
+  .scenario-row > *:nth-child(6),
+  .scenario-row > *:nth-child(7) { display: none; }
+  .scenario-row.header > *:nth-child(5),
+  .scenario-row.header > *:nth-child(6),
+  .scenario-row.header > *:nth-child(7) { display: none; }
+
+  /* Milestone */
+  .milestone { grid-template-columns: 70px 1fr auto; gap: 8px; }
+
+  /* 财务瀑布表横向滚动 */
+  #fin-table { min-width: 600px; }
+}
+
+@media (max-width: 400px) {
+  .price-main { font-size: 18px; }
+  .tab { font-size: 9px; padding: 12px 10px; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
 </style>
 </head>
 <body>
@@ -323,7 +453,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.008 9.454c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.37l-2.96-.924c-.643-.203-.658-.643.136-.953l11.57-4.463c.537-.194 1.006.131.646.218z"/>
       </svg>
-      加入频道
+      <span class="tg-btn-text">加入频道</span>
     </a>
     <!-- 主题切换 -->
     <button id="theme-toggle" onclick="toggleTheme()"
@@ -599,7 +729,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:
   <div class="filter-bar">
     <button class="fb active" data-filter="all">全部</button>
     <button class="fb" data-filter="快讯">快讯</button>
-    <button class="fb" data-filter="深度分析">深度</button>
     <button class="fb" data-filter="视频">视频</button>
     <button class="fb" data-filter="Tesla">Tesla</button>
     <button class="fb" data-filter="SpaceX">SpaceX</button>
@@ -869,12 +998,29 @@ function newsHtml(n){
   </div>`;
 }
 
-function getFiltered(){return nFilter==='all'?allNews:allNews.filter(n=>n.category===nFilter||n.entity===nFilter)}
+function getFiltered(){
+  const now = Date.now()/1000;
+  const sevenDays = 7 * 24 * 3600;
+  // 过滤7天内 + 分类筛选
+  let items = allNews.filter(n => !n.ts || (now - n.ts) < sevenDays);
+  if(nFilter !== 'all') items = items.filter(n => n.category===nFilter || n.entity===nFilter);
+  return items;
+}
+
+// 相对时间显示
+function timeAgo(ts) {
+  if (!ts) return '';
+  const diff = Math.floor(Date.now()/1000 - ts);
+  if (diff < 60)   return '刚刚';
+  if (diff < 3600) return Math.floor(diff/60) + '分钟前';
+  if (diff < 86400) return Math.floor(diff/3600) + '小时前';
+  return Math.floor(diff/86400) + '天前';
+}
 
 function renderNews(reset=false){
   if(reset){dispNews=0;$('news-list').innerHTML=''}
   const items=getFiltered(),slice=items.slice(dispNews,dispNews+NEWS_PG);
-  if(!items.length){$('news-list').innerHTML='<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted)">该分类暂无内容</div>';$('load-more-wrap').style.display='none';return}
+  if(!items.length){$('news-list').innerHTML='<div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted)">最近7天暂无该分类内容</div>';$('load-more-wrap').style.display='none';return}
   $('news-list').insertAdjacentHTML('beforeend',slice.map(newsHtml).join(''));
   dispNews+=slice.length;
   $('load-more-wrap').style.display=dispNews<items.length?'block':'none';
