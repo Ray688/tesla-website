@@ -90,19 +90,18 @@ body {
   border-bottom: 1px solid var(--rule);
   backdrop-filter: blur(20px);
   display: flex; align-items: center;
-  padding: 0 28px 0 24px;
+  padding: 0 20px 0 20px;
   z-index: 200;
   gap: 0;
+  overflow: hidden;
 }
 
 body.light .topbar { background: rgba(245,240,232,0.96); }
 
 .brand {
   display: flex; flex-direction: column; gap: 1px;
-  padding-right: 28px;
-  border-right: 1px solid var(--rule);
-  margin-right: 28px;
   flex-shrink: 0;
+  padding-right: 0; margin-right: 0; border-right: none;
 }
 
 .brand-name {
@@ -1062,7 +1061,7 @@ body.light .ne-insight {
 /* ── TOP TABS ── */
 .top-tabs {
   position: fixed;
-  top: 86px; left: 0; right: 0;
+  top: 56px; left: 0; right: 0;
   height: 44px;
   background: var(--bg2);
   border-bottom: 1px solid var(--rule);
@@ -1095,11 +1094,14 @@ body.light .ne-insight {
   color: var(--muted);
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: pointer !important;
   white-space: nowrap;
   position: relative;
   transition: color 0.2s;
   flex-shrink: 0;
+  pointer-events: all !important;
+  z-index: 10;
+  -webkit-tap-highlight-color: rgba(200,169,110,0.2);
 }
 
 .tt-btn::after {
@@ -1167,14 +1169,14 @@ body.light .ne-insight {
 
 <!-- TOPBAR -->
 <header class="topbar">
-  <div class="brand" style="display:flex;align-items:center;gap:10px">
+  <a href="/" style="text-decoration:none;display:flex;align-items:center;gap:10px;padding-right:28px;border-right:1px solid var(--rule);margin-right:28px;flex-shrink:0;height:56px">
     <img src="/logo.jpg" alt="NEXUS"
-         style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(200,169,110,0.5)">
+         style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(200,169,110,0.5);flex-shrink:0">
     <div>
       <div class="brand-name">NEXUS</div>
       <div class="brand-sub">马斯克生态情报</div>
     </div>
-  </div>
+  </a>
   <span class="live-badge">Live</span>
   <div class="price-block">
     <span class="price-val" id="tsla-price">--</span>
