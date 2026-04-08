@@ -238,7 +238,7 @@ body.light .topbar { background: rgba(245,240,232,0.96); }
    TICKER
 ═══════════════════════════════════════════ */
 .ticker-bar {
-  position: fixed; top: 56px; left: 0; right: 0; height: 30px;
+  position: fixed; top: 100px; left: 0; right: 0; height: 30px;
   background: var(--bg);
   border-bottom: 1px solid var(--rule);
   overflow: hidden;
@@ -1154,12 +1154,86 @@ body.light .ne-insight {
 
 /* 手机端 */
 @media (max-width: 860px) {
-  .top-tabs { top: 86px; }
+  .top-tabs { top: 56px; }
   .layout { padding-top: 130px !important; }
   .top-tabs-inner { padding: 0 12px; gap: 0; }
   .tt-btn { font-size: 9px; letter-spacing: 1px; padding: 0 12px; }
   .tt-btn::after { left: 12px; right: 12px; }
   .tab-panel { padding: 20px 16px; padding-bottom: 20px; }
+  .mobile-tabs { display: none !important; }
+}
+
+
+/* ══════════════════════════════════════════
+   DESKTOP OVERRIDES (>860px)
+══════════════════════════════════════════ */
+@media (min-width: 861px) {
+
+  /* Topbar */
+  .topbar { padding: 0 28px 0 24px; height: 56px; }
+  .brand-name { font-size: 18px; }
+  .stats-strip { display: flex; }
+  .price-val { font-size: 22px; }
+  .price-block { border-right: 1px solid var(--rule); margin-right: 24px; padding-right: 24px; }
+
+  /* Layout */
+  .layout { padding-top: 130px; }
+  .main-content { margin-left: 0; }
+
+  /* Tab content */
+  .tab-panel { padding: 40px 52px; max-width: 1440px; margin: 0 auto; }
+
+  /* Grids */
+  .grid-2c { grid-template-columns: 1fr 1fr; }
+  .grid-3c { grid-template-columns: 1fr 1fr 1fr; }
+  .metrics-row { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .flash-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .kpi-strip { grid-template-columns: repeat(6, 1fr); }
+
+  /* Top tabs */
+  .top-tabs-inner { padding: 0 36px; gap: 0; }
+  .tt-btn { font-size: 10px; letter-spacing: 2px; padding: 0 20px; }
+
+  /* Scenario table */
+  .scenario-head,
+  .scenario-row { grid-template-columns: 12px 110px 1fr 1fr 1fr 1fr 2fr; gap: 16px; }
+  .scenario-head > *,
+  .scenario-row > * { display: block; }
+
+  /* News */
+  .news-entry { grid-template-columns: 80px 1fr; }
+  .ne-time { padding: 20px 16px 20px 0; }
+  .ne-body { padding: 20px 0 20px 24px; }
+  .ne-title { font-size: 15px; }
+  .ne-src { display: block; margin-left: auto; }
+
+  /* Side panel from right */
+  .side-panel {
+    top: 0; right: -580px; bottom: 0; left: auto;
+    width: 580px; max-width: 50vw;
+    height: 100%;
+    border-left: 1px solid var(--rule);
+    border-top: none;
+    border-radius: 0;
+    transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .side-panel.open { right: 0; bottom: auto; }
+
+  /* Data table full columns */
+  .dtable { font-size: 12px; }
+  .dtable th, .dtable td { padding: 11px 14px; }
+
+  /* Chart panels */
+  .chart-panel { padding: 24px 28px; }
+
+  /* Flash card */
+  .flash-card { padding: 28px 32px; }
+  .flash-title { font-size: 22px; }
+
+  /* Milestone */
+  .milestone { grid-template-columns: 90px 1fr auto; }
+
+  /* Mobile tabs hidden */
   .mobile-tabs { display: none !important; }
 }
 
